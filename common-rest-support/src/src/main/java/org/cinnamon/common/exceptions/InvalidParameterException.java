@@ -1,4 +1,4 @@
-package com.adrenalinee.common.api.exception;
+package org.cinnamon.common.exceptions;
 
 import java.util.List;
 

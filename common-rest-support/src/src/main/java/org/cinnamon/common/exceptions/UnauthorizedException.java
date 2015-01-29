@@ -1,4 +1,4 @@
-package com.adrenalinee.common.api.exception;
+package org.cinnamon.common.exceptions;
 
 /**
  * http 401 Unauthorized 에러 정의

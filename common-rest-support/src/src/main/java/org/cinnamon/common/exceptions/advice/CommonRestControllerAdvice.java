@@ -1,4 +1,4 @@
-package com.adrenalinee.common.api.exception.advice;
+package org.cinnamon.common.exceptions.advice;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
@@ -7,6 +7,16 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.cinnamon.common.exceptions.BadRequestException;
+import org.cinnamon.common.exceptions.InvalidParameterException;
+import org.cinnamon.common.exceptions.NotFoundException;
+import org.cinnamon.common.exceptions.UnauthorizedException;
+import org.cinnamon.common.exceptions.vo.BadRequestInfo;
+import org.cinnamon.common.exceptions.vo.InternalServerErrorInfo;
+import org.cinnamon.common.exceptions.vo.InvalidParameterInfo;
+import org.cinnamon.common.exceptions.vo.NotFoundInfo;
+import org.cinnamon.common.exceptions.vo.UnauthorizedInfo;
+import org.cinnamon.common.exceptions.vo.Violation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,17 +26,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.adrenalinee.common.api.exception.BadRequestException;
-import com.adrenalinee.common.api.exception.InvalidParameterException;
-import com.adrenalinee.common.api.exception.NotFoundException;
-import com.adrenalinee.common.api.exception.UnauthorizedException;
-import com.adrenalinee.common.api.exception.vo.BadRequestInfo;
-import com.adrenalinee.common.api.exception.vo.InternalServerErrorInfo;
-import com.adrenalinee.common.api.exception.vo.InvalidParameterInfo;
-import com.adrenalinee.common.api.exception.vo.NotFoundInfo;
-import com.adrenalinee.common.api.exception.vo.UnauthorizedInfo;
-import com.adrenalinee.common.api.exception.vo.Violation;
 
 /**
  * rest api 들에 대해서

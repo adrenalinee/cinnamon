@@ -1,4 +1,4 @@
-package com.adrenalinee.common.api.authentication;
+package org.cinnamon.common.crypto;
 
 import java.security.MessageDigest;
 
