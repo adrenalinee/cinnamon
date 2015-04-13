@@ -2,20 +2,28 @@ package org.cinnamon.common.mapping.vo;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * 
  * @author 동성
  * @since 2015. 2. 27.
  */
+@JsonInclude(Include.NON_NULL)
 public class ApiDefinition {
 	
 	private String method;
 	
 	private String url;
 	
-	private List<String> urlParameters;
+	private String description;
 	
-	private List<String> queryParameters;
+	private List<NameValuePair> headers;
+	
+	private List<NameValuePair> urlParameters;
+	
+	private List<NameValuePair> queryParameters;
 	
 	private Object requestBody;
 	
@@ -32,19 +40,19 @@ public class ApiDefinition {
 		this.url = url;
 	}
 
-	public List<String> getUrlParameters() {
+	public List<NameValuePair> getUrlParameters() {
 		return urlParameters;
 	}
 
-	public void setUrlParameters(List<String> urlParameters) {
+	public void setUrlParameters(List<NameValuePair> urlParameters) {
 		this.urlParameters = urlParameters;
 	}
 
-	public List<String> getQueryParameters() {
+	public List<NameValuePair> getQueryParameters() {
 		return queryParameters;
 	}
 
-	public void setQueryParameters(List<String> queryParameters) {
+	public void setQueryParameters(List<NameValuePair> queryParameters) {
 		this.queryParameters = queryParameters;
 	}
 
@@ -70,6 +78,22 @@ public class ApiDefinition {
 
 	public void setResponseBody(Object responseBody) {
 		this.responseBody = responseBody;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<NameValuePair> getHeaders() {
+		return headers;
+	}
+
+	public void setHeaders(List<NameValuePair> headers) {
+		this.headers = headers;
 	}
 	
 }

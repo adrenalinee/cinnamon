@@ -2,11 +2,15 @@ package org.cinnamon.common.mapping.vo;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * 
  * @author 동성
  * @since 2015. 2. 27.
  */
+@JsonInclude(Include.NON_NULL)
 public class ApiCategory {
 	
 	private String name;

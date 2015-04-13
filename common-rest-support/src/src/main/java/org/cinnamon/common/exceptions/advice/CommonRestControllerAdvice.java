@@ -21,6 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -90,6 +92,21 @@ public class CommonRestControllerAdvice {
 		
 		
 		ResponseEntity<BadRequestInfo> response = new ResponseEntity<BadRequestInfo>(badRequestInfo, HttpStatus.BAD_REQUEST);
+		return response;
+	}
+	
+	@ExceptionHandler(BindException.class)
+	public ResponseEntity<List<ObjectError>> exceptionHandler(BindException ex, HttpServletRequest request) {
+		logger.info("start");
+		
+		logger.error("요청 처리중 에러 발생", ex);
+		
+		
+		BindingResult bindingResult = ex.getBindingResult();
+		
+		List<ObjectError> objectErrors =  bindingResult.getAllErrors();
+		
+		ResponseEntity<List<ObjectError>> response = new ResponseEntity<List<ObjectError>>(objectErrors, HttpStatus.BAD_REQUEST);
 		return response;
 	}
 	
