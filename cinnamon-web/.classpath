@@ -144,6 +144,11 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
+	<classpathentry sourcepath="C:/Users/sds/.gradle/caches/modules-2/files-2.1/org.webjars.bower/angular-ui-router/0.2.15/b04f3ee8f5e43fa3b162981b50bb72fe1acabb33/angular-ui-router-0.2.15-sources.jar" kind="lib" path="C:/Users/sds/.gradle/caches/modules-2/files-2.1/org.webjars.bower/angular-ui-router/0.2.15/4081ba103ce1354e1c08443a140194ad8024c392/angular-ui-router-0.2.15.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="C:/Users/sds/.gradle/caches/modules-2/files-2.1/org.webjars.bower/animate.css/3.3.1/b04f3ee8f5e43fa3b162981b50bb72fe1acabb33/animate.css-3.3.1-sources.jar" kind="lib" path="C:/Users/sds/.gradle/caches/modules-2/files-2.1/org.webjars.bower/animate.css/3.3.1/e744141eda8c6a4d56d34bb7706995b4a1041d98/animate.css-3.3.1.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
