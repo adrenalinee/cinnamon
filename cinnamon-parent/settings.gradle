@@ -1,7 +1,0 @@
-rootProject.name = "cinnamon"
-
-include 'cinnamon-core-domain',
-		'cinnamon-core',
-		'cinnamon-web-template-basic',
-		'cinnamon-web-configuration',
-		'cinnamon-web'
