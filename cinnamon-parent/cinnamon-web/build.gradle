@@ -1,0 +1,20 @@
+apply plugin: 'eclipse-wtp'
+apply plugin: 'war'
+
+
+//war {
+//	archiveName = "${baseName}.${extension}"
+//}
+
+bootRepackage  {
+	enabled = true
+}
+
+
+dependencies {
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	
+	compile project(":cinnamon-web-configuration")
+	
+	runtime "com.h2database:h2"
+}
