@@ -52,7 +52,7 @@ public class GroupService {
 	public Group get(String groupId) {
 		logger.info("start");
 		
-		return groupRepository.findById(groupId);
+		return groupRepository.findOne(groupId);
 	}
 	
 }

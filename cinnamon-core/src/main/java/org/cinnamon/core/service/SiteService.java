@@ -47,7 +47,7 @@ public class SiteService {
 	public Site get(String siteId) {
 		logger.info("start");
 		
-		return siteRepository.findById(siteId);
+		return siteRepository.findOne(siteId);
 	}
 	
 	
@@ -63,7 +63,7 @@ public class SiteService {
 		Site site = new Site();
 		BeanUtils.copyProperties(siteVo, site);
 		
-		siteRepository.persist(site);
+		siteRepository.save(site);
 		return site;
 	}
 	

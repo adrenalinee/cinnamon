@@ -1,33 +1,15 @@
 package org.cinnamon.core.repository;
 
-import javax.persistence.EntityManager;
-
 import org.cinnamon.core.domain.Property;
-import org.cinnamon.core.enumeration.DefinedDBProperty;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * 
- * @author 동성
- * @since 2015. 1. 6.
+ *
+ * created date: 2015. 8. 20.
+ * @author 신동성
  */
-@Repository
-public class PropertyRepository {
+public interface PropertyRepository extends JpaRepository<Property, String> {
 	
-	@Autowired
-	EntityManager em;
-	
-	public void save(Property property) {
-		em.merge(property);
-	}
-	
-	public Property findByName(String name) {
-		return em.find(Property.class, name);
-	}
-	
-	public Property findByName(DefinedDBProperty name) {
-		return em.find(Property.class, name.name());
-	}
-	
+	Property findByName(String name);
 }

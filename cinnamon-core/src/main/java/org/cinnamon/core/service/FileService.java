@@ -11,6 +11,7 @@ import org.apache.commons.io.IOUtils;
 import org.cinnamon.core.domain.FileChunk;
 import org.cinnamon.core.domain.FileInformation;
 import org.cinnamon.core.exception.BadRequestException;
+import org.cinnamon.core.repository.FileChunkRepository;
 import org.cinnamon.core.repository.FileInfoRepository;
 import org.cinnamon.core.util.MD5Creator;
 import org.cinnamon.core.util.PathUtil;
@@ -42,10 +43,13 @@ public class FileService {
 	@Autowired
 	FileInfoRepository fileInfoRepository;
 	
+	@Autowired
+	FileChunkRepository fileChunkRepository;
+	
 	
 	@Transactional(readOnly=true)
 	public FileInformation get(Long fileId) {
-		return fileInfoRepository.findById(fileId);
+		return fileInfoRepository.findOne(fileId);
 	}
 	
 	
@@ -83,7 +87,7 @@ public class FileService {
 		String identifier = uploadFileInfo.getIdentifier();
 		int chunkNumber = uploadFileInfo.getChunkNumber();
 		
-		FileChunk fileChunk = fileInfoRepository.findChunkById(identifier);
+		FileChunk fileChunk = fileChunkRepository.findOne(identifier);
 		if (fileChunk == null) {
 			throw new BadRequestException("파일 업로드 기록이 없습니다. identifier: " + identifier);
 		}
@@ -110,7 +114,7 @@ public class FileService {
 		String originFileName = uploadFileInfo.getOriginFileName();
 		long totlaSize = uploadFileInfo.getTotalSize();
 		
-		FileChunk fileChunk = fileInfoRepository.findChunkById(identifier);
+		FileChunk fileChunk = fileChunkRepository.findOne(identifier);
 		if (fileChunk == null) {
 			throw new BadRequestException("파일 업로드 기록이 없습니다. identifier: " + identifier);
 		}
@@ -144,8 +148,8 @@ public class FileService {
 		fileInformation.setPath(savePath);
 //		fileInformation.setUri(uri);
 		
-		fileInfoRepository.persist(fileInformation);
-		fileInfoRepository.remove(fileChunk);
+		fileInfoRepository.save(fileInformation);
+		fileChunkRepository.delete(fileChunk);
 		
 		return fileInformation;
 	}
@@ -209,7 +213,7 @@ public class FileService {
 		fileChunk.setName(saveFileName);
 		
 		
-		fileInfoRepository.persist(fileChunk);
+		fileChunkRepository.save(fileChunk);
 		
 		
 //		String uri = fullPath + "/" + saveFileName;
@@ -296,7 +300,7 @@ public class FileService {
 		fileInformation.setMd5(md5String);
 //		fileInformation.setUri(uri);
 		
-		fileInfoRepository.persist(fileInformation);
+		fileInfoRepository.save(fileInformation);
 		
 		return fileInformation;
 	}

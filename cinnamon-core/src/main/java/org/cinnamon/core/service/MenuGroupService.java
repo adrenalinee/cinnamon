@@ -48,14 +48,14 @@ public class MenuGroupService {
 	public void save(String siteId, MenuGroup menuGroup) {
 		logger.info("start");
 		
-		Site site = siteRepository.findById(siteId);
+		Site site = siteRepository.findOne(siteId);
 		if (site == null) {
 			throw new InvalidEntityException("site가 없습니다. siteId: " + siteId);
 		}
 		menuGroup.setSite(site);
 //		menuGroup.setPosition(MenuGroupPosition.sidebar);
 		
-		menuGroupRepository.persist(menuGroup);
+		menuGroupRepository.save(menuGroup);
 	}
 
 	
@@ -66,6 +66,6 @@ public class MenuGroupService {
 	 */
 	@Transactional(readOnly=true)
 	public MenuGroup get(Long menuGroupId) {
-		return menuGroupRepository.findById(menuGroupId);
+		return menuGroupRepository.findOne(menuGroupId);
 	}
 }

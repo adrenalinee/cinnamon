@@ -18,3 +18,33 @@ dependencies {
 	
 	runtime "com.h2database:h2"
 }
+
+
+
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath "com.eriwen:gradle-js-plugin:1.12.1"
+  }
+}
+
+apply plugin: "com.eriwen.gradle.js"
+
+
+javascript.source {
+	prod {
+		js {
+			srcDir 'src/main/resources/'
+			include "*.js"
+			exclude "*.min.js"
+		}
+	}
+}
+
+
+combineJs {
+	source = javascript.source.prod.js.files
+	dest = file "${buildDir}/all.js"
+}

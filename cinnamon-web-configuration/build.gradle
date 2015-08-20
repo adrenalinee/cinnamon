@@ -1,6 +1,28 @@
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "com.eriwen:gradle-js-plugin:1.12.1"
+  }
+}
+
+apply plugin: "com.eriwen.gradle.js"
+
 
 dependencies {
 	compile "org.springframework.boot:spring-boot-starter-web"
 	
 	compile project(":cinnamon-web-template-basic")
 }
+
+
+
+eclipse.classpath.file {
+    beforeMerged { classpath ->
+        println 'hello'
+    }
+}
+

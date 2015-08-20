@@ -12,6 +12,7 @@ import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.exception.InvalidEntityException;
 import org.cinnamon.core.repository.MenuGroupRepository;
 import org.cinnamon.core.repository.MenuRepository;
+import org.cinnamon.core.repository.PermissionMenuRepository;
 import org.cinnamon.core.repository.PermissionRepository;
 import org.cinnamon.core.repository.SiteRepository;
 import org.cinnamon.core.vo.SiteMenu;
@@ -44,17 +45,21 @@ public class MenuService {
 	@Autowired
 	PermissionRepository permissionRepository;
 	
+	@Autowired
+	PermissionMenuRepository permissionMenuRepository;
+	
+	
 	
 	@Transactional
 	public void save(Long menuGroupId, Menu menu) {
 		logger.info("start");
 		
-		MenuGroup menuGroup = menuGroupRepository.findById(menuGroupId);
+		MenuGroup menuGroup = menuGroupRepository.findOne(menuGroupId);
 		if (menuGroup == null) {
 			throw new InvalidEntityException("menuGroup이 없습니다. menuGroupId: " + menuGroupId);
 		}
 		
-		menuRepository.persist(menu);
+		menuRepository.save(menu);
 		
 		menuGroup.getMenus().add(menu);
 		
@@ -65,7 +70,7 @@ public class MenuService {
 			permissionMenu.setMenu(menu);
 			permissionMenu.setPermission(permission);
 			
-			permissionRepository.persist(permissionMenu);
+			permissionMenuRepository.save(permissionMenu);
 		});
 	}
 	
@@ -74,7 +79,7 @@ public class MenuService {
 	public List<Menu> getMenus(Long menuGroupId) {
 		logger.info("start");
 		
-		return menuGroupRepository.findById(menuGroupId).getMenus();
+		return menuGroupRepository.findOne(menuGroupId).getMenus();
 	}
 	
 	

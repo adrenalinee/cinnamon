@@ -1,6 +1,7 @@
 
 dependencies {
 	compile "org.springframework.boot:spring-boot-starter-data-jpa"
+	compile "org.springframework.boot:spring-boot-starter-data-rest"
 	compile "org.springframework.boot:spring-boot-starter-mail"
 	compile "org.springframework.security:spring-security-core"
 	compile "org.hibernate:hibernate-validator"
@@ -10,6 +11,9 @@ dependencies {
 	compile "joda-time:joda-time"
 	
 	compile "javax.servlet:javax.servlet-api"
+	
+	runtime "com.h2database:h2"
+	compile "mysql:mysql-connector-java"
 	
 	compile project(":cinnamon-core-domain")
 }

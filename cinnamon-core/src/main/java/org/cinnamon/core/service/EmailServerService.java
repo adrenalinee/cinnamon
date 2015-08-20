@@ -37,7 +37,7 @@ public class EmailServerService {
 	public Page<EmailServer>getList(EmailServerSearch emailServerSearch, Pageable pageable) {
 		logger.info("start");
 		
-		return emailServerRepository.find(emailServerSearch, pageable);
+		return emailServerRepository.search(emailServerSearch, pageable);
 		
 //		int size = pageable.getPageSize();
 //		
@@ -65,7 +65,7 @@ public class EmailServerService {
 		BeanUtils.copyProperties(emailServerVo, emailServer);
 		
 		
-		emailServerRepository.persist(emailServer);
+		emailServerRepository.save(emailServer);
 		
 		return emailServer;
 	}

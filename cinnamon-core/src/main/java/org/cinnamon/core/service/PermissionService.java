@@ -43,7 +43,7 @@ public class PermissionService {
 		
 		int size = pageable.getPageSize();
 		
-		Page<Permission> domains = permissionRepository.find(permissionSearch, pageable);
+		Page<Permission> domains = permissionRepository.search(permissionSearch, pageable);
 		PagingUtil paging = new PagingUtil(domains.getNumber() + 1, size, domains.getTotalElements());
 		
 		

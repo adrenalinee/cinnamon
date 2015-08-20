@@ -13,6 +13,7 @@ import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.repository.MenuGroupRepository;
 import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.repository.PermissionMenuDetailRepository;
+import org.cinnamon.core.repository.PermissionMenuRepository;
 import org.cinnamon.core.repository.PermissionRepository;
 import org.cinnamon.core.repository.SiteRepository;
 import org.cinnamon.core.repository.UserGroupRepository;
@@ -44,6 +45,9 @@ public class SiteBuilder {
 	
 	@Autowired
 	private UserGroupRepository userGroupRepository;
+	
+	@Autowired
+	private PermissionMenuRepository permissionMenuRepository;
 	
 	@Autowired
 	private PermissionMenuDetailRepository permissionMenuDetailRepository;
@@ -152,12 +156,12 @@ public class SiteBuilder {
 		
 		roles.forEach((authority, rw) -> {
 			Permission permission = rw.permission();
-			permissionRepository.persist(permission);
+			permissionRepository.save(permission);
 			
 			rw.userGroups().forEach((name, ugw) -> {
 				UserGroup userGroup = ugw.userGroup();
 				userGroup.setPermission(permission);
-				userGroupRepository.persist(userGroup);
+				userGroupRepository.save(userGroup);
 				
 				if (ugw.isDefault()) {
 					permission.setDefaultUserGroup(userGroup);
@@ -169,19 +173,19 @@ public class SiteBuilder {
 		
 		sites.forEach((siteId, sw) -> {
 			Site site = sw.site();
-			siteRepository.persist(site);
+			siteRepository.save(site);
 			
 			sw.menuGroups().forEach((dimension, mgw) -> {
 				MenuGroup menuGroup = mgw.menuGroup();
 				menuGroup.setSite(site);
-				menuGroupRepository.persist(menuGroup);
+				menuGroupRepository.save(menuGroup);
 				
 				mgw.menus().forEach((mkey, mw) -> {
 //					System.out.println("mkey: " + mkey);
 					
 					Menu menu = mw.menu();
 					menu.setMenuGroup(menuGroup);
-					menuRepository.persist(menu);
+					menuRepository.save(menu);
 					
 //					applyMenuGroupRole(mgw.menuGroupRoles(), menu);
 					applyMenuRole(mw.menuRoles(), menu);
@@ -190,7 +194,7 @@ public class SiteBuilder {
 						Menu secondMenu = mw2.menu();
 						secondMenu.setMenuGroup(menuGroup);
 						secondMenu.setParent(menu);
-						menuRepository.persist(secondMenu);
+						menuRepository.save(secondMenu);
 						
 //						applyMenuGroupRole(mgw.menuGroupRoles(), secondMenu);
 						applyMenuRole(mw2.menuRoles(), secondMenu);
@@ -246,10 +250,10 @@ public class SiteBuilder {
 		
 		permissionMenu.setMenu(menu);
 		permissionMenu.setPermission(permission);
-		permissionRepository.persist(permissionMenu);
+		permissionMenuRepository.save(permissionMenu);
 		
 		permissionMenu.getDetails().forEach((name, detail) -> {
-			permissionMenuDetailRepository.persist(detail);
+			permissionMenuDetailRepository.save(detail);
 		});
 	}
 }

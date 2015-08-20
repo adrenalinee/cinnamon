@@ -1,3 +1,59 @@
+/*
+buildscript {
+
+}
+
+plugins {
+	id "io.silksmith.plugin" version "0.6.2"
+}
+
+repositories {
+	maven {url="http://dl.bintray.com/silksmith-io/silk"}
+}
+
+
+
+closureCompileJS {
+	entryPoint = "app"
+}
+*/
+
+plugins {
+  id "com.eriwen.gradle.js" version "1.12.1"
+}
+javascript.source {
+    dev {
+        js {
+            srcDir "src"
+            include "**/*.js"
+            exclude "**/*.min.js"
+        }
+    }
+}
+combineJs {
+    source = javascript.source.dev.js.files
+    dest = file("${buildDir}/all.js")
+}
+
+minifyJs {
+    source = combineJs
+    dest = file("${buildDir}/all-min.js")
+    sourceMap = file("${buildDir}/all.sourcemap.json")
+    closure {
+        warningLevel = 'QUIET'
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 dependencies {
 	compile project(":cinnamon-core")
@@ -16,4 +72,8 @@ dependencies {
 //	compile "org.webjars.bower:bootbox:4.4.0"
 	compile "org.webjars.bower:ngBootbox:0.1.1"
 	compile "org.webjars:font-awesome:4.4.0"
+	
+//	web "io.silksmith.libs:closure-base:1.0.0+smith.+" //goog lib (required)
+//	web "io.silksmith.libs:bootstrap-sass:3.3.3+smith.+" //lets use the sass sources of bootstrap
+//	web "io.silksmith.libs:jquery:1.11.2+smith.+" //and I guess you want to have some jquery
 }
