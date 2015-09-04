@@ -2,6 +2,7 @@ package org.cinnamon.core.repository;
 
 import org.cinnamon.core.domain.Permission;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 
 /**
  * 
@@ -11,5 +12,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface PermissionRepository extends JpaRepository<Permission, Long>, PermissionRepositoryCustom {
 	
-	Permission findByAuthority(String authority);
+	Permission findByAuthority(@Param("authority") String authority);
 }

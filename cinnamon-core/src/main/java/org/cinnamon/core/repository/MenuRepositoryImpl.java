@@ -64,10 +64,10 @@ public class MenuRepositoryImpl implements MenuRepositoryCustom {
 	
 	
 	
-	public List<Menu> findByMenuGroupId(Long menuGroupId) {
-		
-		return null;
-	}
+//	public List<Menu> findByMenuGroupId(Long menuGroupId) {
+//		
+//		return null;
+//	}
 	
 	
 	/**
