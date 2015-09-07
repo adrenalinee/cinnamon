@@ -10,5 +10,6 @@ public enum Groups {
 	useStatus,
 	userActivities,
 	menuPositions,
+	menuTypes,
 	nations
 }

@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.mail.MessagingException;
-
 import org.cinnamon.core.domain.Permission;
 import org.cinnamon.core.domain.UserActivity;
 import org.cinnamon.core.domain.UserBase;
@@ -61,8 +59,8 @@ public class UserBaseService<T extends UserBase> {
 	@Autowired
 	UserPasswordRepository userPasswordRepository;
 	
-	@Autowired
-	EmailService emailService;
+//	@Autowired
+//	EmailService emailService;
 	
 	@Autowired
 	PermissionRepository permissionRepository;
@@ -343,26 +341,26 @@ public class UserBaseService<T extends UserBase> {
 	}
 	
 	
-	/**
-	 * 
-	 * @param email
-	 * @throws MessagingException
-	 */
-	@Transactional
-	public void sendPasswordResetEmail(String email) throws MessagingException {
-		logger.info("start");
-		
-		T user = userRepository.findByEmail(email);
-		if (user == null) {
-			//TODO 없으면 그냥 무시할지 결정 필요.
-			throw new BadRequestException("해당 이메일을 사용하는 계정이 없습니다.");
-		}
-		
-		String subject = "비밀번호를 변경 할 수 있습니다.";
-		String message = "";
-		
-		emailService.send(email, subject, message);
-	}
+//	/**
+//	 * 
+//	 * @param email
+//	 * @throws MessagingException
+//	 */
+//	@Transactional
+//	public void sendPasswordResetEmail(String email) throws MessagingException {
+//		logger.info("start");
+//		
+//		T user = userRepository.findByEmail(email);
+//		if (user == null) {
+//			//TODO 없으면 그냥 무시할지 결정 필요.
+//			throw new BadRequestException("해당 이메일을 사용하는 계정이 없습니다.");
+//		}
+//		
+//		String subject = "비밀번호를 변경 할 수 있습니다.";
+//		String message = "";
+//		
+//		emailService.send(email, subject, message);
+//	}
 	
 	
 	/**

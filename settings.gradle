@@ -1,7 +1,12 @@
 rootProject.name = "cinnamon"
 
-include 'cinnamon-core-domain',
-		'cinnamon-core',
+include 'cinnamon-core',
 		'cinnamon-web-template-basic',
 		'cinnamon-web-configuration',
 		'cinnamon-web'
+
+//include 'cinnamon-core-domain',
+//		'cinnamon-core',
+//		'cinnamon-web-template-basic',
+//		'cinnamon-web-configuration',
+//		'cinnamon-web'

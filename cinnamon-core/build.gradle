@@ -1,11 +1,9 @@
-
 dependencies {
 	compile "org.springframework.boot:spring-boot-starter-data-jpa"
 	compile "org.springframework.boot:spring-boot-starter-data-rest"
-	compile "org.springframework.boot:spring-boot-starter-mail"
 	compile "org.springframework.security:spring-security-core"
 	compile "org.hibernate:hibernate-validator"
-	compile "com.mysema.querydsl:querydsl-jpa:3.6.6"
+	compile "com.mysema.querydsl:querydsl-jpa:3.6.7"
 	compile "org.apache.commons:commons-lang3:3.4"
 	compile "commons-io:commons-io:2.4"
 	compile "joda-time:joda-time"
@@ -13,7 +11,6 @@ dependencies {
 	compile "javax.servlet:javax.servlet-api"
 	
 //	runtime "com.h2database:h2"
-//	compile "mysql:mysql-connector-java"
 	
-	compile project(":cinnamon-core-domain")
+//	compile project(":cinnamon-core-domain")
 }
