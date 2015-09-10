@@ -16,5 +16,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackageClasses=UserBase.class)
 @EnableJpaRepositories
 public class CinnamonCoreConfiguration {
-
+	
 }

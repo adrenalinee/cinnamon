@@ -40,14 +40,9 @@ minifyJs {
 
 
 
-
-
-
-
-
 dependencies {
 	compile project(":cinnamon-core")
-	compile "org.webjars.bower:adminlte:2.2.0"
+	compile "org.webjars.bower:adminlte:2.3.0"
 	compile "org.webjars.bower:angularjs:1.4.3"
 	compile "org.webjars.bower:bootstrap:3.3.5"
 	compile "org.webjars.bower:angular-ui-bootstrap:0.13.1"
@@ -61,7 +56,8 @@ dependencies {
 	compile "org.webjars:ng-flow:2.6.1"
 	//	compile "org.webjars.bower:bootbox:4.4.0"
 	compile "org.webjars.bower:ngBootbox:0.1.1"
-	compile "org.webjars:font-awesome:4.4.0"
+	compile 'org.webjars.bower:font-awsome:4.4.0'
+	compile 'org.webjars.bower:ionicons:2.0.0'
 
 	//	web "io.silksmith.libs:closure-base:1.0.0+smith.+" //goog lib (required)
 	//	web "io.silksmith.libs:bootstrap-sass:3.3.3+smith.+" //lets use the sass sources of bootstrap

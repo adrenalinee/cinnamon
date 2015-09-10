@@ -7,6 +7,7 @@
 		
 		return {
 			restrict: 'E',
+			require: '^layout',
 			templateUrl: '/js/directives/header/header.tpl.html',
 			controller: headerController,
 			link: link
@@ -19,7 +20,12 @@
 	}
 	
 	
-	function link(scope, element, attr) {
+	function link(scope, element, attr, layoutController) {
 		element.addClass('main-header');
+		
+		//
+		scope.toggleSidebar = function() {
+			layoutController.toggleSidebar();
+		}
 	}
 })();

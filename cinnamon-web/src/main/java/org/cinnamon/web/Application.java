@@ -7,11 +7,14 @@ import org.cinnamon.core.init.ConfigureManager;
 import org.cinnamon.core.service.ConfigureService;
 import org.cinnamon.web.configuration.CinnamonConfigurationConfiguration;
 import org.cinnamon.web.init.ConsoleSiteConfigurer;
+import org.h2.server.web.WebServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
 /**
@@ -37,6 +40,13 @@ public class Application extends SpringBootServletInitializer {
 		configureManager.add(new ConsoleSiteConfigurer());
 		
 		configureService.configure();
+	}
+	
+	@Bean
+	public ServletRegistrationBean h2servletRegistration() {
+		ServletRegistrationBean registration = new ServletRegistrationBean(new WebServlet());
+		registration.addUrlMappings("/h2console/*");
+		return registration;
 	}
 	
 	
