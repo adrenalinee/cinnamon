@@ -39,6 +39,7 @@
 //					resizeContentMinHeight($window, element, scope.content);
 //				});
 				
+				//수정해야함.. header, footer가 로딩된 다음에 전달 받을 수 있는 이벤트를 찾아야 함
 				$timeout(function() {
 					resizeContentMinHeight($window, element, scope.content);
 				}, 10);

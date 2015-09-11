@@ -17,6 +17,9 @@
 	function headerController($scope, $http) {
 		console.log('headerController');
 		
+		$scope.toggleUserMenu = function() {
+			
+		}
 	}
 	
 	
