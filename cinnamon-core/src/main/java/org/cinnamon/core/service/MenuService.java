@@ -49,7 +49,6 @@ public class MenuService {
 	PermissionMenuRepository permissionMenuRepository;
 	
 	
-	
 	@Transactional
 	public void save(Long menuGroupId, Menu menu) {
 		logger.info("start");

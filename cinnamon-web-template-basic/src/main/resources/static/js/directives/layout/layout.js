@@ -20,8 +20,13 @@
 				//
 				this.toggleSidebar = function() {
 					console.log('toggleSidebar');
-					
 					$document.find('body').toggleClass('sidebar-collapse');
+				}
+				
+				//
+				this.toggleControlSidebar = function() {
+					console.log('toggleSidebar');
+					$document.find('control-sidebar').toggleClass('control-sidebar-open');
 				}
 			},
 			link: function(scope, element, attr) {
@@ -32,12 +37,6 @@
 					console.log('resize');
 					resizeContentMinHeight($window, element, scope.content);
 				});
-				
-				//
-//				$document.ready(function(event) {
-//					console.log('ready');
-//					resizeContentMinHeight($window, element, scope.content);
-//				});
 				
 				//수정해야함.. header, footer가 로딩된 다음에 전달 받을 수 있는 이벤트를 찾아야 함
 				$timeout(function() {

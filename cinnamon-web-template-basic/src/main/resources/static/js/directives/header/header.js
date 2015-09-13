@@ -16,10 +16,6 @@
 	
 	function headerController($scope, $http) {
 		console.log('headerController');
-		
-		$scope.toggleUserMenu = function() {
-			
-		}
 	}
 	
 	
@@ -29,6 +25,11 @@
 		//
 		scope.toggleSidebar = function() {
 			layoutController.toggleSidebar();
+		}
+		
+		//
+		scope.toggleControlSidebar = function() {
+			layoutController.toggleControlSidebar();
 		}
 	}
 })();

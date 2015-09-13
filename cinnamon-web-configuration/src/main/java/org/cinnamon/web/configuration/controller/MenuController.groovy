@@ -6,16 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 /**
  * 
+ * @author shindongseong
  *
- * created date: 2015. 9. 9.
- * @author 신동성
  */
 @Controller
-@RequestMapping("/configuration/users")
-class UserBaseController {
+@RequestMapping("/configuration/menus")
+class MenuController {
 	
 	@RequestMapping("**")
-	def users(Pageable pageable) {
+	def users() {
 		"configuration/users"
 	}
 }
