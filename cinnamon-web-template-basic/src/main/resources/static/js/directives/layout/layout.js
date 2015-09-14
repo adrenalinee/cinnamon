@@ -10,7 +10,17 @@
 			transclude: true,
 			scope: {},
 			templateUrl: '/js/directives/layout/layout.tpl.html',
-			controller: function($scope, $document) {
+			controller: function($scope, $document, $http) {
+				var params = {
+					position: 'sidebar'
+				};
+				$http.get('/rest/menus', {
+					params: params
+				}).success(function(data) {
+						$scope.sideMenus = data._embedded.menus;
+					});
+				
+				
 				
 				//
 				this.addContent = function(content) {

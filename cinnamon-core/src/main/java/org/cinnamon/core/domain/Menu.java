@@ -1,7 +1,6 @@
 package org.cinnamon.core.domain;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -72,9 +71,9 @@ public class Menu {
 	@ManyToOne
 	MenuGroup menuGroup;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy="menu")
-	Set<PermissionMenu> permissionMenus;
+//	@JsonIgnore
+//	@OneToMany(mappedBy="menu")
+//	Set<PermissionMenu> permissionMenus;
 	
 	
 	/**
@@ -87,7 +86,7 @@ public class Menu {
 	@Enumerated(EnumType.STRING)
 	UseStatus useStatus = UseStatus.enable; 
 	
-	@Column
+	@Column(length=4000)
 	String description;
 
 	public Long getMenuId() {
@@ -178,13 +177,13 @@ public class Menu {
 		this.childs = childs;
 	}
 
-	public Set<PermissionMenu> getPermissionMenus() {
-		return permissionMenus;
-	}
-
-	public void setPermissionMenus(Set<PermissionMenu> permissionMenus) {
-		this.permissionMenus = permissionMenus;
-	}
+//	public Set<PermissionMenu> getPermissionMenus() {
+//		return permissionMenus;
+//	}
+//
+//	public void setPermissionMenus(Set<PermissionMenu> permissionMenus) {
+//		this.permissionMenus = permissionMenus;
+//	}
 
 	public MenuPosition getPosition() {
 		return position;

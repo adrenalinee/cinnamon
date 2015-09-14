@@ -33,7 +33,7 @@ public class UserGroupService<T extends UserBase> {
 	
 	
 	@Transactional
-	public void  addMember(String authority, String userId) {
+	public void addMember(String authority, String userId) {
 		logger.info("start");
 		
 		UserBase user = userRepository.findOne(userId);

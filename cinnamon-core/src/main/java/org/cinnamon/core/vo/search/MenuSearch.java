@@ -1,5 +1,7 @@
 package org.cinnamon.core.vo.search;
 
+import org.cinnamon.core.domain.enumeration.MenuPosition;
+
 /**
  * 
  * create date: 2015. 3. 19.
@@ -14,6 +16,16 @@ public class MenuSearch {
 	
 	String uri;
 	
+	MenuPosition position;
+	
+	public MenuPosition getPosition() {
+		return position;
+	}
+
+	public void setPosition(MenuPosition position) {
+		this.position = position;
+	}
+
 	Long parentMenuId;
 
 	public Long getMenuId() {

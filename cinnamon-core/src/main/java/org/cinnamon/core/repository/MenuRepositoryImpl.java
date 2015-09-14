@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
 import com.mysema.query.BooleanBuilder;
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -23,10 +24,14 @@ import com.mysema.query.jpa.impl.JPAQuery;
  * @author 동성
  *
  */
-public class MenuRepositoryImpl implements MenuRepositoryCustom {
+public class MenuRepositoryImpl extends QueryDslRepositorySupport implements MenuRepositoryCustom {
 	
 	@Autowired
 	EntityManager em;
+	
+	public MenuRepositoryImpl() {
+		super(Menu.class);
+	}
 	
 	
 	

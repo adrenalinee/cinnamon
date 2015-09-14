@@ -28,9 +28,15 @@
 			</div>
 		</form>
 		<!-- /.search form -->
-	
+		
 		<!-- Sidebar Menu -->
 		<ul class="sidebar-menu">
+			<li ng-repeat="menu in menus" ng-class="">
+				<a href="">
+					<i ng-class="menu.iconClass"></i> <span>{{menu.name}}</span>
+				</a>
+			</li>
+			
 			<li class="header">HEADER</li>
 			<!-- Optionally, you can add icons to the links -->
 			<li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>

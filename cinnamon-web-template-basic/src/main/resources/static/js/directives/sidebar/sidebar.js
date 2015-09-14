@@ -7,8 +7,11 @@
 		
 		return {
 			restrict: 'E',
-//			replace: true,
 			templateUrl: '/js/directives/sidebar/sidebar.tpl.html',
+			scope: {
+				menus: '='
+			},
+//			replace: true,
 			controller: controller,
 			link: link
 		}

@@ -43,7 +43,7 @@ minifyJs {
 dependencies {
 	compile project(":cinnamon-core")
 	compile "org.webjars.bower:adminlte:2.3.0"
-	compile "org.webjars.bower:angularjs:1.4.3"
+	compile "org.webjars.bower:angularjs:1.4.5"
 	compile "org.webjars.bower:bootstrap:3.3.5"
 	compile 'org.webjars.bower:angular-ui-bootstrap-bower:0.13.3'
 	compile "org.webjars.bower:angular-bootstrap-datetimepicker:0.3.13"
