@@ -1,11 +1,11 @@
-package org.cinnamon.web.configuration.service;
+package org.cinnamon.core.service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.cinnamon.core.domain.EmailServer;
 import org.cinnamon.core.exception.BadRequestException;
-import org.cinnamon.web.configuration.domain.EmailServer;
-import org.cinnamon.web.configuration.repository.EmailServerRepository;
+import org.cinnamon.core.repository.EmailServerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 /**
  * 

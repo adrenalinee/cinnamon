@@ -15,6 +15,6 @@ class MenuController {
 	
 	@RequestMapping("**")
 	def users() {
-		"configuration/users"
+		"configuration/menus"
 	}
 }

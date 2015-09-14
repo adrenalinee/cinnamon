@@ -1,7 +1,7 @@
-package org.cinnamon.web.configuration.repository;
+package org.cinnamon.core.repository;
 
-import org.cinnamon.web.configuration.domain.EmailServer;
-import org.cinnamon.web.configuration.vo.search.EmailServerSearch;
+import org.cinnamon.core.domain.EmailServer;
+import org.cinnamon.core.vo.search.EmailServerSearch;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

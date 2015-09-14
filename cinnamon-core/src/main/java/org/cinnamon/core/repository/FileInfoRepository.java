@@ -1,6 +1,6 @@
-package org.cinnamon.web.configuration.repository;
+package org.cinnamon.core.repository;
 
-import org.cinnamon.web.configuration.domain.FileInformation;
+import org.cinnamon.core.domain.FileInformation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

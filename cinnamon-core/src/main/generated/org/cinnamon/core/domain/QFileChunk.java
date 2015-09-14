@@ -1,4 +1,4 @@
-package org.cinnamon.web.configuration.domain;
+package org.cinnamon.core.domain;
 
 import static com.mysema.query.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.mysema.query.types.Path;
 @Generated("com.mysema.query.codegen.EntitySerializer")
 public class QFileChunk extends EntityPathBase<FileChunk> {
 
-    private static final long serialVersionUID = 365076396L;
+    private static final long serialVersionUID = 1919841987L;
 
     public static final QFileChunk fileChunk = new QFileChunk("fileChunk");
 

@@ -1,4 +1,4 @@
-package org.cinnamon.web.configuration.domain;
+package org.cinnamon.core.domain;
 
 import static com.mysema.query.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.mysema.query.types.Path;
 @Generated("com.mysema.query.codegen.EntitySerializer")
 public class QFileInformation extends EntityPathBase<FileInformation> {
 
-    private static final long serialVersionUID = -427047125L;
+    private static final long serialVersionUID = -211177214L;
 
     public static final QFileInformation fileInformation = new QFileInformation("fileInformation");
 

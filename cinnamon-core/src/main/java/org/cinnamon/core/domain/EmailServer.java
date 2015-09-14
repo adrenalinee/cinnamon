@@ -1,4 +1,4 @@
-package org.cinnamon.web.configuration.domain;
+package org.cinnamon.core.domain;
 
 import java.util.Date;
 

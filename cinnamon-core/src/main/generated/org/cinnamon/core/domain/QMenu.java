@@ -38,8 +38,6 @@ public class QMenu extends EntityPathBase<Menu> {
 
     public final QMenu parent;
 
-    public final SetPath<PermissionMenu, QPermissionMenu> permissionMenus = this.<PermissionMenu, QPermissionMenu>createSet("permissionMenus", PermissionMenu.class, QPermissionMenu.class, PathInits.DIRECT2);
-
     public final EnumPath<org.cinnamon.core.domain.enumeration.MenuPosition> position = createEnum("position", org.cinnamon.core.domain.enumeration.MenuPosition.class);
 
     public final StringPath toolip = createString("toolip");

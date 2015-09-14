@@ -1,4 +1,4 @@
-package org.cinnamon.web.configuration.domain;
+package org.cinnamon.core.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

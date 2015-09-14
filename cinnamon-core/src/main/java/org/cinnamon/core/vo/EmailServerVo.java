@@ -1,4 +1,4 @@
-package org.cinnamon.web.configuration.vo;
+package org.cinnamon.core.vo;
 
 import javax.validation.constraints.NotNull;
 

@@ -1,4 +1,4 @@
-package org.cinnamon.web.configuration.vo.search;
+package org.cinnamon.core.vo.search;
 
 /**
  * 

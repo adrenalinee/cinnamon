@@ -1,4 +1,4 @@
-package org.cinnamon.web.configuration.repository;
+package org.cinnamon.core.repository;
 
 /**
  * 

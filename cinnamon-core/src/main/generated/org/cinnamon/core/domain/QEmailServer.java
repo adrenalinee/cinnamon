@@ -1,4 +1,4 @@
-package org.cinnamon.web.configuration.domain;
+package org.cinnamon.core.domain;
 
 import static com.mysema.query.types.PathMetadataFactory.*;
 
@@ -15,7 +15,7 @@ import com.mysema.query.types.Path;
 @Generated("com.mysema.query.codegen.EntitySerializer")
 public class QEmailServer extends EntityPathBase<EmailServer> {
 
-    private static final long serialVersionUID = -2137477990L;
+    private static final long serialVersionUID = 1638603249L;
 
     public static final QEmailServer emailServer = new QEmailServer("emailServer");
 

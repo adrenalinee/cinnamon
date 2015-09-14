@@ -26,6 +26,8 @@ public class QGroup extends EntityPathBase<Group> {
 
     public final StringPath groupId = createString("groupId");
 
+    public final StringPath message = createString("message");
+
     public final StringPath name = createString("name");
 
     public final NumberPath<Integer> orders = createNumber("orders", Integer.class);

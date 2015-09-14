@@ -1,13 +1,13 @@
-package org.cinnamon.web.configuration.repository;
+package org.cinnamon.core.repository;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
 import org.apache.commons.lang3.StringUtils;
-import org.cinnamon.web.configuration.domain.EmailServer;
-import org.cinnamon.web.configuration.domain.QEmailServer;
-import org.cinnamon.web.configuration.vo.search.EmailServerSearch;
+import org.cinnamon.core.domain.EmailServer;
+import org.cinnamon.core.domain.QEmailServer;
+import org.cinnamon.core.vo.search.EmailServerSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

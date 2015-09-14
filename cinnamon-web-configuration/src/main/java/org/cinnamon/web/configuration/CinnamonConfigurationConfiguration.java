@@ -1,6 +1,6 @@
 package org.cinnamon.web.configuration;
 
-import org.cinnamon.web.configuration.domain.EmailServer;
+import org.cinnamon.core.domain.EmailServer;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;

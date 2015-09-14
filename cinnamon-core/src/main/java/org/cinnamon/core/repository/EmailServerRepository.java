@@ -1,6 +1,6 @@
-package org.cinnamon.web.configuration.repository;
+package org.cinnamon.core.repository;
 
-import org.cinnamon.web.configuration.domain.EmailServer;
+import org.cinnamon.core.domain.EmailServer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

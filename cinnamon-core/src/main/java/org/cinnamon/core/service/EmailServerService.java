@@ -1,9 +1,9 @@
-package org.cinnamon.web.configuration.service;
+package org.cinnamon.core.service;
 
-import org.cinnamon.web.configuration.domain.EmailServer;
-import org.cinnamon.web.configuration.repository.EmailServerRepository;
-import org.cinnamon.web.configuration.vo.EmailServerVo;
-import org.cinnamon.web.configuration.vo.search.EmailServerSearch;
+import org.cinnamon.core.domain.EmailServer;
+import org.cinnamon.core.repository.EmailServerRepository;
+import org.cinnamon.core.vo.EmailServerVo;
+import org.cinnamon.core.vo.search.EmailServerSearch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;

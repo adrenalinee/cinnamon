@@ -1,4 +1,4 @@
-package org.cinnamon.web.configuration.service;
+package org.cinnamon.core.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -8,14 +8,14 @@ import java.io.InputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.cinnamon.core.domain.FileChunk;
+import org.cinnamon.core.domain.FileInformation;
 import org.cinnamon.core.exception.BadRequestException;
+import org.cinnamon.core.repository.FileChunkRepository;
+import org.cinnamon.core.repository.FileInfoRepository;
 import org.cinnamon.core.util.MD5Creator;
 import org.cinnamon.core.util.PathUtil;
 import org.cinnamon.core.vo.UploadFileInfo;
-import org.cinnamon.web.configuration.domain.FileChunk;
-import org.cinnamon.web.configuration.domain.FileInformation;
-import org.cinnamon.web.configuration.repository.FileChunkRepository;
-import org.cinnamon.web.configuration.repository.FileInfoRepository;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
