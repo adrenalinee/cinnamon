@@ -1,4 +1,4 @@
-package org.cinnamon.core.init.builder2;
+package org.cinnamon.core.init.wrapper;
 
 import java.util.LinkedList;
 import java.util.List;

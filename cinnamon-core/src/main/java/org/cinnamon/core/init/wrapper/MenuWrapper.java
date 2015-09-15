@@ -1,10 +1,10 @@
-package org.cinnamon.core.init.builder2;
+package org.cinnamon.core.init.wrapper;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.cinnamon.core.domain.Menu;
-import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.domain.enumeration.MenuType;
 
 /**
@@ -17,12 +17,19 @@ public class MenuWrapper {
 	
 	Menu menu;
 	
+	List<MenuWrapper> childMenuWrappers = new LinkedList<>();
+	
 	List<String> grantedAuthorities = new LinkedList<>();
 	
-	MenuWrapper(String name, MenuPosition position) {
+//	MenuWrapper(String name, MenuPosition position) {
+//		menu = new Menu();
+//		menu.setName(name);
+//		menu.setPosition(position);
+//	}
+	
+	MenuWrapper(String name) {
 		menu = new Menu();
 		menu.setName(name);
-		menu.setPosition(position);
 	}
 	
 	public MenuWrapper uri(String uri) {
@@ -45,8 +52,15 @@ public class MenuWrapper {
 		return this;
 	}
 	
-	public MenuWrapper addGrantedAuthority(String authority) {
-		grantedAuthorities.add(authority);
+	public MenuWrapper addGrantedAuthorities(Object... authorities) {
+		Arrays.asList(authorities).forEach(authority -> {
+			grantedAuthorities.add(authority.toString());
+		});
+		return this;
+	}
+	
+	public MenuWrapper addChilds(MenuWrapper... menuWrappers) {
+		childMenuWrappers.addAll(Arrays.asList(menuWrappers));
 		return this;
 	}
 }
