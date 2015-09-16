@@ -28,10 +28,11 @@ public class Property {
 	@Column(length=200)
 	String value;
 	
+	@Column(nullable=false)
 	@Enumerated(EnumType.STRING)
 	UseStatus useStatus = UseStatus.enable;
 	
-	@Column(updatable=false)
+	@Column(updatable=false, nullable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	Date createdAt;
 	

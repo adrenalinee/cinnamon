@@ -12,25 +12,25 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class PermissionMenuDetail {
+public class RoleMenuDetail {
 	
 	@Id
 	@GeneratedValue
-	Long permissionMenuDetailId;
+	Long roleMenuDetailId;
 	
 	@ManyToOne
-	PermissionMenu permissionMenu;
+	RoleMenu roleMenu;
 	
 	String name;
 	
 	boolean permit = true;
 
-	public Long getPermissionMenuDetailId() {
-		return permissionMenuDetailId;
+	public Long getRoleMenuDetailId() {
+		return roleMenuDetailId;
 	}
 
-	public void setPermissionMenuDetailId(Long permissionMenuDetailId) {
-		this.permissionMenuDetailId = permissionMenuDetailId;
+	public void setRoleMenuDetailId(Long roleMenuDetailId) {
+		this.roleMenuDetailId = roleMenuDetailId;
 	}
 
 	public String getName() {
@@ -49,12 +49,12 @@ public class PermissionMenuDetail {
 		this.permit = permit;
 	}
 
-	public PermissionMenu getPermissionMenu() {
-		return permissionMenu;
+	public RoleMenu getRoleMenu() {
+		return roleMenu;
 	}
 
-	public void setPermissionMenu(PermissionMenu permissionMenu) {
-		this.permissionMenu = permissionMenu;
+	public void setRoleMenu(RoleMenu roleMenu) {
+		this.roleMenu = roleMenu;
 	}
 	
 	

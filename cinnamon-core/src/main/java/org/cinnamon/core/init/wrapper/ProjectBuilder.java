@@ -8,10 +8,10 @@ import javax.persistence.EntityManager;
 
 import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.MenuGroup;
-import org.cinnamon.core.domain.Permission;
-import org.cinnamon.core.domain.PermissionMenu;
+import org.cinnamon.core.domain.Role;
+import org.cinnamon.core.domain.RoleMenu;
 import org.cinnamon.core.domain.Site;
-import org.cinnamon.core.repository.PermissionRepository;
+import org.cinnamon.core.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +28,7 @@ public class ProjectBuilder {
 	EntityManager em;
 	
 	@Autowired
-	PermissionRepository permissionRepository;
+	RoleRepository permissionRepository;
 	
 	List<SiteWrapper> siteWrappers = new LinkedList<>();
 	
@@ -146,15 +146,15 @@ public class ProjectBuilder {
 		Menu menu = menuWrapper.menu;
 		
 		menuWrapper.grantedAuthorities.forEach(authority -> {
-			Permission permission = permissionRepository.findByAuthority(authority);
+			Role permission = permissionRepository.findOne(authority);
 			if (permission == null) {
 				//정의 되지 않은 역할임
 				throw new RuntimeException("정의 되지 않은 권한입니다. authority: " + authority);
 			}
 			
-			PermissionMenu permissionMenu = new PermissionMenu();
+			RoleMenu permissionMenu = new RoleMenu();
 			permissionMenu.setMenu(menu);
-			permissionMenu.setPermission(permission);
+			permissionMenu.setRole(permission);
 			em.persist(permissionMenu);
 		});
 	}

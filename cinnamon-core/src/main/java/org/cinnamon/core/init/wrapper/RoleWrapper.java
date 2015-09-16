@@ -1,6 +1,6 @@
 package org.cinnamon.core.init.wrapper;
 
-import org.cinnamon.core.domain.Permission;
+import org.cinnamon.core.domain.Role;
 
 /**
  * 
@@ -10,10 +10,10 @@ import org.cinnamon.core.domain.Permission;
  */
 public class RoleWrapper {
 	
-	Permission role;
+	Role role;
 	
 	RoleWrapper(String name, String authority) {
-		role = new Permission();
+		role = new Role();
 		role.setName(name);
 		role.setAuthority(authority);
 	}

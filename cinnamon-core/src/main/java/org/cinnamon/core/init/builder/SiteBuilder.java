@@ -6,15 +6,15 @@ import java.util.Map;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.MenuGroup;
-import org.cinnamon.core.domain.Permission;
-import org.cinnamon.core.domain.PermissionMenu;
+import org.cinnamon.core.domain.Role;
+import org.cinnamon.core.domain.RoleMenu;
 import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.repository.MenuGroupRepository;
 import org.cinnamon.core.repository.MenuRepository;
-import org.cinnamon.core.repository.PermissionMenuDetailRepository;
-import org.cinnamon.core.repository.PermissionMenuRepository;
-import org.cinnamon.core.repository.PermissionRepository;
+import org.cinnamon.core.repository.RoleMenuDetailRepository;
+import org.cinnamon.core.repository.RoleMenuRepository;
+import org.cinnamon.core.repository.RoleRepository;
 import org.cinnamon.core.repository.SiteRepository;
 import org.cinnamon.core.repository.UserGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,16 +41,16 @@ public class SiteBuilder {
 	private MenuRepository menuRepository;
 	
 	@Autowired
-	private PermissionRepository permissionRepository;
+	private RoleRepository permissionRepository;
 	
 	@Autowired
 	private UserGroupRepository userGroupRepository;
 	
 	@Autowired
-	private PermissionMenuRepository permissionMenuRepository;
+	private RoleMenuRepository permissionMenuRepository;
 	
 	@Autowired
-	private PermissionMenuDetailRepository permissionMenuDetailRepository;
+	private RoleMenuDetailRepository permissionMenuDetailRepository;
 	
 	private Map<String, SiteWrapper> sites = new LinkedHashMap<String, SiteWrapper>();
 	
@@ -121,7 +121,7 @@ public class SiteBuilder {
 					System.out.println(ToStringBuilder.reflectionToString(menu));
 					
 					mw.menuRoles().forEach((authority, mrw) -> {
-						PermissionMenu permissionMenu = mrw.permissionMenu();
+						RoleMenu permissionMenu = mrw.permissionMenu();
 						System.out.print("\t\tpermissionMenu: " + authority + " - ");
 						System.out.println(ToStringBuilder.reflectionToString(permissionMenu));
 					});
@@ -134,7 +134,7 @@ public class SiteBuilder {
 						System.out.println(ToStringBuilder.reflectionToString(secondMenu));
 						
 						mw2.menuRoles().forEach((authority, mrw2) -> {
-							PermissionMenu permissionMenu = mrw2.permissionMenu();
+							RoleMenu permissionMenu = mrw2.permissionMenu();
 							System.out.print("\t\t\tpermissionMenu: " + authority + " - ");
 							System.out.println(ToStringBuilder.reflectionToString(permissionMenu));
 						});
@@ -155,12 +155,12 @@ public class SiteBuilder {
 		
 		
 		roles.forEach((authority, rw) -> {
-			Permission permission = rw.permission();
+			Role permission = rw.permission();
 			permissionRepository.save(permission);
 			
 			rw.userGroups().forEach((name, ugw) -> {
 				UserGroup userGroup = ugw.userGroup();
-				userGroup.setPermission(permission);
+				userGroup.setRole(permission);
 				userGroupRepository.save(userGroup);
 				
 				if (ugw.isDefault()) {
@@ -221,14 +221,14 @@ public class SiteBuilder {
 	
 	private void applyMenuRole(Map<String, MenuRoleWrapper> menuRoles, Menu menu) {
 		menuRoles.forEach((authority, mrw) -> {
-			PermissionMenu permissionMenu = mrw.permissionMenu();
+			RoleMenu permissionMenu = mrw.permissionMenu();
 			applyMenuRole(permissionMenu, menu, authority);
 		});
 	}
 	
 	
 	
-	private void applyMenuRole(PermissionMenu permissionMenu, Menu menu, String authority) {
+	private void applyMenuRole(RoleMenu permissionMenu, Menu menu, String authority) {
 //		if ("메뉴".equals(menu.getName())) {
 //			System.out.println("메뉴: " + menu);
 //			System.out.println(ToStringBuilder.reflectionToString(permissionMenu));
@@ -241,7 +241,7 @@ public class SiteBuilder {
 			return;
 		}
 		
-		Permission permission = permissionRepository.findByAuthority(authority);
+		Role permission = permissionRepository.findOne(authority);
 		if (permission == null) {
 			throw new RuntimeException("메뉴에 권한을 부여하기 전에 역할(role)을 먼저 정의 해야 합니다.");
 		}
@@ -249,7 +249,7 @@ public class SiteBuilder {
 //		System.out.println("applyMenuRole menu: " + menu.getName() + ", permission: " + permission.getAuthority());
 		
 		permissionMenu.setMenu(menu);
-		permissionMenu.setPermission(permission);
+		permissionMenu.setRole(permission);
 		permissionMenuRepository.save(permissionMenu);
 		
 		permissionMenu.getDetails().forEach((name, detail) -> {

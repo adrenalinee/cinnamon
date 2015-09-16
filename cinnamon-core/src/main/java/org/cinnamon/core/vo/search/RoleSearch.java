@@ -6,22 +6,12 @@ package org.cinnamon.core.vo.search;
  * @author 동성
  *
  */
-public class PermissionSearch {
-	Long permissionId;
-	
+public class RoleSearch {
 	String name;
 	
 	String autority;
 	
 	String useStatus;
-
-	public Long getPermissionId() {
-		return permissionId;
-	}
-
-	public void setPermissionId(Long permissionId) {
-		this.permissionId = permissionId;
-	}
 
 	public String getName() {
 		return name;

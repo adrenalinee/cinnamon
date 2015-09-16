@@ -3,10 +3,16 @@
 	
 	angular.module('cinnamon', [
 //		'ngResource',
+		'ngAnimate',
 		'ui.router',
-		'ui.bootstrap'
+		'ui.bootstrap',
+		'ngBootbox',
+		'toastr'
 	]).config(function($locationProvider) {
-		$locationProvider.html5Mode(true);
+		$locationProvider.html5Mode({
+			enabled: true,
+			requireBase: false
+		});
 		
 	});
 })();

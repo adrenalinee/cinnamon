@@ -1,0 +1,55 @@
+<div class="box box-solid">
+	<div class="box-body">
+		
+		<div class="wizard">
+			<ul class="steps">
+				<li>
+					<span class="badge batge-info">1</span> <span>초기화 시작</span>
+					<span class="chevron"></span>
+				</li>
+				<li>
+					<span class="badge batge-info">2</span> <span>기본 데이터 생성</span>
+					<span class="chevron"></span>
+				</li>
+				<li class="active">
+					<span class="badge batge-info">3</span> <span>최초사용자 생성</span>
+					<span class="chevron"></span>
+				</li>
+			</ul>
+		</div>
+		
+		<!-- <div class="step-content" style="min-height: 300px" layout:fragment="wizardStep">
+		</div>
+		 -->
+		<div class="step-content step-pane active">
+			
+			<div class="callout callout-info">
+				최초로 로그인할 사용자 계정을 생성합니다.
+			</div>
+			
+			<form ng-submit="create()">
+				<div class="form-group">
+					<input type="text" ng-model="domain.name" class="form-control" placeholder="이름" required="required" maxlength="50" />
+				</div>
+				<div class="form-group">
+					<input type="text" ng-model="domain.userId" class="form-control"  placeholder="user ID" required="required"  maxlength="20" />
+				</div>
+				<div class="form-group">
+					<input type="password" ng-model="domain.password" class="form-control" placeholder="비밀번호" required="required" maxlength="50" />
+				</div>
+				<div class="form-group">
+					<input type="password" ng-model="domain.password2" class="form-control" placeholder="비밀번호 다시 입력" required="required" maxlength="50" />
+				</div>
+				<div class="form-group">
+					<input type="text" ng-model="domain.email" class="form-control" placeholder="email" required="required" maxlength="200" />
+				</div>
+				<hr/>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary" loading-text="생성중..." ><i class="fa fa-male"></i> 등록</button>
+				</div>
+			</form>
+			
+		</div>
+		
+	</div>
+</div>

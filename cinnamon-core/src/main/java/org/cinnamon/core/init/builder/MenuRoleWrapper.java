@@ -1,6 +1,6 @@
 package org.cinnamon.core.init.builder;
 
-import org.cinnamon.core.domain.PermissionMenu;
+import org.cinnamon.core.domain.RoleMenu;
 
 /**
  * 
@@ -12,7 +12,7 @@ public class MenuRoleWrapper {
 	
 	private MenuWrapper menuWrapper;
 	
-	private PermissionMenu permissionMenu;
+	private RoleMenu permissionMenu;
 	
 	private String authority;
 	
@@ -20,10 +20,10 @@ public class MenuRoleWrapper {
 		this.menuWrapper = menuWrapper;
 		this.authority = authority;
 		
-		permissionMenu = new PermissionMenu();
+		permissionMenu = new RoleMenu();
 	}
 	
-	PermissionMenu permissionMenu() {
+	RoleMenu permissionMenu() {
 		return permissionMenu;
 	}
 	

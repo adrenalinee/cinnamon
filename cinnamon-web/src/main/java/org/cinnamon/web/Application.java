@@ -5,7 +5,7 @@ import javax.annotation.PostConstruct;
 import org.cinnamon.core.CinnamonCoreConfiguration;
 import org.cinnamon.core.init.ConfigureManager;
 import org.cinnamon.core.service.ConfigureService;
-import org.cinnamon.web.configuration.CinnamonConfigurationConfiguration;
+import org.cinnamon.web.configuration.CinnamonCoreWebConfiguration;
 import org.cinnamon.web.init.ConsoleSiteConfigurer;
 import org.h2.server.web.WebServlet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @Import(value={
 		CinnamonCoreConfiguration.class,
-		CinnamonConfigurationConfiguration.class})
+		CinnamonCoreWebConfiguration.class})
 public class Application extends SpringBootServletInitializer {
 	
 	@Autowired

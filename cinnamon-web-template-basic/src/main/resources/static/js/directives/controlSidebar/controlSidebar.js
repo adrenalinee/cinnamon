@@ -22,5 +22,6 @@
 	function link(scope, element, attr) {
 		element.addClass('control-sidebar');
 		element.addClass('control-sidebar-dark');
+		element.after('<div class="control-sidebar-bg"></div>');
 	}
 })();

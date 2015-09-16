@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.cinnamon.core.domain.Menu;
-import org.cinnamon.core.domain.Permission;
-import org.cinnamon.core.domain.PermissionMenu;
+import org.cinnamon.core.domain.Role;
+import org.cinnamon.core.domain.RoleMenu;
 import org.cinnamon.core.repository.MenuRepository;
-import org.cinnamon.core.repository.PermissionRepository;
+import org.cinnamon.core.repository.RoleRepository;
 import org.cinnamon.core.util.ListPage;
 import org.cinnamon.core.util.PagingUtil;
-import org.cinnamon.core.vo.search.PermissionSearch;
+import org.cinnamon.core.vo.search.RoleSearch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,23 +31,23 @@ public class PermissionService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	PermissionRepository permissionRepository;
+	RoleRepository permissionRepository;
 	
 	@Autowired
 	MenuRepository menuRepository;
 	
 	
 	@Transactional(readOnly=true)
-	public ListPage<Permission> search(PermissionSearch permissionSearch, Pageable pageable) {
+	public ListPage<Role> search(RoleSearch permissionSearch, Pageable pageable) {
 		logger.info("start");
 		
 		int size = pageable.getPageSize();
 		
-		Page<Permission> domains = permissionRepository.search(permissionSearch, pageable);
+		Page<Role> domains = permissionRepository.search(permissionSearch, pageable);
 		PagingUtil paging = new PagingUtil(domains.getNumber() + 1, size, domains.getTotalElements());
 		
 		
-		ListPage<Permission> domainPage = new ListPage<Permission>();
+		ListPage<Role> domainPage = new ListPage<Role>();
 		domainPage.setContent(domains.getContent());
 		domainPage.setPaging(paging);
 		
@@ -56,13 +56,13 @@ public class PermissionService {
 	
 	
 	@Transactional(readOnly=true)
-	public Map<Long, PermissionMenu> getPermissionMenus(Long permissionId, Long menuGroupId) {
+	public Map<Long, RoleMenu> getPermissionMenus(String authority, Long menuGroupId) {
 		logger.info("start");
 		
-		List<PermissionMenu> permissionMenus = permissionRepository.find(permissionId, menuGroupId);
+		List<RoleMenu> permissionMenus = permissionRepository.find(authority, menuGroupId);
 		
-		Map<Long, PermissionMenu> permissionMenusMap = new LinkedHashMap<Long, PermissionMenu>();
-		for (PermissionMenu pm: permissionMenus) {
+		Map<Long, RoleMenu> permissionMenusMap = new LinkedHashMap<Long, RoleMenu>();
+		for (RoleMenu pm: permissionMenus) {
 			Menu menu = pm.getMenu();
 			permissionMenusMap.put(menu.getMenuId(), pm);
 			

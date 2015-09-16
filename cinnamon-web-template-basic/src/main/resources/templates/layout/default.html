@@ -9,7 +9,15 @@
 </head>
 <body class="skin-blue sidebar-mini" layout:fragment="body">
 	<layout ng-cloak="">
-		<div layout:fragment="content"></div>
+		<header></header>
+		<sidebar menus="sideMenus"></sidebar>
+		
+		<content>
+			<div layout:fragment="content"></div>
+		</content>
+		
+		<footer></footer>
+		<control-sidebar></control-sidebar>
 	</layout>
 </body>
 </html>

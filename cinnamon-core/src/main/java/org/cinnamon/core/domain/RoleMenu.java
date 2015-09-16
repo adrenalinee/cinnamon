@@ -18,15 +18,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @since 2015. 2. 3.
  */
 @Entity
-public class PermissionMenu {
+public class RoleMenu {
 	
 	@Id
 	@GeneratedValue
-	Long permissionMenuId;
+	Long roleMenuId;
 	
 	@JsonIgnore
 	@ManyToOne
-	Permission permission;
+	Role role;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -51,8 +51,8 @@ public class PermissionMenu {
 //	boolean readOnly;
 	
 	@MapKey(name="name")
-	@OneToMany(mappedBy="permissionMenu")
-	Map<String, PermissionMenuDetail> details = new LinkedHashMap<String, PermissionMenuDetail>();
+	@OneToMany(mappedBy="roleMenu")
+	Map<String, RoleMenuDetail> details = new LinkedHashMap<String, RoleMenuDetail>();
 	
 	
 	/**
@@ -100,40 +100,40 @@ public class PermissionMenu {
 	}
 	
 	public void permitCreate() {
-		PermissionMenuDetail detail = new PermissionMenuDetail();
-		detail.setPermissionMenu(this);
+		RoleMenuDetail detail = new RoleMenuDetail();
+		detail.setRoleMenu(this);
 		detail.setName("create");
 		
 		details.put("create", detail);
 	}
 	
 	public void permitView() {
-		PermissionMenuDetail detail = new PermissionMenuDetail();
-		detail.setPermissionMenu(this);
+		RoleMenuDetail detail = new RoleMenuDetail();
+		detail.setRoleMenu(this);
 		detail.setName("view");
 		
 		details.put("view", detail);
 	}
 	
 	public void permitModify() {
-		PermissionMenuDetail detail = new PermissionMenuDetail();
-		detail.setPermissionMenu(this);
+		RoleMenuDetail detail = new RoleMenuDetail();
+		detail.setRoleMenu(this);
 		detail.setName("modify");
 		
 		details.put("modify", detail);
 	}
 	
 	public void permitSearch() {
-		PermissionMenuDetail detail = new PermissionMenuDetail();
-		detail.setPermissionMenu(this);
+		RoleMenuDetail detail = new RoleMenuDetail();
+		detail.setRoleMenu(this);
 		detail.setName("search");
 		
 		details.put("search", detail);
 	}
 	
 	public void permitSelect() {
-		PermissionMenuDetail detail = new PermissionMenuDetail();
-		detail.setPermissionMenu(this);
+		RoleMenuDetail detail = new RoleMenuDetail();
+		detail.setRoleMenu(this);
 		detail.setName("select");
 		
 		details.put("select", detail);
@@ -144,14 +144,14 @@ public class PermissionMenu {
 	 * @param name
 	 */
 	public void permit(String name) {
-		PermissionMenuDetail detail = null;
+		RoleMenuDetail detail = null;
 		if (details.containsKey(name)) {
 			detail = details.get(name);
 		} else {
-			detail = new PermissionMenuDetail();
+			detail = new RoleMenuDetail();
 		}
 		
-		detail.setPermissionMenu(this);
+		detail.setRoleMenu(this);
 		detail.setName(name);
 		detail.setPermit(true);
 		
@@ -172,12 +172,12 @@ public class PermissionMenu {
 		return !details.isEmpty();
 	}
 	
-	public Permission getPermission() {
-		return permission;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setPermission(Permission permission) {
-		this.permission = permission;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public Menu getMenu() {
@@ -188,13 +188,13 @@ public class PermissionMenu {
 		this.menu = menu;
 	}
 
-	public Long getPermissionMenuId() {
-		return permissionMenuId;
-	}
-
-	public void setPermissionMenuId(Long permissionMenuId) {
-		this.permissionMenuId = permissionMenuId;
-	}
+//	public Long getPermissionMenuId() {
+//		return permissionMenuId;
+//	}
+//
+//	public void setPermissionMenuId(Long permissionMenuId) {
+//		this.permissionMenuId = permissionMenuId;
+//	}
 
 //	public boolean isReadPower() {
 //		return readPower;
@@ -228,11 +228,11 @@ public class PermissionMenu {
 //		this.deletePower = deletePower;
 //	}
 
-	public Map<String, PermissionMenuDetail> getDetails() {
+	public Map<String, RoleMenuDetail> getDetails() {
 		return details;
 	}
 
-	public void setDetails(Map<String, PermissionMenuDetail> details) {
+	public void setDetails(Map<String, RoleMenuDetail> details) {
 		this.details = details;
 	}
 
@@ -258,6 +258,14 @@ public class PermissionMenu {
 
 	public void setPermitRoot(boolean permitRoot) {
 		this.permitRoot = permitRoot;
+	}
+
+	public Long getRoleMenuId() {
+		return roleMenuId;
+	}
+
+	public void setRoleMenuId(Long roleMenuId) {
+		this.roleMenuId = roleMenuId;
 	}
 	
 }

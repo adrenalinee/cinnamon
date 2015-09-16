@@ -12,7 +12,9 @@ public class UserGroupSearch {
 	
 	String name;
 	
-	Long permissionId;
+//	Long permissionId;
+	
+	String authority;
 
 	public String getName() {
 		return name;
@@ -22,13 +24,13 @@ public class UserGroupSearch {
 		this.name = name;
 	}
 
-	public Long getPermissionId() {
-		return permissionId;
-	}
-
-	public void setPermissionId(Long permissionId) {
-		this.permissionId = permissionId;
-	}
+//	public Long getPermissionId() {
+//		return permissionId;
+//	}
+//
+//	public void setPermissionId(Long permissionId) {
+//		this.permissionId = permissionId;
+//	}
 
 	public Long getUserGroupId() {
 		return userGroupId;
@@ -36,5 +38,13 @@ public class UserGroupSearch {
 
 	public void setUserGroupId(Long userGroupId) {
 		this.userGroupId = userGroupId;
+	}
+
+	public String getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 }

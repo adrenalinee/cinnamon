@@ -11,16 +11,16 @@ import com.mysema.query.types.path.PathInits;
 
 
 /**
- * QPermission is a Querydsl query type for Permission
+ * QRole is a Querydsl query type for Role
  */
 @Generated("com.mysema.query.codegen.EntitySerializer")
-public class QPermission extends EntityPathBase<Permission> {
+public class QRole extends EntityPathBase<Role> {
 
-    private static final long serialVersionUID = 1830299549L;
+    private static final long serialVersionUID = -2100243260L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QPermission permission = new QPermission("permission");
+    public static final QRole role = new QRole("role");
 
     public final StringPath authority = createString("authority");
 
@@ -30,29 +30,27 @@ public class QPermission extends EntityPathBase<Permission> {
 
     public final StringPath name = createString("name");
 
-    public final NumberPath<Long> permissionId = createNumber("permissionId", Long.class);
-
-    public final ListPath<PermissionMenu, QPermissionMenu> permissionMenus = this.<PermissionMenu, QPermissionMenu>createList("permissionMenus", PermissionMenu.class, QPermissionMenu.class, PathInits.DIRECT2);
+    public final ListPath<RoleMenu, QRoleMenu> roleMenus = this.<RoleMenu, QRoleMenu>createList("roleMenus", RoleMenu.class, QRoleMenu.class, PathInits.DIRECT2);
 
     public final EnumPath<org.cinnamon.core.domain.enumeration.UseStatus> useStatus = createEnum("useStatus", org.cinnamon.core.domain.enumeration.UseStatus.class);
 
-    public QPermission(String variable) {
-        this(Permission.class, forVariable(variable), INITS);
+    public QRole(String variable) {
+        this(Role.class, forVariable(variable), INITS);
     }
 
-    public QPermission(Path<? extends Permission> path) {
+    public QRole(Path<? extends Role> path) {
         this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
     }
 
-    public QPermission(PathMetadata<?> metadata) {
+    public QRole(PathMetadata<?> metadata) {
         this(metadata, metadata.isRoot() ? INITS : PathInits.DEFAULT);
     }
 
-    public QPermission(PathMetadata<?> metadata, PathInits inits) {
-        this(Permission.class, metadata, inits);
+    public QRole(PathMetadata<?> metadata, PathInits inits) {
+        this(Role.class, metadata, inits);
     }
 
-    public QPermission(Class<? extends Permission> type, PathMetadata<?> metadata, PathInits inits) {
+    public QRole(Class<? extends Role> type, PathMetadata<?> metadata, PathInits inits) {
         super(type, metadata, inits);
         this.defaultUserGroup = inits.isInitialized("defaultUserGroup") ? new QUserGroup(forProperty("defaultUserGroup"), inits.get("defaultUserGroup")) : null;
     }

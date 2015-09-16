@@ -20,10 +20,14 @@
 	function controller($scope, $http) {
 		console.log('sidebarController');
 		
-		
-		this.aa = function() {
-			console.log('aa');
-		}
+		var params = {
+			position: 'sidebar'
+		};
+		$http.get('/rest/menus', {
+			params: params
+		}).success(function(data) {
+			$scope.sideMenus = data._embedded.menus;
+		});
 	}
 	
 	

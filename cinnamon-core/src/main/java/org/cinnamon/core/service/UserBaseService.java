@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.cinnamon.core.domain.Permission;
+import org.cinnamon.core.domain.Role;
 import org.cinnamon.core.domain.UserActivity;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserGroup;
@@ -14,7 +14,7 @@ import org.cinnamon.core.domain.enumeration.UserActivityType;
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
 import org.cinnamon.core.exception.BadRequestException;
 import org.cinnamon.core.exception.NotFoundException;
-import org.cinnamon.core.repository.PermissionRepository;
+import org.cinnamon.core.repository.RoleRepository;
 import org.cinnamon.core.repository.PropertyRepository;
 import org.cinnamon.core.repository.UserActivityRepository;
 import org.cinnamon.core.repository.UserBaseRepository;
@@ -63,7 +63,7 @@ public class UserBaseService<T extends UserBase> {
 //	EmailService emailService;
 	
 	@Autowired
-	PermissionRepository permissionRepository;
+	RoleRepository permissionRepository;
 	
 	List<UserListener> userListeners = new LinkedList<UserListener>();
 	
@@ -164,7 +164,7 @@ public class UserBaseService<T extends UserBase> {
 //		}
 		
 		
-		Permission permission = permissionRepository.findByAuthority(DefinedUserAuthority.normal.name());
+		Role permission = permissionRepository.findOne(DefinedUserAuthority.normal.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
 			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");
@@ -223,7 +223,7 @@ public class UserBaseService<T extends UserBase> {
 //			new RuntimeException("defaultUserGroupId 이 존재하지 않습니다. defaultUserGroupId: " + defaultUserGroupId);
 //		}
 		
-		Permission permission = permissionRepository.findByAuthority(DefinedUserAuthority.normal.name());
+		Role permission = permissionRepository.findOne(DefinedUserAuthority.normal.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
 			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");
@@ -287,7 +287,7 @@ public class UserBaseService<T extends UserBase> {
 //		Long defaultSystemMasterGroupId = (Long) property.getLongValue();
 //		UserGroup userGroup = userGroupRepository.findById(defaultSystemMasterGroupId);
 		
-		Permission permission = permissionRepository.findByAuthority(DefinedUserAuthority.systemMaster.name());
+		Role permission = permissionRepository.findOne(DefinedUserAuthority.systemMaster.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
 			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");

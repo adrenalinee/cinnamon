@@ -3,7 +3,7 @@ package org.cinnamon.core.init.builder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.cinnamon.core.domain.Permission;
+import org.cinnamon.core.domain.Role;
 
 /**
  * 
@@ -15,7 +15,7 @@ public class RoleWrapper {
 	
 //	private MenuWrapper menuWrapper;
 	
-	private Permission permission;
+	private Role permission;
 	
 //	private PermissionMenu permissionMenu;
 	
@@ -33,11 +33,11 @@ public class RoleWrapper {
 	RoleWrapper(SiteBuilder siteBuilder, String authority) {
 		this.siteBuilder = siteBuilder;
 		
-		permission = new Permission();
+		permission = new Role();
 		permission.setAuthority(authority);
 	}
 	
-	Permission permission() {
+	Role permission() {
 		return permission;
 	}
 	

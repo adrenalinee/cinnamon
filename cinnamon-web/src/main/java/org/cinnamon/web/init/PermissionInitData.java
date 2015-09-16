@@ -5,8 +5,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.cinnamon.core.domain.Menu;
-import org.cinnamon.core.domain.Permission;
-import org.cinnamon.core.domain.PermissionMenu;
+import org.cinnamon.core.domain.Role;
+import org.cinnamon.core.domain.RoleMenu;
 import org.cinnamon.core.domain.Property;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
@@ -36,7 +36,7 @@ public class PermissionInitData implements InitData {
 	
 	
 	private void master() {
-		Permission permission = new Permission();
+		Role permission = new Role();
 		permission.setName("시스템 최고 운영 권한");
 //		permission.setAuthority("ROLE_SYSTEM_MANAGER");
 		
@@ -45,14 +45,14 @@ public class PermissionInitData implements InitData {
 		
 		UserGroup userGroup = new UserGroup();
 		userGroup.setName("시스템 최고 운영자 그룹");
-		userGroup.setPermission(permission);
+		userGroup.setRole(permission);
 		em.persist(userGroup);
 		
 		//모든 메뉴를 추가
 		List<Menu> menus = em.createQuery("from Menu", Menu.class).getResultList();
 		menus.forEach(menu -> {
-			PermissionMenu permissionMenu = new PermissionMenu();
-			permissionMenu.setPermission(permission);
+			RoleMenu permissionMenu = new RoleMenu();
+			permissionMenu.setRole(permission);
 			permissionMenu.setMenu(menu);
 			permissionMenu.permitElse();
 			
@@ -69,7 +69,7 @@ public class PermissionInitData implements InitData {
 	
 	
 	private void user() {
-		Permission permission = new Permission();
+		Role permission = new Role();
 		permission.setName("기본 권한");
 //		permission.setAuthority("ROLE_SYSTEM_MANAGER");
 		
@@ -78,7 +78,7 @@ public class PermissionInitData implements InitData {
 		
 		UserGroup userGroup = new UserGroup();
 		userGroup.setName("일반 사용자 그룹");
-		userGroup.setPermission(permission);
+		userGroup.setRole(permission);
 		em.persist(userGroup);
 		
 		//메인 메뉴를 추가

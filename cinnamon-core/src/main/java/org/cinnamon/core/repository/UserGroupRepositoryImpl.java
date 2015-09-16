@@ -38,8 +38,8 @@ public class UserGroupRepositoryImpl implements UserGroupRepositoryCustom {
 		if (!StringUtils.isEmpty(userGroupSearch.getName())) {
 			builder.and(userGroup.name.like("%" + userGroupSearch.getName() + "%"));
 		}
-		if (userGroupSearch.getPermissionId() != null) {
-			builder.and(userGroup.permission.permissionId.eq(userGroupSearch.getPermissionId()));
+		if (!StringUtils.isEmpty(userGroupSearch.getAuthority())) {
+			builder.and(userGroup.role.authority.eq(userGroupSearch.getAuthority()));
 		}
 		
 		

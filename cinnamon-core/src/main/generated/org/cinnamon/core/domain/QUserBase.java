@@ -44,9 +44,9 @@ public class QUserBase extends EntityPathBase<UserBase> {
 
     public final StringPath nation = createString("nation");
 
-    public final SetPath<Permission, QPermission> permissions = this.<Permission, QPermission>createSet("permissions", Permission.class, QPermission.class, PathInits.DIRECT2);
-
     public final StringPath phone = createString("phone");
+
+    public final SetPath<Role, QRole> roles = this.<Role, QRole>createSet("roles", Role.class, QRole.class, PathInits.DIRECT2);
 
     public final StringPath tel = createString("tel");
 

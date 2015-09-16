@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -21,11 +20,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 @Entity
-public class Permission {
+public class Role {
+	
+//	@Id
+//	@GeneratedValue
+//	Long permissionId;
 	
 	@Id
-	@GeneratedValue
-	Long permissionId;
+	String authority;
 	
 	@Column(nullable=false)
 	String name;
@@ -33,12 +35,12 @@ public class Permission {
 	/**
 	 * 권한 문자.. (spring-security 사용..)
 	 */
-	@Column(unique=true)
-	String authority;
+//	@Column(unique=true)
+//	String authority;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="permission")
-	List<PermissionMenu> permissionMenus;
+	@OneToMany(mappedBy="role")
+	List<RoleMenu> roleMenus;
 	
 	@JsonIgnore
 	@OneToOne
@@ -54,13 +56,13 @@ public class Permission {
 	String description;
 	
 	
-	public Long getPermissionId() {
-		return permissionId;
-	}
-
-	public void setPermissionId(Long permissionId) {
-		this.permissionId = permissionId;
-	}
+//	public Long getPermissionId() {
+//		return permissionId;
+//	}
+//
+//	public void setPermissionId(Long permissionId) {
+//		this.permissionId = permissionId;
+//	}
 
 	public String getName() {
 		return name;
@@ -94,12 +96,12 @@ public class Permission {
 		this.authority = authority;
 	}
 
-	public List<PermissionMenu> getPermissionMenus() {
-		return permissionMenus;
+	public List<RoleMenu> getRoleMenus() {
+		return roleMenus;
 	}
 
-	public void setPermissionMenus(List<PermissionMenu> permissionMenus) {
-		this.permissionMenus = permissionMenus;
+	public void setRoleMenus(List<RoleMenu> roleMenus) {
+		this.roleMenus = roleMenus;
 	}
 
 	public UserGroup getDefaultUserGroup() {

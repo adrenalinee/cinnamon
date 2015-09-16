@@ -26,7 +26,7 @@ public class QUserGroup extends EntityPathBase<UserGroup> {
 
     public final StringPath name = createString("name");
 
-    public final QPermission permission;
+    public final QRole role;
 
     public final NumberPath<Long> userGroupId = createNumber("userGroupId", Long.class);
 
@@ -52,7 +52,7 @@ public class QUserGroup extends EntityPathBase<UserGroup> {
 
     public QUserGroup(Class<? extends UserGroup> type, PathMetadata<?> metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.permission = inits.isInitialized("permission") ? new QPermission(forProperty("permission"), inits.get("permission")) : null;
+        this.role = inits.isInitialized("role") ? new QRole(forProperty("role"), inits.get("role")) : null;
     }
 
 }

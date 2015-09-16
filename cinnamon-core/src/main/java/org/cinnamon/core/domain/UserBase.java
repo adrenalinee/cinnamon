@@ -51,7 +51,7 @@ public class UserBase implements UserEntity {
 	
 	@JsonIgnore
 	@ManyToMany
-	Set<Permission> permissions = new HashSet<Permission>();
+	Set<Role> roles = new HashSet<Role>();
 	
 	@Column(length=100)
 	String name;
@@ -226,12 +226,12 @@ public class UserBase implements UserEntity {
 //		this.position = position;
 //	}
 
-	public Set<Permission> getPermissions() {
-		return permissions;
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
-	public void setPermissions(Set<Permission> permissions) {
-		this.permissions = permissions;
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 	public boolean isValidEmail() {

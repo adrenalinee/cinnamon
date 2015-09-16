@@ -9,18 +9,9 @@
 			restrict: 'E',
 			transclude: true,
 			scope: {},
-			templateUrl: '/js/directives/layout/layout.tpl.html',
+//			templateUrl: '/js/directives/layout/layout.tpl.html',
+			template: '<ng-transclude />',
 			controller: function($scope, $document, $http) {
-				var params = {
-					position: 'sidebar'
-				};
-				$http.get('/rest/menus', {
-					params: params
-				}).success(function(data) {
-						$scope.sideMenus = data._embedded.menus;
-					});
-				
-				
 				
 				//
 				this.addContent = function(content) {
@@ -71,9 +62,25 @@
 	
 	//
 	function resizeContentMinHeight($window, layout, content) {
+//		var heasers = layout.find('header');
+//		var footsers = layout.find('footer');
+//		
+//		var headerAndFooterHeight = 0;
+//		if (heasers.length > 0) {
+//			headerAndFooterHeight = heasers[0].clientHeight;
+//		}
+//		if (footsers.length > 0) {
+//			headerAndFooterHeight += footsers[0].clientHeight;
+//		}
+		
 		var headerAndFooterHeight = layout.find('header')[0].clientHeight + layout.find('footer')[0].clientHeight;
 		var windowHeight = $window.innerHeight;
-		var sidebarHeight = layout.find('sidebar')[0].clientHeight;
+		var sidebarHeight = $window.innerHeight;
+		
+		var sidebars = layout.find('sidebar');
+		if (sidebars.length > 0) {
+			sidebarHeight = sidebars[0].clientHeight;
+		}
 		
 //		console.log(headerAndFooterHeight);
 //		console.log(windowHeight);
