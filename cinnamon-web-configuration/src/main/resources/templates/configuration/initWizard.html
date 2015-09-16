@@ -16,6 +16,8 @@
 <script type="text/javascript" src="/webjars/bootstrap/3.3.5/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/webjars/adminlte/2.3.0/dist/js/app.js"></script>
 <script type="text/javascript" src="/js/configuration/initWizard/welcome.js"></script>
+<script type="text/javascript" src="/js/configuration/initWizard/baseData.js"></script>
+<script type="text/javascript" src="/js/configuration/initWizard/firstUser.js"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 'use strict';
@@ -27,6 +29,9 @@ angular.module('cinnamon')
 	}).state('baseData', {
 		url: '/configuration/initWizard/baseData',
 		templateUrl: '/configuration/partials/initWizard/baseData'
+	}).state('firstUser', {
+		url: '/configuration/initWizard/firstUser',
+		templateUrl: '/configuration/partials/initWizard/firstUser'
 	});
 });
 /*]]>*/

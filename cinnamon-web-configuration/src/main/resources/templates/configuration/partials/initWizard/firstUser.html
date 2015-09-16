@@ -1,4 +1,4 @@
-<div class="box box-solid">
+<div class="box box-solid" ng-controller="firstUserController">
 	<div class="box-body">
 		
 		<div class="wizard">
@@ -27,7 +27,7 @@
 				최초로 로그인할 사용자 계정을 생성합니다.
 			</div>
 			
-			<form ng-submit="create()">
+			<form novalidate="novalidate" ng-submit="create()">
 				<div class="form-group">
 					<input type="text" ng-model="domain.name" class="form-control" placeholder="이름" required="required" maxlength="50" />
 				</div>
