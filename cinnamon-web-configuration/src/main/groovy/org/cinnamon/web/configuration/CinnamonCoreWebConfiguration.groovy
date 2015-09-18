@@ -26,8 +26,8 @@ class CinnamonCoreWebConfiguration {
 				.addPathPatterns("/**")
 				.excludePathPatterns(
 					"/configuration/partials/**",
-					"/configuration/initWizard/**",
-					"/rest/configuration/initWizard/**",
+					"/configuration/initWizard",
+					"/rest/**",
 					"/error/**")
 		}
 	}

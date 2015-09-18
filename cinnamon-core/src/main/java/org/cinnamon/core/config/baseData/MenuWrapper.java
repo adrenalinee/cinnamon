@@ -1,4 +1,4 @@
-package org.cinnamon.core.init.wrapper;
+package org.cinnamon.core.config.baseData;
 
 import java.util.Arrays;
 import java.util.LinkedList;

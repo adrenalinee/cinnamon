@@ -64,12 +64,12 @@ public class Property {
 		}
 	}
 	
-	public Boolean getBooleanValue() {
+	public boolean getBooleanValue() {
 		try {
 			return Boolean.parseBoolean(value);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return false;
 		}
 	}
 

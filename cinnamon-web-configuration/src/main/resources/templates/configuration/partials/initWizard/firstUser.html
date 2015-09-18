@@ -27,21 +27,34 @@
 				최초로 로그인할 사용자 계정을 생성합니다.
 			</div>
 			
-			<form novalidate="novalidate" ng-submit="create()">
-				<div class="form-group">
-					<input type="text" ng-model="domain.name" class="form-control" placeholder="이름" required="required" maxlength="50" />
+			<form name="form" novalidate="novalidate" ng-submit="create(form)">
+				<div class="form-group has-feedback" ng-class="form.name.$invalid  &amp;&amp; form.$submitted ? 'has-warning' : ''">
+					<input type="text" ng-model="domain.name" name="name" class="form-control" placeholder="이름" required="required" ng-maxlength="50" maxlength="50" />
+					<span class="glyphicon glyphicon-user form-control-feedback"></span>
+					<small class="help-block" data-ng-show="form.name.$error.required &amp;&amp; form.$submitted">필수 입력 항목입니다.</small>
 				</div>
-				<div class="form-group">
-					<input type="text" ng-model="domain.userId" class="form-control"  placeholder="user ID" required="required"  maxlength="20" />
+				<div class="form-group has-feedback" ng-class="form.userId.$invalid  &amp;&amp; form.$submitted ? 'has-warning' : ''">
+					<input type="text" ng-model="domain.userId" name="userId" class="form-control"  placeholder="user ID" required="required" ng-minlength="6" maxlength="20" />
+					<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+					<small class="help-block" data-ng-show="form.userId.$error.required &amp;&amp; form.$submitted">필수 입력 항목입니다.</small>
+					<small class="help-block" data-ng-show="form.userId.$error.minlength &amp;&amp; form.$submitted">최소 6자리 이상 입력하시기 바랍니다.</small>
 				</div>
-				<div class="form-group">
-					<input type="password" ng-model="domain.password" class="form-control" placeholder="비밀번호" required="required" maxlength="50" />
+				<div class="form-group has-feedback" ng-class="form.email.$invalid  &amp;&amp; form.$submitted ? 'has-warning' : ''">
+					<input type="email" ng-model="domain.email" name="email" class="form-control" placeholder="email" required="required" maxlength="200" />
+					<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+					<small class="help-block" data-ng-show="form.email.$error.required &amp;&amp; form.$submitted">필수 입력 항목입니다.</small>
+					<small class="help-block" data-ng-show="form.email.$error.email">이메일 형식을 입력하시기 바랍니다.</small>
 				</div>
-				<div class="form-group">
-					<input type="password" ng-model="domain.password2" class="form-control" placeholder="비밀번호 다시 입력" required="required" maxlength="50" />
+				<div class="form-group has-feedback" ng-class="form.password.$invalid  &amp;&amp; form.$submitted ? 'has-warning' : ''">
+					<input type="password" ng-model="domain.password" name="password" class="form-control" placeholder="비밀번호" required="required" ng-minlength="6" maxlength="50" />
+					<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+					<small class="help-block" data-ng-show="form.password.$error.required &amp;&amp; form.$submitted">필수 입력 항목입니다.</small>
+					<small class="help-block" data-ng-show="form.password.$error.minlength &amp;&amp; form.$submitted">최소 6자리 이상 입력하시기 바랍니다.</small>
 				</div>
-				<div class="form-group">
-					<input type="text" ng-model="domain.email" class="form-control" placeholder="email" required="required" maxlength="200" />
+				<div class="form-group has-feedback" ng-class="(domain.password != domain.password2 &amp;&amp; form.$submitted) ? 'has-warning' : ''">
+					<input type="password" ng-model="domain.password2" name="password2" class="form-control" placeholder="비밀번호 확인" required="required" maxlength="50" />
+					<span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+					<small class="help-block" data-ng-show="domain.password != domain.password2 &amp;&amp; form.$submitted">비밀번호가 일치하지 않습니다.</small>
 				</div>
 				<hr/>
 				<div class="form-group">

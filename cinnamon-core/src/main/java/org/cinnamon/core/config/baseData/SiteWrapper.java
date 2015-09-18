@@ -1,4 +1,4 @@
-package org.cinnamon.core.init.wrapper;
+package org.cinnamon.core.config.baseData;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,6 +25,16 @@ public class SiteWrapper {
 	
 	public SiteWrapper description(String description) {
 		site.setDescription(description);
+		return this;
+	}
+	
+	public SiteWrapper url(String url) {
+		site.setUrl(url);
+		return this;
+	}
+	
+	public SiteWrapper indexPage(String indexPage) {
+		site.setIndexPage(indexPage);
 		return this;
 	}
 	

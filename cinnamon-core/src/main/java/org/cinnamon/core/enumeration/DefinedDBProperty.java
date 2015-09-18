@@ -8,9 +8,19 @@ package org.cinnamon.core.enumeration;
 public enum DefinedDBProperty {
 	
 	/**
-	 * 최초 설치시 DB 초기화가 되어있는지 확인
+	 * 시스템 기본 데이터가 생성되었는지 저장
 	 */
-	initialize,
+	initialize_baseData,
+	
+	/**
+	 * 시스템 최초 운영자가 생성되었는지 저장
+	 */
+	initialize_firstUser,
+	
+	/**
+	 * 시스템 초기화 작업이 최종 마무리 되었는지 저장
+	 */
+	initialize_complate,
 	
 	/**
 	 * 사이트 공개 범위

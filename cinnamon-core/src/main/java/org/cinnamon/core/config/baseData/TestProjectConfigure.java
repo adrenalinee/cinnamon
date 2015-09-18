@@ -1,9 +1,9 @@
-package org.cinnamon.core.init.wrapper;
+package org.cinnamon.core.config.baseData;
 
-import static org.cinnamon.core.init.wrapper.ProjectBuilder.menu;
-import static org.cinnamon.core.init.wrapper.ProjectBuilder.menuGroup;
-import static org.cinnamon.core.init.wrapper.ProjectBuilder.role;
-import static org.cinnamon.core.init.wrapper.ProjectBuilder.site;
+import static org.cinnamon.core.config.baseData.BaseDataBuilder.menu;
+import static org.cinnamon.core.config.baseData.BaseDataBuilder.menuGroup;
+import static org.cinnamon.core.config.baseData.BaseDataBuilder.role;
+import static org.cinnamon.core.config.baseData.BaseDataBuilder.site;
 
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
 
@@ -12,7 +12,7 @@ public class TestProjectConfigure {
 	
 	
 	public static void main(String[] args) {
-		ProjectBuilder projectBuilder = new ProjectBuilder();
+		BaseDataBuilder projectBuilder = new BaseDataBuilder();
 		
 		projectBuilder.addSite(
 			site("콘솔", "console").addMenuGroup(

@@ -43,7 +43,7 @@ public class Role {
 	List<RoleMenu> roleMenus;
 	
 	@JsonIgnore
-	@OneToOne
+	@OneToOne(optional=true)
 	UserGroup defaultUserGroup;
 	
 	

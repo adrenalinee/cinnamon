@@ -3,6 +3,7 @@ package org.cinnamon.web.configuration.interceptor
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+import org.cinnamon.core.config.SystemConfigurerManager;
 import org.cinnamon.core.domain.Property
 import org.cinnamon.core.enumeration.DefinedDBProperty
 import org.cinnamon.core.repository.PropertyRepository
@@ -30,6 +31,9 @@ class InitCheckInterceptor extends HandlerInterceptorAdapter {
 	
 	@Autowired
 	Environment environment
+	
+	@Autowired
+	SystemConfigurerManager systemConfigurerManager
 	
 	/**
 	 * 서버 초기화 되어 있는지 여부
@@ -65,41 +69,31 @@ class InitCheckInterceptor extends HandlerInterceptorAdapter {
 		
 		
 		if (!isInitialize) {
-			try {
-				Property initProperty = propertyRepository.findByName(DefinedDBProperty.initialize.name())
-//				System.out.println(ToStringBuilder.reflectionToString(initProperty))
-				
-				
-				if (initProperty != null) {
-					String value = initProperty.getValue()
-					if (!StringUtils.isEmpty(value)) {
-						if ("true".equals(value.trim().toLowerCase())) {
-							isInitialize = true
-						}
-					}
-				}
-			} catch (InvalidDataAccessResourceUsageException e) {
-				logger.warn("데이터베이스 스키마 생성이 되지 않았습니다.", e)
-				logger.info("서버 초기화 안되어 있음. 초기화 마법사 실행")
-				response.sendRedirect("/initWizard")
-				return false
+			isInitialize = systemConfigurerManager.isInitialized()
+		}
+		
+		if (!isInitialize) {
+			String nextStep = systemConfigurerManager.findNextInitializeStep()
+			println nextStep
+			if (nextStep == null) {
+				return true
 			}
+			
+			logger.info("서버 초기화 진행해야 함. 초기화 마법사 실행")
+			
+			String nextInitUri = "/configuration/initWizard"
+			if (!"".equals(nextStep)) {
+				nextInitUri += "/${nextStep}"
+			}
+			
+			if (request.getRequestURI().equalsIgnoreCase(nextInitUri)) {
+				return true
+			}
+			
+			response.sendRedirect(nextInitUri)
+			return false
 		}
 		
-		if (isInitialize) {
-//			System.out.println("초기화 되어 있음")
-			return true
-		}
-		
-//		String host = request.getRequestURL().toString().replace(request.getRequestURI(), "")
-		
-//		System.out.println(host)
-//		System.out.println(request.getRequestURI())
-		
-		logger.info("서버 초기화 안되어 있음. 초기화 마법사 실행")
-		
-		response.sendRedirect("/configuration/initWizard")
-		
-		return false
+		return true
 	}
 }

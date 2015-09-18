@@ -1,4 +1,4 @@
-package org.cinnamon.core.init.wrapper;
+package org.cinnamon.core.config.baseData;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -18,10 +18,10 @@ public class GroupWrapper {
 	
 	List<GroupWrapper> childGroupWrappers = new LinkedList<>();
 	
-	GroupWrapper(String name, String groupId) {
+	GroupWrapper(String name, Object groupId) {
 		group = new Group();
 		group.setName(name);
-		group.setGroupId(groupId);
+		group.setGroupId(groupId.toString());
 	}
 	
 	public GroupWrapper description(String description) {
@@ -34,7 +34,7 @@ public class GroupWrapper {
 		return this;
 	}
 	
-	GroupWrapper addChildGroup(GroupWrapper... childWrappers) {
+	public GroupWrapper addChildGroup(GroupWrapper... childWrappers) {
 		childGroupWrappers.addAll(Arrays.asList(childWrappers));
 		return this;
 	}
