@@ -172,17 +172,6 @@ public class ObjectMerger {
 		}
 	}
 	
-	
-	
-	public static void main(String[] args) throws Exception {
-//		A a = new A();
-//		a.f = 134F;
-//		
-//		
-//		Field f = a.getClass().getDeclaredField("f");
-//		System.out.println(f.get(a) instanceof Number);
-		
-	}
 }
 
 class A {

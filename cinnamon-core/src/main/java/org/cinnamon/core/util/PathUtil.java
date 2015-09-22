@@ -125,11 +125,11 @@ public class PathUtil {
 		return sb.toString();
 	}
 
-	public static void main(String[] args) {
-		//
-
-		String webPath = PathUtil.create("uploaded", "");
-
-		System.out.println(webPath);
-	}
+//	public static void main(String[] args) {
+//		//
+//
+//		String webPath = PathUtil.create("uploaded", "");
+//
+//		System.out.println(webPath);
+//	}
 }

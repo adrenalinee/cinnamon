@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.2.5.RELEASE'
+		springBootVersion = '1.2.6.RELEASE'
 	}
 
 	repositories {
@@ -14,17 +14,14 @@ buildscript {
 	}
 }
 
-apply plugin: 'eclipse'
-
 subprojects {
 	apply plugin: 'maven'
 	apply plugin: 'java'
 	apply plugin: 'eclipse'
-//	apply plugin: 'eclipse-wtp'
 	apply plugin: 'spring-boot'
 	apply plugin: 'io.spring.dependency-management'
 	
-	version = '0.0.1-SNAPSHOT'
+	version = '0.2.0'
 	group = 'org.cinnamon'
 	
 	repositories {
@@ -57,6 +54,7 @@ subprojects {
 	
 	bootRepackage  {
 		enabled = false
+		mainClass = ''
 	}
 	
 	

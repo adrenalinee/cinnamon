@@ -267,16 +267,16 @@ public class PagingUtil {
 		this.totalRecord = totalRecord;
 	}
 
-	public static void main(String[] args) {
-		PagingUtil p = new PagingUtil(1, 15, 27);
-
-		System.out.println(p.getFirstPage());
-		System.out.println(p.getPrevPage());
-		System.out.println(p.getPage());
-		System.out.println(p.getNextPage());
-		System.out.println(p.getTotalPage());
-		System.out.println(p.getLastPage());
-	}
+//	public static void main(String[] args) {
+//		PagingUtil p = new PagingUtil(1, 15, 27);
+//
+//		System.out.println(p.getFirstPage());
+//		System.out.println(p.getPrevPage());
+//		System.out.println(p.getPage());
+//		System.out.println(p.getNextPage());
+//		System.out.println(p.getTotalPage());
+//		System.out.println(p.getLastPage());
+//	}
 
 	public int getItem_per_page() {
 		return item_per_page;

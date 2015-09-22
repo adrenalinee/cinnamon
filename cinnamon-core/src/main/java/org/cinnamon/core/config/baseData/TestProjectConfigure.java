@@ -11,7 +11,7 @@ import org.cinnamon.core.enumeration.DefinedUserAuthority;
 public class TestProjectConfigure {
 	
 	
-	public static void main(String[] args) {
+	public static void main() {
 		BaseDataBuilder projectBuilder = new BaseDataBuilder();
 		
 		projectBuilder.addSite(

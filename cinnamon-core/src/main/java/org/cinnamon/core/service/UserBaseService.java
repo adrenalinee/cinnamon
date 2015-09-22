@@ -413,12 +413,12 @@ public class UserBaseService<T extends UserBase> {
 	}
 	
 	
-	public static void main(String[] args) {
-		
-		
-		BCryptPasswordEncoder e = new BCryptPasswordEncoder();
-		for (int i = 0; i < 10; i++) {
-			System.out.println(e.encode("qwerty"));
-		}
-	}
+//	public static void main(String[] args) {
+//		
+//		
+//		BCryptPasswordEncoder e = new BCryptPasswordEncoder();
+//		for (int i = 0; i < 10; i++) {
+//			System.out.println(e.encode("qwerty"));
+//		}
+//	}
 }
