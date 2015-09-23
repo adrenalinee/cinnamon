@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @Service
-public class PermissionService {
+public class RoleService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired

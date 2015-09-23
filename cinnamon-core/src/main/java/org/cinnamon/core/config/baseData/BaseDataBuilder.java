@@ -164,6 +164,7 @@ public class BaseDataBuilder {
 			
 			roleWrapper.userGroupWrappers.forEach(userGroupWrapper -> {
 				UserGroup userGroup = userGroupWrapper.userGroup;
+				userGroup.setRole(role);
 				em.persist(userGroup);
 				
 				if (userGroupWrapper.isDefault) {

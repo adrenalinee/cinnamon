@@ -1,6 +1,7 @@
 package org.cinnamon.core.domain;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -75,6 +76,12 @@ public class Menu {
 //	@OneToMany(mappedBy="menu")
 //	Set<PermissionMenu> permissionMenus;
 	
+	/**
+	 * 메뉴 접근이 허용된 역할
+	 */
+	@JsonIgnore
+	@OneToMany(mappedBy="menu")
+	Set<RoleMenu> grantedRoles;
 	
 	/**
 	 * 순서
@@ -199,6 +206,14 @@ public class Menu {
 
 	public void setMenuGroup(MenuGroup menuGroup) {
 		this.menuGroup = menuGroup;
+	}
+
+	public Set<RoleMenu> getGrantedRoles() {
+		return grantedRoles;
+	}
+
+	public void setGrantedRoles(Set<RoleMenu> grantedRoles) {
+		this.grantedRoles = grantedRoles;
 	}
 
 //	public Set<SiteScene> getSiteScenes() {

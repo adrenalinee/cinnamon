@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import org.apache.commons.lang3.StringUtils;
 import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.QMenu;
+import org.cinnamon.core.domain.QRole;
+import org.cinnamon.core.domain.QRoleMenu;
 import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.domain.enumeration.UseStatus;
 import org.cinnamon.core.vo.search.MenuSearch;
@@ -87,13 +89,12 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 	public List<Menu> getSitePermisionMenus(String site, String dimension, MenuPosition position, String authority) {
 		return em.createQuery(
 				"select m " +
-				"from " +
-					"Menu m " +
+				"from Menu m " +
 //				"join m.menuGroups mg " +
 				"join m.menuGroup mg " +
 				"join mg.site s " +
-				"join m.permissionMenus pm " + 
-				"join pm.permission p " +
+				"join m.roleMenus pm " + 
+				"join pm.role p " +
 				"where s.siteId = :site and " +
 					"mg.dimension = :dimension and " +
 					"p.authority = :authority and " +
@@ -118,8 +119,8 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 //				"join m.menuGroups mg " +
 				"join m.menuGroup mg " +
 				"join mg.site s " +
-				"join m.permissionMenus pm " + 
-				"join pm.permission p " +
+				"join m.roleMenus pm " + 
+				"join pm.role p " +
 				"where s.siteId = :site and " +
 					"pm.permitRoot = true and " +
 					"mg.dimension = :dimension and " +
@@ -142,13 +143,27 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 	
 	@Override
 	public List<Menu> findByAuthority(String authority) {
-		return em.createQuery(
-				"select m " +
-				"from Menu m join m.permissionMenus pm join pm.permission p " +
-				"where p.authority = :authority", Menu.class)
-					.setParameter("authority", authority)
-					.setMaxResults(100)
-					.getResultList();
+		QMenu menu = QMenu.menu;
+		QRoleMenu roleMenu = QRoleMenu.roleMenu;
+		QRole role = QRole.role;
+		
+		return new JPAQuery(em).from(menu)
+				.join(menu.grantedRoles, roleMenu)
+				.join(roleMenu.role, role)
+				.where(role.authority.eq(authority))
+				.orderBy(menu.orders.asc())
+				.limit(100)
+				.listResults(menu).getResults();
+		
+		
+		
+//		return em.createQuery(
+//				"select m " +
+//				"from Menu m join m.roleMenus pm join pm.role p " +
+//				"where p.authority = :authority", Menu.class)
+//					.setParameter("authority", authority)
+//					.setMaxResults(100)
+//					.getResultList();
 	}
 
 }
