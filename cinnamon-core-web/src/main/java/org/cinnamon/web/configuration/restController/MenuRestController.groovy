@@ -3,7 +3,6 @@ package org.cinnamon.web.configuration.restController
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.cinnamon.core.domain.Menu
 import org.cinnamon.core.domain.enumeration.MenuPosition
 import org.cinnamon.core.repository.MenuRepository
@@ -14,14 +13,10 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.data.querydsl.binding.QuerydslPredicate
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
-
-import com.mysema.query.types.Predicate
 
 /**
  * 
