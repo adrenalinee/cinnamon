@@ -13,13 +13,10 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.data.querydsl.binding.QuerydslPredicate
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
-
-import com.mysema.query.types.Predicate
 
 /**
  * 
@@ -51,11 +48,15 @@ class MenuRestController /*extends BaseRestController<Menu, MenuRepository>*/ {
 //	}
 	
 	
+//	@RequestMapping(value="", method=RequestMethod.GET)
+//	Page<Menu> menus(@QuerydslPredicate Predicate predicate, Pageable pageable) {
+//		menuRepository.findAll(predicate, pageable)
+//	}
+	
+	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	Page<Menu> menus(@QuerydslPredicate Predicate predicate, Pageable pageable) {
-		menuRepository.findAll(predicate, pageable)
+	Page<Menu> menus(Pageable pageable) {
 	}
-
 	
 	@RequestMapping(value="{menuId}", method=RequestMethod.GET)
 	Menu get(@PathVariable("menuId") Menu menu) {

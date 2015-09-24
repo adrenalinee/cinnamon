@@ -94,6 +94,13 @@ class InitCheckInterceptor extends HandlerInterceptorAdapter {
 			return false
 		}
 		
+		if (isInitialize) {
+			if (request.getRequestURI().startsWith("/configuration/initWizard")) {
+				response.sendRedirect("/")
+				return false
+			}
+		}
+		
 		return true
 	}
 }
