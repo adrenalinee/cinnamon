@@ -18,7 +18,7 @@ angular.module('cinnamon')
 							label: '시작하기!',
 							callback: function() {
 								//메인 페이지로이동시킴
-								location.href = "/";
+								location.href = "/configuration";
 							}
 						}
 					}

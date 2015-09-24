@@ -68,4 +68,9 @@ public class MenuGroupService {
 	public MenuGroup get(Long menuGroupId) {
 		return menuGroupRepository.findOne(menuGroupId);
 	}
+	
+	@Transactional(readOnly=true)
+	public MenuGroup getByDimension(String dimension) {
+		return menuGroupRepository.findByDimension(dimension);
+	}
 }

@@ -49,6 +49,11 @@ public class MenuService {
 	RoleMenuRepository permissionMenuRepository;
 	
 	
+	/**
+	 * 
+	 * @param menuGroupId
+	 * @param menu
+	 */
 	@Transactional
 	public void save(Long menuGroupId, Menu menu) {
 		logger.info("start");
@@ -74,6 +79,11 @@ public class MenuService {
 	}
 	
 	
+	/**
+	 * 
+	 * @param menuGroupId
+	 * @return
+	 */
 	@Transactional(readOnly=true)
 	public List<Menu> getMenus(Long menuGroupId) {
 		logger.info("start");
@@ -82,6 +92,14 @@ public class MenuService {
 	}
 	
 	
+	/**
+	 * 
+	 * @param site
+	 * @param dimension
+	 * @param position
+	 * @param authority
+	 * @return
+	 */
 	@Transactional(readOnly=true)
 	public List<Menu> getSitePermisionMenus(String site, String dimension, MenuPosition position, String authority) {
 		logger.info("start");
@@ -90,6 +108,14 @@ public class MenuService {
 	}
 	
 	
+	/**
+	 * 
+	 * @param requestUri
+	 * @param grantedAuthorities
+	 * @param siteId
+	 * @param dimension
+	 * @return
+	 */
 	@Transactional(readOnly=true)
 	public SiteMenu getSiteMenu(String requestUri, Collection<? extends GrantedAuthority> grantedAuthorities, String siteId, String dimension) {
 		logger.info("start");

@@ -10,5 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author 신동성
  */
 public interface MenuGroupRepository extends JpaRepository<MenuGroup, Long>, MenuGroupRepositoryCustom {
-
+	
+	MenuGroup findByDimension(String dimension);
 }
