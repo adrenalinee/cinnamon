@@ -2,7 +2,7 @@ package org.cinnamon.core.repository.predicate;
 
 import org.apache.commons.lang3.StringUtils;
 import org.cinnamon.core.domain.QUserBase;
-import org.cinnamon.core.vo.search.UserSearch;
+import org.cinnamon.core.vo.search.UserBaseSearch;
 
 import com.mysema.query.BooleanBuilder;
 import com.mysema.query.types.Predicate;
@@ -14,7 +14,7 @@ import com.mysema.query.types.Predicate;
  */
 public class UserBasePredicate {
 	
-	public static Predicate search(UserSearch userSearch) {
+	public static Predicate search(UserBaseSearch userSearch) {
 		QUserBase user = QUserBase.userBase;
 		
 		BooleanBuilder builder = new BooleanBuilder();

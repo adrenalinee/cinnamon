@@ -5,7 +5,7 @@ package org.cinnamon.core.vo.search;
  * @author 동성
  * @since 2015. 1. 15.
  */
-public class UserSearch {
+public class UserBaseSearch {
 	
 	String userId;
 	

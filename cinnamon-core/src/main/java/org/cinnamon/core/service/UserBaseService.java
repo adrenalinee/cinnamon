@@ -22,8 +22,8 @@ import org.cinnamon.core.repository.UserGroupRepository;
 import org.cinnamon.core.repository.UserPasswordRepository;
 import org.cinnamon.core.repository.predicate.UserBasePredicate;
 import org.cinnamon.core.service.listener.UserListener;
-import org.cinnamon.core.vo.UserVo;
-import org.cinnamon.core.vo.search.UserSearch;
+import org.cinnamon.core.vo.UserBaseVo;
+import org.cinnamon.core.vo.search.UserBaseSearch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -79,7 +79,7 @@ public class UserBaseService<T extends UserBase> {
 	}
 	
 	@Transactional(readOnly=true)
-	public Page<T> search(UserSearch userSearch, Pageable pageable) {
+	public Page<T> search(UserBaseSearch userSearch, Pageable pageable) {
 		logger.info("start");
 		return userRepository.findAll(UserBasePredicate.search(userSearch), pageable);
 	}
@@ -202,7 +202,7 @@ public class UserBaseService<T extends UserBase> {
 	 */
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public T join(UserVo userVo) {
+	public T join(UserBaseVo userVo) {
 		logger.info("start");
 		
 		final String userId = userVo.getUserId();
@@ -266,7 +266,7 @@ public class UserBaseService<T extends UserBase> {
 	 */
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public T joinSystemMaster(UserVo userVo) {
+	public T joinSystemMaster(UserBaseVo userVo) {
 		logger.info("start");
 		
 		final String userId = userVo.getUserId();
@@ -332,7 +332,7 @@ public class UserBaseService<T extends UserBase> {
 	 * @param userVo
 	 */
 	@Transactional
-	public void joinFirstSystemMaster(UserVo userVo) {
+	public void joinFirstSystemMaster(UserBaseVo userVo) {
 		logger.info("start");
 		
 		T user = joinSystemMaster(userVo);

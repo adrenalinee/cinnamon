@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author 동성
  * @since 2015. 1. 16.
  */
-public class UserVo {
+public class UserBaseVo {
 	
 	@NotEmpty
 	@Size(min=6, max=20)
