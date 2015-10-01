@@ -9,5 +9,5 @@ import javax.persistence.EntityManager;
  */
 public interface InitData {
 	
-	void save(EntityManager em) throws Exception ;
+	void save(EntityManager em) throws Exception;
 }

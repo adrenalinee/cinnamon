@@ -3,7 +3,7 @@ package org.cinnamon.web.configuration.interceptor
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-import org.cinnamon.core.config.SystemConfigurerManager;
+import org.cinnamon.core.config.SystemConfigureService;
 import org.cinnamon.core.domain.Property
 import org.cinnamon.core.enumeration.DefinedDBProperty
 import org.cinnamon.core.repository.PropertyRepository
@@ -33,7 +33,7 @@ class InitCheckInterceptor extends HandlerInterceptorAdapter {
 	Environment environment
 	
 	@Autowired
-	SystemConfigurerManager systemConfigurerManager
+	SystemConfigureService systemConfigurerManager
 	
 	/**
 	 * 서버 초기화 되어 있는지 여부

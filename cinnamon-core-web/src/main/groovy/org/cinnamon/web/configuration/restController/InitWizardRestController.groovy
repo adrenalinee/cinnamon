@@ -2,7 +2,7 @@ package org.cinnamon.web.configuration.restController
 
 import javax.validation.Valid
 
-import org.cinnamon.core.config.SystemConfigurerManager
+import org.cinnamon.core.config.SystemConfigureService
 import org.cinnamon.core.vo.UserBaseVo
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -26,7 +26,7 @@ class InitWizardRestController {
 	Logger logger = LoggerFactory.getLogger(getClass())
 	
 	@Autowired
-	SystemConfigurerManager systemConfigurerManager
+	SystemConfigureService systemConfigurerManager
 	
 	@RequestMapping(value="baseData", method=RequestMethod.POST)
 	def baseData() {

@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author 신동성
  */
 @Service
-public class SystemConfigurerManager {
+public class SystemConfigureService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
@@ -38,6 +38,9 @@ public class SystemConfigurerManager {
 	
 	@Autowired
 	PropertyRepository propertyRepository;
+	
+	@Autowired
+	InitDataManager initDataManager;
 	
 	/**
 	 * 시스템 초기화 작업이 최종 마무리 되었는지 알려준다.
@@ -98,9 +101,19 @@ public class SystemConfigurerManager {
 		baseDataBuilder.print();
 		baseDataBuilder.build();
 		
+		initDataManager.execute();
 		
 		saveProperty(DefinedDBProperty.initialize_baseData, true);
 	}
+	
+	
+	/**
+	 * 
+	 */
+	public void createInitData() {
+		initDataManager.execute();
+	}
+	
 	
 	
 	/**
