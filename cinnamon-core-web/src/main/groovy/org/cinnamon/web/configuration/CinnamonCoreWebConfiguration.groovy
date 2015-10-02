@@ -28,7 +28,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 class CinnamonCoreWebConfiguration {
 
 	@Configuration
-	static class CinnamonWebWebMvcConfigurer extends WebMvcConfigurerAdapter {
+	protected static class CinnamonWebWebMvcConfigurer extends WebMvcConfigurerAdapter {
 		
 		@Autowired
 		InitCheckInterceptor initCheckInterceptor
@@ -48,7 +48,7 @@ class CinnamonCoreWebConfiguration {
 	}
 	
 	@Configuration
-	static class CinnamonWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
+	protected static class CinnamonWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		
 		@Autowired
 		UserDetailServiceImpl userDetailService
