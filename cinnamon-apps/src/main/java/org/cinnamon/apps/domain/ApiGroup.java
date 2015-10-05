@@ -2,6 +2,7 @@ package org.cinnamon.apps.domain;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,8 +21,10 @@ public class ApiGroup {
 	@GeneratedValue
 	Long apiGroupId;
 	
+	@Column(length=100, nullable=false)
 	String name;
 	
+	@Column(length=4000)
 	String description;
 	
 	@OneToMany(mappedBy="apiGroup")

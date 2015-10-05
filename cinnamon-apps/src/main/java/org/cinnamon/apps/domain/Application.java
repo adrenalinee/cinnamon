@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
@@ -41,9 +42,14 @@ public class Application {
 	@OneToMany(mappedBy="application")
 	List<Client> clients;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy="application")
-	List<ApplicationApiGroup> applicationApiGroups;
+	
+	@ManyToOne
+	ApplicationRole role;
+	
+	
+//	@JsonIgnore
+//	@OneToMany(mappedBy="application")
+//	List<ApplicationApiGroup> applicationApiGroups;
 	
 //	@ManyToOne(optional=false)
 //	Company company;
@@ -102,13 +108,13 @@ public class Application {
 		this.clients = clients;
 	}
 
-	public List<ApplicationApiGroup> getApplicationApiGroups() {
-		return applicationApiGroups;
-	}
-
-	public void setApplicationApiGroups(List<ApplicationApiGroup> applicationApiGroups) {
-		this.applicationApiGroups = applicationApiGroups;
-	}
+//	public List<ApplicationApiGroup> getApplicationApiGroups() {
+//		return applicationApiGroups;
+//	}
+//
+//	public void setApplicationApiGroups(List<ApplicationApiGroup> applicationApiGroups) {
+//		this.applicationApiGroups = applicationApiGroups;
+//	}
 
 	public Long getAppId() {
 		return appId;
@@ -116,6 +122,14 @@ public class Application {
 
 	public void setAppId(Long appId) {
 		this.appId = appId;
+	}
+
+	public ApplicationRole getRole() {
+		return role;
+	}
+
+	public void setRole(ApplicationRole role) {
+		this.role = role;
 	}
 
 //	public Company getCompany() {
