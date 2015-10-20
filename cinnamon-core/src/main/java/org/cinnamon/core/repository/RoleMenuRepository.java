@@ -1,8 +1,8 @@
 package org.cinnamon.core.repository;
 
 import org.cinnamon.core.domain.Menu;
-import org.cinnamon.core.domain.Role;
-import org.cinnamon.core.domain.RoleMenu;
+import org.cinnamon.core.domain.UserAuthority;
+import org.cinnamon.core.domain.MenuAuthority;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * created date: 2015. 8. 20.
  * @author 신동성
  */
-public interface RoleMenuRepository extends JpaRepository<RoleMenu, Long> {
+public interface RoleMenuRepository extends JpaRepository<MenuAuthority, Long> {
 	
-	RoleMenu findByRoleAndMenu(Role role, Menu menu);
+	MenuAuthority findByRoleAndMenu(UserAuthority role, Menu menu);
 }

@@ -51,7 +51,7 @@ public class UserBase implements UserEntity {
 	
 	@JsonIgnore
 	@ManyToMany
-	Set<Role> roles = new HashSet<Role>();
+	Set<UserAuthority> roles = new HashSet<UserAuthority>();
 	
 	@Column(length=100)
 	String name;
@@ -226,11 +226,11 @@ public class UserBase implements UserEntity {
 //		this.position = position;
 //	}
 
-	public Set<Role> getRoles() {
+	public Set<UserAuthority> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(Set<UserAuthority> roles) {
 		this.roles = roles;
 	}
 

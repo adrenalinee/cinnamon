@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.cinnamon.core.domain.enumeration.UseStatus;
 
@@ -20,7 +21,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 @Entity
-public class Role {
+@Table(name="permission") //regacy DB 때문에 테이블 이름 다르게 함
+public class UserAuthority {
 	
 //	@Id
 //	@GeneratedValue
@@ -40,7 +42,7 @@ public class Role {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="role")
-	List<RoleMenu> roleMenus;
+	List<MenuAuthority> roleMenus;
 	
 	@JsonIgnore
 	@OneToOne(optional=true)
@@ -96,11 +98,11 @@ public class Role {
 		this.authority = authority;
 	}
 
-	public List<RoleMenu> getRoleMenus() {
+	public List<MenuAuthority> getRoleMenus() {
 		return roleMenus;
 	}
 
-	public void setRoleMenus(List<RoleMenu> roleMenus) {
+	public void setRoleMenus(List<MenuAuthority> roleMenus) {
 		this.roleMenus = roleMenus;
 	}
 

@@ -1,6 +1,6 @@
 package org.cinnamon.core.service;
 
-import org.cinnamon.core.domain.Role;
+import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.repository.RoleRepository;
@@ -41,7 +41,7 @@ public class UserGroupService<T extends UserBase> {
 			throw new RuntimeException("등록되지 않은 사용자 입니다. userId: " + userId);
 		}
 		
-		Role permission = permissionRepository.findOne(authority);
+		UserAuthority permission = permissionRepository.findOne(authority);
 		if (permission == null) {
 			throw new RuntimeException("등록되지 않은 authority 입니다. authority: " + authority);
 		}

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.cinnamon.core.domain.Menu;
-import org.cinnamon.core.domain.Role;
-import org.cinnamon.core.domain.RoleMenu;
+import org.cinnamon.core.domain.UserAuthority;
+import org.cinnamon.core.domain.MenuAuthority;
 import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.repository.RoleRepository;
 import org.cinnamon.core.util.ListPage;
@@ -38,16 +38,16 @@ public class RoleService {
 	
 	
 	@Transactional(readOnly=true)
-	public ListPage<Role> search(RoleSearch permissionSearch, Pageable pageable) {
+	public ListPage<UserAuthority> search(RoleSearch permissionSearch, Pageable pageable) {
 		logger.info("start");
 		
 		int size = pageable.getPageSize();
 		
-		Page<Role> domains = permissionRepository.search(permissionSearch, pageable);
+		Page<UserAuthority> domains = permissionRepository.search(permissionSearch, pageable);
 		PagingUtil paging = new PagingUtil(domains.getNumber() + 1, size, domains.getTotalElements());
 		
 		
-		ListPage<Role> domainPage = new ListPage<Role>();
+		ListPage<UserAuthority> domainPage = new ListPage<UserAuthority>();
 		domainPage.setContent(domains.getContent());
 		domainPage.setPaging(paging);
 		
@@ -56,13 +56,13 @@ public class RoleService {
 	
 	
 	@Transactional(readOnly=true)
-	public Map<Long, RoleMenu> getPermissionMenus(String authority, Long menuGroupId) {
+	public Map<Long, MenuAuthority> getPermissionMenus(String authority, Long menuGroupId) {
 		logger.info("start");
 		
-		List<RoleMenu> permissionMenus = permissionRepository.find(authority, menuGroupId);
+		List<MenuAuthority> permissionMenus = permissionRepository.find(authority, menuGroupId);
 		
-		Map<Long, RoleMenu> permissionMenusMap = new LinkedHashMap<Long, RoleMenu>();
-		for (RoleMenu pm: permissionMenus) {
+		Map<Long, MenuAuthority> permissionMenusMap = new LinkedHashMap<Long, MenuAuthority>();
+		for (MenuAuthority pm: permissionMenus) {
 			Menu menu = pm.getMenu();
 			permissionMenusMap.put(menu.getMenuId(), pm);
 			

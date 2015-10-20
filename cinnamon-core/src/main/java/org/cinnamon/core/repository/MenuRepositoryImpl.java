@@ -7,8 +7,8 @@ import javax.persistence.EntityManager;
 import org.apache.commons.lang3.StringUtils;
 import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.QMenu;
-import org.cinnamon.core.domain.QRole;
-import org.cinnamon.core.domain.QRoleMenu;
+import org.cinnamon.core.domain.QMenuAuthority;
+import org.cinnamon.core.domain.QUserAuthority;
 import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.domain.enumeration.UseStatus;
 import org.cinnamon.core.vo.search.MenuSearch;
@@ -144,8 +144,8 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 	@Override
 	public List<Menu> findByAuthority(String authority) {
 		QMenu menu = QMenu.menu;
-		QRoleMenu roleMenu = QRoleMenu.roleMenu;
-		QRole role = QRole.role;
+		QMenuAuthority roleMenu = QMenuAuthority.menuAuthority;
+		QUserAuthority role = QUserAuthority.userAuthority;
 		
 		return new JPAQuery(em).from(menu)
 				.join(menu.grantedRoles, roleMenu)

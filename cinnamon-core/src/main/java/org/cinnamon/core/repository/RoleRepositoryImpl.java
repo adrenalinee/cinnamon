@@ -5,13 +5,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.apache.commons.lang3.StringUtils;
+import org.cinnamon.core.domain.MenuAuthority;
 import org.cinnamon.core.domain.QMenu;
+import org.cinnamon.core.domain.QMenuAuthority;
 import org.cinnamon.core.domain.QMenuGroup;
-import org.cinnamon.core.domain.QRole;
-import org.cinnamon.core.domain.QRoleMenu;
+import org.cinnamon.core.domain.QUserAuthority;
 import org.cinnamon.core.domain.QUserGroup;
-import org.cinnamon.core.domain.Role;
-import org.cinnamon.core.domain.RoleMenu;
+import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.enumeration.UseStatus;
 import org.cinnamon.core.vo.search.RoleSearch;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +40,10 @@ public class RoleRepositoryImpl implements RoleRepositoryCustom {
 	 * @return
 	 */
 	@Override
-	public List<Role> find(Long userGroupId, String uri) {
-		QRole role = QRole.role;
+	public List<UserAuthority> find(Long userGroupId, String uri) {
+		QUserAuthority role = QUserAuthority.userAuthority;
 		QMenu menu = QMenu.menu;
-		QRoleMenu roleMenu = QRoleMenu.roleMenu;
+		QMenuAuthority roleMenu = QMenuAuthority.menuAuthority;
 		QUserGroup userGroup = QUserGroup.userGroup;
 		
 		
@@ -66,8 +66,8 @@ public class RoleRepositoryImpl implements RoleRepositoryCustom {
 	 * @return
 	 */
 	@Override
-	public List<RoleMenu> getRoleMenus(String authority, String uri) {
-		QRoleMenu roleMenu = QRoleMenu.roleMenu;
+	public List<MenuAuthority> getRoleMenus(String authority, String uri) {
+		QMenuAuthority roleMenu = QMenuAuthority.menuAuthority;
 		
 		JPAQuery query = new JPAQuery(em);
 		query.from(roleMenu)
@@ -85,8 +85,8 @@ public class RoleRepositoryImpl implements RoleRepositoryCustom {
 	 * @return
 	 */
 	@Override
-	public Page<Role> search(RoleSearch permissionSearch, Pageable pageable) {
-		QRole role = QRole.role;
+	public Page<UserAuthority> search(RoleSearch permissionSearch, Pageable pageable) {
+		QUserAuthority role = QUserAuthority.userAuthority;
 		
 		BooleanBuilder builder = new BooleanBuilder();
 		if (!StringUtils.isEmpty(permissionSearch.getName())) {
@@ -111,19 +111,19 @@ public class RoleRepositoryImpl implements RoleRepositoryCustom {
 			.orderBy(role.authority.desc());
 		
 		
-		List<Role> domains = query.list(role);
+		List<UserAuthority> domains = query.list(role);
 		long totalCount = query.count();
 		
-		Page<Role> page = new PageImpl<Role>(domains, pageable, totalCount);
+		Page<UserAuthority> page = new PageImpl<UserAuthority>(domains, pageable, totalCount);
 		
 		return page;
 	}
 
 
 	@Override
-	public List<RoleMenu> find(String authoritiy, Long menuGroupId) {
-		QRoleMenu roleMenu = QRoleMenu.roleMenu;
-		QRole role = QRole.role;
+	public List<MenuAuthority> find(String authoritiy, Long menuGroupId) {
+		QMenuAuthority roleMenu = QMenuAuthority.menuAuthority;
+		QUserAuthority role = QUserAuthority.userAuthority;
 		QMenu menu = QMenu.menu;
 		QMenuGroup menuGroup = QMenuGroup.menuGroup;
 		

@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.cinnamon.core.domain.Role;
+import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.UserActivity;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserGroup;
@@ -164,7 +164,7 @@ public class UserBaseService<T extends UserBase> {
 //		}
 		
 		
-		Role permission = permissionRepository.findOne(DefinedUserAuthority.normal.name());
+		UserAuthority permission = permissionRepository.findOne(DefinedUserAuthority.normal.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
 			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");
@@ -223,7 +223,7 @@ public class UserBaseService<T extends UserBase> {
 //			new RuntimeException("defaultUserGroupId 이 존재하지 않습니다. defaultUserGroupId: " + defaultUserGroupId);
 //		}
 		
-		Role permission = permissionRepository.findOne(DefinedUserAuthority.normal.name());
+		UserAuthority permission = permissionRepository.findOne(DefinedUserAuthority.normal.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
 			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");
@@ -287,7 +287,7 @@ public class UserBaseService<T extends UserBase> {
 //		Long defaultSystemMasterGroupId = (Long) property.getLongValue();
 //		UserGroup userGroup = userGroupRepository.findById(defaultSystemMasterGroupId);
 		
-		Role permission = permissionRepository.findOne(DefinedUserAuthority.systemMaster.name());
+		UserAuthority permission = permissionRepository.findOne(DefinedUserAuthority.systemMaster.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
 			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");

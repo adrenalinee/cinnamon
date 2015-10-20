@@ -81,7 +81,7 @@ public class Menu {
 	 */
 	@JsonIgnore
 	@OneToMany(mappedBy="menu")
-	Set<RoleMenu> grantedRoles;
+	Set<MenuAuthority> grantedRoles;
 	
 	/**
 	 * 순서
@@ -208,11 +208,11 @@ public class Menu {
 		this.menuGroup = menuGroup;
 	}
 
-	public Set<RoleMenu> getGrantedRoles() {
+	public Set<MenuAuthority> getGrantedRoles() {
 		return grantedRoles;
 	}
 
-	public void setGrantedRoles(Set<RoleMenu> grantedRoles) {
+	public void setGrantedRoles(Set<MenuAuthority> grantedRoles) {
 		this.grantedRoles = grantedRoles;
 	}
 

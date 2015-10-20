@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * 
@@ -12,14 +13,15 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class RoleMenuDetail {
+@Table(name="permission_menu_detail")
+public class MenuAuthorityDetail {
 	
 	@Id
 	@GeneratedValue
 	Long roleMenuDetailId;
 	
 	@ManyToOne
-	RoleMenu roleMenu;
+	MenuAuthority roleMenu;
 	
 	String name;
 	
@@ -49,11 +51,11 @@ public class RoleMenuDetail {
 		this.permit = permit;
 	}
 
-	public RoleMenu getRoleMenu() {
+	public MenuAuthority getRoleMenu() {
 		return roleMenu;
 	}
 
-	public void setRoleMenu(RoleMenu roleMenu) {
+	public void setRoleMenu(MenuAuthority roleMenu) {
 		this.roleMenu = roleMenu;
 	}
 	

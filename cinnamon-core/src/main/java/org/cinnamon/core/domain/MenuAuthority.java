@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,7 +19,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @since 2015. 2. 3.
  */
 @Entity
-public class RoleMenu {
+@Table(name="permission_menu")
+public class MenuAuthority {
 	
 	@Id
 	@GeneratedValue
@@ -26,7 +28,7 @@ public class RoleMenu {
 	
 	@JsonIgnore
 	@ManyToOne
-	Role role;
+	UserAuthority role;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -52,7 +54,7 @@ public class RoleMenu {
 	
 	@MapKey(name="name")
 	@OneToMany(mappedBy="roleMenu")
-	Map<String, RoleMenuDetail> details = new LinkedHashMap<String, RoleMenuDetail>();
+	Map<String, MenuAuthorityDetail> details = new LinkedHashMap<String, MenuAuthorityDetail>();
 	
 	
 	/**
@@ -100,7 +102,7 @@ public class RoleMenu {
 	}
 	
 	public void permitCreate() {
-		RoleMenuDetail detail = new RoleMenuDetail();
+		MenuAuthorityDetail detail = new MenuAuthorityDetail();
 		detail.setRoleMenu(this);
 		detail.setName("create");
 		
@@ -108,7 +110,7 @@ public class RoleMenu {
 	}
 	
 	public void permitView() {
-		RoleMenuDetail detail = new RoleMenuDetail();
+		MenuAuthorityDetail detail = new MenuAuthorityDetail();
 		detail.setRoleMenu(this);
 		detail.setName("view");
 		
@@ -116,7 +118,7 @@ public class RoleMenu {
 	}
 	
 	public void permitModify() {
-		RoleMenuDetail detail = new RoleMenuDetail();
+		MenuAuthorityDetail detail = new MenuAuthorityDetail();
 		detail.setRoleMenu(this);
 		detail.setName("modify");
 		
@@ -124,7 +126,7 @@ public class RoleMenu {
 	}
 	
 	public void permitSearch() {
-		RoleMenuDetail detail = new RoleMenuDetail();
+		MenuAuthorityDetail detail = new MenuAuthorityDetail();
 		detail.setRoleMenu(this);
 		detail.setName("search");
 		
@@ -132,7 +134,7 @@ public class RoleMenu {
 	}
 	
 	public void permitSelect() {
-		RoleMenuDetail detail = new RoleMenuDetail();
+		MenuAuthorityDetail detail = new MenuAuthorityDetail();
 		detail.setRoleMenu(this);
 		detail.setName("select");
 		
@@ -144,11 +146,11 @@ public class RoleMenu {
 	 * @param name
 	 */
 	public void permit(String name) {
-		RoleMenuDetail detail = null;
+		MenuAuthorityDetail detail = null;
 		if (details.containsKey(name)) {
 			detail = details.get(name);
 		} else {
-			detail = new RoleMenuDetail();
+			detail = new MenuAuthorityDetail();
 		}
 		
 		detail.setRoleMenu(this);
@@ -172,11 +174,11 @@ public class RoleMenu {
 		return !details.isEmpty();
 	}
 	
-	public Role getRole() {
+	public UserAuthority getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(UserAuthority role) {
 		this.role = role;
 	}
 
@@ -228,11 +230,11 @@ public class RoleMenu {
 //		this.deletePower = deletePower;
 //	}
 
-	public Map<String, RoleMenuDetail> getDetails() {
+	public Map<String, MenuAuthorityDetail> getDetails() {
 		return details;
 	}
 
-	public void setDetails(Map<String, RoleMenuDetail> details) {
+	public void setDetails(Map<String, MenuAuthorityDetail> details) {
 		this.details = details;
 	}
 

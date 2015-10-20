@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.MenuGroup;
-import org.cinnamon.core.domain.Role;
-import org.cinnamon.core.domain.RoleMenu;
+import org.cinnamon.core.domain.UserAuthority;
+import org.cinnamon.core.domain.MenuAuthority;
 import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.exception.InvalidEntityException;
 import org.cinnamon.core.repository.MenuGroupRepository;
@@ -68,9 +68,9 @@ public class MenuService {
 		menuGroup.getMenus().add(menu);
 		
 		//권한 메뉴 추가 - 모든 권한에 추가 하는 메뉴를 넣어 준다.
-		List<Role> permissions = permissionRepository.findAll();
+		List<UserAuthority> permissions = permissionRepository.findAll();
 		permissions.stream().forEach(permission -> {
-			RoleMenu permissionMenu = new RoleMenu();
+			MenuAuthority permissionMenu = new MenuAuthority();
 			permissionMenu.setMenu(menu);
 			permissionMenu.setRole(permission);
 			

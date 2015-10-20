@@ -38,7 +38,7 @@ public class UserGroup {
 	
 	
 	@ManyToOne
-	Role role;
+	UserAuthority role;
 	
 	/**
 	 * 로그인후 처음으로 보여줄 페이지.
@@ -68,11 +68,11 @@ public class UserGroup {
 		this.useStatus = useStatus;
 	}
 
-	public Role getRole() {
+	public UserAuthority getRole() {
 		return role;
 	}
 
-	public void setRole(Role permission) {
+	public void setRole(UserAuthority permission) {
 		this.role = permission;
 	}
 

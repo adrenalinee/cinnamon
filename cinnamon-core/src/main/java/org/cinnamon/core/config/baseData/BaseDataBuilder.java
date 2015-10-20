@@ -9,8 +9,8 @@ import javax.persistence.EntityManager;
 import org.cinnamon.core.domain.Group;
 import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.MenuGroup;
-import org.cinnamon.core.domain.Role;
-import org.cinnamon.core.domain.RoleMenu;
+import org.cinnamon.core.domain.UserAuthority;
+import org.cinnamon.core.domain.MenuAuthority;
 import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.repository.RoleRepository;
@@ -96,7 +96,7 @@ public class BaseDataBuilder {
 		});
 		
 		roleWrappers.forEach(rw -> {
-			Role role = rw.role;
+			UserAuthority role = rw.role;
 			System.out.println("role: " + role.getName() + "(" + role.getAuthority() + ")");
 		});
 		
@@ -159,7 +159,7 @@ public class BaseDataBuilder {
 	
 	private void buildRoles() {
 		roleWrappers.forEach(roleWrapper -> {
-			Role role = roleWrapper.role;
+			UserAuthority role = roleWrapper.role;
 			em.persist(role);
 			
 			roleWrapper.userGroupWrappers.forEach(userGroupWrapper -> {
@@ -210,13 +210,13 @@ public class BaseDataBuilder {
 		Menu menu = menuWrapper.menu;
 		
 		menuWrapper.grantedAuthorities.forEach(authority -> {
-			Role permission = permissionRepository.findOne(authority);
+			UserAuthority permission = permissionRepository.findOne(authority);
 			if (permission == null) {
 				//정의 되지 않은 역할임
 				throw new RuntimeException("정의 되지 않은 권한입니다. authority: " + authority);
 			}
 			
-			RoleMenu permissionMenu = new RoleMenu();
+			MenuAuthority permissionMenu = new MenuAuthority();
 			permissionMenu.setMenu(menu);
 			permissionMenu.setRole(permission);
 			em.persist(permissionMenu);

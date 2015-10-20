@@ -9,7 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
@@ -43,8 +43,8 @@ public class Application {
 	List<Client> clients;
 	
 	
-	@ManyToOne
-	ApplicationRole role;
+	@ManyToMany
+	List<ApplicationAuthority> authorities;
 	
 	
 //	@JsonIgnore
@@ -108,14 +108,6 @@ public class Application {
 		this.clients = clients;
 	}
 
-//	public List<ApplicationApiGroup> getApplicationApiGroups() {
-//		return applicationApiGroups;
-//	}
-//
-//	public void setApplicationApiGroups(List<ApplicationApiGroup> applicationApiGroups) {
-//		this.applicationApiGroups = applicationApiGroups;
-//	}
-
 	public Long getAppId() {
 		return appId;
 	}
@@ -124,22 +116,12 @@ public class Application {
 		this.appId = appId;
 	}
 
-	public ApplicationRole getRole() {
-		return role;
+	public List<ApplicationAuthority> getAuthorities() {
+		return authorities;
 	}
 
-	public void setRole(ApplicationRole role) {
-		this.role = role;
+	public void setAuthorities(List<ApplicationAuthority> authorities) {
+		this.authorities = authorities;
 	}
 
-//	public Company getCompany() {
-//		return company;
-//	}
-//
-//	public void setCompany(Company company) {
-//		this.company = company;
-//	}
-	
-	
-	
 }

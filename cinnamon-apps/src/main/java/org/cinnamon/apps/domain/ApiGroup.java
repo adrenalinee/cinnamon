@@ -1,12 +1,10 @@
 package org.cinnamon.apps.domain;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 /**
  * 
@@ -24,12 +22,13 @@ public class ApiGroup {
 	@Column(length=100, nullable=false)
 	String name;
 	
+	
+	@ManyToOne
+	Resource resource;
+	
 	@Column(length=4000)
 	String description;
 	
-	@OneToMany(mappedBy="apiGroup")
-	List<ApplicationApiGroup> clientApiGroup;
-
 	public Long getApiGroupId() {
 		return apiGroupId;
 	}
@@ -53,14 +52,5 @@ public class ApiGroup {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public List<ApplicationApiGroup> getClientApiGroup() {
-		return clientApiGroup;
-	}
-
-	public void setClientApiGroup(List<ApplicationApiGroup> clientApiGroup) {
-		this.clientApiGroup = clientApiGroup;
-	}
-	
 	
 }

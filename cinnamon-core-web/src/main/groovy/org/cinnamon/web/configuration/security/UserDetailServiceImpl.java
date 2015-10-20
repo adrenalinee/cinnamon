@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 
-import org.cinnamon.core.domain.Role;
+import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.repository.UserBaseRepository;
@@ -56,7 +56,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		
 		Set<RoleGrantedAuthority> permissionGrantedAuthorities = new HashSet<RoleGrantedAuthority>();
 		for (UserGroup userGroup: user.getUserGroups()) {
-			Role permission = userGroup.getRole();
+			UserAuthority permission = userGroup.getRole();
 			
 			RoleGrantedAuthority permissionGrantedAuthority = new RoleGrantedAuthority(permission);
 			permissionGrantedAuthorities.add(permissionGrantedAuthority);

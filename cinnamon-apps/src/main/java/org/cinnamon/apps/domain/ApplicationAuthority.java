@@ -15,15 +15,13 @@ import org.cinnamon.core.domain.enumeration.UseStatus;
  * @author 신동성
  */
 @Entity
-public class ApplicationRole {
+public class ApplicationAuthority {
 	
 	@Id
 	String authority;
 	
 	@Column(length=100, nullable=false)
 	String name;
-	
-	
 	
 	@Column(nullable=false, length=20)
 	@Enumerated(EnumType.STRING)

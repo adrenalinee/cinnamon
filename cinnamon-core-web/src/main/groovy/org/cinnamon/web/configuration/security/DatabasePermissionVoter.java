@@ -6,8 +6,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.cinnamon.core.domain.Menu;
-import org.cinnamon.core.domain.RoleMenu;
-import org.cinnamon.core.domain.RoleMenuDetail;
+import org.cinnamon.core.domain.MenuAuthority;
+import org.cinnamon.core.domain.MenuAuthorityDetail;
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
 import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.repository.RoleMenuRepository;
@@ -122,7 +122,7 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 						//TODO 하위 권한 체크
 						
 						RoleGrantedAuthority permissionGrantedAuthority = (RoleGrantedAuthority) ga;
-						RoleMenu permissionMenu = permissionMenuRepository.findByRoleAndMenu(permissionGrantedAuthority, menu);
+						MenuAuthority permissionMenu = permissionMenuRepository.findByRoleAndMenu(permissionGrantedAuthority, menu);
 						if (requestUrl.equals(menu.getUri())) {
 							if (permissionMenu.isPermitRoot()) {
 								return ACCESS_GRANTED;
@@ -139,7 +139,7 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 						System.out.println("subUri: " + subUri);
 
 						if (permissionGrantedAuthority != null) {
-							RoleMenuDetail detail = permissionMenu.getDetails().get(subUri);
+							MenuAuthorityDetail detail = permissionMenu.getDetails().get(subUri);
 							
 							if (detail != null) {
 								if (!detail.isPermit()) {
