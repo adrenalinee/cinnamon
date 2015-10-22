@@ -13,7 +13,7 @@ import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.MenuAuthority;
 import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.domain.UserGroup;
-import org.cinnamon.core.repository.RoleRepository;
+import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +30,7 @@ public class BaseDataBuilder {
 	EntityManager em;
 	
 	@Autowired
-	RoleRepository permissionRepository;
+	UserAuthorityRepository permissionRepository;
 	
 	List<SiteWrapper> siteWrappers = new LinkedList<>();
 	
@@ -164,7 +164,7 @@ public class BaseDataBuilder {
 			
 			roleWrapper.userGroupWrappers.forEach(userGroupWrapper -> {
 				UserGroup userGroup = userGroupWrapper.userGroup;
-				userGroup.setRole(role);
+				userGroup.setAuthority(role);
 				em.persist(userGroup);
 				
 				if (userGroupWrapper.isDefault) {
@@ -210,7 +210,7 @@ public class BaseDataBuilder {
 		Menu menu = menuWrapper.menu;
 		
 		menuWrapper.grantedAuthorities.forEach(authority -> {
-			UserAuthority permission = permissionRepository.findOne(authority);
+			UserAuthority permission = permissionRepository.findByAuthority(authority);
 			if (permission == null) {
 				//정의 되지 않은 역할임
 				throw new RuntimeException("정의 되지 않은 권한입니다. authority: " + authority);
@@ -218,7 +218,7 @@ public class BaseDataBuilder {
 			
 			MenuAuthority permissionMenu = new MenuAuthority();
 			permissionMenu.setMenu(menu);
-			permissionMenu.setRole(permission);
+			permissionMenu.setAuthority(permission);
 			em.persist(permissionMenu);
 		});
 	}

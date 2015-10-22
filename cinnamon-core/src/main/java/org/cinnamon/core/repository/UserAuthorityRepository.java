@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * created date: 2015. 8. 20.
  * @author 신동성
  */
-public interface RoleRepository extends JpaRepository<UserAuthority, String>, RoleRepositoryCustom {
+public interface UserAuthorityRepository extends JpaRepository<UserAuthority, Long>, UserAuthorityRepositoryCustom {
 	
-//	Role findByAuthority(@Param("authority") String authority);
+	UserAuthority findByAuthority(String authority);
 }

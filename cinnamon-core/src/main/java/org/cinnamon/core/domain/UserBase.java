@@ -51,7 +51,7 @@ public class UserBase implements UserEntity {
 	
 	@JsonIgnore
 	@ManyToMany
-	Set<UserAuthority> roles = new HashSet<UserAuthority>();
+	Set<UserAuthority> authorities = new HashSet<UserAuthority>();
 	
 	@Column(length=100)
 	String name;
@@ -226,13 +226,13 @@ public class UserBase implements UserEntity {
 //		this.position = position;
 //	}
 
-	public Set<UserAuthority> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<UserAuthority> roles) {
-		this.roles = roles;
-	}
+//	public Set<UserAuthority> getRoles() {
+//		return roles;
+//	}
+//
+//	public void setRoles(Set<UserAuthority> roles) {
+//		this.roles = roles;
+//	}
 
 	public boolean isValidEmail() {
 		return validEmail;
@@ -360,6 +360,14 @@ public class UserBase implements UserEntity {
 
 	public void setJob(String job) {
 		this.job = job;
+	}
+
+	public Set<UserAuthority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Set<UserAuthority> authorities) {
+		this.authorities = authorities;
 	}
 
 }

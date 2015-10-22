@@ -90,7 +90,7 @@ public class SystemConfigureService {
 	 * 시스템 기본 데이터 생성
 	 */
 	@Transactional
-	public void createBaseData() {
+	public void createBaseData() throws Exception {
 		logger.info("start");
 		
 		Map<String, SystemConfigurer> systemConfigurers = ac.getBeansOfType(SystemConfigurer.class);
@@ -110,7 +110,7 @@ public class SystemConfigureService {
 	/**
 	 * 
 	 */
-	public void createInitData() {
+	public void createInitData() throws Exception {
 		initDataManager.execute();
 	}
 	

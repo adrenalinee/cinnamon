@@ -13,7 +13,7 @@ import org.cinnamon.core.domain.QUserAuthority;
 import org.cinnamon.core.domain.QUserGroup;
 import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.enumeration.UseStatus;
-import org.cinnamon.core.vo.search.RoleSearch;
+import org.cinnamon.core.vo.search.AuthoritySearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,7 +27,7 @@ import com.mysema.query.jpa.impl.JPAQuery;
  * @author 동성
  * @since 2015. 2. 3.
  */
-public class RoleRepositoryImpl implements RoleRepositoryCustom {
+public class UserAuthorityRepositoryImpl implements UserAuthorityRepositoryCustom {
 	
 	@Autowired
 	EntityManager em;
@@ -66,12 +66,12 @@ public class RoleRepositoryImpl implements RoleRepositoryCustom {
 	 * @return
 	 */
 	@Override
-	public List<MenuAuthority> getRoleMenus(String authority, String uri) {
+	public List<MenuAuthority> getMenuAuthoritues(String authority, String uri) {
 		QMenuAuthority roleMenu = QMenuAuthority.menuAuthority;
 		
 		JPAQuery query = new JPAQuery(em);
 		query.from(roleMenu)
-			.where(roleMenu.menu.uri.eq(uri).and(roleMenu.role.authority.eq(authority)))
+			.where(roleMenu.menu.uri.eq(uri).and(roleMenu.authority.authority.eq(authority)))
 			.limit(100);
 		
 		return query.list(roleMenu);
@@ -85,7 +85,7 @@ public class RoleRepositoryImpl implements RoleRepositoryCustom {
 	 * @return
 	 */
 	@Override
-	public Page<UserAuthority> search(RoleSearch permissionSearch, Pageable pageable) {
+	public Page<UserAuthority> search(AuthoritySearch permissionSearch, Pageable pageable) {
 		QUserAuthority role = QUserAuthority.userAuthority;
 		
 		BooleanBuilder builder = new BooleanBuilder();
@@ -130,7 +130,7 @@ public class RoleRepositoryImpl implements RoleRepositoryCustom {
 		JPAQuery query = new JPAQuery(em).from(roleMenu);
 		
 		return query
-				.join(roleMenu.role, role)
+				.join(roleMenu.authority, role)
 				.join(roleMenu.menu, menu)
 				.join(menu.menuGroup, menuGroup)
 				.where(

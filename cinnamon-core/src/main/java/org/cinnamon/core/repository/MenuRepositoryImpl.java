@@ -149,7 +149,7 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 		
 		return new JPAQuery(em).from(menu)
 				.join(menu.grantedRoles, roleMenu)
-				.join(roleMenu.role, role)
+				.join(roleMenu.authority, role)
 				.where(role.authority.eq(authority))
 				.orderBy(menu.orders.asc())
 				.limit(100)

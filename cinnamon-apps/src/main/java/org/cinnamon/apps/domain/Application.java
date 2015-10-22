@@ -1,6 +1,7 @@
 package org.cinnamon.apps.domain;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -67,6 +68,17 @@ public class Application {
 	protected void onCreate() {
 		createdAt = new Date();
 	}
+	
+	public synchronized void addAuthority(ApplicationAuthority authority) {
+		if (authorities == null) {
+			authorities = new LinkedList<>();
+		}
+		
+		authorities.add(authority);
+	}
+	
+	
+	
 
 	public String getName() {
 		return name;

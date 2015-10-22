@@ -3,7 +3,7 @@ package org.cinnamon.core.service;
 import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserGroup;
-import org.cinnamon.core.repository.RoleRepository;
+import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.UserBaseRepository;
 import org.cinnamon.core.repository.UserGroupRepository;
 import org.slf4j.Logger;
@@ -26,7 +26,7 @@ public class UserGroupService<T extends UserBase> {
 	UserGroupRepository userGroupRepository;
 	
 	@Autowired
-	RoleRepository permissionRepository;
+	UserAuthorityRepository permissionRepository;
 	
 	@Autowired
 	UserBaseRepository<T> userRepository;
@@ -41,7 +41,7 @@ public class UserGroupService<T extends UserBase> {
 			throw new RuntimeException("등록되지 않은 사용자 입니다. userId: " + userId);
 		}
 		
-		UserAuthority permission = permissionRepository.findOne(authority);
+		UserAuthority permission = permissionRepository.findByAuthority(authority);
 		if (permission == null) {
 			throw new RuntimeException("등록되지 않은 authority 입니다. authority: " + authority);
 		}

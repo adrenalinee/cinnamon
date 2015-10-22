@@ -6,7 +6,7 @@ package org.cinnamon.core.vo.search;
  * @author 동성
  *
  */
-public class RoleSearch {
+public class AuthoritySearch {
 	String name;
 	
 	String autority;

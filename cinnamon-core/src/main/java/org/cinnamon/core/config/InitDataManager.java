@@ -38,7 +38,7 @@ public class InitDataManager {
 	
 	
 	@Transactional
-	public void execute() {
+	public void execute() throws Exception {
 		logger.info("start");
 		
 		Map<String, InitData> initDatas = ac.getBeansOfType(InitData.class);
@@ -47,6 +47,8 @@ public class InitDataManager {
 				initData.save(em);
 			} catch (Exception e) {
 				e.printStackTrace();
+				
+				//TODO 에러를 execute 밖으로 던질 수있어야 함.
 			}
 		});
 		

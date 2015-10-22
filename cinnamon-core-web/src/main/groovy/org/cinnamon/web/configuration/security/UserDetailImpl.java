@@ -1,12 +1,13 @@
 package org.cinnamon.web.configuration.security;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.enumeration.UseStatus;
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -14,27 +15,31 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @author 동성
  * @since 2014. 12. 26.
  */
-public class UserDetailImpl extends UserBase implements UserDetails {
+public class UserDetailImpl implements UserDetails {
 	private static final long serialVersionUID = -56609030798300120L;
 	
-	
-	Set<? extends GrantedAuthority> authorities;
+	Set<? extends GrantedAuthority> authorities = new HashSet<>();
 	
 	String password;
 	
-	public UserDetailImpl(
-			UserBase user,
-			Set<? extends GrantedAuthority> authorities) {
+	UserBase user;
+	
+	public UserDetailImpl(UserBase user) {
+		this.user = user;
 		
-		BeanUtils.copyProperties(user, this);
+		password = user.getUserPassword().getPassword();
 		
-		this.password = user.getUserPassword().getPassword();
-		this.authorities = authorities;
-		
-		System.out.println("UserDetailImpl: ");
-		authorities.forEach(ga -> {
-			System.out.println(ga.getAuthority());
+		Set<SimpleGrantedAuthority> simpleGrantedAuthorities = new HashSet<>();
+		user.getUserGroups().forEach(userGroup -> {
+			simpleGrantedAuthorities.add(new SimpleGrantedAuthority(userGroup.getAuthority().getAuthority()));
 		});
+		authorities = simpleGrantedAuthorities;
+		
+		
+//		System.out.println("UserDetailImpl: ");
+//		authorities.forEach(ga -> {
+//			System.out.println(ga.getAuthority());
+//		});
 	}
 	
 //	public void addAuthorities(PermissionGrantedAuthority grantedAuthority) {
@@ -48,13 +53,12 @@ public class UserDetailImpl extends UserBase implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
-		
 //		return AuthorityUtils.createAuthorityList("ROLE_ADMIN");
 	}
 
 	@Override
 	public String getUsername() {
-		return getUserId();
+		return user.getUserId();
 	}
 
 	@Override
@@ -74,17 +78,12 @@ public class UserDetailImpl extends UserBase implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return getUseStatus().equals(UseStatus.enable);
+		return user.getUseStatus().equals(UseStatus.enable);
 	}
 
 	@Override
 	public String getPassword() {
-//		Exception e = new Exception();
-//		
-//		e.printStackTrace();
-		
-		
-		return this.password;
+		return password;
 	}
 
 }

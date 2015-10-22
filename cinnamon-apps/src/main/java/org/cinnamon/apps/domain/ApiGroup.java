@@ -52,5 +52,13 @@ public class ApiGroup {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public Resource getResource() {
+		return resource;
+	}
+
+	public void setResource(Resource resource) {
+		this.resource = resource;
+	}
 	
 }

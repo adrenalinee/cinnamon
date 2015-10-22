@@ -1,5 +1,6 @@
 package org.cinnamon.core.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,22 +19,16 @@ public class MenuAuthorityDetail {
 	
 	@Id
 	@GeneratedValue
-	Long roleMenuDetailId;
+	@Column(name="permission_menu_detail_id")
+	Long menuAuthorityDetailId;
 	
 	@ManyToOne
-	MenuAuthority roleMenu;
+	MenuAuthority menuAuthority;
 	
+	@Column(length=100)
 	String name;
 	
 	boolean permit = true;
-
-	public Long getRoleMenuDetailId() {
-		return roleMenuDetailId;
-	}
-
-	public void setRoleMenuDetailId(Long roleMenuDetailId) {
-		this.roleMenuDetailId = roleMenuDetailId;
-	}
 
 	public String getName() {
 		return name;
@@ -51,12 +46,20 @@ public class MenuAuthorityDetail {
 		this.permit = permit;
 	}
 
-	public MenuAuthority getRoleMenu() {
-		return roleMenu;
+	public Long getMenuAuthorityDetailId() {
+		return menuAuthorityDetailId;
 	}
 
-	public void setRoleMenu(MenuAuthority roleMenu) {
-		this.roleMenu = roleMenu;
+	public void setMenuAuthorityDetailId(Long menuAuthorityDetailId) {
+		this.menuAuthorityDetailId = menuAuthorityDetailId;
+	}
+
+	public MenuAuthority getMenuAuthority() {
+		return menuAuthority;
+	}
+
+	public void setMenuAuthority(MenuAuthority menuAuthority) {
+		this.menuAuthority = menuAuthority;
 	}
 	
 	

@@ -8,10 +8,10 @@ import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.MenuAuthority;
 import org.cinnamon.core.repository.MenuRepository;
-import org.cinnamon.core.repository.RoleRepository;
+import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.util.ListPage;
 import org.cinnamon.core.util.PagingUtil;
-import org.cinnamon.core.vo.search.RoleSearch;
+import org.cinnamon.core.vo.search.AuthoritySearch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +31,14 @@ public class RoleService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	RoleRepository permissionRepository;
+	UserAuthorityRepository permissionRepository;
 	
 	@Autowired
 	MenuRepository menuRepository;
 	
 	
 	@Transactional(readOnly=true)
-	public ListPage<UserAuthority> search(RoleSearch permissionSearch, Pageable pageable) {
+	public ListPage<UserAuthority> search(AuthoritySearch permissionSearch, Pageable pageable) {
 		logger.info("start");
 		
 		int size = pageable.getPageSize();

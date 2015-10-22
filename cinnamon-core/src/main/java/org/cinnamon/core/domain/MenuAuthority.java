@@ -3,6 +3,7 @@ package org.cinnamon.core.domain;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,11 +25,12 @@ public class MenuAuthority {
 	
 	@Id
 	@GeneratedValue
-	Long roleMenuId;
+	@Column(name="permission_menu_id")
+	Long menuAuthorityId;
 	
 	@JsonIgnore
 	@ManyToOne
-	UserAuthority role;
+	UserAuthority authority;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -53,7 +55,7 @@ public class MenuAuthority {
 //	boolean readOnly;
 	
 	@MapKey(name="name")
-	@OneToMany(mappedBy="roleMenu")
+	@OneToMany(mappedBy="menuAuthority")
 	Map<String, MenuAuthorityDetail> details = new LinkedHashMap<String, MenuAuthorityDetail>();
 	
 	
@@ -103,7 +105,7 @@ public class MenuAuthority {
 	
 	public void permitCreate() {
 		MenuAuthorityDetail detail = new MenuAuthorityDetail();
-		detail.setRoleMenu(this);
+		detail.setMenuAuthority(this);
 		detail.setName("create");
 		
 		details.put("create", detail);
@@ -111,7 +113,7 @@ public class MenuAuthority {
 	
 	public void permitView() {
 		MenuAuthorityDetail detail = new MenuAuthorityDetail();
-		detail.setRoleMenu(this);
+		detail.setMenuAuthority(this);
 		detail.setName("view");
 		
 		details.put("view", detail);
@@ -119,7 +121,7 @@ public class MenuAuthority {
 	
 	public void permitModify() {
 		MenuAuthorityDetail detail = new MenuAuthorityDetail();
-		detail.setRoleMenu(this);
+		detail.setMenuAuthority(this);
 		detail.setName("modify");
 		
 		details.put("modify", detail);
@@ -127,7 +129,7 @@ public class MenuAuthority {
 	
 	public void permitSearch() {
 		MenuAuthorityDetail detail = new MenuAuthorityDetail();
-		detail.setRoleMenu(this);
+		detail.setMenuAuthority(this);
 		detail.setName("search");
 		
 		details.put("search", detail);
@@ -135,7 +137,7 @@ public class MenuAuthority {
 	
 	public void permitSelect() {
 		MenuAuthorityDetail detail = new MenuAuthorityDetail();
-		detail.setRoleMenu(this);
+		detail.setMenuAuthority(this);
 		detail.setName("select");
 		
 		details.put("select", detail);
@@ -153,7 +155,7 @@ public class MenuAuthority {
 			detail = new MenuAuthorityDetail();
 		}
 		
-		detail.setRoleMenu(this);
+		detail.setMenuAuthority(this);
 		detail.setName(name);
 		detail.setPermit(true);
 		
@@ -174,13 +176,13 @@ public class MenuAuthority {
 		return !details.isEmpty();
 	}
 	
-	public UserAuthority getRole() {
-		return role;
-	}
-
-	public void setRole(UserAuthority role) {
-		this.role = role;
-	}
+//	public UserAuthority getRole() {
+//		return role;
+//	}
+//
+//	public void setRole(UserAuthority role) {
+//		this.role = role;
+//	}
 
 	public Menu getMenu() {
 		return menu;
@@ -262,12 +264,20 @@ public class MenuAuthority {
 		this.permitRoot = permitRoot;
 	}
 
-	public Long getRoleMenuId() {
-		return roleMenuId;
+	public UserAuthority getAuthority() {
+		return authority;
 	}
 
-	public void setRoleMenuId(Long roleMenuId) {
-		this.roleMenuId = roleMenuId;
+	public void setAuthority(UserAuthority authority) {
+		this.authority = authority;
+	}
+
+	public Long getMenuAuthorityId() {
+		return menuAuthorityId;
+	}
+
+	public void setMenuAuthorityId(Long menuAuthorityId) {
+		this.menuAuthorityId = menuAuthorityId;
 	}
 	
 }

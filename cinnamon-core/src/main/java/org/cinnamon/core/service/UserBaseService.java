@@ -14,7 +14,7 @@ import org.cinnamon.core.domain.enumeration.UserActivityType;
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
 import org.cinnamon.core.exception.BadRequestException;
 import org.cinnamon.core.exception.NotFoundException;
-import org.cinnamon.core.repository.RoleRepository;
+import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.PropertyRepository;
 import org.cinnamon.core.repository.UserActivityRepository;
 import org.cinnamon.core.repository.UserBaseRepository;
@@ -63,7 +63,7 @@ public class UserBaseService<T extends UserBase> {
 //	EmailService emailService;
 	
 	@Autowired
-	RoleRepository permissionRepository;
+	UserAuthorityRepository permissionRepository;
 	
 	List<UserListener> userListeners = new LinkedList<UserListener>();
 	
@@ -164,7 +164,7 @@ public class UserBaseService<T extends UserBase> {
 //		}
 		
 		
-		UserAuthority permission = permissionRepository.findOne(DefinedUserAuthority.normal.name());
+		UserAuthority permission = permissionRepository.findByAuthority(DefinedUserAuthority.normal.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
 			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");
@@ -223,7 +223,7 @@ public class UserBaseService<T extends UserBase> {
 //			new RuntimeException("defaultUserGroupId 이 존재하지 않습니다. defaultUserGroupId: " + defaultUserGroupId);
 //		}
 		
-		UserAuthority permission = permissionRepository.findOne(DefinedUserAuthority.normal.name());
+		UserAuthority permission = permissionRepository.findByAuthority(DefinedUserAuthority.normal.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
 			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");
@@ -287,7 +287,7 @@ public class UserBaseService<T extends UserBase> {
 //		Long defaultSystemMasterGroupId = (Long) property.getLongValue();
 //		UserGroup userGroup = userGroupRepository.findById(defaultSystemMasterGroupId);
 		
-		UserAuthority permission = permissionRepository.findOne(DefinedUserAuthority.systemMaster.name());
+		UserAuthority permission = permissionRepository.findByAuthority(DefinedUserAuthority.systemMaster.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
 			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");

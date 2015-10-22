@@ -1,12 +1,15 @@
 package org.cinnamon.apps.domain;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -39,6 +42,9 @@ public class Client {
 	@Column(length=200)
 	String secret;
 	
+	@Column(length=4000)
+	String description;
+	
 //	tring type;
 	
 	Integer accessTokenValiditySeconds;
@@ -46,24 +52,24 @@ public class Client {
 	Integer refreshTokenValiditySeconds;
 	
 	
-	@ManyToOne(optional=false)
+	@ManyToOne //(optional=false)
 	Application application;
 	
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
 	List<Scope> hasScopes;
 	
-	@OneToMany(mappedBy="client")
+	@OneToMany(mappedBy="client", cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
 	List<ClientResource> hasResourceIds;
 	
 	
-	@OneToMany(mappedBy="client")
+	@OneToMany(mappedBy="client", cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
 	List<ClientRedirectUri> redirectUris;
 	
-	@OneToMany(mappedBy="client")
+	@OneToMany(mappedBy="client", cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
 	List<ClientAuthorizedGrantType> authorizedGrantTypes;
 	
 	
-	@Column(nullable=false)
+	@Column(nullable=false, length=50)
 	@Enumerated(EnumType.STRING)
 	UseStatus useStatus = UseStatus.enable;
 	
@@ -75,6 +81,24 @@ public class Client {
 	protected void onCreate() {
 		createdAt = new Date();
 	}
+	
+	public synchronized void addAuthorizedGrantType(ClientAuthorizedGrantType authorizedGrantType) {
+		if (authorizedGrantTypes == null) {
+			authorizedGrantTypes = new LinkedList<>();
+		}
+		
+		authorizedGrantTypes.add(authorizedGrantType);
+	}
+	
+	public synchronized void addScope(Scope scope) {
+		if (hasScopes == null) {
+			hasScopes = new LinkedList<>();
+		}
+		
+		hasScopes.add(scope);
+	}
+	
+	
 
 	public String getClientId() {
 		return clientId;
@@ -170,6 +194,14 @@ public class Client {
 
 	public void setAuthorizedGrantTypes(List<ClientAuthorizedGrantType> authorizedGrantTypes) {
 		this.authorizedGrantTypes = authorizedGrantTypes;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

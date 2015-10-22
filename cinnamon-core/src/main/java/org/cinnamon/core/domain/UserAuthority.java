@@ -1,13 +1,11 @@
 package org.cinnamon.core.domain;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,11 +22,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="permission") //regacy DB 때문에 테이블 이름 다르게 함
 public class UserAuthority {
 	
-//	@Id
-//	@GeneratedValue
-//	Long permissionId;
-	
 	@Id
+	@GeneratedValue
+	@Column(name="permission_id")
+	Long authorityId;
+	
+	@Column(nullable=false, length=50, unique=true)
 	String authority;
 	
 	@Column(nullable=false)
@@ -40,9 +39,9 @@ public class UserAuthority {
 //	@Column(unique=true)
 //	String authority;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy="role")
-	List<MenuAuthority> roleMenus;
+//	@JsonIgnore
+//	@OneToMany(mappedBy="authority")
+//	List<MenuAuthority> roleMenus;
 	
 	@JsonIgnore
 	@OneToOne(optional=true)
@@ -98,13 +97,13 @@ public class UserAuthority {
 		this.authority = authority;
 	}
 
-	public List<MenuAuthority> getRoleMenus() {
-		return roleMenus;
-	}
-
-	public void setRoleMenus(List<MenuAuthority> roleMenus) {
-		this.roleMenus = roleMenus;
-	}
+//	public List<MenuAuthority> getRoleMenus() {
+//		return roleMenus;
+//	}
+//
+//	public void setRoleMenus(List<MenuAuthority> roleMenus) {
+//		this.roleMenus = roleMenus;
+//	}
 
 	public UserGroup getDefaultUserGroup() {
 		return defaultUserGroup;
@@ -113,5 +112,13 @@ public class UserAuthority {
 	public void setDefaultUserGroup(UserGroup defaultUserGroup) {
 		this.defaultUserGroup = defaultUserGroup;
 	}
-	
+
+	public Long getAuthorityId() {
+		return authorityId;
+	}
+
+	public void setAuthorityId(Long authorityId) {
+		this.authorityId = authorityId;
+	}
+
 }

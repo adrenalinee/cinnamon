@@ -93,6 +93,16 @@ public class ObjectMerger {
 //	}
 	
 	private static boolean isAvailableType(Object value) {
+		if (value.getClass().getSuperclass().equals(Object.class)) {
+			return true;
+		}
+		
+		
+		return false;
+	}
+	
+	
+	private static boolean isPrimitiveType(Object value) {
 		if (value.getClass().isPrimitive()) {
 			return true;
 		}
@@ -111,6 +121,7 @@ public class ObjectMerger {
 		
 		return false;
 	}
+	
 	
 	
 	/**
@@ -142,7 +153,7 @@ public class ObjectMerger {
 				continue;
 			}
 			
-			target.getClass();
+//			target.getClass();
 			applyField(source, target, target.getClass(), field.getName(), fieldValue);
 			
 			Class<?> superClass = target.getClass().getSuperclass();
@@ -156,22 +167,62 @@ public class ObjectMerger {
 	
 	
 	private static void applyField(Object source, Object target, Class<?> targetCalss, String fieldName, Object fieldValue) throws Exception {
+		if (!isPrimitiveType(fieldValue)) {
+			try {
+				Field targetField = targetCalss.getDeclaredField(fieldName);
+				if (targetField != null) {
+					if (!targetField.isAccessible()) {
+						targetField.setAccessible(true);
+					}
+					
+					System.out.println("copy field: " + fieldName);
+					targetField.set(target, fieldValue);
+					return;
+				}
+			} catch (NoSuchFieldException e) {
+				e.printStackTrace();
+				return;
+			}
+		} else {
+			applyObjectField(source, target, target.getClass(), fieldName, fieldValue);
+		}
+	}
+	
+	
+	private static void applyObjectField(Object source, Object target, Class<?> targetCalss, String fieldName, Object fieldValue) throws Exception {
 		try {
 			Field targetField = targetCalss.getDeclaredField(fieldName);
 			if (targetField != null) {
-				if (!targetField.isAccessible()) {
-					targetField.setAccessible(true);
+				if (targetField.getType().equals(fieldValue.getClass())) {
+					if (!targetField.isAccessible()) {
+						targetField.setAccessible(true);
+					}
+					
+					System.out.println("copy field: " + fieldName);
+					Object newFieldValue = targetField.getType().newInstance();
+					exploreSourceFeild(fieldValue, newFieldValue, targetField.getType());
+					
+					targetField.set(target, newFieldValue);
+					return;
 				}
-				
-				System.out.println("copy field: " + fieldName);
-				targetField.set(target, fieldValue);
-				return;
 			}
 		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
 			return;
 		}
 	}
 	
+	
+	
+	public static void main(String[] args) throws Exception {
+//		A a = new A();
+//		a.f = 134F;
+//		
+//		
+//		Field f = a.getClass().getDeclaredField("f");
+//		System.out.println(f.get(a) instanceof Number);
+		
+	}
 }
 
 class A {

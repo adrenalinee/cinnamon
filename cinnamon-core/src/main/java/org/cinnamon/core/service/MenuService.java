@@ -12,8 +12,8 @@ import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.exception.InvalidEntityException;
 import org.cinnamon.core.repository.MenuGroupRepository;
 import org.cinnamon.core.repository.MenuRepository;
-import org.cinnamon.core.repository.RoleMenuRepository;
-import org.cinnamon.core.repository.RoleRepository;
+import org.cinnamon.core.repository.MenuAuthorityRepository;
+import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.SiteRepository;
 import org.cinnamon.core.vo.SiteMenu;
 import org.slf4j.Logger;
@@ -43,10 +43,10 @@ public class MenuService {
 	MenuRepository menuRepository;
 	
 	@Autowired
-	RoleRepository permissionRepository;
+	UserAuthorityRepository permissionRepository;
 	
 	@Autowired
-	RoleMenuRepository permissionMenuRepository;
+	MenuAuthorityRepository permissionMenuRepository;
 	
 	
 	/**
@@ -72,7 +72,7 @@ public class MenuService {
 		permissions.stream().forEach(permission -> {
 			MenuAuthority permissionMenu = new MenuAuthority();
 			permissionMenu.setMenu(menu);
-			permissionMenu.setRole(permission);
+			permissionMenu.setAuthority(permission);
 			
 			permissionMenuRepository.save(permissionMenu);
 		});

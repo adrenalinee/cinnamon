@@ -20,6 +20,14 @@ public class Scope {
 	@Column(length=4000)
 	String description;
 	
+	public Scope() {
+		
+	}
+	
+	public Scope(String scope) {
+		this.scope = scope;
+	}
+	
 	public String getScope() {
 		return scope;
 	}
