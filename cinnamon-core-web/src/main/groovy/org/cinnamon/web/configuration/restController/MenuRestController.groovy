@@ -5,14 +5,16 @@ import javax.validation.constraints.NotNull
 
 import org.cinnamon.core.domain.Menu
 import org.cinnamon.core.domain.enumeration.MenuPosition
-import org.cinnamon.core.repository.MenuRepository
 import org.cinnamon.core.service.MenuService
+import org.cinnamon.core.vo.SiteMenu
 import org.hibernate.validator.constraints.NotEmpty
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
@@ -31,28 +33,6 @@ class MenuRestController /*extends BaseRestController<Menu, MenuRepository>*/ {
 	@Autowired
 	MenuService menuService
 	
-	@Autowired
-	MenuRepository menuRepository
-	
-//	@RequestMapping(value="", method=RequestMethod.GET)
-//	PagedResources<Menu> menus(@QuerydslPredicate Predicate predicate, Pageable pageable, PagedResourcesAssembler<Menu> assembler) {
-//		
-//		Page<Menu> menus = menuRepository.findAll(predicate, pageable)
-//		
-//		assembler.toResource(menus)
-//	}
-	
-//	@RequestMapping(value="", method=RequestMethod.GET)
-//	Page<Menu> menus(Pageable pageable) {
-//		menuRepository.findAll(pageable)
-//	}
-	
-	
-//	@RequestMapping(value="", method=RequestMethod.GET)
-//	Page<Menu> menus(@QuerydslPredicate Predicate predicate, Pageable pageable) {
-//		menuRepository.findAll(predicate, pageable)
-//	}
-	
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	Page<Menu> menus(Pageable pageable) {
@@ -66,12 +46,21 @@ class MenuRestController /*extends BaseRestController<Menu, MenuRepository>*/ {
 	
 	
 	
-	@RequestMapping(value="siteMenus", method=RequestMethod.GET)
-	def siteMenu(@Valid SitePermissionMenu sitePermissionMenu) {
+//	@RequestMapping(value="siteMenus", method=RequestMethod.GET)
+//	SiteMenu siteMenu(@Valid SitePermissionMenu sitePermissionMenu) {
+//		menuService.getSitePermisionMenus(sitePermissionMenu.site,
+//			sitePermissionMenu.dimension,
+//			sitePermissionMenu.position,
+//			sitePermissionMenu.authority)
+//	}
+	
+	@RequestMapping(value="siteMenu", method=RequestMethod.GET)
+	SiteMenu siteMenu(@Valid SitePermissionMenu sitePermissionMenu, @AuthenticationPrincipal UserDetails userDetails) {
+		
 		menuService.getSitePermisionMenus(sitePermissionMenu.site,
 			sitePermissionMenu.dimension,
 			sitePermissionMenu.position,
-			sitePermissionMenu.authority)
+			userDetails.getAuthorities())
 	}
 }
 

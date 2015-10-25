@@ -108,6 +108,15 @@ public class MenuService {
 	}
 	
 	
+	@Transactional(readOnly=true)
+	public List<Menu> getSitePermisionMenus(String site, String dimension, MenuPosition position, Collection<? extends GrantedAuthority> grantedAuthorities) {
+		logger.info("start");
+		
+//		return menuRepository.getSitePermisionMenus(site, dimension, position, authority);
+		return null;
+	}
+	
+	
 	/**
 	 * 
 	 * @param requestUri
