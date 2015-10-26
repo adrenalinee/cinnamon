@@ -43,7 +43,7 @@ public class Application {
 	@OneToMany(mappedBy="application")
 	List<Client> clients;
 	
-	
+	@JsonIgnore
 	@ManyToMany
 	List<ApplicationAuthority> authorities;
 	

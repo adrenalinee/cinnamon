@@ -47,19 +47,22 @@ public class Client {
 	
 //	tring type;
 	
-	Integer accessTokenValiditySeconds;
+	Integer accessTokenValiditySeconds = 36000;
 	
-	Integer refreshTokenValiditySeconds;
+	Integer refreshTokenValiditySeconds = 36000;
 	
 	
-	@ManyToOne //(optional=false)
+	@ManyToOne(optional=false)
 	Application application;
 	
 	@ManyToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
-	List<Scope> hasScopes;
+	List<Scope> permittedScopes;
 	
-	@OneToMany(mappedBy="client", cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
-	List<ClientResource> hasResourceIds;
+	@ManyToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	List<Resource> permittedResources;
+	
+//	@OneToMany(mappedBy="client", cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+//	List<ClientResource> hasResourceIds;
 	
 	
 	@OneToMany(mappedBy="client", cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
@@ -86,18 +89,22 @@ public class Client {
 		if (authorizedGrantTypes == null) {
 			authorizedGrantTypes = new LinkedList<>();
 		}
-		
 		authorizedGrantTypes.add(authorizedGrantType);
 	}
 	
-	public synchronized void addScope(Scope scope) {
-		if (hasScopes == null) {
-			hasScopes = new LinkedList<>();
+	public synchronized void addPermittedScope(Scope scope) {
+		if (permittedScopes == null) {
+			permittedScopes = new LinkedList<>();
 		}
-		
-		hasScopes.add(scope);
+		permittedScopes.add(scope);
 	}
 	
+	public synchronized void addPermittedResource(Resource resource) {
+		if (permittedResources == null) {
+			permittedResources = new LinkedList<>();
+		}
+		permittedResources.add(resource);
+	}
 	
 
 	public String getClientId() {
@@ -148,14 +155,6 @@ public class Client {
 		this.createdAt = createdAt;
 	}
 
-	public List<Scope> getHasScopes() {
-		return hasScopes;
-	}
-
-	public void setHasScopes(List<Scope> hasScopes) {
-		this.hasScopes = hasScopes;
-	}
-
 	public List<ClientRedirectUri> getRedirectUris() {
 		return redirectUris;
 	}
@@ -180,14 +179,6 @@ public class Client {
 		this.refreshTokenValiditySeconds = refreshTokenValiditySeconds;
 	}
 
-	public List<ClientResource> getHasResourceIds() {
-		return hasResourceIds;
-	}
-
-	public void setHasResourceIds(List<ClientResource> hasResourceIds) {
-		this.hasResourceIds = hasResourceIds;
-	}
-
 	public List<ClientAuthorizedGrantType> getAuthorizedGrantTypes() {
 		return authorizedGrantTypes;
 	}
@@ -202,6 +193,22 @@ public class Client {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<Scope> getPermittedScopes() {
+		return permittedScopes;
+	}
+
+	public void setPermittedScopes(List<Scope> permittedScopes) {
+		this.permittedScopes = permittedScopes;
+	}
+
+	public List<Resource> getPermittedResources() {
+		return permittedResources;
+	}
+
+	public void setPermittedResources(List<Resource> permittedResources) {
+		this.permittedResources = permittedResources;
 	}
 
 }

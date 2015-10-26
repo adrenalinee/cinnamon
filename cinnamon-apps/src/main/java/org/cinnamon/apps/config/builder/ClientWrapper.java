@@ -1,6 +1,11 @@
 package org.cinnamon.apps.config.builder;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.cinnamon.apps.domain.Client;
+import org.cinnamon.apps.domain.enumeration.AuthorizationGrantType;
 
 /**
  * 
@@ -12,11 +17,24 @@ public class ClientWrapper {
 	
 	Client client;
 	
+	List<String> permittedScopes = new LinkedList<>();
+	
+	List<String> permittedResources = new LinkedList<>();
+	
+	List<String> clientRedirectUris = new LinkedList<>();
+	
+	List<AuthorizationGrantType> authorizationGrantTypes = new LinkedList<>();
+	
 	
 	ClientWrapper(String name, String clientId) {
 		client = new Client();
 		client.setName(name);
 		client.setClientId(clientId);
+	}
+	
+	public ClientWrapper secret(String secret) {
+		client.setSecret(secret);
+		return this;
 	}
 	
 	public ClientWrapper description(String description) {
@@ -34,23 +52,29 @@ public class ClientWrapper {
 		return this;
 	}
 	
-	public ClientWrapper addScopes(Object... scopes) {
-		
+	public ClientWrapper addPermittedScopes(Object... scopes) {
+		Arrays.asList(scopes).forEach(scope -> {
+			permittedScopes.add(scope.toString());
+		});
 		return this;
 	}
 	
-	public ClientWrapper addResourceIds(String ... resourcesIds) {
-		
+	public ClientWrapper addPermittedResourceIds(Object ... resourcesIds) {
+		Arrays.asList(resourcesIds).forEach(resourceId -> {
+			permittedResources.add(resourceId.toString());
+		});
 		return this;
 	}
 	
-	public ClientWrapper addRedirectUris(String... uris) {
-		
+	public ClientWrapper addRedirectUris(Object... uris) {
+		Arrays.asList(uris).forEach(uri -> {
+			clientRedirectUris.add(uri.toString());
+		});
 		return this;
 	}
 	
-	public ClientWrapper addAuthorizedGrantTypes(Object... grantTypes) {
-		
+	public ClientWrapper addAuthorizedGrantTypes(AuthorizationGrantType... grantTypes) {
+		authorizationGrantTypes.addAll(Arrays.asList(grantTypes));
 		return this;
 	}
 	

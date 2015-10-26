@@ -1,9 +1,9 @@
-package org.cinnamon.core.config.baseData;
+package org.cinnamon.core.config.builder;
 
-import static org.cinnamon.core.config.baseData.BaseDataBuilder.menu;
-import static org.cinnamon.core.config.baseData.BaseDataBuilder.menuGroup;
-import static org.cinnamon.core.config.baseData.BaseDataBuilder.role;
-import static org.cinnamon.core.config.baseData.BaseDataBuilder.site;
+import static org.cinnamon.core.config.builder.BaseDataBuilder.menu;
+import static org.cinnamon.core.config.builder.BaseDataBuilder.menuGroup;
+import static org.cinnamon.core.config.builder.BaseDataBuilder.role;
+import static org.cinnamon.core.config.builder.BaseDataBuilder.site;
 
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
 
@@ -12,7 +12,7 @@ public class TestProjectConfigure {
 	
 	
 	public static void main() {
-		BaseDataBuilder projectBuilder = new BaseDataBuilder();
+		BaseDataBuilder projectBuilder = new BaseDataBuilder(null);
 		
 		projectBuilder.addSite(
 			site("콘솔", "console").addMenuGroup(
@@ -65,9 +65,9 @@ public class TestProjectConfigure {
 						)//.addGrantedAuthorities(DefinedUserAuthority.systemMaster)
 				)
 			)
-		).addRoles(
+		).addAuthorities(
 			role("시스템 최고 운영자", DefinedUserAuthority.systemMaster),
-			role("기본 사용자", DefinedUserAuthority.normal)
+			role("기본 사용자", DefinedUserAuthority.user)
 		);
 		
 		

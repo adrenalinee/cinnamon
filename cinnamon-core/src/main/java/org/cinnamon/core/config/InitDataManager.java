@@ -1,5 +1,6 @@
 package org.cinnamon.core.config;
 
+import java.util.Comparator;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -42,7 +43,19 @@ public class InitDataManager {
 		logger.info("start");
 		
 		Map<String, InitData> initDatas = ac.getBeansOfType(InitData.class);
-		initDatas.forEach((name, initData) -> {
+		initDatas.values().stream().sorted(new Comparator<InitData>() {
+			
+			@Override
+			public int compare(InitData o1, InitData o2) {
+				if (o1.order() > o2.order()) {
+					return 1;
+				} else if (o1.order() < o2.order()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		}).forEach(initData -> {
 			try {
 				initData.save(em);
 			} catch (Exception e) {

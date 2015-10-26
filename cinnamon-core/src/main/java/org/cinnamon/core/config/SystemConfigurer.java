@@ -1,6 +1,6 @@
 package org.cinnamon.core.config;
 
-import org.cinnamon.core.config.baseData.BaseDataBuilder;
+import org.cinnamon.core.config.builder.BaseDataBuilder;
 
 /**
  * 

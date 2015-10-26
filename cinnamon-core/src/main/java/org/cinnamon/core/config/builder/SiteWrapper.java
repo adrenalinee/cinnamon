@@ -1,4 +1,4 @@
-package org.cinnamon.core.config.baseData;
+package org.cinnamon.core.config.builder;
 
 import java.util.LinkedList;
 import java.util.List;

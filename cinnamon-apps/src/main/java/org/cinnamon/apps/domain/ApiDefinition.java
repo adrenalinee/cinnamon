@@ -1,7 +1,6 @@
 package org.cinnamon.apps.domain;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,7 +41,7 @@ public class ApiDefinition {
 //	List<ApiScope> permittedScope;
 	
 	@ManyToMany
-	Set<Scope> permittedScopes;
+	List<Scope> permittedScopes;
 	
 	
 	public Long getApiId() {
@@ -101,11 +100,11 @@ public class ApiDefinition {
 //		this.permittedScope = permittedScope;
 //	}
 
-	public Set<Scope> getPermittedScopes() {
+	public List<Scope> getPermittedScopes() {
 		return permittedScopes;
 	}
 
-	public void setPermittedScopes(Set<Scope> permittedScopes) {
+	public void setPermittedScopes(List<Scope> permittedScopes) {
 		this.permittedScopes = permittedScopes;
 	}
 

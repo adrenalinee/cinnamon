@@ -1,9 +1,7 @@
 package org.cinnamon.core.config;
 
 import java.util.Date;
-import java.util.Map;
 
-import org.cinnamon.core.config.baseData.BaseDataBuilder;
 import org.cinnamon.core.domain.Property;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.enumeration.DefinedDBProperty;
@@ -30,8 +28,8 @@ public class SystemConfigureService {
 	@Autowired
 	ApplicationContext ac;
 	
-	@Autowired
-	BaseDataBuilder baseDataBuilder;
+//	@Autowired
+//	BaseDataBuilder baseDataBuilder;
 	
 	@Autowired
 	UserBaseService<UserBase> userService;
@@ -93,13 +91,13 @@ public class SystemConfigureService {
 	public void createBaseData() throws Exception {
 		logger.info("start");
 		
-		Map<String, SystemConfigurer> systemConfigurers = ac.getBeansOfType(SystemConfigurer.class);
-		systemConfigurers.forEach((name, systemConfigurer) -> {
-			systemConfigurer.configure(baseDataBuilder);
-		});
-		
-		baseDataBuilder.print();
-		baseDataBuilder.build();
+//		Map<String, SystemConfigurer> systemConfigurers = ac.getBeansOfType(SystemConfigurer.class);
+//		systemConfigurers.forEach((name, systemConfigurer) -> {
+//			systemConfigurer.configure(baseDataBuilder);
+//		});
+//		
+//		baseDataBuilder.print();
+//		baseDataBuilder.build();
 		
 		initDataManager.execute();
 		
@@ -107,12 +105,12 @@ public class SystemConfigureService {
 	}
 	
 	
-	/**
-	 * 
-	 */
-	public void createInitData() throws Exception {
-		initDataManager.execute();
-	}
+//	/**
+//	 * 
+//	 */
+//	public void createInitData() throws Exception {
+//		initDataManager.execute();
+//	}
 	
 	
 	

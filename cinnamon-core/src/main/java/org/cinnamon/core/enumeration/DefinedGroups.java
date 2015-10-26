@@ -6,10 +6,11 @@ package org.cinnamon.core.enumeration;
  * @author 신동성
  *
  */
-public enum Groups {
+public enum DefinedGroups {
 	useStatus,
 	userActivities,
 	menuPositions,
 	menuTypes,
-	nations
+	nations,
+	userAuthority
 }

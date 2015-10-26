@@ -1,4 +1,4 @@
-package org.cinnamon.core.config.baseData;
+package org.cinnamon.core.config.builder;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -8,14 +8,13 @@ import javax.persistence.EntityManager;
 
 import org.cinnamon.core.domain.Group;
 import org.cinnamon.core.domain.Menu;
-import org.cinnamon.core.domain.MenuGroup;
-import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.MenuAuthority;
+import org.cinnamon.core.domain.MenuGroup;
 import org.cinnamon.core.domain.Site;
+import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * 
@@ -23,20 +22,24 @@ import org.springframework.stereotype.Component;
  * created date: 2015. 9. 14.
  * @author 신동성
  */
-@Component
+//@Component
 public class BaseDataBuilder {
 	
-	@Autowired
+//	@Autowired
 	EntityManager em;
 	
 	@Autowired
 	UserAuthorityRepository permissionRepository;
 	
-	List<SiteWrapper> siteWrappers = new LinkedList<>();
+	static List<SiteWrapper> siteWrappers = new LinkedList<>();
 	
-	List<RoleWrapper> roleWrappers = new LinkedList<>();
+	static List<RoleWrapper> roleWrappers = new LinkedList<>();
 	
-	List<GroupWrapper> groupWrappers = new LinkedList<>();
+	static List<GroupWrapper> groupWrappers = new LinkedList<>();
+	
+	public BaseDataBuilder(EntityManager em) {
+		this.em = em;
+	}
 	
 	
 	public BaseDataBuilder addSite(SiteWrapper siteWrapper) {
@@ -44,17 +47,26 @@ public class BaseDataBuilder {
 		return this;
 	}
 	
-	public BaseDataBuilder addRoles(RoleWrapper... roleWrappers) {
-		this.roleWrappers.addAll(Arrays.asList(roleWrappers));
+	public BaseDataBuilder addAuthorities(RoleWrapper... roleWrappers) {
+		BaseDataBuilder.roleWrappers.addAll(Arrays.asList(roleWrappers));
 		return this;
 	}
 	
 	public BaseDataBuilder addGroups(GroupWrapper... groupWrappers) {
-		this.groupWrappers.addAll(Arrays.asList(groupWrappers));
+		BaseDataBuilder.groupWrappers.addAll(Arrays.asList(groupWrappers));
 		return this;
 	}
 	
 	public static GroupWrapper group(String name, Object groupId) {
+		for (GroupWrapper groupWrapper: groupWrappers) {
+			Group group = groupWrapper.group;
+			if (group.getGroupId().equals(groupId.toString()) &&
+				group.getName().equals(name)) {
+				
+				return groupWrapper;
+			}
+		}
+		
 		return new GroupWrapper(name, groupId);
 	}
 	

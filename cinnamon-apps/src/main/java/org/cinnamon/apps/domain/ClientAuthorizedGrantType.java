@@ -30,6 +30,10 @@ public class ClientAuthorizedGrantType {
 	@ManyToOne
 	Client client;
 	
+	public ClientAuthorizedGrantType() {
+		
+	}
+	
 	public ClientAuthorizedGrantType(AuthorizationGrantType grantType) {
 		this.grantType = grantType;
 	}

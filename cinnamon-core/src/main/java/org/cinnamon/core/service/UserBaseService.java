@@ -164,7 +164,7 @@ public class UserBaseService<T extends UserBase> {
 //		}
 		
 		
-		UserAuthority permission = permissionRepository.findByAuthority(DefinedUserAuthority.normal.name());
+		UserAuthority permission = permissionRepository.findByAuthority(DefinedUserAuthority.user.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
 			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");
@@ -223,7 +223,7 @@ public class UserBaseService<T extends UserBase> {
 //			new RuntimeException("defaultUserGroupId 이 존재하지 않습니다. defaultUserGroupId: " + defaultUserGroupId);
 //		}
 		
-		UserAuthority permission = permissionRepository.findByAuthority(DefinedUserAuthority.normal.name());
+		UserAuthority permission = permissionRepository.findByAuthority(DefinedUserAuthority.user.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
 			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");
