@@ -33,7 +33,7 @@ public class UserGroupService<T extends UserBase> {
 	
 	
 	@Transactional
-	public void addMember(String authority, String userId) {
+	public void addMember(Object authority, String userId) {
 		logger.info("start");
 		
 		UserBase user = userRepository.findOne(userId);
@@ -41,7 +41,7 @@ public class UserGroupService<T extends UserBase> {
 			throw new RuntimeException("등록되지 않은 사용자 입니다. userId: " + userId);
 		}
 		
-		UserAuthority permission = permissionRepository.findByAuthority(authority);
+		UserAuthority permission = permissionRepository.findByAuthority(authority.toString());
 		if (permission == null) {
 			throw new RuntimeException("등록되지 않은 authority 입니다. authority: " + authority);
 		}
