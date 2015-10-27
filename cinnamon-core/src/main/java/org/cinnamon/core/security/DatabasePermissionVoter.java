@@ -1,4 +1,4 @@
-package org.cinnamon.web.configuration.security;
+package org.cinnamon.core.security;
 
 import java.util.Collection;
 import java.util.List;
@@ -8,9 +8,10 @@ import javax.annotation.PostConstruct;
 import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.MenuAuthority;
 import org.cinnamon.core.domain.MenuAuthorityDetail;
+import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
-import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.repository.MenuAuthorityRepository;
+import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.UserGroupRepository;
 import org.slf4j.Logger;
@@ -121,8 +122,10 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 					if (requestUrl.startsWith(menu.getUri())) {
 						//TODO 하위 권한 체크
 						
-						RoleGrantedAuthority permissionGrantedAuthority = (RoleGrantedAuthority) ga;
-						MenuAuthority permissionMenu = permissionMenuRepository.findByAuthorityAndMenu(permissionGrantedAuthority, menu);
+						GrantedAuthority grantedAuthority = (GrantedAuthority) ga;
+						//TODO 최적화 필요
+						UserAuthority userAauthority = permissionRepository.findByAuthority(grantedAuthority.getAuthority());
+						MenuAuthority permissionMenu = permissionMenuRepository.findByAuthorityAndMenu(userAauthority, menu);
 						if (requestUrl.equals(menu.getUri())) {
 							if (permissionMenu.isPermitRoot()) {
 								return ACCESS_GRANTED;
@@ -138,7 +141,7 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 						//TODO subUri가 PermissionMenu 하위 권한에 해당하는지 확인
 						System.out.println("subUri: " + subUri);
 
-						if (permissionGrantedAuthority != null) {
+						if (grantedAuthority != null) {
 							MenuAuthorityDetail detail = permissionMenu.getDetails().get(subUri);
 							
 							if (detail != null) {
@@ -161,88 +164,23 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 			return ACCESS_ABSTAIN;
 		});
 		
-//		System.out.println(4);
-//		return ACCESS_GRANTED;
-//		return ACCESS_ABSTAIN;
-		
-		
-//		String requestUrl = object.getRequestUrl();
-////		System.out.println(requestUrl);
-//		
-//		List<Menu> menus = getMenus(requestUrl);
-//		for (Menu menu: menus) {
-////			System.out.println(menu.getUri());
-//			
-//			String uri = menu.getUri();
-//		
-//			for (GrantedAuthority ga: authentication.getAuthorities()) {
-//				String authority = ga.getAuthority();
-//				System.out.println(authority);
-//				
-//				List<PermissionMenu> permissionMenus = permissionRepository.getPermissionMenus(authority, uri);
-//				if (permissionMenus != null) {
-//					return ACCESS_GRANTED;
-//				}
-//			}
-//		}
-//		
-//		return ACCESS_ABSTAIN;
 	}
 	
 	
-//	private List<Menu> getMenus(String uri) {
-//		List<String> parentPaths = getParentPaths(uri);
-//		for (String u: parentPaths) {
-//			System.out.println(u);
-//		}
-//		
-//		
-//		List<Menu> menus = new LinkedList<Menu>();
-//		for (String path: parentPaths) {
-//			Menu menu = menuRepository.findByUri(path);
-//			if (menu == null) {
-//				continue;
-//			}
-//			
-//			menus.add(menu);
-//		}
-//		
-//		return menus;
-//	}
-	
-	
-//	private List<String> getParentPaths(String path) {
-//		List<String> paths = new LinkedList<String>();
-//		
-//		int index =  path.lastIndexOf("/");
-//		
-//		if (index > 0) {
-//			paths.add(path);
-//		} else {
-//			do {
-//				paths.add(path);
-//				index =  path.lastIndexOf("/");
-//			} while (index > 0);
-//		}
-//		
-//		return paths;
-//	}
-	
-	
-//	public static void main(String[] args) {
-//		
-//		
-//		
-//		String requestUrl = "/users/me";
-//		Menu menu = new Menu();
-//		menu.setUri("/users");
-//		
-//		String menuUri = menu.getUri() + "/";
-//		String subUri = requestUrl.substring(menuUri.length());
-//		
-//		System.out.println(requestUrl.startsWith(menu.getUri() + "/"));
-//		
-//		
-//		
-//	}
+	public static void main(String[] args) {
+		
+		
+		
+		String requestUrl = "/users/me";
+		Menu menu = new Menu();
+		menu.setUri("/users");
+		
+		String menuUri = menu.getUri() + "/";
+		String subUri = requestUrl.substring(menuUri.length());
+		
+		System.out.println(requestUrl.startsWith(menu.getUri() + "/"));
+		
+		
+		
+	}
 }

@@ -1,4 +1,4 @@
-package org.cinnamon.web.configuration.security;
+package org.cinnamon.core.security;
 
 import org.cinnamon.core.service.UserActivityService;
 import org.slf4j.Logger;

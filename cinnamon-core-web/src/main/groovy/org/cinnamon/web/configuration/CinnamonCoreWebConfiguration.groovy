@@ -1,11 +1,10 @@
 package org.cinnamon.web.configuration
 
-import org.cinnamon.core.enumeration.DefinedUserAuthority;
+import org.cinnamon.core.security.DatabasePermissionVoter
+import org.cinnamon.core.security.UserDetailServiceImpl
 import org.cinnamon.web.configuration.interceptor.InitCheckInterceptor
-import org.cinnamon.web.configuration.security.DatabasePermissionVoter
-import org.cinnamon.web.configuration.security.UserDetailServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.access.vote.AffirmativeBased
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
