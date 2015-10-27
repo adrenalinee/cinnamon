@@ -109,10 +109,9 @@ public class MenuService {
 	
 	
 	@Transactional(readOnly=true)
-	public List<Menu> getSitePermisionMenus(String site, String dimension, MenuPosition position, Collection<? extends GrantedAuthority> grantedAuthorities) {
+	public List<Menu> getSiteMenu(String site, String dimension, Collection<? extends GrantedAuthority> grantedAuthorities) {
 		logger.info("start");
 		
-//		return menuRepository.getSitePermisionMenus(site, dimension, position, authority);
 		return null;
 	}
 	
@@ -159,37 +158,11 @@ public class MenuService {
 			}
 		}
 		
+		List<Menu> headerRightMenus = menuRepository.getSitePermisionMenus(siteId, dimension, MenuPosition.headerRight, authorities);
+		siteMenu.getHeaderRights().addAll(headerRightMenus);
 		
-//		for (GrantedAuthority ga: grantedAuthorities) {
-//			String authority = ga.getAuthority();
-//			
-//			List<Menu> menus = menuRepository.getSitePermisionMenus(site, dimension, MenuPosition.sidebar, authority);
-//			siteMenu.getSidebars().addAll(menus);
-//			
-//			for (Menu menu: menus) {
-//				if (menu.getUri() == null) {
-//					List<Menu> childs = menu.getChilds();
-//					for (Menu child: childs) {
-//						if (requestUri.startsWith(child.getUri())) {
-//							siteMenu.getActives().add(menu);
-//						}
-//					}
-//					
-//					break;
-//				}
-//				
-//				if (requestUri.startsWith(menu.getUri())) {
-//					siteMenu.getActives().add(menu);
-//					break;
-//				}
-//			}
-			
-			List<Menu> headerRightMenus = menuRepository.getSitePermisionMenus(siteId, dimension, MenuPosition.headerRight, authorities);
-			siteMenu.getHeaderRights().addAll(headerRightMenus);
-			
-			List<Menu> headerLeftMenus = menuRepository.getSitePermisionMenus(siteId, dimension, MenuPosition.headerLeft, authorities);
-			siteMenu.getHeaderLefts().addAll(headerLeftMenus);
-//		}
+		List<Menu> headerLeftMenus = menuRepository.getSitePermisionMenus(siteId, dimension, MenuPosition.headerLeft, authorities);
+		siteMenu.getHeaderLefts().addAll(headerLeftMenus);
 		
 		return siteMenu;
 	}

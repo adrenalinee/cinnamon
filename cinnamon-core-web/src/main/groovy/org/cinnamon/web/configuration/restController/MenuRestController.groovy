@@ -1,5 +1,6 @@
 package org.cinnamon.web.configuration.restController
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
@@ -57,12 +58,24 @@ class MenuRestController /*extends BaseRestController<Menu, MenuRepository>*/ {
 	@RequestMapping(value="siteMenu", method=RequestMethod.GET)
 	SiteMenu siteMenu(@Valid SitePermissionMenu sitePermissionMenu, @AuthenticationPrincipal UserDetails userDetails) {
 		
-		menuService.getSitePermisionMenus(sitePermissionMenu.site,
+		menuService.getSiteMenu(sitePermissionMenu.site,
 			sitePermissionMenu.dimension,
 			sitePermissionMenu.position,
 			userDetails.getAuthorities())
 	}
+	
+	@RequestMapping(value="siteMenu/{siteId}/{dimension}", method=RequestMethod.GET)
+	SiteMenu getSiteMenu(
+		@PathVariable String siteId,
+		@PathVariable String dimension,
+		@AuthenticationPrincipal UserDetails userDetails) {
+		
+		logger.info("start")
+		
+		menuService.getSiteMenu(siteId, dimension, userDetails.getAuthorities())
+	}
 }
+
 
 /**
  * 
@@ -80,6 +93,6 @@ class SitePermissionMenu {
 	@NotNull
 	MenuPosition position
 	
-	@NotEmpty
-	String authority
+//	@NotEmpty
+//	String authority
 }

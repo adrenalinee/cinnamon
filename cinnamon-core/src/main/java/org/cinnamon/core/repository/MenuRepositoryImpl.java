@@ -78,7 +78,7 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 	
 	
 	/**
-	 * 
+	 * 단일 position, 단일 authority 메뉴 검색
 	 * @param site
 	 * @param dimension
 	 * @param position
