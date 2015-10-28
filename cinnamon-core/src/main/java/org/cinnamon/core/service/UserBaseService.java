@@ -3,9 +3,10 @@ package org.cinnamon.core.service;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
-import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.UserActivity;
+import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.domain.UserPassword;
@@ -14,14 +15,15 @@ import org.cinnamon.core.domain.enumeration.UserActivityType;
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
 import org.cinnamon.core.exception.BadRequestException;
 import org.cinnamon.core.exception.NotFoundException;
-import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.PropertyRepository;
 import org.cinnamon.core.repository.UserActivityRepository;
+import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.UserBaseRepository;
 import org.cinnamon.core.repository.UserGroupRepository;
 import org.cinnamon.core.repository.UserPasswordRepository;
 import org.cinnamon.core.repository.predicate.UserBasePredicate;
 import org.cinnamon.core.service.listener.UserListener;
+import org.cinnamon.core.util.MapObjectMerger;
 import org.cinnamon.core.vo.UserBaseVo;
 import org.cinnamon.core.vo.search.UserBaseSearch;
 import org.slf4j.Logger;
@@ -111,6 +113,26 @@ public class UserBaseService<T extends UserBase> {
 		userRepository.save(user);
 		
 		//TODO 사용자 활동 로그
+	}
+	
+	/**
+	 * 
+	 * @param userId
+	 * @param userVo - 갱신할 값(null이 아닌 값만 갱신된다)
+	 * @throws Exception
+	 */
+	@Transactional
+	public void modify(String userId, Map<String, ?> source) throws Exception {
+		logger.info("start");
+		
+		T existUser = userRepository.findOne(userId);
+		if (existUser == null) {
+			throw new NotFoundException("존재하지 않는 회원입니다. userId: " + userId);
+		}
+		
+		MapObjectMerger.copy(source, existUser);
+		
+//		ObjectMerger.merge(user, existUser);
 	}
 	
 	
