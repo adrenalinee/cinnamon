@@ -68,7 +68,7 @@ public class Menu {
 //	@ManyToMany(mappedBy="menus")
 //	Set<MenuGroup> menuGroups;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@ManyToOne
 	MenuGroup menuGroup;
 	
@@ -81,7 +81,7 @@ public class Menu {
 	 */
 	@JsonIgnore
 	@OneToMany(mappedBy="menu")
-	Set<MenuAuthority> grantedRoles;
+	Set<MenuAuthority> grantedAuthorities;
 	
 	/**
 	 * 순서
@@ -208,20 +208,12 @@ public class Menu {
 		this.menuGroup = menuGroup;
 	}
 
-	public Set<MenuAuthority> getGrantedRoles() {
-		return grantedRoles;
+	public Set<MenuAuthority> getGrantedAuthorities() {
+		return grantedAuthorities;
 	}
 
-	public void setGrantedRoles(Set<MenuAuthority> grantedRoles) {
-		this.grantedRoles = grantedRoles;
+	public void setGrantedAuthorities(Set<MenuAuthority> grantedAuthorities) {
+		this.grantedAuthorities = grantedAuthorities;
 	}
 
-//	public Set<SiteScene> getSiteScenes() {
-//		return siteScenes;
-//	}
-//
-//	public void setSiteScenes(Set<SiteScene> siteScenes) {
-//		this.siteScenes = siteScenes;
-//	}
-	
 }

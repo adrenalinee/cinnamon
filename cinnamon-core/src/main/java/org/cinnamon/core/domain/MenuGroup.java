@@ -33,7 +33,7 @@ public class MenuGroup {
 	@Column(nullable=false)
 	String name;
 	
-	@Column(nullable=false)
+	@Column(nullable=false, unique=true)
 	String dimension;
 	
 //	@Column(nullable=false)
@@ -49,6 +49,7 @@ public class MenuGroup {
 	@OneToMany(mappedBy="menuGroup")
 	List<Menu> menus;
 	
+	@Column(length=4000)
 	String description;
 	
 //	@Column(nullable=false, updatable=false)
