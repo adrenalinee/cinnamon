@@ -30,25 +30,38 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 		super(Menu.class);
 	}
 	
+	
+	@Override
 	public List<Menu> find(String dimension, MenuPosition position, List<String> grantedAuthorities) {
 		QMenu menu = QMenu.menu;
 		QMenuGroup menuGroup = QMenuGroup.menuGroup;
 		QMenuAuthority menuAuthority = QMenuAuthority.menuAuthority;
 		QUserAuthority userAuthority = QUserAuthority.userAuthority;
 		
-		return from(menu)
+		return from(menu).distinct()
 		.innerJoin(menu.menuGroup, menuGroup)
 		.innerJoin(menu.grantedAuthorities, menuAuthority)
-//		.innerJoin(menuAuthority.menu, menu)
 		.innerJoin(menuAuthority.authority, userAuthority)
 		.where(
 			menu.position.eq(position)
+			.and(menu.parent.isNull())
 			.and(menu.useStatus.eq(UseStatus.enable))
 			.and(menuGroup.dimension.eq(dimension))
 			.and(userAuthority.authority.in(grantedAuthorities)))
 		.orderBy(menu.orders.asc())
 		.limit(100)
 		.list(menu);
+		
+//		return from(menu).distinct()
+//				.where(
+//						menu.position.eq(position)
+//						.and(menu.parent.isNull())
+//						.and(menu.useStatus.eq(UseStatus.enable))
+//						.and(menu.menuGroup.dimension.eq(dimension))
+//						.and(menu.grantedAuthorities.any().authority.authority.in(grantedAuthorities))
+//				).orderBy(menu.orders.asc())
+//				.limit(100)
+//				.list(menu);
 	}
 	
 	

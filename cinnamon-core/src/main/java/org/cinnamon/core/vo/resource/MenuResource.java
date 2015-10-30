@@ -2,7 +2,6 @@ package org.cinnamon.core.vo.resource;
 
 import java.util.List;
 
-import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.domain.enumeration.MenuType;
 
 /**
@@ -12,7 +11,7 @@ import org.cinnamon.core.domain.enumeration.MenuType;
  */
 public class MenuResource {
 	
-	Long menuId;
+//	Long menuId;
 	
 	String name;
 	
@@ -24,19 +23,11 @@ public class MenuResource {
 	
 	MenuType type;
 	
-	MenuPosition position;
+//	MenuPosition position;
 	
-	Integer orders;
+//	Integer orders;
 	
 	List<MenuResource> childs;
-
-	public Long getMenuId() {
-		return menuId;
-	}
-
-	public void setMenuId(Long menuId) {
-		this.menuId = menuId;
-	}
 
 	public String getName() {
 		return name;
@@ -78,22 +69,6 @@ public class MenuResource {
 		this.type = type;
 	}
 
-	public MenuPosition getPosition() {
-		return position;
-	}
-
-	public void setPosition(MenuPosition position) {
-		this.position = position;
-	}
-
-	public Integer getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Integer orders) {
-		this.orders = orders;
-	}
-
 	public List<MenuResource> getChilds() {
 		return childs;
 	}
@@ -101,6 +76,5 @@ public class MenuResource {
 	public void setChilds(List<MenuResource> childs) {
 		this.childs = childs;
 	}
-	
 	
 }

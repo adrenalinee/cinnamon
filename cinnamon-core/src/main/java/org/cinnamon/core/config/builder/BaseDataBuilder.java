@@ -13,8 +13,7 @@ import org.cinnamon.core.domain.MenuGroup;
 import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.UserGroup;
-import org.cinnamon.core.repository.UserAuthorityRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.cinnamon.core.enumeration.DefinedUserAuthority;
 
 /**
  * 
@@ -28,8 +27,8 @@ public class BaseDataBuilder {
 //	@Autowired
 	EntityManager em;
 	
-	@Autowired
-	UserAuthorityRepository permissionRepository;
+//	@Autowired
+//	UserAuthorityRepository userAuthorityRepository;
 	
 	static List<SiteWrapper> siteWrappers = new LinkedList<>();
 	
@@ -197,41 +196,60 @@ public class BaseDataBuilder {
 				em.persist(menuGroup);
 				
 				menuGroupWrapper.menuWrappers.forEach(menuWrapper -> {
-					buildMenus(menuGroup, menuWrapper);
+					buildMenu(menuGroup, menuWrapper);
 				});
 			});
 		});
 	}
 	
-	private void buildMenus(MenuGroup menuGroup, MenuWrapper menuWrapper) {
+	private void buildMenu(MenuGroup menuGroup, MenuWrapper menuWrapper) {
 		Menu menu = menuWrapper.menu;
 		menu.setMenuGroup(menuGroup);
+//		menu.setOrders(menuOrder++);
 		em.persist(menu);
+		
+		buildMenuAuthorities(menuWrapper);
 		
 		menuWrapper.childMenuWrappers.forEach(childMenuWrapper -> {
 			Menu childMenu = childMenuWrapper.menu;
 			childMenu.setParent(menu);
 			em.persist(childMenu);
 			
-			buildMenus(menuGroup, childMenuWrapper);
-			buildMenuRoles(menuWrapper);
+			buildMenu(menuGroup, childMenuWrapper);
+//			buildMenuAuthorities(menuWrapper);
 		});
 	}
 	
-	private void buildMenuRoles(MenuWrapper menuWrapper) {
+	private void buildMenuAuthorities(MenuWrapper menuWrapper) {
 		Menu menu = menuWrapper.menu;
 		
-		menuWrapper.grantedAuthorities.forEach(authority -> {
-			UserAuthority permission = permissionRepository.findByAuthority(authority);
-			if (permission == null) {
+		//systemMaster 권한은 반드시 포함되게 처리한다.
+		List<String> fixedGrantedAuthorities = new LinkedList<>();
+		fixedGrantedAuthorities.add(DefinedUserAuthority.systemMaster.name());
+		menuWrapper.grantedAuthorities.stream()
+		.filter(authority -> {
+			return authority.equals(DefinedUserAuthority.systemMaster.name()) ? false : true;
+		})
+		.forEach(authority -> {
+			fixedGrantedAuthorities.add(authority);
+		});
+		
+		
+		fixedGrantedAuthorities.forEach(authority -> {
+//			UserAuthority userAuthority = userAuthorityRepository.findByAuthority(authority);
+			
+			UserAuthority userAuthority =
+					em.createQuery("from UserAuthority ua where ua.authority = :authority", UserAuthority.class)
+						.setParameter("authority", authority).getSingleResult();
+			if (userAuthority == null) {
 				//정의 되지 않은 역할임
 				throw new RuntimeException("정의 되지 않은 권한입니다. authority: " + authority);
 			}
 			
-			MenuAuthority permissionMenu = new MenuAuthority();
-			permissionMenu.setMenu(menu);
-			permissionMenu.setAuthority(permission);
-			em.persist(permissionMenu);
+			MenuAuthority menuAuthority = new MenuAuthority();
+			menuAuthority.setMenu(menu);
+			menuAuthority.setAuthority(userAuthority);
+			em.persist(menuAuthority);
 		});
 	}
 }

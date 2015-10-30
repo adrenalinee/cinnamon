@@ -157,7 +157,8 @@ public class ObjectMerger {
 			applyField(source, target, target.getClass(), field.getName(), fieldValue);
 			
 			Class<?> superClass = target.getClass().getSuperclass();
-			while (superClass != null) {
+//			while (superClass != null) {
+			while (!superClass.equals(Object.class)) {
 				applyField(source, target, superClass, field.getName(), fieldValue);
 				
 				superClass = superClass.getSuperclass();

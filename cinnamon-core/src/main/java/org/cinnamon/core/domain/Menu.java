@@ -17,7 +17,9 @@ import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.domain.enumeration.MenuType;
 import org.cinnamon.core.domain.enumeration.UseStatus;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * 
@@ -25,16 +27,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="menuId")
 public class Menu {
 	
 	@Id
 	@GeneratedValue
 	Long menuId;
 	
+//	@JsonManagedReference
 	@ManyToOne
 	Menu parent;
 	
-	@JsonIgnore
+//	@JsonIgnore
+//	@JsonBackReference
 	@OneToMany(mappedBy="parent")
 	@OrderBy("orders asc")
 	List<Menu> childs;

@@ -30,6 +30,7 @@ public class MenuAuthority {
 	
 	@JsonIgnore
 	@ManyToOne
+//	@JoinColumn(name="permission_permissionId")
 	UserAuthority authority;
 	
 	@JsonIgnore
