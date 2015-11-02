@@ -13,6 +13,19 @@
 			template: '<ng-transclude />',
 			controller: function($scope, $document, $http) {
 				
+				//TODO dimension을 외부에서 받아야 한다.
+				$http.get('/rest/configuration/menu-groups/configuration/current-menus')
+				.success(function(data) {
+					console.log(data);
+					$scope.menus = data;
+				});
+				
+				
+				this.getSidebarMenus = function() {
+					return $scope.menus.sidebar;
+				}
+				
+				
 				//
 				this.addContent = function(content) {
 					$scope.content = content;
