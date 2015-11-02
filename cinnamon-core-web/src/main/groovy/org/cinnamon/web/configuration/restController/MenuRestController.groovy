@@ -44,5 +44,6 @@ class MenuRestController /*extends BaseRestController<Menu, MenuRepository>*/ {
 		
 		menuService.getList(dimension, position, authorities)
 	}
-
+	
+	
 }
