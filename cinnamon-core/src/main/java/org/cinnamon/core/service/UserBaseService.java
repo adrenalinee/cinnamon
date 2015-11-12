@@ -5,18 +5,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.cinnamon.core.domain.UserActivity;
 import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.domain.UserPassword;
 import org.cinnamon.core.domain.enumeration.UseStatus;
-import org.cinnamon.core.domain.enumeration.UserActivityType;
+import org.cinnamon.core.enumeration.DefinedUserActivity;
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
 import org.cinnamon.core.exception.BadRequestException;
 import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.PropertyRepository;
-import org.cinnamon.core.repository.UserActivityRepository;
 import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.UserBaseRepository;
 import org.cinnamon.core.repository.UserGroupRepository;
@@ -30,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -49,8 +48,8 @@ public class UserBaseService<T extends UserBase> {
 	@Autowired
 	UserBaseRepository<T> userRepository;
 	
-	@Autowired
-	UserActivityRepository userActivityRepository;
+//	@Autowired
+//	UserActivityRepository userActivityRepository;
 	
 	@Autowired
 	UserGroupRepository userGroupRepository;
@@ -66,6 +65,9 @@ public class UserBaseService<T extends UserBase> {
 	
 	@Autowired
 	UserAuthorityRepository permissionRepository;
+	
+	@Autowired
+	UserActivityService<T> userActivityService;
 	
 	List<UserListener> userListeners = new LinkedList<UserListener>();
 	
@@ -174,18 +176,6 @@ public class UserBaseService<T extends UserBase> {
 		}
 		
 		
-//		Property property = propertyRepository.findByName(DefinedDBProperty.defaultUserGroup);
-//		if (property == null) {
-//			new RuntimeException("defaultNormalGroup property 값이 없습니다.");
-//		}
-//		
-//		Long defaultUserGroupId = property.getLongValue();
-//		UserGroup userGroup = userGroupRepository.findById(defaultUserGroupId);
-//		if (userGroup == null) {
-//			new RuntimeException("defaultUserGroupId 이 존재하지 않습니다. defaultUserGroupId: " + defaultUserGroupId);
-//		}
-		
-		
 		UserAuthority permission = permissionRepository.findByAuthority(DefinedUserAuthority.user.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
@@ -208,12 +198,9 @@ public class UserBaseService<T extends UserBase> {
 		userRepository.save(user);
 		
 		
-		//사용자 활동 로그
-		UserActivity userActivity = new UserActivity();
-		userActivity.setUserId(user.getUserId());
-		userActivity.setType(UserActivityType.join.name());
-		
-		userActivityRepository.persist(userActivity);
+		//사용자 활동기록 등록
+		userActivityService.addActivity(user, DefinedUserActivity.signup);
+		notifyAfterJoin(user);
 	}
 	
 	/**
@@ -269,12 +256,8 @@ public class UserBaseService<T extends UserBase> {
 		
 		userRepository.save(user);
 		
-		
-		UserActivity userActivity = new UserActivity();
-		userActivity.setUserId(userId);
-		userActivity.setType(UserActivityType.join.name());
-		
-		userActivityRepository.persist(userActivity);
+		//사용자 활동기록 등록
+		userActivityService.addActivity(user, DefinedUserActivity.signup);
 		
 		notifyAfterJoin(user);
 		return user;
@@ -334,13 +317,8 @@ public class UserBaseService<T extends UserBase> {
 		userRepository.save(user);
 		
 		
-		//사용자 활동 등록
-		UserActivity userActivity = new UserActivity();
-		userActivity.setUserId(userId);
-		userActivity.setType(UserActivityType.join.name());
-		
-		userActivityRepository.persist(userActivity);
-		
+		//사용자 활동기록 등록
+		userActivityService.addActivity(user, DefinedUserActivity.signup);
 		
 		notifyAfterJoin(user);
 		
@@ -417,6 +395,38 @@ public class UserBaseService<T extends UserBase> {
 		
 		user.setUseStatus(useStatus);
 		
+	}
+	
+	
+	/**
+	 * 삭제
+	 * 
+	 * 실제 지우지 않고 상태(useStatus)만 삭제상태로 바꾼다.
+	 * 
+	 * 
+	 * 
+	 * @param userId
+	 */
+	@Transactional
+	public void leave(String userId) {
+		logger.info("start");
+		
+		T user = userRepository.findOne(userId);
+		if (user == null) {
+			throw new NotFoundException("userExtension이 생성되지 않았습니다. userId: " + userId);
+		}
+		
+		try {
+			//TODO 활동 기록이 있으면 조인된 테이블과 외래키로 역여 있기때문에 삭제 되지 않는 점을 이용해서 일단 지워보고 안지워 지면 상태만 바꾸고 향후 관련 모든 기록을 지워야 함
+			// 이렇게 처리하는것이 맞을지 무조건 상태만 변경하는 형태로 가야할지 검토 및 결정 필요
+			userRepository.delete(user);
+		} catch (DataAccessException e) {
+			logger.warn("할동 기록이 있어 해당 사용자정보를 삭제 할 수 없음. 사용상태만 deleted로 변경함. userId: " + userId, e);
+			
+			user.setUseStatus(UseStatus.deleted);
+		}
+		
+		userActivityService.addActivity(user, DefinedUserActivity.deleteAccount);
 	}
 	
 	
