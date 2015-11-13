@@ -104,7 +104,7 @@ public class UserBase implements UserEntity {
 	String phone;
 	
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	UserIntroduce userIntroduce;
 	
 	/**
