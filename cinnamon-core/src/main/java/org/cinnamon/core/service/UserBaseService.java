@@ -20,7 +20,7 @@ import org.cinnamon.core.repository.UserBaseRepository;
 import org.cinnamon.core.repository.UserGroupRepository;
 import org.cinnamon.core.repository.UserPasswordRepository;
 import org.cinnamon.core.repository.predicate.UserBasePredicate;
-import org.cinnamon.core.service.listener.UserListener;
+import org.cinnamon.core.service.userListener.AfterUserJoinListener;
 import org.cinnamon.core.util.MapObjectMerger;
 import org.cinnamon.core.vo.UserBaseVo;
 import org.cinnamon.core.vo.search.UserBaseSearch;
@@ -69,17 +69,15 @@ public class UserBaseService<T extends UserBase> {
 	@Autowired
 	UserActivityService<T> userActivityService;
 	
-	List<UserListener> userListeners = new LinkedList<UserListener>();
+	List<AfterUserJoinListener<T>> afterUserJoinListeners = new LinkedList<AfterUserJoinListener<T>>();
 	
 	
-	public void addListener(UserListener userListener) {
-		logger.info("start");
-		userListeners.add(userListener);
+	public void addAfterUserJoinListener(AfterUserJoinListener<T> afterUserJoinListener) {
+		afterUserJoinListeners.add(afterUserJoinListener);
 	}
 	
-	public void removeListener(UserListener userListener) {
-		logger.info("start");
-		userListeners.remove(userListener);
+	public void removeAfterUserJoinListener(AfterUserJoinListener<T> afterUserJoinListener) {
+		afterUserJoinListeners.remove(afterUserJoinListener);
 	}
 	
 	@Transactional(readOnly=true)
@@ -169,6 +167,8 @@ public class UserBaseService<T extends UserBase> {
 		logger.info("start");
 		
 		final String userId = user.getUserId();
+		
+		//TODO 사용불가한 아이디 인지 확인
 		
 		T existUser = userRepository.findOne(userId);
 		if (existUser != null) {
@@ -435,7 +435,7 @@ public class UserBaseService<T extends UserBase> {
 	 * @param user
 	 */
 	private void notifyAfterJoin(T user) {
-		for (UserListener listener: userListeners) {
+		for (AfterUserJoinListener listener: afterUserJoinListeners) {
 			try {
 				listener.afterJoin(user);
 			} catch (Exception ex) {
