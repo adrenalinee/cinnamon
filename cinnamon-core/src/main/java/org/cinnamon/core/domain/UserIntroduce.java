@@ -1,5 +1,7 @@
 package org.cinnamon.core.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -9,8 +11,9 @@ import javax.persistence.Id;
  * @author 동성
  *
  */
+@SuppressWarnings("serial")
 @Entity
-public class UserIntroduce {
+public class UserIntroduce implements Serializable {
 	
 	@Id
 	String userId;

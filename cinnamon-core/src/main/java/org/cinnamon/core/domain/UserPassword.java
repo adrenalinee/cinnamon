@@ -1,5 +1,6 @@
 package org.cinnamon.core.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,8 +16,9 @@ import javax.persistence.TemporalType;
  * @author sds
  *
  */
+@SuppressWarnings("serial")
 @Entity
-public class UserPassword {
+public class UserPassword implements Serializable {
 	
 	@Id
 	String userId;

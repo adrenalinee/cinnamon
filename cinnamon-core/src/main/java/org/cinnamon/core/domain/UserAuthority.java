@@ -1,5 +1,7 @@
 package org.cinnamon.core.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,9 +20,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author 동성
  *
  */
+@SuppressWarnings("serial")
 @Entity
 @Table(name="permission") //regacy DB 때문에 테이블 이름 다르게 함
-public class UserAuthority {
+public class UserAuthority implements Serializable {
 	
 	@Id
 	@GeneratedValue

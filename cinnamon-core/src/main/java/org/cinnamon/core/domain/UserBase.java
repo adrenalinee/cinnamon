@@ -1,5 +1,6 @@
 package org.cinnamon.core.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,9 +31,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author 동성
  *
  */
+@SuppressWarnings("serial")
 @Entity(name="user")
 @Inheritance
-public class UserBase implements UserEntity {
+public class UserBase implements UserEntity, Serializable {
 	
 	@Id
 	@Column(length=20)
