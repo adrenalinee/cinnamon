@@ -14,6 +14,7 @@ import org.cinnamon.core.enumeration.DefinedUserActivity;
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
 import org.cinnamon.core.exception.BadRequestException;
 import org.cinnamon.core.exception.NotFoundException;
+import org.cinnamon.core.repository.GroupRepository;
 import org.cinnamon.core.repository.PropertyRepository;
 import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.UserBaseRepository;
@@ -34,6 +35,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 
 /**
@@ -65,6 +67,9 @@ public class UserBaseService<T extends UserBase> {
 	
 	@Autowired
 	UserAuthorityRepository permissionRepository;
+	
+	@Autowired
+	GroupRepository groupRepository;
 	
 	@Autowired
 	UserActivityService<T> userActivityService;
@@ -168,7 +173,16 @@ public class UserBaseService<T extends UserBase> {
 		
 		final String userId = user.getUserId();
 		
+		//국가 코드가 정상인지 확인!!
+		String nation = user.getNation();
+		if (!StringUtils.isEmpty(nation)) {
+			if (!groupRepository.exists(nation)) {
+				throw new BadRequestException("지정되지 않은 국가 코드 입니다. nation: " + nation);
+			}
+		}
+		
 		//TODO 사용불가한 아이디 인지 확인
+		
 		
 		T existUser = userRepository.findOne(userId);
 		if (existUser != null) {

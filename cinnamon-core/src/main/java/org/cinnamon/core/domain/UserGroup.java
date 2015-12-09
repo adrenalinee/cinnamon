@@ -22,10 +22,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author 동성
  * @since 2014. 12. 22.
  */
-@SuppressWarnings("serial")
 @Entity
 public class UserGroup implements Serializable {
 	
+	private static final long serialVersionUID = 2642938465181275604L;
+
 	@Id
 	@GeneratedValue
 	Long userGroupId;

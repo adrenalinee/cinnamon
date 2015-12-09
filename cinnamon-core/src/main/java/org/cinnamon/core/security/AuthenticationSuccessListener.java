@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author 신동성
  *
  */
-@Component
+//@Component
 public class AuthenticationSuccessListener implements ApplicationListener<InteractiveAuthenticationSuccessEvent> {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -29,6 +30,14 @@ public class AuthenticationSuccessListener implements ApplicationListener<Intera
 	@Override
 	public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event) {
 		logger.info("start");
+		
+		
+		Authentication authentication = event.getAuthentication();
+		System.out.println(authentication);
+		if (authentication != null) {
+			System.out.println(authentication.getName());
+		}
+		
 		
 //		Authentication authentication = event.getAuthentication();
 //		String userId = authentication.getName();

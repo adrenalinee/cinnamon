@@ -20,11 +20,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author 동성
  *
  */
-@SuppressWarnings("serial")
 @Entity
 @Table(name="permission") //regacy DB 때문에 테이블 이름 다르게 함
 public class UserAuthority implements Serializable {
 	
+	private static final long serialVersionUID = 2722212456650591701L;
+
 	@Id
 	@GeneratedValue
 	@Column(name="permission_id")

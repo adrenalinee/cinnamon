@@ -31,11 +31,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author 동성
  *
  */
-@SuppressWarnings("serial")
 @Entity(name="user")
 @Inheritance
 public class UserBase implements UserEntity, Serializable {
 	
+	private static final long serialVersionUID = -2151815201770420809L;
+
 	@Id
 	@Column(length=20)
 	String userId;

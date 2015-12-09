@@ -16,10 +16,11 @@ import javax.persistence.TemporalType;
  * @author sds
  *
  */
-@SuppressWarnings("serial")
 @Entity
 public class UserPassword implements Serializable {
 	
+	private static final long serialVersionUID = -7186576450795308956L;
+
 	@Id
 	String userId;
 	

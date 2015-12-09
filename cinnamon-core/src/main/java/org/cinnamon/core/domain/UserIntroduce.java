@@ -11,10 +11,11 @@ import javax.persistence.Id;
  * @author 동성
  *
  */
-@SuppressWarnings("serial")
 @Entity
 public class UserIntroduce implements Serializable {
 	
+	private static final long serialVersionUID = -6721576340741184823L;
+
 	@Id
 	String userId;
 	
