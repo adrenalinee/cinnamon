@@ -14,7 +14,7 @@
 			controller: function($scope, $document, $http) {
 				
 				//TODO dimension을 외부에서 받아야 한다.
-				$http.get('/rest/configuration/menu-groups/configuration/current-menus')
+				$http.get('/rest/layout/configuration/current-menus')
 				.success(function(data) {
 					console.log(data);
 					$scope.menus = data;

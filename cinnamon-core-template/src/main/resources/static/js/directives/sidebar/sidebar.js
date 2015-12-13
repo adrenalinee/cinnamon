@@ -19,21 +19,42 @@
 	});
 	
 	function controller($scope, $http) {
-		console.log('sidebarController');
+		//TODO dimension을 외부에서 받아야 한다.
+		$http.get('/rest/layout/configuration/sidebar')
+		.success(function(data) {
+			console.log(data);
+			$scope.menus = data;
+		});
 		
-//		var params = {
-//			position: 'sidebar'
-//		};
-//		$http.get('/rest/menus', {
-//			params: params
-//		}).success(function(data) {
-//			$scope.sideMenus = data._embedded.menus;
-//		});
+		$scope.toggleShowChild = function(menu) {
+			console.log('toggleShowChild');
+			
+			if (menu.showChild == undefined) {
+				menu.showChild = true;
+			} else {
+				menu.showChild = !menu.showChild;
+			}
+		}
+		
+		
+		$scope.menuLiClass = function(menu) {
+			var classes = '';
+			if (menu.childs.length > 0) {
+				classes += "treeview";
+			}
+			if (menu.showChild) {
+				classes += " active";
+			}
+			
+			return classes;
+		}
 	}
 	
 	
 	function link(scope, element, attr, layoutController) {
+		console.log('sidebar link');
+		
 		element.addClass('main-sidebar');
-		scope.menus = layoutController.getSidebarMenus();
+//		scope.menus = layoutController.getSidebarMenus();
 	}
 })();

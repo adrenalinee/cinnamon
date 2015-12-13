@@ -195,27 +195,29 @@ public class BaseDataBuilder {
 				menuGroup.setSite(site);
 				em.persist(menuGroup);
 				
+				Orders orders = new Orders();
 				menuGroupWrapper.menuWrappers.forEach(menuWrapper -> {
-					buildMenu(menuGroup, menuWrapper);
+					buildMenu(menuGroup, menuWrapper, orders);
 				});
 			});
 		});
 	}
 	
-	private void buildMenu(MenuGroup menuGroup, MenuWrapper menuWrapper) {
+	private void buildMenu(MenuGroup menuGroup, MenuWrapper menuWrapper, Orders orders) {
 		Menu menu = menuWrapper.menu;
 		menu.setMenuGroup(menuGroup);
-//		menu.setOrders(menuOrder++);
+		menu.setOrders(orders.nextOrder());
 		em.persist(menu);
 		
 		buildMenuAuthorities(menuWrapper);
 		
+		Orders childOrders = new Orders();
 		menuWrapper.childMenuWrappers.forEach(childMenuWrapper -> {
 			Menu childMenu = childMenuWrapper.menu;
 			childMenu.setParent(menu);
 			em.persist(childMenu);
 			
-			buildMenu(menuGroup, childMenuWrapper);
+			buildMenu(menuGroup, childMenuWrapper, childOrders);
 //			buildMenuAuthorities(menuWrapper);
 		});
 	}
@@ -251,5 +253,14 @@ public class BaseDataBuilder {
 			menuAuthority.setAuthority(userAuthority);
 			em.persist(menuAuthority);
 		});
+	}
+}
+
+
+class Orders {
+	int order;
+	
+	public int nextOrder() {
+		return order++;
 	}
 }

@@ -9,11 +9,21 @@
 <title>사용자</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+<script type="text/javascript" src="/js/configuration/users/listController.js"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 angular.module('cinnamon')
-.config(function($stateProvider) {
+.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider.state('configuration', {
+		url: '/configuration'
+	})
+	.state('users', {
+		url: '/configuration/users',
+		templateUrl: '/js/configuration/users/list.html',
+		controller: 'configuration.users.list'
+	});
 	
+	//$urlRouterProvider.otherwise('/configuration/users');
 });
 /*]]>*/
 </script>
@@ -24,13 +34,13 @@ angular.module('cinnamon')
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<h1>
-				<span>프로필</span> <small>설정</small>
+				<span>사용자</span> <small>설정</small>
 			</h1>
 		</section>
 		
 		<!-- Main content -->
 		<section class="content">
-			<ng-view />
+			<ui-view />
 		</section>
 		<!-- /.content -->
 	</aside>
