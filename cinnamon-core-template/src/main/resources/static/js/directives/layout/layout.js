@@ -10,7 +10,7 @@
 			transclude: true,
 			scope: {},
 //			templateUrl: '/js/directives/layout/layout.tpl.html',
-			template: '<ng-transclude />',
+//			template: '<ng-transclude />',
 			controller: function($scope, $document, $http) {
 				
 				//TODO dimension을 외부에서 받아야 한다.
@@ -45,6 +45,7 @@
 			},
 			link: function(scope, element, attr) {
 				element.addClass('wrapper');
+//				element.attr('ng-transclude', '');
 				
 				//
 				angular.element($window).on('resize', function(event) {

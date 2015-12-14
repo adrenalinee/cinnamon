@@ -1,5 +1,7 @@
 package org.cinnamon.core;
 
+import java.util.Arrays;
+
 import org.cinnamon.core.domain.UserBase;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -23,6 +25,9 @@ public class CinnamonCoreConfiguration {
 	
 	@Bean
 	Mapper beanMapper() {
-		return new DozerBeanMapper();
+		DozerBeanMapper mapper = new DozerBeanMapper();
+		mapper.setMappingFiles(Arrays.asList("dozer-global-configuration.xml"));
+		
+		return mapper;
 	}
 }

@@ -1,10 +1,10 @@
 package org.cinnamon.web.configuration.controller
 
-import org.cinnamon.core.domain.MenuGroup;
-import org.cinnamon.core.service.MenuGroupService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.cinnamon.core.domain.MenuGroup
+import org.cinnamon.core.service.MenuGroupService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.RequestMapping;;
+import org.springframework.web.bind.annotation.RequestMapping
 
 /**
  * 
@@ -20,7 +20,7 @@ class ConfigurationController {
 		"redirect:/configuration/users"
 	}
 	
-	@RequestMapping("/configuration/partials/**")
+	@RequestMapping(value="/configuration/partials/**")
 	void partials() {
 		
 	}

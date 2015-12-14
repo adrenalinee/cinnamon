@@ -10,10 +10,13 @@ import org.springframework.security.access.vote.AffirmativeBased
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.access.expression.WebExpressionVoter
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 /**
@@ -39,6 +42,7 @@ class CinnamonCoreWebConfiguration {
 					"/**",
 					"/rest/configuration/initWizard/**")
 				.excludePathPatterns(
+					"/template/**",
 					"/configuration/partials/**",
 					"/configuration/initWizard",
 					"/rest/**",

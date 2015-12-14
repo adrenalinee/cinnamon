@@ -23,27 +23,33 @@
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angularjs</artifactId>
-			<version>1.4.5</version>
+			<version>1.4.8</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-animate</artifactId>
-			<version>1.4.5</version>
+			<version>1.4.8</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>bootstrap</artifactId>
-			<version>3.3.5</version>
+			<version>3.3.6</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.webjars.bower</groupId>
+					<artifactId>jquery</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-ui-bootstrap-bower</artifactId>
-			<version>0.13.3</version>
+			<version>0.14.3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-bootstrap-datetimepicker</artifactId>
-			<version>0.3.13</version>
+			<version>0.4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
@@ -53,12 +59,12 @@
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-ui-select</artifactId>
-			<version>0.12.0</version>
+			<version>0.13.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-toastr</artifactId>
-			<version>1.4.1</version>
+			<version>1.6.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
@@ -68,17 +74,17 @@
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>animate.css</artifactId>
-			<version>3.3.1</version>
+			<version>3.4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>ngBootbox</artifactId>
-			<version>0.1.1</version>
+			<version>0.1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>font-awesome</artifactId>
-			<version>4.4.0</version>
+			<version>4.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>

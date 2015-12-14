@@ -3,7 +3,6 @@ package org.cinnamon.core.service;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.UserBase;
@@ -22,9 +21,9 @@ import org.cinnamon.core.repository.UserGroupRepository;
 import org.cinnamon.core.repository.UserPasswordRepository;
 import org.cinnamon.core.repository.predicate.UserBasePredicate;
 import org.cinnamon.core.service.userListener.AfterUserJoinListener;
-import org.cinnamon.core.util.MapObjectMerger;
 import org.cinnamon.core.vo.UserBaseVo;
 import org.cinnamon.core.vo.search.UserBaseSearch;
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -74,6 +73,9 @@ public class UserBaseService<T extends UserBase> {
 	@Autowired
 	UserActivityService<T> userActivityService;
 	
+	@Autowired
+	Mapper beanMapper;
+	
 	List<AfterUserJoinListener<T>> afterUserJoinListeners = new LinkedList<AfterUserJoinListener<T>>();
 	
 	
@@ -89,6 +91,22 @@ public class UserBaseService<T extends UserBase> {
 	public Page<T> search(UserBaseSearch userSearch, Pageable pageable) {
 		logger.info("start");
 		return userRepository.findAll(UserBasePredicate.search(userSearch), pageable);
+	}
+	
+	
+	
+	@Transactional
+	public Page<T> getList(Pageable pageable) {
+		logger.info("start");
+		
+		return userRepository.findAll(pageable);
+	}
+	
+	
+	@Transactional(readOnly=true)
+	public UserBase get(String userId) {
+		logger.info("start");
+		return userRepository.findOne(userId);
 	}
 	
 	
@@ -120,6 +138,27 @@ public class UserBaseService<T extends UserBase> {
 		//TODO 사용자 활동 로그
 	}
 	
+//	/**
+//	 * 
+//	 * @param userId
+//	 * @param userVo - 갱신할 값(null이 아닌 값만 갱신된다)
+//	 * @throws Exception
+//	 */
+//	@Transactional
+//	public void modify(String userId, Map<String, ?> source) throws Exception {
+//		logger.info("start");
+//		
+//		T existUser = userRepository.findOne(userId);
+//		if (existUser == null) {
+//			throw new NotFoundException("존재하지 않는 회원입니다. userId: " + userId);
+//		}
+//		
+//		MapObjectMerger.copy(source, existUser);
+//		
+////		ObjectMerger.merge(user, existUser);
+//	}
+	
+	
 	/**
 	 * 
 	 * @param userId
@@ -127,18 +166,18 @@ public class UserBaseService<T extends UserBase> {
 	 * @throws Exception
 	 */
 	@Transactional
-	public void modify(String userId, Map<String, ?> source) throws Exception {
+	public void merge(T user) {
 		logger.info("start");
 		
+		String userId = user.getUserId();
 		T existUser = userRepository.findOne(userId);
 		if (existUser == null) {
 			throw new NotFoundException("존재하지 않는 회원입니다. userId: " + userId);
 		}
 		
-		MapObjectMerger.copy(source, existUser);
-		
-//		ObjectMerger.merge(user, existUser);
+		beanMapper.map(user, existUser);
 	}
+	
 	
 	
 	/**

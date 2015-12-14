@@ -11,7 +11,7 @@
 	]).config(function($locationProvider, toastrConfig) {
 		$locationProvider.html5Mode({
 			enabled: true,
-			requireBase: false
+//			requireBase: false
 		});
 		
 		angular.extend(toastrConfig, {

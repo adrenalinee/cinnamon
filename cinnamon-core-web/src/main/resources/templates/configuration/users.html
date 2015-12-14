@@ -10,23 +10,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <script type="text/javascript" src="/js/configuration/users/listController.js"></script>
+<script type="text/javascript" src="/js/configuration/users/viewController.js"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 angular.module('cinnamon')
 .config(function($stateProvider, $urlRouterProvider) {
-	$stateProvider.state('configuration', {
-		url: '/configuration'
-	})
-	.state('users', {
+	$stateProvider.state('users', {
 		url: '/configuration/users',
-		templateUrl: '/js/configuration/users/list.html',
+		templateUrl: '/configuration/partials/users/list',
 		controller: 'configuration.users.list'
+	}).state('view', {
+		url: '/configuration/users/:userId',
+		templateUrl: '/configuration/partials/users/view',
+		controller: 'configuration.users.view'
 	});
 	
 	//$urlRouterProvider.otherwise('/configuration/users');
 });
 /*]]>*/
 </script>
+
+<base href="/" />
 </head>
 
 <body layout:fragment="content">
@@ -35,6 +39,9 @@ angular.module('cinnamon')
 		<section class="content-header">
 			<h1>
 				<span>사용자</span> <small>설정</small>
+				<button class="btn btn-default btn-sm" uib-tooltip="사용자 등록">
+					<i class="fa fa-plus"></i>
+				</button>
 			</h1>
 		</section>
 		

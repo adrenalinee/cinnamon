@@ -1,0 +1,152 @@
+<div class="box box-solid">
+	
+	<div class="box-body">
+		<div class="form-group">
+			<div class="input-group">
+				<span class="input-group-addon input-lg">
+					<i class="fa fa-search"></i> 검색
+				</span>
+				<input type="text" class="form-control input-lg" data-ng-model="searchInfo.name" maxlength="200" />
+				<!-- <span class="input-group-btn">
+					<button class="btn btn-primary input-lg" type="button" data-ng-click="search()">
+						<i class="fa fa-search fa-lg"></i> 검색
+					</button>
+				</span> -->
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<a href="" class="btn btn-default btn-xs" ng-click="showDetailSearch = !showDetailSearch">상세 검색</a>
+			<a href="" class="text-muted" data-ng-click="initSearch()" uib-tooltip="검색을 초기화 합니다.">검색취소</a>
+			<div class="btn-group pull-right" uib-dropdown="">
+				<button class="btn btn-defaulf btn-xs" uib-dropdown-toggle="">
+					정렬 <i class="fa fa-sort"></i>
+				</button>
+				<ul class="uib-dropdown-menu" role="menu">
+					<li role="menuitem">
+						<a href="">userId</a>
+					</li>
+					<li role="menuitem" class="active">
+						<a href=""><i class="fa fa-arrow-down"></i> 이름</a>
+					</li>
+					<li class="divider"></li>
+					<li role="menuitem">
+						<a href="">초기화</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div ng-show="showDetailSearch" ng-class="showDetailSearch ? 'animated fadeIn': ''">
+			<hr />
+			<div class="well well-sm">
+			
+				<div class="form-group">
+					<label class="form-label text-muted">상세 조건</label>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon">
+							userId
+						</span>
+						<input type="text" class="form-control" ng-model="searchInfo.userId" maxlength="200" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon">
+							이메일
+						</span>
+						<input type="text" class="form-control" ng-model="searchInfo.email" maxlength="200" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon">
+							성별
+						</span>
+						<select ng-model="searchInfo.gender" class="form-control">
+							<option value="">선택하세요</option>
+							<option ng-repeat="(id,name) in genders" value="{{id}}">{{name}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon">
+							국적
+						</span>
+						<input type="text" class="form-control" ng-model="searchInfo.nation" maxlength="200" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon">
+							상태
+						</span>
+						<input type="text" class="form-control" ng-model="searchInfo.useStatus" maxlength="200" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group">
+						
+						<div class="input-group-btn">
+							<button class="btn bg-olive" ng-click="showSearchCompanyModal()" uib-tooltip="검색">
+								<i class="fa fa-search"></i>
+							</button>
+						</div>
+						<span class="input-group-addon">
+							가입된 업체 companyId
+						</span>
+						<input type="text" class="form-control" ng-model="searchInfo.registedCompanyIds" maxlength="200" />
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		
+		<uib-pagination
+			class="pagination-sm"
+			total-items="domains.totalElements"
+			items-per-page="domains.size"
+			boundary-links="true"
+			max-size="10"
+			ng-model="searchInfo.page"
+			ng-change="onPageChange()"
+			ng-if="domains.totalPages > 1" />
+		
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>userId</th>
+					<th>이름</th>
+					<th>이메일</th>
+					<th>가입일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="domain in domains.content">
+					<td>
+						<b><a ng-href="/configuration/users/{{domain.userId}}">{{domain.userId}}</a></b>
+					</td>
+					<td>{{domain.name}}</td>
+					<td>
+						{{domain.email}}
+					</td>
+					<td>{{domain.createdAt | date: 'yyyy년 MM월 dd일'}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<hr />
+		
+		<uib-pagination
+			class="pagination-sm"
+			total-items="domains.totalElements"
+			items-per-page="domains.size"
+			boundary-links="true"
+			max-size="10"
+			ng-model="searchInfo.page"
+			ng-change="onPageChange()" />
+	</div>
+</div>
