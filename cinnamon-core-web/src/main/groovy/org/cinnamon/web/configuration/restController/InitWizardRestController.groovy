@@ -26,13 +26,13 @@ class InitWizardRestController {
 	Logger logger = LoggerFactory.getLogger(getClass())
 	
 	@Autowired
-	SystemConfigureService systemConfigurerManager
+	SystemConfigureService systemConfigurerService
 	
 	@RequestMapping(value="baseData", method=RequestMethod.POST)
 	def baseData() {
 		logger.info("start")
 		
-		systemConfigurerManager.createBaseData()
+		systemConfigurerService.createBaseData()
 		
 		new ResponseEntity<Void>(HttpStatus.CREATED)
 	}
@@ -42,7 +42,7 @@ class InitWizardRestController {
 	def firstUser(@RequestBody @Valid UserBaseVo userVo) {
 		logger.info("start")
 		
-		systemConfigurerManager.joinFirstSystemMaster(userVo)
+		systemConfigurerService.joinFirstSystemMaster(userVo)
 		
 		new ResponseEntity<Void>(HttpStatus.CREATED)
 	}
