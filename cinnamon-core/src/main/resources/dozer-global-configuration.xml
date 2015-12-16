@@ -6,6 +6,13 @@
 	
 	<configuration>
 		<map-null>false</map-null>
+		
+		<!-- <custom-converters>
+			<converter type="org.cinnamon.core.util.LocalDateTimeDozerConverter">
+				<class-a>java.time.LocalDateTime</class-a>
+				<class-b>java.time.LocalDateTime</class-b>
+			</converter>
+		</custom-converters> -->
 	</configuration>
 	
 </mappings>
