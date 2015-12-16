@@ -1,9 +1,12 @@
 package org.cinnamon.web.configuration.restController
 
 import org.cinnamon.core.domain.MenuGroup
+import org.cinnamon.core.domain.UserBase
 import org.cinnamon.core.domain.enumeration.MenuPosition
+import org.cinnamon.core.security.UserDetailServiceImpl;
 import org.cinnamon.core.service.MenuGroupService
 import org.cinnamon.core.service.MenuService
+import org.cinnamon.core.service.UserBaseService
 import org.cinnamon.core.vo.LayoutMenu
 import org.cinnamon.core.vo.resource.MenuGroupResource
 import org.cinnamon.core.vo.resource.MenuResource
@@ -13,8 +16,8 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.BeanUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.security.web.bind.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
@@ -37,7 +40,18 @@ class LayoutRestController {
 	MenuService menuService
 	
 	@Autowired
+	UserBaseService<UserBase> userService
+	
+	@Autowired
 	Mapper beanMapper
+	
+	
+	@RequestMapping(value="/me", method=RequestMethod.GET)
+	def getMe(@AuthenticationPrincipal UserDetails userDetails) {
+		logger.info "start"
+		
+		userService.get userDetails.getUsername()
+	}
 	
 	
 	@RequestMapping(value="/{dimension}/current-menus", method=RequestMethod.GET)
@@ -79,7 +93,7 @@ class LayoutRestController {
 	
 	
 	@RequestMapping(value="/{dimension}/sidebar", method=RequestMethod.GET)
-	List<LayoutMenu> sidebarMenus(
+	def sidebarMenus(
 		@PathVariable String dimension,
 		@AuthenticationPrincipal UserDetails userDetails) {
 		logger.info("start")
@@ -95,5 +109,12 @@ class LayoutRestController {
 		})
 		
 		return layoutMenus
+		
+//		MenuGroup menuGroup = menuGroupService.getByDimension(dimension)
+//		
+//		return [
+//			"name": menuGroup.getName(),
+//			"menus": layoutMenus
+//		]
 	}
 }

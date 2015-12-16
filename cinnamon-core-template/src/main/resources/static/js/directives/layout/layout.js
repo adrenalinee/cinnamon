@@ -11,19 +11,25 @@
 			scope: {},
 //			templateUrl: '/js/directives/layout/layout.tpl.html',
 //			template: '<ng-transclude />',
-			controller: function($scope, $document, $http) {
+			controller: function($scope, $rootScope, $document, $http) {
 				
 				//TODO dimension을 외부에서 받아야 한다.
-				$http.get('/rest/layout/configuration/current-menus')
+//				$http.get('/rest/layout/configuration/current-menus')
+//				.success(function(data) {
+//					console.log(data);
+//					$scope.menus = data;
+//				});
+//				
+//				
+//				this.getSidebarMenus = function() {
+//					return $scope.menus.sidebar;
+//				}
+				
+				$http.get('/rest/layout/me')
 				.success(function(data) {
 					console.log(data);
-					$scope.menus = data;
+					$rootScope.me = data;
 				});
-				
-				
-				this.getSidebarMenus = function() {
-					return $scope.menus.sidebar;
-				}
 				
 				
 				//

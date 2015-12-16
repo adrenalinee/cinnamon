@@ -80,7 +80,7 @@ class CinnamonCoreWebConfiguration {
 			
 			http.antMatcher("/**").authorizeRequests().anyRequest().denyAll()
 			http.formLogin().loginPage("/login").permitAll()
-			
+			http.logout().logoutUrl("/logout")
 			
 			WebExpressionVoter webExpressionVoter = new WebExpressionVoter()
 			AffirmativeBased accessDecisionManager = new AffirmativeBased(Arrays.asList(databaseRoleVoter, webExpressionVoter))

@@ -16,4 +16,9 @@ class MainController {
 	String index() {
 		"redirect:/configuration"
 	}
+	
+	@RequestMapping(value="/partials/**")
+	void partials() {
+		
+	}
 }

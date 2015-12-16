@@ -8,7 +8,7 @@
 		return {
 			restrict: 'E',
 			require: '^layout',
-			templateUrl: '/js/directives/sidebar/sidebar.tpl.html',
+			templateUrl: '/partials/sidebar.tpl.html',
 //			scope: {
 //				menus: '='
 //			},
@@ -23,6 +23,8 @@
 		$http.get('/rest/layout/configuration/sidebar')
 		.success(function(data) {
 			console.log(data);
+//			$scope.name = data.name;
+//			$scope.menus = data.menus;
 			$scope.menus = data;
 		});
 		

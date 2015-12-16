@@ -8,7 +8,7 @@
 		return {
 			restrict: 'E',
 			require: '^layout',
-			templateUrl: '/js/directives/header/header.tpl.html',
+			templateUrl: '/partials/header.tpl.html',
 			controller: headerController,
 			link: link
 		}
