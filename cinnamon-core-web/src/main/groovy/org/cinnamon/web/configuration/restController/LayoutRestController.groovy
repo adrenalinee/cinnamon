@@ -1,5 +1,6 @@
 package org.cinnamon.web.configuration.restController
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.cinnamon.core.domain.MenuGroup
 import org.cinnamon.core.domain.UserBase
 import org.cinnamon.core.domain.enumeration.MenuPosition
@@ -65,9 +66,10 @@ class LayoutRestController {
 			authorities.add(((GrantedAuthority) ga).getAuthority())
 		})
 		
-		MenuGroup menuGroup = menuGroupService.getByDimension(dimension)
-		MenuGroupResource menuGroupResource = beanMapper.map(menuGroup, MenuGroupResource)
+//		MenuGroup menuGroup = menuGroupService.getByDimension(dimension)
+//		MenuGroupResource menuGroupResource = beanMapper.map(menuGroup, MenuGroupResource)
 		
+		MenuGroupResource menuGroupResource = new MenuGroupResource();
 		
 		List<MenuResource> menuResources = new LinkedList<>()
 		menuService.getList(dimension, MenuPosition.sidebar, authorities).each({menu ->
@@ -77,7 +79,7 @@ class LayoutRestController {
 		
 		menuResources = new LinkedList<>()
 		menuService.getList(dimension, MenuPosition.headerRight, authorities).each({menu ->
-			menuResources.add(BeanUtils.copyProperties(menu, MenuResource.class))
+			menuResources.add(beanMapper.map(menu, MenuResource.class))
 		})
 		menuGroupResource.setHeaderRight(menuResources)
 		
@@ -92,29 +94,29 @@ class LayoutRestController {
 	}
 	
 	
-	@RequestMapping(value="/{dimension}/sidebar", method=RequestMethod.GET)
-	def sidebarMenus(
-		@PathVariable String dimension,
-		@AuthenticationPrincipal UserDetails userDetails) {
-		logger.info("start")
-		
-		List<String> authorities = new LinkedList<>()
-		userDetails.getAuthorities().each({ga ->
-			authorities.add(((GrantedAuthority) ga).getAuthority())
-		})
-		
-		List<LayoutMenu> layoutMenus = new LinkedList<>()
-		menuService.getList(dimension, MenuPosition.sidebar, authorities).each({menu ->
-			layoutMenus.add(beanMapper.map(menu, MenuResource.class))
-		})
-		
-		return layoutMenus
-		
-//		MenuGroup menuGroup = menuGroupService.getByDimension(dimension)
+//	@RequestMapping(value="/{dimension}/sidebar", method=RequestMethod.GET)
+//	def sidebarMenus(
+//		@PathVariable String dimension,
+//		@AuthenticationPrincipal UserDetails userDetails) {
+//		logger.info("start")
 //		
-//		return [
-//			"name": menuGroup.getName(),
-//			"menus": layoutMenus
-//		]
-	}
+//		List<String> authorities = new LinkedList<>()
+//		userDetails.getAuthorities().each({ga ->
+//			authorities.add(((GrantedAuthority) ga).getAuthority())
+//		})
+//		
+//		List<LayoutMenu> layoutMenus = new LinkedList<>()
+//		menuService.getList(dimension, MenuPosition.sidebar, authorities).each({menu ->
+//			layoutMenus.add(beanMapper.map(menu, MenuResource.class))
+//		})
+//		
+//		return layoutMenus
+//		
+////		MenuGroup menuGroup = menuGroupService.getByDimension(dimension)
+////		
+////		return [
+////			"name": menuGroup.getName(),
+////			"menus": layoutMenus
+////		]
+//	}
 }

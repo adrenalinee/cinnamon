@@ -98,17 +98,59 @@
 						<li class="footer"><a href="#">View all tasks</a></li>
 					</ul>
 				</li> -->
+
+
+
+				<!-- <li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						Dropdown <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Action</a></li>
+						<li><a href="#">Another action</a></li>
+						<li><a href="#">Something else here</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">Separated link</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="#">One more separated link</a></li>
+					</ul>
+				</li> -->
+				<!-- <li class="dropdown" uib-dropdown="">
+					<a href="" uib-dropdown-toggle="" id="simple-dropdown">
+						Dropdown <span class="caret"></span>
+					</a>
+					<ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+						<li role="menuitem"><a href="#">Action</a></li>
+						<li role="menuitem"><a href="#">Another action</a></li>
+						<li role="menuitem"><a href="#">Something else here</a></li>
+						<li class="divider"></li>
+						<li role="menuitem"><a href="#">Separated link</a></li>
+					</ul>
+				</li> -->
 				
-				<!-- User Account Menu -->
-				<li class="user-menu" dropdown="">
+				<li class="dropdown" uib-dropdown="" ng-repeat="menu in menus.headerRight">
+					<a href="" uib-dropdown-toggle="" >
+						{{menu.name}} <i class="{{menu.iconClass}}"></i>
+					</a>
+					<ul class="uib-dropdown-menu" role="menu" ng-if="menu.childs != null">
+						<li role="menuitem" ng-repeat="child in menu.childs">
+							<a ng-href="{{child.uri}}" target="_self">
+								<i class="{{child.iconClass}}"></i> {{child.name}}
+							</a>
+						</li>
+					</ul>
+				</li>
+
+			<!-- User Account Menu -->
+				<li class="user-menu" uib-dropdown="">
 					<!-- Menu Toggle Button -->
-					<a href="" dropdown-toggle="">
+					<a href="" uib-dropdown-toggle="">
 						<!-- The user image in the navbar-->
 						<img src="/webjars/adminlte/2.3.2/dist/img/user2-160x160.jpg" class="user-image" alt="User Image" />
 						<!-- hidden-xs hides the username on small devices so only the image appears. -->
 						<span class="hidden-xs">{{me.name}}</span>
 					</a>
-					<ul class="dropdown-menu">
+					<ul class="uib-dropdown-menu">
 						<!-- The user image in the menu -->
 						<li class="user-header"><img src="/webjars/adminlte/2.3.2/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
 							<p>

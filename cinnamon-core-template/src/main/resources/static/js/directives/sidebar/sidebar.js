@@ -8,7 +8,7 @@
 		return {
 			restrict: 'E',
 			require: '^layout',
-			templateUrl: '/partials/sidebar.tpl.html',
+			templateUrl: '/partials/sidebar',
 //			scope: {
 //				menus: '='
 //			},
@@ -20,13 +20,11 @@
 	
 	function controller($scope, $http) {
 		//TODO dimension을 외부에서 받아야 한다.
-		$http.get('/rest/layout/configuration/sidebar')
-		.success(function(data) {
-			console.log(data);
-//			$scope.name = data.name;
-//			$scope.menus = data.menus;
-			$scope.menus = data;
-		});
+//		$http.get('/rest/layout/configuration/sidebar')
+//		.success(function(data) {
+//			console.log(data);
+//			$scope.menus = data;
+//		});
 		
 		$scope.toggleShowChild = function(menu) {
 			console.log('toggleShowChild');

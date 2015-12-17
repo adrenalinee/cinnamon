@@ -125,7 +125,7 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 					menu("첨부파일")
 						.uri("/configuration/files")
 						.iconClass("fa fa-upload")
-				).addMenusAtHeaderLeft(
+				).addMenusAtHeaderRight(
 					menu("설정")
 						.iconClass("fa fa-gear")
 						.addChilds(
