@@ -129,45 +129,7 @@
 			ng-change="onPageChange()"
 			ng-if="domains.totalPages > 1" />
 		
-		
-		<!-- <table class="table table-hover">
-			<colgroup>
-				<col />
-				<col width="60%" />
-			</colgroup>
-			<tbody>
-				<tr ng-repeat="domain in domains.content">
-					<td>
-						<i class="ion-happy-outline"></i>
-						<img src="/webjars/adminlte/2.3.2/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"
-							style="width: 100%;
-    max-width: 45px;
-    height: auto;
-    border-radius: 50%;" />
-					</td>
-					<td>
-						<b><a href="">{{domain.userId}}</a></b><br />
-						<span class="text-muted">{{domain.name}}</span>
-					</td>
-					<td>{{domain.email}}</td>
-					<td>{{domain.createdAt | date: 'yyyy년 MM월 dd일'}}</td>
-				</tr>
-			</tbody>
-		</table> -->
-		
-		
-		
-		
-		
 		<table class="table table-hover">
-			<!-- <thead>
-				<tr>
-					<th>userId</th>
-					<th>이름</th>
-					<th>이메일</th>
-					<th>가입일</th>
-				</tr>
-			</thead> -->
 			<tbody>
 				<tr ng-repeat="domain in domains.content">
 					<td>
@@ -194,6 +156,8 @@
 			max-size="10"
 			ng-model="searchInfo.page"
 			ng-change="onPageChange()" />
+		
+		
 		
 		
 	</div>
