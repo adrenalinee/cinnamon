@@ -11,6 +11,7 @@
 
 <script type="text/javascript" src="/js/configuration/users/listController.js"></script>
 <script type="text/javascript" src="/js/configuration/users/viewController.js"></script>
+<script type="text/javascript" src="/js/configuration/users/createController.js"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 angular.module('cinnamon')
@@ -19,6 +20,10 @@ angular.module('cinnamon')
 		url: '/configuration/users',
 		templateUrl: '/configuration/partials/users/list',
 		controller: 'configuration.users.list'
+	}).state('create', {
+		url: '/configuration/users/create',
+		templateUrl: '/configuration/partials/users/create',
+		controller: 'configuration.users.create'
 	}).state('view', {
 		url: '/configuration/users/:userId',
 		templateUrl: '/configuration/partials/users/view',
@@ -34,22 +39,6 @@ angular.module('cinnamon')
 </head>
 
 <body layout:fragment="content">
-	<aside>
-		<!-- Content Header (Page header) -->
-		<section class="content-header">
-			<h1>
-				<span>사용자</span> <small>설정</small>
-				<!-- <button class="btn btn-primary btn-xs">
-					<i class="fa fa-plus"></i> 사용자 등록
-				</button> -->
-			</h1>
-		</section>
-		
-		<!-- Main content -->
-		<section class="content">
-			<ui-view />
-		</section>
-		<!-- /.content -->
-	</aside>
+	<ui-view />
 </body>
 </html>

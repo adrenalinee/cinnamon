@@ -28,7 +28,10 @@
 		<!-- /.search form -->
 		<!-- Sidebar Menu -->
 		<ul class="sidebar-menu">
-			<li ng-repeat="menu in menus.sidebar | filter: searchKeyword" ng-class="menuLiClass(menu)" ng-click="toggleShowChild(menu)">
+			<li ng-repeat="menu in menus.sidebar | filter: searchKeyword"
+				ng-class="menuLiClass(menu)"
+				ng-click="toggleShowChild(menu)">
+				
 				<a href="" ng-href="{{menu.uri}}" target="_self">
 					<i ng-class="menu.iconClass"></i> <span>{{menu.name}}</span>
 					<i ng-if="menu.childs != 0" class="fa fa-angle-left pull-right"></i>

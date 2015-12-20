@@ -18,7 +18,7 @@
 		}
 	});
 	
-	function controller($scope, $http) {
+	function controller($scope, $http, $location) {
 		//TODO dimension을 외부에서 받아야 한다.
 //		$http.get('/rest/layout/configuration/sidebar')
 //		.success(function(data) {
@@ -43,6 +43,9 @@
 				classes += "treeview";
 			}
 			if (menu.showChild) {
+				classes += " active";
+			} else if ($location.path().match(menu.uri)) {
+				//현재활성화된 메뉴일 경우 활성화 시킴
 				classes += " active";
 			}
 			
