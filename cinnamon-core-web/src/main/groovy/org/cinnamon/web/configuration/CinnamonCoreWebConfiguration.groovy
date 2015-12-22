@@ -77,10 +77,9 @@ class CinnamonCoreWebConfiguration {
 		void configure(HttpSecurity http) throws Exception {
 			http.antMatcher("/rest/**").authorizeRequests().anyRequest().authenticated()
 			
-			
 			http.antMatcher("/**").authorizeRequests().anyRequest().denyAll()
 			http.formLogin().loginPage("/login").permitAll()
-			http.logout().logoutUrl("/logout")
+			http.logout().logoutUrl("/logout").permitAll()
 			
 			WebExpressionVoter webExpressionVoter = new WebExpressionVoter()
 			AffirmativeBased accessDecisionManager = new AffirmativeBased(Arrays.asList(databaseRoleVoter, webExpressionVoter))
@@ -93,6 +92,7 @@ class CinnamonCoreWebConfiguration {
 			web.ignoring()
 					.antMatchers(
 					"/",
+					"/join",
 					"/webjars/**",
 					"/fonts/**",
 					"/configuration/partials/**",

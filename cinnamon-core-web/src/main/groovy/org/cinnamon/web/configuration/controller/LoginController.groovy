@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping
  * @author 신동성
  */
 @Controller
-@RequestMapping(value="/login")
 class LoginController {
 	Logger logger = LoggerFactory.getLogger(getClass())
 	
-	@RequestMapping(value="")
-	void index() {
+	@RequestMapping(value="/login")
+	void login() {
 		logger.info("start")
 	}
+	
+	@RequestMapping(value="/join")
+		void join() {
+			logger.info("start")
+		}
 }

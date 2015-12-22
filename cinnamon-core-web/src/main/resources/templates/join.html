@@ -1,21 +1,35 @@
-<aside>
-	<!-- Content Header (Page header) -->
-	<section class="content-header">
-		<h1>
-			<span>사용자</span> <small>설정</small>
-		</h1>
-	</section>
-	
-	<!-- Main content -->
-	<section class="content">
+<!DOCTYPE html>
+
+<html
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/base">
+
+<head>
+<title>사용자</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script type="text/javascript">
+/*<![CDATA[*/
+angular.module('cinnamon')
+.config(function($stateProvider, $urlRouterProvider) {
+
+});
+/*]]>*/
+</script>
+
+<base href="/" />
+</head>
+
+<body layout:fragment="body" class="hold-transition register-page">
 
 		<div class="register-box">
-			<!-- <div class="register-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
-  </div> -->
+			<div class="register-logo">
+				<a href=""><b>Admin</b>LTE</a>
+			</div>
 
 			<div class="register-box-body">
-				<p class="login-box-msg">회원으로 가입주세요.</p>
+				<p class="login-box-msg">회원으로 가입해주세요.</p>
 
 				<form action="../../index.html" method="post">
 					<div class="form-group has-feedback">
@@ -60,11 +74,11 @@
         Google+</a>
     </div> -->
 
-				<a href="login.html" class="text-center">이미 가입되어 있습니다.</a>
+				<a href="/login" target="_self" class="text-center">이미 가입되어 있습니다.</a>
 			</div>
 			<!-- /.form-box -->
 		</div>
 		<!-- /.register-box -->
 
-	</section>
-</aside>
+</body>
+</html>

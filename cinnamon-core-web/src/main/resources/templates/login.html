@@ -8,33 +8,9 @@
 <head>
 <title>로그인</title>
 
-<script type="text/javascript">
-/*<![CDATA[*/
-angular.module('cinnamon')
-.controller('loginController', function($scope, $http) {
-	console.log('loginController');
-	
-	$scope.user = {};
-	
-	//
-	$scope.login = function() {
-		console.log("login");
-		
-		$http.post("/login", $scope.user)
-		.success(function(data, status, config) {
-			console.log(status);
-			console.log(data);
-			
-			
-		});
-	}
-	
-});
-/*]]>*/
-</script>
 </head>
 
-<body class="login-page" layout:fragment="body" ng-controller="loginController">
+<body class="login-page" layout:fragment="body">
 
 	<div class="login-box" th:class="${param.error != null ? 'login-box animated shake' : 'login-box'}">
 		<div class="login-logo">
@@ -89,8 +65,8 @@ angular.module('cinnamon')
 			</div> -->
 			<!-- /.social-auth-links -->
 
-			<a href="/configuration/users/findPassword">I forgot my password</a><br />
-			<a href="/configuration/users/create" class="text-center">Register a new membership</a>
+			<a href="/configuration/users/findPassword">비밀번호 찾기</a><br />
+			<a href="/join" class="text-center">회원으로 가입하기</a>
 
 		</div>
 		<!-- /.login-box-body -->
