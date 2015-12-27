@@ -6,9 +6,12 @@ import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.UserBaseRepository;
 import org.cinnamon.core.repository.UserGroupRepository;
+import org.cinnamon.core.vo.search.UserGroupSearch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +33,14 @@ public class UserGroupService<T extends UserBase> {
 	
 	@Autowired
 	UserBaseRepository<T> userRepository;
+	
+	
+	@Transactional(readOnly=true)
+	public Page<UserGroup> getList(UserGroupSearch userGroupSearch, Pageable pageable) {
+		logger.info("start");
+		
+		return userGroupRepository.search(userGroupSearch, pageable);
+	}
 	
 	
 	@Transactional

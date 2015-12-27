@@ -21,4 +21,9 @@ class MainController {
 	void partials() {
 		
 	}
+	
+	@RequestMapping(value="/directives/**")
+	 void drective() {
+		 
+	 }
 }

@@ -32,6 +32,28 @@ public class UserGroupRepositoryImpl implements UserGroupRepositoryCustom {
 		QUserGroup userGroup = QUserGroup.userGroup;
 		
 		BooleanBuilder builder = new BooleanBuilder();
+		if (!StringUtils.isEmpty(userGroupSearch.getKeyword())) {
+			String keyword = userGroupSearch.getKeyword();
+//			Long longValue = null;
+//			BooleanBuilder builder2 = new BooleanBuilder();
+//			try {
+//				longValue = Long.parseLong(keyword);
+//			} catch (NumberFormatException e) {
+//				
+//			}
+//			if (longValue != null) {
+//				builder2.or(userGroup.userGroupId.eq(longValue));
+//			}
+//			
+//			builder2.or(userGroup.name.like("%" + keyword + "%"))
+//					.or(userGroup.authority.authority.eq(keyword));
+//			
+//			builder.or(builder2);
+			
+			builder.or(userGroup.name.like("%" + keyword + "%"))
+					.or(userGroup.authority.authority.eq(keyword));
+		}
+		
 		if (userGroupSearch.getUserGroupId() != null) {
 			builder.and(userGroup.userGroupId.eq(userGroupSearch.getUserGroupId()));
 		}
@@ -40,6 +62,9 @@ public class UserGroupRepositoryImpl implements UserGroupRepositoryCustom {
 		}
 		if (!StringUtils.isEmpty(userGroupSearch.getAuthority())) {
 			builder.and(userGroup.authority.authority.eq(userGroupSearch.getAuthority()));
+		}
+		if (userGroupSearch.getUseStatus() != null) {
+			builder.and(userGroup.useStatus.eq(userGroupSearch.getUseStatus()));
 		}
 		
 		
