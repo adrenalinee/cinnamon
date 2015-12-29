@@ -95,6 +95,7 @@ public class UserBase implements UserEntity, Serializable {
 	/**
 	 * 직업
 	 */
+	@Column(length=200)
 	String job;
 	
 	/**

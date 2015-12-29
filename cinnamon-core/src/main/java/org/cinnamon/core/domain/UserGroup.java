@@ -35,8 +35,8 @@ public class UserGroup implements Serializable {
 	String name;
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy="userGroups")
 //	@OneToMany(mappedBy="userGroup")
+	@ManyToMany(mappedBy="userGroups")
 	List<UserBase> users;
 	
 	
