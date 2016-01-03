@@ -10,15 +10,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <script type="text/javascript" src="/js/configuration/userGroups/listController.js"></script>
+<script type="text/javascript" src="/js/configuration/userGroups/viewController.js"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 angular.module('cinnamon')
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 	$stateProvider.state('userGroups', {
 		url: '/configuration/userGroups',
 		templateUrl: '/configuration/partials/userGroups/list',
 		controller: 'configuration.userGroups.list'
+	}).state('view', {
+		url: '/configuration/userGroups/:userGroupId',
+		templateUrl: '/configuration/partials/userGroups/view',
+		controller: 'configuration.userGroups.view'
 	});
+	
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	
+	$httpProvider.defaults.headers.post[header] = token;
+	$httpProvider.defaults.headers.put[header] = token;
 });
 /*]]>*/
 </script>

@@ -34,6 +34,21 @@ public class UserGroupService<T extends UserBase> {
 	@Autowired
 	UserBaseRepository<T> userRepository;
 	
+	@Transactional
+	public UserGroup save(UserGroup userGroup) {
+		logger.info("start");
+		
+		return userGroupRepository.save(userGroup);
+	}
+	
+	
+	@Transactional(readOnly=true)
+	public UserGroup get(Long userGroupId) {
+		logger.info("start");
+		
+		return userGroupRepository.findOne(userGroupId);
+	}
+	
 	
 	@Transactional(readOnly=true)
 	public Page<UserGroup> getList(UserGroupSearch userGroupSearch, Pageable pageable) {

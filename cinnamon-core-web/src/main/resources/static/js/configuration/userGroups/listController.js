@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.userGroups.list', function($scope, $http) {
+.controller('configuration.userGroups.list', function($scope, $http, $location, $state) {
 	console.log('configuration.userGroups.list');
 	
 	$scope.domains;
@@ -24,6 +24,29 @@ angular.module('cinnamon')
 		$scope.searchInfo.page = 1;
 		$scope.search();
 	}
+	
+	$scope.createDialogButtons = {
+		cancle: {
+			label: '취소',
+			className: 'btn-default'
+		},
+		confirm: {
+			label: '등록',
+			className: 'btn-primary',
+			callback: function() {
+				$http.post("/rest/configuration/userGroups", $scope.domain)
+				.success(function(data, status, headers) {
+					console.log(status);
+					console.log(data);
+					console.log(headers());
+					
+					var viewLink = headers("Location");
+					
+					console.log(viewLink);
+				});
+			}
+		}
+	};
 	
 	$scope.load = function(params) {
 		$http.get('/rest/configuration/userGroups', {params: params})

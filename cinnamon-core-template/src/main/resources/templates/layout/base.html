@@ -3,7 +3,7 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<html ng-app="cinnamon"
+<html
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	
@@ -12,8 +12,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <title>AdminLTE 2 | Dashboard</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
-<!-- Bootstrap 3.3.4 -->
+<meta name="_csrf" th:content="${_csrf.token}" th:if="${_csrf != null}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" th:if="${_csrf != null}" />
+
+<!-- Bootstrap -->
 <link href="/webjars/bootstrap/3.3.6/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="/webjars/bootstrap/3.3.6/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+
 <!-- Font Awesome Icons -->
 <link href="/webjars/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <!-- Ionicons -->
@@ -43,15 +48,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <script type="text/javascript" src="/webjars/bootbox/4.4.0/bootbox.js"></script>
 <script type="text/javascript" src="/webjars/iCheck/1.0.2/icheck.min.js"></script>
-
-<script type="text/javascript" src="/js/main.js"></script>
-<script type="text/javascript" src="/js/directives/header/header.js"></script>
-<script type="text/javascript" src="/js/directives/sidebar/sidebar.js"></script>
-<script type="text/javascript" src="/js/directives/footer/footer.js"></script>
-<script type="text/javascript" src="/js/directives/controlSidebar/controlSidebar.js"></script>
-<script type="text/javascript" src="/js/directives/layout/layout.js"></script>
-<script type="text/javascript" src="/js/directives/icheck/icheck.js"></script>
-<script type="text/javascript" src="/js/directives/selectOrder/selectOrder.js"></script>
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

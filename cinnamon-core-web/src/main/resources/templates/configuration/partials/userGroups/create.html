@@ -1,3 +1,11 @@
-<div>
-userGroup create form~
-</div>
+<form name="form" novalidate="novalidate" ng-submit="create(form)">
+	<div class="form-group" ng-class="form.name.$invalid  &amp;&amp; form.$submitted ? 'has-warning' : ''">
+		<label class="control-label">모임 이름</label>
+		<input type="text" class="form-control" name="name" ng-model="domain.name" maxlength="200" required="required" />
+		<small class="help-block" ng-show="form.name.$error.required &amp;&amp; form.$submitted">필수 입력 항목입니다.</small>
+	</div>
+	<div class="form-group">
+		<label class="control-label">설명</label>
+		<textarea rows="5" class="form-control" ng-model="domain.description" maxlength="1000"></textarea>
+	</div>
+</form>

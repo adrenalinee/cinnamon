@@ -6,7 +6,8 @@
 			<button class="btn btn-primary btn-sm"
 				ng-bootbox-title="사용자 모임 생성"
 				ng-bootbox-custom-dialog=""
-				ng-bootbox-custom-dialog-template="/configuration/partials/userGroups/create">
+				ng-bootbox-custom-dialog-template="/configuration/partials/userGroups/create"
+				ng-bootbox-buttons="createDialogButtons">
 				<i class="fa fa-plus"></i> 사용자 모임 생성
 			</button>
 		</h1>
@@ -63,7 +64,6 @@
 				</div>
 				
 				<div ng-show="showDetailSearch" ng-class="showDetailSearch ? 'animated fadeIn': ''">
-					<hr />
 					<div class="well well-sm">
 					
 						<div class="form-group">
@@ -120,9 +120,10 @@
 								<i class="fa fa-users fa-2x text-muted"></i>
 							</td>
 							<td>
+								<!-- <b><a ui-sref="userGroups.view({userGrouId: domain.userGroupId})">{{domain.userGroupId}}. {{domain.name}}</a></b> -->
 								<b><a ng-href="/configuration/userGroups/{{domain.userGroupId}}">{{domain.userGroupId}}. {{domain.name}}</a></b>
 								<br />
-								<small class="text-muted">권한: {{domain.authority.name}} </small>
+								<small class="text-muted">권한: {{domain.authority.name || '설정안됨'}} </small>
 							</td>
 						</tr>
 					</tbody>
