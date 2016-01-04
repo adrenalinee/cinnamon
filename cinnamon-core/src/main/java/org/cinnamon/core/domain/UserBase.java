@@ -109,6 +109,7 @@ public class UserBase implements UserEntity, Serializable {
 	
 	
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@PrimaryKeyJoinColumn
 	UserIntroduce userIntroduce;
 	
 	/**
