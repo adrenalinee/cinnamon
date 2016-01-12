@@ -16,6 +16,8 @@ public class GroupWrapper {
 	
 	Group group;
 	
+	GroupWrapper parent;
+	
 	List<GroupWrapper> childGroupWrappers = new LinkedList<>();
 	
 	GroupWrapper(String name, Object groupId) {
@@ -35,7 +37,11 @@ public class GroupWrapper {
 	}
 	
 	public GroupWrapper addChildGroup(GroupWrapper... childWrappers) {
-		childGroupWrappers.addAll(Arrays.asList(childWrappers));
+		Arrays.asList(childWrappers).forEach(childWrapper -> {
+			childWrapper.parent = this;
+			childGroupWrappers.add(childWrapper);
+		});
+//		childGroupWrappers.addAll(Arrays.asList(childWrappers));
 		return this;
 	}
 }

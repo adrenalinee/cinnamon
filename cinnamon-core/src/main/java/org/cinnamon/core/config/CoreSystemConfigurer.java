@@ -77,6 +77,7 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 		}
 		
 		nationGroupWrapper.addChildGroup(group("인터내셔날", "INTERNATIONAL"));
+		baseData.addGroups(nationGroupWrapper);
 	}
 	
 	private void addAuthority(BaseDataBuilder baseData) {
