@@ -153,18 +153,19 @@ public class BaseDataBuilder {
 	private void buildGroups() {
 		orders = 0;
 		groupWrappers.forEach(groupWrapper -> {
-			buildGroups(groupWrapper, orders++);
+			buildGroups(null, groupWrapper, orders++);
 		});
 	}
 	
-	private void buildGroups(GroupWrapper groupWrapper, int orders) {
+	private void buildGroups(Group parent, GroupWrapper groupWrapper, int orders) {
 		Group group = groupWrapper.group;
+		group.setParent(parent);
 		group.setOrders(orders);
 		em.persist(group);
 		
 		childOrders = 0;
 		groupWrapper.childGroupWrappers.forEach(childGroupWrapper -> {
-			buildGroups(childGroupWrapper, childOrders++);
+			buildGroups(group, childGroupWrapper, childOrders++);
 		});
 	}
 	
