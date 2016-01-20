@@ -122,7 +122,6 @@ public class UserBaseService<T extends UserBase> {
 	}
 	
 	
-	
 	@Transactional(readOnly=true)
 	public boolean exists(String userId) {
 		return userRepository.exists(userId);
