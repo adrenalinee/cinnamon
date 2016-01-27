@@ -61,7 +61,7 @@ class CinnamonCoreWebConfiguration {
 		public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 			auth
 				.userDetailsService(userDetailService)
-					.passwordEncoder(new BCryptPasswordEncoder());
+					.passwordEncoder(new BCryptPasswordEncoder())
 		}
 		
 //		@Override
