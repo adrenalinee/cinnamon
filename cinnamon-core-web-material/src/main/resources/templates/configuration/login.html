@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/base">
+
+<head>
+<title>로그인</title>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript">
+angular.module('cinnamon');
+</script>
+</head>
+<body layout:fragment="body" layout-gt-xs="row" layout-align-gt-xs="center start">
+
+	<md-content flex-gt-xs="50">
+		<form th:action="@{/login}" method="post">
+			<md-card>
+				<md-card-header>
+					<md-card-header-text>
+						<span class="md-title">Web Console 로그인</span>
+					</md-card-header-text>
+				</md-card-header>
+				<md-card-content>
+						<md-input-container class="md-block">
+							<label>userId</label>
+							<input name="username" />
+						</md-input-container>
+						<md-input-container class="md-block">
+							<label>비밀번호</label>
+							<input type="password" name="password" />
+						</md-input-container>
+				</md-card-content>
+				<md-card-actions>
+					<md-button type="submit" class="md-raised md-primary">로그인</md-button>
+				</md-card-actions>
+			</md-card>
+		</form>
+	</md-content>
+</body>
+</html>

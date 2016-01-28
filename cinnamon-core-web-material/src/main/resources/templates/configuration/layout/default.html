@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/base">
+
+<head>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+</head>
+<body layout:fragment="body" layout="column">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button">
+				<i class="fa fa-bars"></i>
+			</md-button>
+			<h2>Web console</h2>
+		</div>
+	</md-toolbar>
+	<div flex="" layout="row">
+		<md-sidenav class="md-whiteframe-z2" md-is-locked-open="true">
+			<!-- <md-toolbar>
+				<div class="md-toolbar-tools">
+					<h2>Web console</h2>
+				</div>
+			</md-toolbar> -->
+			
+			<md-menu-item>
+				<md-button href="/configuration/users">
+					<md-icon>face</md-icon> 사용자
+				</md-button>
+			</md-menu-item>
+			<md-menu-divider></md-menu-divider>
+			<md-menu-item>
+				<md-button>
+					<md-icon>group</md-icon> 사용자 모임
+				</md-button>
+			</md-menu-item>
+			
+		</md-sidenav>
+		<div layout:fragment="content"></div>
+	</div>
+</body>
+</html>
