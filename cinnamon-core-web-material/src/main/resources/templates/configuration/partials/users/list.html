@@ -1,5 +1,67 @@
 <md-content>
 	
-	users list
+		<md-list>
+			<md-list-item ng-repeat="domain in domains.content" ui-sref="view">
+				<div layout="column">
+					<b>{{domain.name}}</b>
+					<small>{{domain.userId}}</small>
+				</div>
+			</md-list-item>
+		</md-list>
+	
+	<!-- <md-card>
+	
+		<table class="md-table">
+			<tbody>
+				<tr ng-repeat="domain in domains.content">
+					<td>
+						<i class="ion-person text-muted"></i>
+					</td>
+					<td>
+						<b><a ng-href="/configuration/users/{{domain.userId}}">{{domain.userId}}</a></b>
+					</td>
+					<td>{{domain.name}}</td>
+					<td>
+						{{domain.email}}
+					</td>
+					<td class="text-muted">{{domain.createdAt | date: 'yyyy년 MM월 dd일'}}</td>
+				</tr>
+			</tbody>
+		</table>
+	
+	</md-card>
+	
+	
+	<md-card>
+		<md-table-container>
+			
+			<table md-table=""  md-row-select="" ng-model="selectedUsers" md-progress="promise">
+				<thead md-head="">
+					<tr md-row="">
+						<th md-column="">이름</th>
+						<th md-column="">이메일</th>
+						<th md-column="">가입 일시</th>
+					</tr>
+				</thead>
+				<tbody md-body="">
+					<tr
+						md-row=""
+						md-select="domain"
+						md-auto-select=""
+						md-on-select="selectUser"
+						md-select-id="{{domain.userId}}"
+						ng-repeat="domain in domains.content">
+						
+						<td md-cell="">{{domain.userId}}</td>
+						<td md-cell="">{{domain.email}}</td>
+						<td md-cell="">{{domain.createdAt | date: 'yyyy년 MM월 dd일'}}</td>
+					</tr>
+				</tbody>
+			</table>
+			
+		</md-table-container>
+		<md-table-pagination md-limit="domains.size" md-page="1" md-total="{{domains.totalElements}}" />
+		
+	</md-card> -->
 	
 </md-content>

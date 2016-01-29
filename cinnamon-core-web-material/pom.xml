@@ -37,7 +37,17 @@
 			<groupId>org.cinnamon</groupId>
 			<artifactId>cinnamon-core</artifactId>
 		</dependency>
-		
+
+		<!-- <dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>3.3.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular-ui-bootstrap-bower</artifactId>
+			<version>0.14.3</version>
+		</dependency> -->
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-material</artifactId>
@@ -52,6 +62,11 @@
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>font-awesome</artifactId>
 			<version>4.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular-material-data-table</artifactId>
+			<version>0.9.8</version>
 		</dependency>
 	</dependencies>
 

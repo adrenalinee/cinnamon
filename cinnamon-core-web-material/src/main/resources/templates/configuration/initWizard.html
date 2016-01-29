@@ -18,18 +18,7 @@
 /*<![CDATA[*/
 'use strict';
 angular.module('cinnamon')
-.config(function($stateProvider) {
-	/* $stateProvider.state('welcome', {
-		url: '/configuration/initWizard',
-		templateUrl: '/configuration/partials/initWizard/welcome'
-	}).state('baseData', {
-		url: '/configuration/initWizard/baseData',
-		templateUrl: '/configuration/partials/initWizard/baseData'
-	}).state('firstUser', {
-		url: '/configuration/initWizard/firstUser',
-		templateUrl: '/configuration/partials/initWizard/firstUser'
-	}); */
-}).controller('wizardController', function($scope, $http, $mdToast, $mdDialog) {
+.controller('wizardController', function($scope, $http, $mdToast, $mdDialog) {
 	$scope.selectedStep = 0;
 	
 	$scope.next = function() {
@@ -90,15 +79,17 @@ angular.module('cinnamon')
 </head>
 
 <body layout:fragment="body">
-<md-toolbar layout="column">
-	<h3>console init</h3>
+<md-toolbar>
+	<h3>Web console 시스템 초기화</h3>
 </md-toolbar>
 	
 <md-content ng-cloak="" ng-controller="wizardController">
+
+	<md-card>
+
 	<md-tabs md-selected="selectedStep" md-dynamic-height="true">
 		<md-tab label="초기화 시작">
 			<p>시스템 초기화를 시작합니다.</p>
-			
 			<md-button class="md-raised md-primary" ng-click="next()">
 				<md-icon md-font-icon="play_arrow"></md-icon> 초기화 시작
 			</md-button>
@@ -164,6 +155,9 @@ angular.module('cinnamon')
 			</form>
 		</md-tab>
 	</md-tabs>
+	
+	</md-card>
+	
 </md-content>
 	
 	
