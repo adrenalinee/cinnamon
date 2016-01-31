@@ -5,7 +5,7 @@ angular.module('cinnamon', [
 	'ngAnimate',
 	'ui.router',
 	'ngMaterial',
-	'md.data.table'
+//	'md.data.table'
 //	'ui.bootstrap'
 ]).config(function($locationProvider, $mdThemingProvider) {
 	$locationProvider.html5Mode({

@@ -1,7 +1,7 @@
 <md-content>
 	
 		<md-list>
-			<md-list-item ng-repeat="domain in domains.content" ui-sref="view">
+			<md-list-item ng-repeat="domain in domains.content" ui-sref="view({userId:domain.userId})">
 				<div layout="column">
 					<b>{{domain.name}}</b>
 					<small>{{domain.userId}}</small>

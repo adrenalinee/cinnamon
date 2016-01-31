@@ -48,10 +48,31 @@
 			<artifactId>angular-ui-bootstrap-bower</artifactId>
 			<version>0.14.3</version>
 		</dependency> -->
+		
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular</artifactId>
+			<version>1.5.0-rc.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular-animate</artifactId>
+			<version>1.5.0-rc.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular-aria</artifactId>
+			<version>1.5.0-rc.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular-messages</artifactId>
+			<version>1.5.0-rc.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
 			<artifactId>angular-material</artifactId>
-			<version>1.0.3</version>
+			<version>1.0.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
@@ -63,11 +84,11 @@
 			<artifactId>font-awesome</artifactId>
 			<version>4.5.0</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-material-data-table</artifactId>
 			<version>0.9.8</version>
-		</dependency>
+		</dependency> -->
 	</dependencies>
 
 
