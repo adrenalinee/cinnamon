@@ -28,6 +28,10 @@ angular.module('cinnamon')
 		url: '/configuration/users/:userId',
 		templateUrl: '/configuration/partials/users/view',
 		controller: 'configuration.users.view'
+	}).state('registUserGroup', {
+		url: '/configuration/users/:userId/userGroups/regist',
+		templateUrl: '/configuration/partials/users/userGroups/regist',
+		controller: 'configuration.users.view'
 	});
 	
 	//$urlRouterProvider.otherwise('/configuration/users');
