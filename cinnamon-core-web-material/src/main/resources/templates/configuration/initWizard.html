@@ -33,7 +33,7 @@ angular.module('cinnamon')
 		});
 	}
 	
-	$scope.createFirstUser = function(form) {
+	$scope.createFirstUser = function(form, $event) {
 		console.log('createFirstUser');
 		
 		if (form.$valid == false) {
@@ -50,6 +50,7 @@ angular.module('cinnamon')
 			.success(function(data, status) {
 				$mdDialog.show(
 					$mdDialog.alert()
+					.targetEvent($event)
 					.textContent('축하합니다. 시스템 초기화가  성공적으로 마무리되었습니다.')
 					.ok('시작하기!'))
 				.finally(function() {
@@ -109,7 +110,7 @@ angular.module('cinnamon')
 			<md-content layout-padding="">
 				<p>최초로 로그인할 사용자 계정을 생성합니다.</p>
 				
-				<form name="firstUserform" ng-submit="createFirstUser(firstUserform)" novalidate="novalidate">
+				<form name="firstUserform" ng-submit="createFirstUser(firstUserform, $event)" novalidate="novalidate">
 					<md-input-container class="md-block">
 						<label>이름</label>
 						<input name="name" ng-model="domain.name" required="required" md-maxlength="50" maxlength="50" />

@@ -8,9 +8,12 @@
 <head>
 
 <script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/configuration/layout/layout.js"></script>
+
 
 </head>
-<body layout:fragment="body" layout="column">
+<body layout:fragment="body">
+<div ng-controller="layoutController" layout="column">
 	<md-toolbar>
 		<div class="md-toolbar-tools">
 			<md-button class="md-icon-button">
@@ -27,6 +30,50 @@
 				</div>
 			</md-toolbar> -->
 			
+			
+			<md-list>
+				
+				<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
+					{{menu.name}}
+					
+				</md-list-item>
+				<!-- <md-list ng-if="menu.childs != 0">
+					<md-list-item ng-repeat="childMenu in menu.childs" ng-click="selectMenu(childMenu)">
+						{{childMenu.name}}
+					</md-list-item>
+				</md-list> -->
+				
+			</md-list>
+			
+			
+			<!-- <md-menu-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
+					{{menu.name}}
+				<md-menu ng-if="menu.childs != 0">
+					<md-button ng-click="$mdOpenMenu($event)">
+						ddd
+					</md-button>
+					<md-menu-content>
+						<md-menu-item ng-repeat="childMenu in menu.childs">
+							<md-button href="/configuration/users">
+								{{childMenu.name}}
+							</md-button>
+						</md-menu-item>
+					</md-menu-content>
+					
+				</md-menu> 
+				
+			</md-menu-item> -->
+			
+			
+			
+			<!-- <md-menu-item ng-repeat="menu in currentMenus.sidebar">
+				<md-button href="/configuration/users">
+					<i class="{{menu.iconClass}}"></i> {{menu.name}}
+				</md-button>
+			</md-menu-item>
+			
+			
+			
 			<md-menu-item>
 				<md-button href="/configuration/users">
 					<md-icon>face</md-icon> 사용자
@@ -37,10 +84,11 @@
 				<md-button>
 					<md-icon>group</md-icon> 사용자 모임
 				</md-button>
-			</md-menu-item>
+			</md-menu-item> -->
 			
 		</md-sidenav>
 		<div layout:fragment="content"></div>
 	</div>
+</div>
 </body>
 </html>

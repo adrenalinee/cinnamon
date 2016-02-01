@@ -3,8 +3,9 @@
 angular.module('cinnamon', [
 //		'ngResource',
 	'ngAnimate',
+	'ngAria',
 	'ui.router',
-	'ngMaterial',
+	'ngMaterial'
 //	'md.data.table'
 //	'ui.bootstrap'
 ]).config(function($locationProvider, $mdThemingProvider) {
