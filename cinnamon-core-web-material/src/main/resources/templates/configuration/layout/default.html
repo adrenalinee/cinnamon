@@ -6,6 +6,8 @@
 	layout:decorator="configuration/layout/base">
 
 <head>
+<link href="/css/cinnamon.css" rel="stylesheet" type="text/css" />
+
 
 <script type="text/javascript" src="/js/main.js"></script>
 <script type="text/javascript" src="/js/configuration/layout/layout.js"></script>
@@ -20,7 +22,15 @@
 				<i class="fa fa-bars"></i>
 			</md-button>
 			<h2>Web console</h2>
+			<span flex=""></span>
+			<md-button class="md-icon-button">
+				<md-icon>person</md-icon>
+			</md-button>
+			<md-button class="md-icon-button">
+				<md-icon>more_vert</md-icon>
+			</md-button>
 		</div>
+		
 	</md-toolbar>
 	<div flex="" layout="row">
 		<md-sidenav class="md-whiteframe-z2" md-is-locked-open="$mdMedia('gt-sm')">
@@ -28,7 +38,6 @@
 				<div class="md-toolbar-tools">
 				</div>
 			</md-toolbar>
-			
 			
 			<md-list>
 				
@@ -43,47 +52,6 @@
 				</md-list> -->
 				
 			</md-list>
-			
-			
-			<!-- <md-menu-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
-					{{menu.name}}
-				<md-menu ng-if="menu.childs != 0">
-					<md-button ng-click="$mdOpenMenu($event)">
-						ddd
-					</md-button>
-					<md-menu-content>
-						<md-menu-item ng-repeat="childMenu in menu.childs">
-							<md-button href="/configuration/users">
-								{{childMenu.name}}
-							</md-button>
-						</md-menu-item>
-					</md-menu-content>
-					
-				</md-menu> 
-				
-			</md-menu-item> -->
-			
-			
-			
-			<!-- <md-menu-item ng-repeat="menu in currentMenus.sidebar">
-				<md-button href="/configuration/users">
-					<i class="{{menu.iconClass}}"></i> {{menu.name}}
-				</md-button>
-			</md-menu-item>
-			
-			
-			
-			<md-menu-item>
-				<md-button href="/configuration/users">
-					<md-icon>face</md-icon> 사용자
-				</md-button>
-			</md-menu-item>
-			<md-menu-divider></md-menu-divider>
-			<md-menu-item>
-				<md-button>
-					<md-icon>group</md-icon> 사용자 모임
-				</md-button>
-			</md-menu-item> -->
 			
 		</md-sidenav>
 		<div layout:fragment="content"></div>
