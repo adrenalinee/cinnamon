@@ -103,7 +103,7 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 					menu("사용자 모임")
 						.uri("/configuration/userGroups")
 						.iconClass("fa fa-users"),
-					menu("사이트")
+					menu("사이트 및 메뉴")
 						.uri("/configuration/sites")
 						.iconClass("fa fa-sitemap"),
 					menu("역할 및 권한")
