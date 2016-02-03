@@ -25,6 +25,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -118,8 +119,8 @@ public class CommonRestControllerAdvice {
 	 * @param request
 	 * @return
 	 */
-	@ExceptionHandler(InvalidParameterException.class)
-	public ResponseEntity<InvalidParameterInfo> handler(InvalidParameterException ex, HttpServletRequest request) {
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<InvalidParameterInfo> handler(MethodArgumentNotValidException ex, HttpServletRequest request) {
 		logger.info("start");
 		
 		logger.error("요청 처리중 에러 발생", ex);
@@ -134,7 +135,7 @@ public class CommonRestControllerAdvice {
 		invalidParameterInfo.setMethod(request.getMethod());
 		
 		
-		List<ObjectError> errorList = ex.getObjectErrors();
+		List<ObjectError> errorList = ex.getBindingResult().getAllErrors();
 		List<Violation> violations = new LinkedList<>();
 		if (errorList != null) {
 			for (ObjectError error: errorList) {
@@ -227,4 +228,6 @@ public class CommonRestControllerAdvice {
 		ResponseEntity<NotFoundInfo> response = new ResponseEntity<NotFoundInfo>(notFoundInfo, HttpStatus.NOT_FOUND);
 		return response;
 	}
+	
+	
 }
