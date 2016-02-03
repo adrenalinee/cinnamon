@@ -1,9 +1,12 @@
 package org.cinnamon.web.configuration
 
+import javax.sql.DataSource
+
 import org.cinnamon.core.security.DatabasePermissionVoter
 import org.cinnamon.core.security.UserDetailServiceImpl
 import org.cinnamon.web.configuration.interceptor.InitCheckInterceptor
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.access.vote.AffirmativeBased
@@ -12,7 +15,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.web.*
 import org.springframework.security.web.access.expression.WebExpressionVoter
+import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
@@ -58,6 +69,17 @@ class CinnamonCoreWebConfiguration {
 		DatabasePermissionVoter databaseRoleVoter
 		
 		@Autowired
+		DataSource datasource
+		
+		
+		@Bean
+		PersistentTokenRepository persistentTokenRepository() {
+			JdbcTokenRepositoryImpl jdbcTokenRepositoryImpl = new JdbcTokenRepositoryImpl()
+			jdbcTokenRepositoryImpl.setDataSource(datasource)
+			return jdbcTokenRepositoryImpl
+		}
+		
+		@Autowired
 		public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 			auth
 				.userDetailsService(userDetailService)
@@ -77,11 +99,8 @@ class CinnamonCoreWebConfiguration {
 			
 			http.antMatcher("/**").authorizeRequests().anyRequest().denyAll()
 			http.formLogin().loginPage("/login").permitAll()
-//			http.logout().logoutUrl("/logout").permitAll()
-			
-			http
-			.logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+			http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+			http.rememberMe().tokenRepository(new InMemoryTokenRepositoryImpl())
 			
 			WebExpressionVoter webExpressionVoter = new WebExpressionVoter()
 			AffirmativeBased accessDecisionManager = new AffirmativeBased(Arrays.asList(databaseRoleVoter, webExpressionVoter))
