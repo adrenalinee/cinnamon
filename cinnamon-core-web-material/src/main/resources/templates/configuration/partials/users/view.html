@@ -8,6 +8,24 @@
 		</md-card-title>
 		
 	</md-card>
+	
+	
+	<md-fab-speed-dial md-open="fabOpen" class="md-fab-top-right md-scale">
+		<md-fab-trigger>
+			<md-button class="md-fab md-accent">
+				<md-icon>edit</md-icon>
+			</md-button>
+		</md-fab-trigger>
+		<md-fab-actions>
+			<md-button class="md-fab md-accent md-raised md-mini" ng-click="selectUserGroup($event)">
+				<md-tooltip md-direction="left">사용자 모임 등록</md-tooltip>
+				<md-icon>group</md-icon>
+			</md-button>
+		</md-fab-actions>
+	</md-fab-speed-dial>
+	
+	
+	
 	<!-- <md-tabs md-dynamic-height="true">
 		<md-tab label="개요"> -->
 			<md-card>
@@ -105,18 +123,4 @@
 			</md-card-header>
 		</md-card>
 	
-	
-	<md-fab-speed-dial md-open="fabOpen" class="md-fab-top-right md-scale">
-		<md-fab-trigger>
-			<md-button class="md-fab md-accent">
-				<md-icon>add</md-icon>
-			</md-button>
-		</md-fab-trigger>
-		<md-fab-actions>
-			<md-button class="md-fab md-accent md-raised md-mini" ui-serf="registUserGroup({userId:domain.userId})">
-				<md-tooltip>사용자 모임 등록</md-tooltip>
-				<md-icon>group</md-icon>
-			</md-button>
-		</md-fab-actions>
-	</md-fab-speed-dial>
 </md-content>
