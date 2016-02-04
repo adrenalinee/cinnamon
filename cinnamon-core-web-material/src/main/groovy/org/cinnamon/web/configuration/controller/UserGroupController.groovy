@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping
  * @author 신동성
  */
 @Controller
-@RequestMapping("/configuration/users")
-class UserBaseController {
+@RequestMapping("/configuration/userGroups")
+class UserGroupController {
 	
 	@RequestMapping("**")
 	def users() {
-		"configuration/users"
+		"configuration/userGroups"
 	}
 }

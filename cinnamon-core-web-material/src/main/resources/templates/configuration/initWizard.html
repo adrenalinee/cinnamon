@@ -141,7 +141,7 @@ angular.module('cinnamon')
 					
 					<md-input-container class="md-block">
 						<label>비밀번호</label>
-						<input type="password" name="password" ng-model="domain.password" required="required" md-maxlength="50" maxlength="50" minlength="6" />
+						<input type="password" name="password" ng-model="domain.password" required="required" md-maxlength="30" maxlength="30" minlength="6" />
 						<div ng-messages="firstUserform.password.$submitted">
 							<div ng-message="required" ng-show="firstUserform.password.$error.required">필수 입력 항목입니다.</div>
 							<div ng-message="required" ng-show="firstUserform.password.$error.minlength">최소 6자리 이상 입력하시기 바랍니다.</div>
@@ -150,7 +150,7 @@ angular.module('cinnamon')
 					
 					<md-input-container class="md-block">
 						<label>비밀번호 확인</label>
-						<input type="password" name="password2" ng-model="domain.password2" required="required" md-maxlength="50" maxlength="50" />
+						<input type="password" name="password2" ng-model="domain.password2" required="required" md-maxlength="30" maxlength="30" />
 						<div ng-messages="firstUserform.password2.$dirty">
 							<div ng-message="required" ng-show="firstUserform.password2.$error.required">필수 입력 항목입니다.</div>
 							<div ng-message="required" ng-show="domain.password != domain.password2">비밀번호가 일치하지 않습니다.</div>

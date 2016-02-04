@@ -17,7 +17,7 @@ angular.module('cinnamon');
 </head>
 <body layout:fragment="body" layout-gt-xs="row" layout-align-gt-xs="center start">
 
-	<md-content flex-gt-xs="50">
+	<md-content flex-gt-xs="30">
 		
 		<form th:action="@{/login}" method="post">
 			<md-card layout-padding="">
@@ -37,19 +37,19 @@ angular.module('cinnamon');
 				<md-card-content>
 						<md-input-container class="md-block">
 							<label>userId</label>
-							<input name="username" />
+							<input name="username" required="required" maxlength="20" />
 						</md-input-container>
 						<md-input-container class="md-block">
 							<label>비밀번호</label>
-							<input type="password" name="password" />
+							<input type="password" name="password" required="required" maxlength="30" />
 						</md-input-container>
 						<md-checkbox name="remember-me">로그인 상태 유지</md-checkbox>
 						<!-- <input type="hidden" name="remember-me" value="{{rememberMe}}" /> -->
 				</md-card-content>
 				<md-card-actions>
 					<md-button type="submit" class="md-raised md-primary">로그인</md-button>
-					<md-button>회원가입</md-button>
-					<md-button>비밀번호 변경</md-button>
+					<!-- <md-button>회원가입</md-button>
+					<md-button>비밀번호 변경</md-button> -->
 				</md-card-actions>
 			</md-card>
 		</form>

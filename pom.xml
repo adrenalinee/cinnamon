@@ -44,7 +44,7 @@
 		<module>cinnamon-core</module>
 		<module>cinnamon-core-template</module>
 		<module>cinnamon-core-starter</module>
-		<!-- <module>cinnamon-core-web</module> -->
+		<module>cinnamon-core-web</module>
 		<module>cinnamon-core-web-material</module>
 		<module>cinnamon-apps</module>
 	</modules>

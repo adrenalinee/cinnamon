@@ -52,13 +52,13 @@
 			<artifactId>h2</artifactId>
 		</dependency>
 
-		<!-- <dependency>
-			<groupId>org.cinnamon</groupId>
-			<artifactId>cinnamon-core-web</artifactId>
-		</dependency> -->
 		<dependency>
 			<groupId>org.cinnamon</groupId>
-			<artifactId>cinnamon-core-web-material</artifactId>
+			<artifactId>cinnamon-core-web</artifactId>
 		</dependency>
+		<!-- <dependency>
+			<groupId>org.cinnamon</groupId>
+			<artifactId>cinnamon-core-web-material</artifactId>
+		</dependency> -->
 	</dependencies>
 </project>

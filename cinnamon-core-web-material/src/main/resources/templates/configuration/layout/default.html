@@ -17,15 +17,29 @@
 <body layout:fragment="body">
 <div ng-controller="layoutController" layout="column">
 	<md-toolbar>
-		<div class="md-toolbar-tools">
+		<div class="md-toolbar-tools" layout-fill="">
 			<md-button class="md-icon-button">
 				<i class="fa fa-bars"></i>
 			</md-button>
 			<h2>Web console</h2>
 			<span flex=""></span>
-			<md-button class="md-icon-button">
-				<md-icon>person</md-icon>
-			</md-button>
+			
+			<md-menu>
+				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon>person</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button>프로필</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button>개인 설정</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button>로그아웃</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
 			<md-menu>
 				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
 					<md-icon>more_vert</md-icon>

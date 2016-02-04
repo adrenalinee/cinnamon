@@ -12,4 +12,8 @@ angular.module('cinnamon')
 	});
 	
 	
+	$scope.onSelectUser = function() {
+		console.log('onSelectUser');
+		
+	}
 });
