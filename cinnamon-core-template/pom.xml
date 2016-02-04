@@ -20,7 +20,7 @@
 			<artifactId>jquery</artifactId>
 			<version>2.1.4</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angularjs</artifactId>
 			<version>1.4.8</version>
@@ -29,7 +29,7 @@
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-animate</artifactId>
 			<version>1.4.8</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>bootstrap</artifactId>
@@ -100,6 +100,38 @@
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>iCheck</artifactId>
 			<version>1.0.2</version>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular</artifactId>
+			<version>1.5.0-rc.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular-animate</artifactId>
+			<version>1.5.0-rc.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular-aria</artifactId>
+			<version>1.5.0-rc.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular-messages</artifactId>
+			<version>1.5.0-rc.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>angular-material</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular-ui-router</artifactId>
+			<version>0.2.15</version>
 		</dependency>
 	</dependencies>
 </project>

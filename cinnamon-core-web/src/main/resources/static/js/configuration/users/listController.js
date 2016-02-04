@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.users.list', function($scope, $http) {
+.controller('configuration.users.list', function($scope, $http, $state) {
 	console.log('configuration.users.list');
 	
 	$http.get('/rest/configuration/users')
@@ -8,4 +8,8 @@ angular.module('cinnamon')
 		
 		$scope.domains = data;
 	});
+	
+	$scope.goView = function(user) {
+		$state.go('view', {userId: user.userId});
+	}
 });

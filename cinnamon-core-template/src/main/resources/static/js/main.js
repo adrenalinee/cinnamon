@@ -4,6 +4,8 @@
 	angular.module('cinnamon', [
 //		'ngResource',
 		'ngAnimate',
+		'ngAria',
+		'ngMaterial',
 		'ui.router',
 		'ui.bootstrap',
 		'ngBootbox',
