@@ -1,16 +1,67 @@
-<md-content>
-	<md-card layout-fill="">
+<md-content class="container content">
+	<md-card>
+		<!-- <md-card-header>
+			<span flex=""></span>
+			<md-menu>
+				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon>more_vert</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button>
+							<md-icon>edit</md-icon>
+							수정
+						</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+		</md-card-header> -->
 		<md-card-title>
 			<md-card-title-text>
 				<span class="md-headline">{{domain.name}}</span>
-				<span class="md-subhead">{{domain.job}}</span>
+				<span class="md-subhead">{{domain.nation}} {{domain.language}}</span>
 			</md-card-title-text>
+			<md-button class="md-icon-button">
+				<md-tooltip>기본 정보 수정</md-tooltip>
+				<md-icon>edit</md-icon>
+			</md-button>
 		</md-card-title>
+		
+		<md-card-content>
+			<table>
+				<tr layout-padding="">
+					<th class="text-muted">이메일</th>
+					<td>{{domain.email}}</td>
+				</tr>
+				<tr layout-padding="">
+					<th class="text-muted">거주지</th>
+					<td>{{domain.location}}</td>
+				</tr>
+				<tr layout-padding="">
+					<th class="text-muted">직업</th>
+					<td>{{domain.job}}</td>
+				</tr>
+				<tr layout-padding="">
+					<th class="text-muted">전화</th>
+					<td>{{domain.tel}}</td>
+				</tr>
+				<tr layout-padding="">
+					<th class="text-muted">핸드폰</th>
+					<td>{{domain.phone}}</td>
+				</tr>
+				<tr layout-padding="">
+					<th class="text-muted">가입일</th>
+					<td>
+						<small class="text-muted">{{domain.createdAt | date: 'yyyy년 MM월 dd일 HH:mm:ss'}}</small>
+					</td>
+				</tr>
+			</table>
+		</md-card-content>
 		
 	</md-card>
 	
 	
-	<md-fab-speed-dial md-open="fabOpen" class="md-fab-top-right md-scale">
+	<md-fab-speed-dial md-open="fabOpen" md-direction="up" class="md-fab-bottom-right md-scale" style="position: fixed">
 		<md-fab-trigger>
 			<md-button class="md-fab md-accent">
 				<md-icon>edit</md-icon>
@@ -18,7 +69,7 @@
 		</md-fab-trigger>
 		<md-fab-actions>
 			<md-button class="md-fab md-accent md-raised md-mini" ng-click="selectUserGroup($event)">
-				<md-tooltip md-direction="left">사용자 모임 등록</md-tooltip>
+				<md-tooltip md-direction="left">사용자 모임에 등록</md-tooltip>
 				<md-icon>group</md-icon>
 			</md-button>
 		</md-fab-actions>
@@ -28,7 +79,7 @@
 	
 	<!-- <md-tabs md-dynamic-height="true">
 		<md-tab label="개요"> -->
-			<md-card>
+			<!-- <md-card>
 				<md-card-header>
 					<md-card-header-text layout="row">
 						<span class="md-title">개인정보</span>
@@ -64,52 +115,7 @@
 					</table>
 				</md-content>
 				
-				
-				<!-- <md-list layout-padding="">
-					<md-list-item>
-						<div class="md-list-item-text" layout="column">
-							<span class="md-title">이름</span>
-							<p class="md-subhead">{{domain.name}}</p>
-						</div>
-					</md-list-item>
-					<md-list-item>
-						<div class="md-list-item-text" layout="column">
-							<span class="md-title">userId</span>
-							<p class="md-subhead">{{domain.userId}}</p>
-						</div>
-					</md-list-item>
-					<md-list-item>
-						<div class="md-list-item-text" layout="column">
-							<span class="md-title">이메일</span>
-							<p class="md-subhead">{{domain.email}}</p>
-						</div>
-					</md-list-item>
-					<md-list-item>
-						<div class="md-list-item-text" layout="column">
-							<span class="md-title">거주지</span>
-							<p class="md-subhead">{{domain.location}}</p>
-						</div>
-					</md-list-item>
-					<md-list-item>
-						<div class="md-list-item-text" layout="column">
-							<span class="md-title">직업</span>
-							<p class="md-subhead">{{domain.job}}</p>
-						</div>
-					</md-list-item>
-					<md-list-item>
-						<div class="md-list-item-text" layout="column">
-							<span class="md-title">연락처</span>
-							<p class="md-subhead">{{domain.tel}}</p>
-						</div>
-					</md-list-item>
-					<md-list-item>
-						<div class="md-list-item-text" layout="column">
-							<span class="md-title">핸드폰</span>
-							<p class="md-subhead">{{domain.phone}}</p>
-						</div>
-					</md-list-item>
-				</md-list> -->
-			</md-card>
+			</md-card> -->
 		<!-- </md-tab>
 		<md-tab label="사용자 모임">
 		</md-tab>
@@ -118,7 +124,7 @@
 		<md-card>
 			<md-card-header>
 				<md-card-header-text>
-					<span class="md-title">사용자 모임</span>
+					<span class="md-title">모임</span>
 				</md-card-header-text>
 			</md-card-header>
 		</md-card>

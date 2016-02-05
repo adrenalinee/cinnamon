@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.users.list', function($scope, $http) {
+.controller('configuration.users.list', function($scope, $http, $state) {
 	console.log('configuration.users.list');
 	
 	$scope.selectedUsers = [];
@@ -12,8 +12,7 @@ angular.module('cinnamon')
 	});
 	
 	
-	$scope.onSelectUser = function() {
-		console.log('onSelectUser');
-		
+	$scope.goView = function(user) {
+		$state.go('view', {userId: user.userId});
 	}
 });

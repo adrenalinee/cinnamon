@@ -97,15 +97,15 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 			.indexPage("/configuration")
 			.addMenuGroup(
 				menuGroup("기본 설정 메뉴", "configuration").addMenusAtSidebar(
+					menu("사이트 및 메뉴")
+						.uri("/configuration/sites")
+						.iconClass("fa fa-sitemap"),
 					menu("사용자")
 						.uri("/configuration/users")
 						.iconClass("glyphicon glyphicon-user"),
 					menu("사용자 모임")
 						.uri("/configuration/userGroups")
 						.iconClass("fa fa-users"),
-					menu("사이트 및 메뉴")
-						.uri("/configuration/sites")
-						.iconClass("fa fa-sitemap"),
 					menu("역할 및 권한")
 						.uri("/configuration/roles")
 						.iconClass("fa fa-shield"),

@@ -28,6 +28,7 @@ angular.module('cinnamon')
 	}
 	
 	$scope.createBaseData = function() {
+		$scope.isProcessCreateBaseData = true;
 		$http.post('/rest/configuration/initWizard/baseData')
 		.success(function(data) {
 			
@@ -48,6 +49,8 @@ angular.module('cinnamon')
 			return;
 		}
 		
+		
+		$scope.isProcessCreateFirstUser = true;
 		$http.post('/rest/configuration/initWizard/firstUser', $scope.domain)
 			.success(function(data, status) {
 				$mdDialog.show(
@@ -81,17 +84,18 @@ angular.module('cinnamon')
 <base href="/" />
 </head>
 
-<body layout:fragment="body" style="background-color: #ecf0f5">
+<!-- style="background-color: #ecf0f5" -->
+<body layout:fragment="body">
 <md-toolbar>
 	<h3>Web console 시스템 초기화</h3>
 </md-toolbar>
-	
-<md-content ng-cloak="" ng-controller="wizardController" class="container" style="background-color: #ecf0f5">
+
+<md-content ng-cloak="" ng-controller="wizardController" class="container content">
 
 	<md-card>
 
 	<md-tabs md-selected="selectedStep" md-dynamic-height="true">
-		<md-tab label="초기화 시작">
+		<md-tab label="초기화 시작" ng-disabled="isProcessCreateBaseData">
 			<md-content layout-padding="">
 				<p class="alert-info">시스템 초기화를 시작합니다.</p>
 				<md-button class="md-raised md-primary" ng-click="next()">
@@ -99,13 +103,16 @@ angular.module('cinnamon')
 				</md-button>
 			</md-content>
 		</md-tab>
-		<md-tab label="기본 데이터 생성">
+		<md-tab label="기본 데이터 생성" ng-disabled="isProcessCreateFirstUser">
 			<md-content layout-padding="">
 				<p class="alert-info">시스템 구동에 필요한 기본 데이터를 생성합니다.</p>
 				
-				<md-button class="md-raised md-primary" ng-click="createBaseData()">
-					<i class="fa fa-database"></i> 기본 데이터 생성
-				</md-button>
+				<div layout="row">
+					<md-button class="md-raised md-primary" ng-click="createBaseData()" ng-disabled="isProcessCreateBaseData">
+						<i class="fa fa-database"></i> 기본 데이터 생성
+					</md-button>
+					<md-progress-circular md-mode="indeterminate" ng-if="isProcessCreateBaseData"></md-progress-circular>
+				</div>
 			</md-content>
 		</md-tab>
 		<md-tab label="최초 사용자 생성">
@@ -157,9 +164,12 @@ angular.module('cinnamon')
 						</div>
 					</md-input-container>
 					
-					<md-button class="md-raised md-primary" type="submit">
-						<i class="fa fa-database"></i> 최초 사용자 생성
-					</md-button>
+					<div layout="row">
+						<md-button class="md-raised md-primary" type="submit" ng-disabled="isProcessCreateFirstUser">
+							<i class="fa fa-database"></i> 최초 사용자 생성
+						</md-button>
+						<md-progress-circular md-mode="indeterminate" ng-if="isProcessCreateFirstUser"></md-progress-circular>
+					</div>
 				</form>
 			</md-content>
 		</md-tab>
@@ -168,7 +178,6 @@ angular.module('cinnamon')
 	</md-card>
 	
 </md-content>
-	
 	
 	<!-- <ui-view /> -->
 </body>

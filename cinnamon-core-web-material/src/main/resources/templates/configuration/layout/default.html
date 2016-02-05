@@ -14,15 +14,19 @@
 
 
 </head>
-<body layout:fragment="body">
+<body layout:fragment="body" class="content">
 <div ng-controller="layoutController" layout="column">
-	<md-toolbar>
+	<md-toolbar md-whiteframe="5">
 		<div class="md-toolbar-tools" layout-fill="">
 			<md-button class="md-icon-button">
 				<i class="fa fa-bars"></i>
 			</md-button>
 			<h2>Web console</h2>
 			<span flex=""></span>
+			
+			<md-button class="md-icon-button">
+				<md-icon>notifications</md-icon>
+			</md-button>
 			
 			<md-menu>
 				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
@@ -54,12 +58,7 @@
 		
 	</md-toolbar>
 	<div flex="" layout="row">
-		<md-sidenav class="md-whiteframe-z2" md-is-locked-open="$mdMedia('gt-sm')">
-			<md-toolbar>
-				<div class="md-toolbar-tools">
-				</div>
-			</md-toolbar>
-			
+		<md-sidenav md-is-locked-open="$mdMedia('gt-sm')" style="background: transparent">
 			<md-list>
 				
 				<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
