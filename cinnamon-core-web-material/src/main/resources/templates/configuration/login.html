@@ -8,16 +8,16 @@
 
 <head>
 <title>로그인</title>
+<link href="/css/cinnamon.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="/js/main.js"></script>
-
 <script type="text/javascript">
 angular.module('cinnamon');
 </script>
 </head>
-<body layout:fragment="body" layout-gt-xs="row" layout-align-gt-xs="center start">
+<body layout:fragment="body" layout-gt-xs="row" layout-align-gt-xs="center start" class="content">
 
-	<md-content flex-gt-xs="30">
+	<md-content flex-gt-xs="30" class="content">
 		
 		<form th:action="@{/login}" method="post">
 			<md-card layout-padding="">

@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.users.list', function($scope, $http, $state) {
+.controller('configuration.users.list', function($scope, $http, $interval, $state) {
 	console.log('configuration.users.list');
 	
 	$scope.selectedUsers = [];
@@ -13,6 +13,9 @@ angular.module('cinnamon')
 	
 	
 	$scope.goView = function(user) {
-		$state.go('view', {userId: user.userId});
+		$interval(function() {
+			$state.go('view', {userId: user.userId});
+		}, 200);
 	}
+	
 });
