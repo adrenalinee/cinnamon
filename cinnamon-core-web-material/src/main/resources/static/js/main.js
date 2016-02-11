@@ -6,6 +6,8 @@ angular.module('cinnamon', [
 	'ngAria',
 	'ui.router',
 	'ngMaterial',
+	'ui.bootstrap.paging',
+	'ui.bootstrap.pagination'
 //	'md.data.table'
 //	'ui.bootstrap'
 ]).config(function($locationProvider, $mdThemingProvider) {

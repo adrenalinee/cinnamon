@@ -66,30 +66,39 @@
 			<md-divider></md-divider>
 		</div>
 		
-		<div layout="row">
-			<md-button class="md-icon-button">
+		<!-- <div layout="row">
+			<md-button style="margin: 0 0 0 0" class="md-icon-button">
 				<md-icon>skip_previous</md-icon>
 			</md-button>
-			<md-button class="md-icon-button">
+			<md-button style="margin: 0 0 0 0" class="md-icon-button">
 				<md-icon>chevron_left</md-icon>
 			</md-button>
-			<md-button class="md-icon-button">1</md-button>
-			<md-button class="md-icon-button">2</md-button>
-			<md-button class="md-icon-button">3</md-button>
-			<md-button class="md-icon-button">4</md-button>
-			<md-button class="md-icon-button">5</md-button>
-			<md-button class="md-icon-button">6</md-button>
-			<md-button class="md-icon-button">7</md-button>
-			<md-button class="md-icon-button">8</md-button>
-			<md-button class="md-icon-button">9</md-button>
-			<md-button class="md-icon-button">10</md-button>
-			<md-button class="md-icon-button">
+			<md-button style="margin: 0 0 0 0" class="md-icon-button md-raised md-primary">1</md-button>
+			<md-button style="margin: 0 0 0 0" class="md-icon-button">2</md-button>
+			<md-button style="margin: 0 0 0 0" class="md-icon-button">3</md-button>
+			<md-button style="margin: 0 0 0 0" class="md-icon-button">4</md-button>
+			<md-button style="margin: 0 0 0 0" class="md-icon-button">5</md-button>
+			<md-button style="margin: 0 0 0 0" class="md-icon-button">6</md-button>
+			<md-button style="margin: 0 0 0 0" class="md-icon-button">7</md-button>
+			<md-button style="margin: 0 0 0 0" class="md-icon-button">8</md-button>
+			<md-button style="margin: 0 0 0 0" class="md-icon-button">9</md-button>
+			<md-button style="margin: 0 0 0 0" class="md-icon-button">10</md-button>
+			<md-button style="margin: 0 0 0 0" class="md-icon-button">
 				<md-icon>chevron_right</md-icon>
 			</md-button>
-			<md-button class="md-icon-button">
+			<md-button style="margin: 0 0 0 0" class="md-icon-button">
 				<md-icon>skip_next</md-icon>
 			</md-button>
-		</div>
+		</div> -->
+		
+		<uib-pagination
+			template-url="/configuration/partials/directive/pagination"
+			total-items="domains.totalElements"
+			items-per-page="domains.size"
+			boundary-links="true"
+			ng-model="searchInfo.page"
+			ng-change="onPageChange()" />
+		
 		
 		<md-list layout-fill="">
 			<md-divider></md-divider>

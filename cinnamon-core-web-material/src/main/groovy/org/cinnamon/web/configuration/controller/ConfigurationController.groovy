@@ -24,4 +24,9 @@ class ConfigurationController {
 	void partials() {
 		
 	}
+	
+	@RequestMapping(value="/configuration/directives/**")
+	void directives() {
+		
+	}
 }

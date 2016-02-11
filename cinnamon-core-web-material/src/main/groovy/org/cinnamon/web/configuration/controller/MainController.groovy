@@ -23,7 +23,7 @@ class MainController {
 	}
 	
 	@RequestMapping(value="/directives/**")
-	 void drective() {
-		 
-	 }
+	void drective() {
+		
+	}
 }

@@ -37,3 +37,8 @@
 		max-width: 1910px;
 	}
 }
+
+
+.cm-pagination > .cm-page {
+	margin: 0 0 0 0
+}

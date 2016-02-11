@@ -85,9 +85,11 @@ angular.module('cinnamon')
 </head>
 
 <!-- style="background-color: #ecf0f5" -->
-<body layout:fragment="body">
-<md-toolbar>
-	<h3>Web console 시스템 초기화</h3>
+<body layout:fragment="body" class="content">
+<md-toolbar md-whiteframe="5">
+	<div class="md-toolbar-tools">
+		<h3>Web console 시스템 초기화</h3>
+	</div>
 </md-toolbar>
 
 <md-content ng-cloak="" ng-controller="wizardController" class="container content">
