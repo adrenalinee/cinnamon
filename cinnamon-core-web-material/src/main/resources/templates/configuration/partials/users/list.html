@@ -15,7 +15,7 @@
 		<md-card-header layout="row" layout-align="center center">
 			<md-icon>search</md-icon>
 			<md-input-container md-no-float="true" flex="" layout-fill="">
-				<input flex="" placeholder="검색어를 입력하세요" />
+				<input ng-model="searchInfo.keyword" flex="" placeholder="검색어를 입력하세요" ng-keypress="onSearch($event)" />
 			</md-input-container>
 				<md-button class="md-icon-button" ng-click="showDetailSearch = !showDetailSearch">
 					<md-tooltip md-direction="top">상세 검색</md-tooltip>

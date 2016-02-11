@@ -87,19 +87,19 @@ public class UserBaseService<T extends UserBase> {
 		afterUserJoinListeners.remove(afterUserJoinListener);
 	}
 	
+//	@Transactional(readOnly=true)
+//	public Page<T> search(UserBaseSearch userSearch, Pageable pageable) {
+//		logger.info("start");
+//		return userRepository.findAll(UserBasePredicate.search(userSearch), pageable);
+//	}
+	
+	
+	
 	@Transactional(readOnly=true)
-	public Page<T> search(UserBaseSearch userSearch, Pageable pageable) {
-		logger.info("start");
-		return userRepository.findAll(UserBasePredicate.search(userSearch), pageable);
-	}
-	
-	
-	
-	@Transactional
-	public Page<T> getList(Pageable pageable) {
+	public Page<T> getList(UserBaseSearch userSearch, Pageable pageable) {
 		logger.info("start");
 		
-		return userRepository.findAll(pageable);
+		return userRepository.findAll(UserBasePredicate.search(userSearch), pageable);
 	}
 	
 	

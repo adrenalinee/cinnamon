@@ -18,6 +18,15 @@ public class UserBasePredicate {
 		QUserBase user = QUserBase.userBase;
 		
 		BooleanBuilder builder = new BooleanBuilder();
+		if (!StringUtils.isEmpty(userSearch.getKeyword())) {
+			String keyword = userSearch.getKeyword();
+			builder.and(
+				user.name.like("%" + keyword + "%")
+				.or(user.userId.like("%" + keyword + "%"))
+				.or(user.email.like("%" + keyword + "%")));
+		}
+		
+		
 		if (userSearch.getUserId() != null) {
 			builder.and(user.userId.eq(userSearch.getUserId()));
 		}

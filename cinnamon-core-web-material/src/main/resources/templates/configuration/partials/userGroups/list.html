@@ -13,15 +13,19 @@
 	
 	<cm-search-list
 		resource-url="'/rest/configuration/userGroups'"
-		on-select="goView(domain)">
+		domains="domains">
 		
-		{{domain}}
-		<div flex="5">
-			<md-icon>group</md-icon>
-		</div>
-		<b flex="30">{{domain.name}}</b>
-		<span flex="30" class="text-muted">{{domain.authority.name}}</span>
-		<span class="text-muted">{{domain.createdAt}}</span>
+		<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
+			
+			<div flex="5">
+				<md-icon>group</md-icon>
+			</div>
+			<b flex="30">{{domain.name}}</b>
+			<span flex="30" class="text-muted">{{domain.authority.name}}</span>
+			<span class="text-muted">{{domain.createdAt}}</span>
+			
+			<md-divider ng-if="!$last"></md-divider>
+		</md-list-item>
 	</cm-search-list>
 	
 </md-content>

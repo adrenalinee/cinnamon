@@ -1,15 +1,16 @@
 package org.cinnamon.web.configuration.restController
 
 import org.cinnamon.core.domain.UserBase
-import org.cinnamon.core.service.UserBaseService;
+import org.cinnamon.core.service.UserBaseService
+import org.cinnamon.core.vo.search.UserBaseSearch
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 
 /**
@@ -28,10 +29,10 @@ class UserBaseRestController {
 	
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	Page<UserBase> users(Pageable pageable) {
+	Page<UserBase> users(UserBaseSearch userSearch, Pageable pageable) {
 		logger.info("String")
 		
-		return userService.getList(pageable)
+		return userService.getList(userSearch, pageable)
 	}
 	
 	

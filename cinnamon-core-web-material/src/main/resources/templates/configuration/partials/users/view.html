@@ -1,4 +1,4 @@
-<md-content class="container content">
+<md-content class="content-container content">
 	<md-card>
 		<!-- <md-card-header>
 			<span flex=""></span>
@@ -76,57 +76,29 @@
 	</md-fab-speed-dial>
 	
 	
-	
-	<!-- <md-tabs md-dynamic-height="true">
-		<md-tab label="개요"> -->
-			<!-- <md-card>
-				<md-card-header>
-					<md-card-header-text layout="row">
-						<span class="md-title">개인정보</span>
-					</md-card-header-text>
-				</md-card-header>
-				
-				<md-content layout-padding="">
-					<table class="table table-hover">
-						<tr>
-							<th>이름</th>
-							<td class="text-muted">{{domain.name}}</td>
-						</tr>
-						<tr>
-							<th>이메일</th>
-							<td class="text-muted">{{domain.email}}</td>
-						</tr>
-						<tr>
-							<th>거주지</th>
-							<td class="text-muted">{{domain.location}}</td>
-						</tr>
-						<tr>
-							<th>직업</th>
-							<td class="text-muted">{{domain.job}}</td>
-						</tr>
-						<tr>
-							<th>전화</th>
-							<td class="text-muted">{{domain.tel}}</td>
-						</tr>
-						<tr>
-							<th>핸드폰</th>
-							<td class="text-muted">{{domain.phone}}</td>
-						</tr>
-					</table>
-				</md-content>
-				
-			</md-card> -->
-		<!-- </md-tab>
-		<md-tab label="사용자 모임">
-		</md-tab>
-	</md-tabs> -->
+	<h3 layout-padding="" class="md-subhead">모임</h3>
+	<cm-search-list
+		resource-url="'/rest/configuration/userGroups'"
+		domains="domains">
 		
-		<md-card>
-			<md-card-header>
-				<md-card-header-text>
-					<span class="md-title">모임</span>
-				</md-card-header-text>
-			</md-card-header>
-		</md-card>
+		<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
+			<div flex="5">
+				<md-icon>group</md-icon>
+			</div>
+			<b flex="30">{{domain.name}}</b>
+			<span flex="30" class="text-muted">{{domain.authority.name}}</span>
+			<span class="text-muted">{{domain.createdAt}}</span>
+			
+			<md-divider ng-if="!$last"></md-divider>
+		</md-list-item>
+	</cm-search-list>
+	
+	<!-- <md-card>
+		<md-card-header>
+			<md-card-header-text>
+				<span class="md-title">모임</span>
+			</md-card-header-text>
+		</md-card-header>
+	</md-card> -->
 	
 </md-content>

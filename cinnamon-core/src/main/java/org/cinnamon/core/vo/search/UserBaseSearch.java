@@ -7,6 +7,8 @@ package org.cinnamon.core.vo.search;
  */
 public class UserBaseSearch {
 	
+	String keyword;
+	
 	String userId;
 	
 	Long userGroupId;
@@ -65,6 +67,14 @@ public class UserBaseSearch {
 
 	public void setUserGroupId(Long userGroupId) {
 		this.userGroupId = userGroupId;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	
 }

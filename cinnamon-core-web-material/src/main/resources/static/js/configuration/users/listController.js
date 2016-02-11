@@ -2,14 +2,21 @@ angular.module('cinnamon')
 .controller('configuration.users.list', function($scope, $http, $interval, $state) {
 	console.log('configuration.users.list');
 	
-	$scope.selectedUsers = [];
-	
 //	$http.get('/rest/configuration/users')
 //	.success(function(data) {
 //		console.log(data);
 //		
 //		$scope.domains = data;
 //	});
+	
+	$scope.searchInfo = {};
+	
+	$scope.onSearch = function(event) {
+		if (event.keyCode == 13) {
+			$scope.searchInfo.page = 1;
+			$scope.search();
+		}
+	}
 	
 	
 	$scope.goView = function(user) {
@@ -20,6 +27,8 @@ angular.module('cinnamon')
 	
 	
 	$scope.load = function(params) {
+		console.log(params);
+		
 		$http.get('/rest/configuration/users', {params: params})
 		.success(function(data) {
 			console.log(data);
