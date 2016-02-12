@@ -10,7 +10,32 @@ angular.module('cinnamon', [
 	'ui.bootstrap.pagination'
 //	'md.data.table'
 //	'ui.bootstrap'
-]).config(function($locationProvider, $mdThemingProvider) {
+]).config(function($locationProvider, $httpProvider, $mdThemingProvider) {
+	var token;
+	var header;
+	
+	angular.forEach(
+		angular.element(document).find('meta'),
+		function(value, key) {
+//			console.log(value);
+			
+			if (value.name == '_csrf') {
+				token = value.content;
+			} else if (value.name == '_csrf_header') {
+				header = value.content;
+			}
+		});
+	
+	
+//	var token = angular.element(document).find("meta[name='_csrf']").attr("content");
+//	var header = angular.element(document).find("meta[name='_csrf_header']").attr("content");
+	
+//	console.log(token);
+//	console.log(header);
+	
+	
+	$httpProvider.defaults.headers.common[header] = token;
+	
 	$locationProvider.html5Mode({
 		enabled: true,
 //			requireBase: false

@@ -77,21 +77,42 @@
 	
 	
 	<h3 layout-padding="" class="md-subhead">모임</h3>
-	<cm-search-list
-		resource-url="'/rest/configuration/userGroups'"
-		domains="domains">
-		
-		<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
-			<div flex="5">
-				<md-icon>group</md-icon>
-			</div>
-			<b flex="30">{{domain.name}}</b>
-			<span flex="30" class="text-muted">{{domain.authority.name}}</span>
-			<span class="text-muted">{{domain.createdAt}}</span>
+	<md-card>
+		<cm-search-list
+			resource-url="'/rest/configuration/userGroups'"
+			search-params="searchInfo"
+			default-search-params="{userId: userId}"
+			domains="domains">
 			
-			<md-divider ng-if="!$last"></md-divider>
-		</md-list-item>
-	</cm-search-list>
+			<cm-search-list-filters>
+				<md-card-content layout="column">
+					<md-input-container layout-fill="">
+						<label>userGroupId</label>
+						<input ng-model="searchInfo.userGroupId" />
+					</md-input-container>
+					<md-input-container layout-fill="">
+						<label>이름</label>
+						<input ng-model="searchInfo.name" />
+					</md-input-container>
+					<md-input-container layout-fill="">
+						<label>권한</label>
+						<input ng-model="searchInfo.authority" />
+					</md-input-container>
+				</md-card-content>
+			</cm-search-list-filters>
+			<cm-search-list-items>
+				<md-list-item ng-repeat="domain in domains.content" ng-click="goUserGroupView(domain)">
+					<div flex="5">
+						<md-icon>group</md-icon>
+					</div>
+					<b flex="50">{{domain.name}}</b>
+					<span flex="45" class="text-muted">{{domain.authority.name}}</span>
+					
+					<md-divider ng-if="!$last"></md-divider>
+				</md-list-item>
+			</cm-search-list-items>
+		</cm-search-list>
+	</md-card>
 	
 	<!-- <md-card>
 		<md-card-header>

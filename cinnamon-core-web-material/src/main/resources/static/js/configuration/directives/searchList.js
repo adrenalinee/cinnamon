@@ -2,11 +2,15 @@ angular.module('cinnamon')
 .directive('cmSearchList', function() {
 	return {
 		restrict: 'E',
-		transclude: true,
+		transclude: {
+			'items': 'cmSearchListItems',
+			'filters': 'cmSearchListFilters',
+		},
 		scope: {
 			domains: '=',
+			searchInfo: '=searchParams',
 			resourceUrl: '=',
-			searchParams: '='
+			defaultSearchParams: '='
 		},
 		templateUrl: '/configuration/directives/searchList',
 		controller: 'searchListController'
@@ -15,9 +19,10 @@ angular.module('cinnamon')
 	console.log('searchListController');
 	
 //	$scope.domains;
-	$scope.searchInfo = {
-		sort: 'createdAt,desc'
-	};
+	
+	if (angular.isDefined($scope.defaultSearchParams)) {
+		$scope.searchInfo = $scope.defaultSearchParams;
+	}
 	
 	$scope.showDetailSearch;
 	
@@ -29,6 +34,7 @@ angular.module('cinnamon')
 	}
 	
 	$scope.load = function(params) {
+		console.log(params);
 		$http.get($scope.resourceUrl, {params: params})
 		.success(function(data) {
 			console.log(data);

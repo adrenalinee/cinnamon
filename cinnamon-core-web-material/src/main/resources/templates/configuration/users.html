@@ -13,12 +13,12 @@
 
 <script type="text/javascript" src="/js/configuration/users/viewController.js"></script>
 <script type="text/javascript" src="/js/configuration/users/listController.js"></script>
-<!-- <script type="text/javascript" src="/js/configuration/users/createController.js"></script> -->
+<script type="text/javascript" src="/js/configuration/users/createController.js"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 angular.module('cinnamon')
 .config(function($stateProvider, $urlRouterProvider) {
-	$stateProvider.state('users', {
+	$stateProvider.state('list', {
 		url: '/configuration/users',
 		templateUrl: '/configuration/partials/users/list',
 		controller: 'configuration.users.list'

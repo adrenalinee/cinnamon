@@ -54,31 +54,49 @@ public class UserGroupService<T extends UserBase> {
 	public Page<UserGroup> getList(UserGroupSearch userGroupSearch, Pageable pageable) {
 		logger.info("start");
 		
-		return userGroupRepository.search(userGroupSearch, pageable);
+		return userGroupRepository.find(userGroupSearch, pageable);
 	}
 	
 	
 	@Transactional
-	public void addMember(Object authority, String userId) {
+	public void addMember(Long userGroupId, String userId) {
 		logger.info("start");
 		
-		T user = userRepository.findOne(userId);
+		UserBase user = userRepository.findOne(userId);
 		if (user == null) {
 			throw new RuntimeException("등록되지 않은 사용자 입니다. userId: " + userId);
 		}
 		
-		UserAuthority userAuthority = userAuthorityRepository.findByAuthority(authority.toString());
-		if (userAuthority == null) {
-			throw new RuntimeException("등록되지 않은 authority 입니다. authority: " + authority);
-		}
-		
-		UserGroup userGroup = userAuthority.getDefaultUserGroup();
+		UserGroup userGroup = userGroupRepository.findOne(userGroupId);
 		if (userGroup == null) {
-			throw new RuntimeException("기본 사용자 그룹이 등록되지 않았습니다. authority: " + authority);
+			throw new RuntimeException("등록되지 않은 사용자 그룹입니다. userGroupId: " + userGroupId);
 		}
 		
 		user.getUserGroups().add(userGroup);
 	}
+	
+	
+//	@Transactional
+//	public void addMember(Object authority, String userId) {
+//		logger.info("start");
+//		
+//		T user = userRepository.findOne(userId);
+//		if (user == null) {
+//			throw new RuntimeException("등록되지 않은 사용자 입니다. userId: " + userId);
+//		}
+//		
+//		UserAuthority userAuthority = userAuthorityRepository.findByAuthority(authority.toString());
+//		if (userAuthority == null) {
+//			throw new RuntimeException("등록되지 않은 authority 입니다. authority: " + authority);
+//		}
+//		
+//		UserGroup userGroup = userAuthority.getDefaultUserGroup();
+//		if (userGroup == null) {
+//			throw new RuntimeException("기본 사용자 그룹이 등록되지 않았습니다. authority: " + authority);
+//		}
+//		
+//		user.getUserGroups().add(userGroup);
+//	}
 	
 	
 	@Transactional

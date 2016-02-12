@@ -1,6 +1,6 @@
 <md-fab-speed-dial md-open="fabOpen" class="md-fab-bottom-right md-scale" style="position: fixed">
 	<md-fab-trigger>
-		<md-button class="md-fab md-accent">
+		<md-button class="md-fab md-accent" ui-sref="create">
 			<md-tooltip md-direction="left">사용자 생성</md-tooltip>
 			<md-icon>person_add</md-icon>
 		</md-button>
@@ -66,31 +66,6 @@
 			<md-divider></md-divider>
 		</div>
 		
-		<!-- <div layout="row">
-			<md-button style="margin: 0 0 0 0" class="md-icon-button">
-				<md-icon>skip_previous</md-icon>
-			</md-button>
-			<md-button style="margin: 0 0 0 0" class="md-icon-button">
-				<md-icon>chevron_left</md-icon>
-			</md-button>
-			<md-button style="margin: 0 0 0 0" class="md-icon-button md-raised md-primary">1</md-button>
-			<md-button style="margin: 0 0 0 0" class="md-icon-button">2</md-button>
-			<md-button style="margin: 0 0 0 0" class="md-icon-button">3</md-button>
-			<md-button style="margin: 0 0 0 0" class="md-icon-button">4</md-button>
-			<md-button style="margin: 0 0 0 0" class="md-icon-button">5</md-button>
-			<md-button style="margin: 0 0 0 0" class="md-icon-button">6</md-button>
-			<md-button style="margin: 0 0 0 0" class="md-icon-button">7</md-button>
-			<md-button style="margin: 0 0 0 0" class="md-icon-button">8</md-button>
-			<md-button style="margin: 0 0 0 0" class="md-icon-button">9</md-button>
-			<md-button style="margin: 0 0 0 0" class="md-icon-button">10</md-button>
-			<md-button style="margin: 0 0 0 0" class="md-icon-button">
-				<md-icon>chevron_right</md-icon>
-			</md-button>
-			<md-button style="margin: 0 0 0 0" class="md-icon-button">
-				<md-icon>skip_next</md-icon>
-			</md-button>
-		</div> -->
-		
 		<uib-pagination
 			template-url="/configuration/partials/directive/pagination"
 			total-items="domains.totalElements"
@@ -109,10 +84,6 @@
 				<b flex="30">{{domain.name}}</b>
 				<span flex="30" class="text-muted">{{domain.email}}</span>
 				<span class="text-muted">{{domain.tel}}</span>
-				<!-- <div layout="column" class="md-list-item-text">
-					<b>{{domain.name}}</b>
-					<small class="text-muted">{{domain.email}}</small>
-				</div> -->
 				<md-divider ng-if="!$last"></md-divider>
 			</md-list-item>
 		</md-list>

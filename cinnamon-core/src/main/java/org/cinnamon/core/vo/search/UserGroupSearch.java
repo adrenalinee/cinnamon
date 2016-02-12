@@ -12,6 +12,8 @@ public class UserGroupSearch {
 	
 	String keyword;
 	
+	String userId;
+	
 	Long userGroupId;
 	
 	String name;
@@ -68,5 +70,13 @@ public class UserGroupSearch {
 
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 }

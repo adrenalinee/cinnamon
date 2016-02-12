@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.apache.commons.lang3.StringUtils;
+import org.cinnamon.core.domain.QUserBase;
 import org.cinnamon.core.domain.QUserGroup;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.vo.search.UserGroupSearch;
@@ -28,7 +29,7 @@ public class UserGroupRepositoryImpl implements UserGroupRepositoryCustom {
 	
 	
 	@Override
-	public Page<UserGroup> search(UserGroupSearch userGroupSearch, Pageable pageable) {
+	public Page<UserGroup> find(UserGroupSearch userGroupSearch, Pageable pageable) {
 		QUserGroup userGroup = QUserGroup.userGroup;
 		
 		BooleanBuilder builder = new BooleanBuilder();
@@ -54,6 +55,16 @@ public class UserGroupRepositoryImpl implements UserGroupRepositoryCustom {
 					.or(userGroup.authority.authority.eq(keyword));
 		}
 		
+		JPAQuery query = new JPAQuery(em).from(userGroup);
+		
+		if (!StringUtils.isEmpty(userGroupSearch.getUserId())) {
+			QUserBase user = QUserBase.userBase;
+			
+			query.innerJoin(userGroup.users, user);
+			builder.and(user.userId.eq(userGroupSearch.getUserId()));
+		}
+		
+		
 		if (userGroupSearch.getUserGroupId() != null) {
 			builder.and(userGroup.userGroupId.eq(userGroupSearch.getUserGroupId()));
 		}
@@ -71,7 +82,6 @@ public class UserGroupRepositoryImpl implements UserGroupRepositoryCustom {
 		long offset = pageable.getOffset();
 		long limit = pageable.getPageSize();
 		
-		JPAQuery query = new JPAQuery(em).from(userGroup);
 		query
 			.where(builder)
 			.offset(offset)

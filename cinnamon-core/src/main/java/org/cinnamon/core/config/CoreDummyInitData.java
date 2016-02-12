@@ -5,14 +5,12 @@ import java.util.Random;
 import javax.persistence.EntityManager;
 
 import org.cinnamon.core.domain.UserBase;
-import org.cinnamon.core.domain.UserPassword;
 import org.cinnamon.core.domain.enumeration.EntityType;
 import org.cinnamon.core.repository.UserBaseRepository;
+import org.cinnamon.core.service.UserBaseService;
 import org.cinnamon.core.util.RandomUtil;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,6 +23,9 @@ public class CoreDummyInitData implements InitData {
 	
 	@Autowired
 	UserBaseRepository<UserBase> userRepository;
+	
+	@Autowired
+	UserBaseService<UserBase> userService;
 	
 	
 	@Override
@@ -40,7 +41,6 @@ public class CoreDummyInitData implements InitData {
 			if (newUserId == null) {
 				continue;
 			}
-			
 			
 			
 			UserBase user = new UserBase();
@@ -60,13 +60,18 @@ public class CoreDummyInitData implements InitData {
 			
 			
 			
-			userRepository.save(user);
+			userService.join(user, "1234");
 			
-			
-			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-			String encryptedPassword = passwordEncoder.encode("1234");
-			UserPassword userPassword = new UserPassword();
-			userPassword.setPassword(encryptedPassword);
+//			
+//			
+//			
+//			userRepository.save(user);
+//			
+//			
+//			PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//			String encryptedPassword = passwordEncoder.encode("1234");
+//			UserPassword userPassword = new UserPassword();
+//			userPassword.setPassword(encryptedPassword);
 		}
 	}
 	
