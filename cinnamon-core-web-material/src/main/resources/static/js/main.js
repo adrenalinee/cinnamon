@@ -2,6 +2,7 @@
 
 angular.module('cinnamon', [
 //		'ngResource',
+	'ngMessages',
 	'ngAnimate',
 	'ngAria',
 	'ui.router',

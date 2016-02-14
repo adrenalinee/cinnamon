@@ -1,0 +1,23 @@
+<md-content class="content-container content">
+	<h3 layout-padding="" class="md-headline">기본 정보</h3>
+	
+	<form name="form" novalidate="novalidate">
+		<md-card>
+			
+			<md-card-content>
+				<md-input-container class="md-block">
+					<label>이름</label>
+					<input name="name" ng-model="domain.name" required="required" md-maxlength="50" maxlength="50" />
+					<div ng-messages="form.name.$error">
+						<div ng-message="required">필수 입력 항목입니다.</div>
+					</div>
+				</md-input-container>
+			</md-card-content>
+			<md-card-actions>
+				<md-button class="md-raised md-primary" ng-click="create(form, $event)">
+					저장
+				</md-button>
+			</md-card-actions>
+		</md-card>
+	</form>
+</md-content>

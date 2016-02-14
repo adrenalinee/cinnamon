@@ -25,11 +25,11 @@ public class UserBaseVo {
 	String email;
 	
 	@NotEmpty
-	@Size(max=30)
+	@Size(min=6, max=30)
 	String password;
 	
 	@NotEmpty
-	@Size(max=30)
+	@Size(min=6, max=30)
 	String password2;
 
 //	public String getAdminId() {

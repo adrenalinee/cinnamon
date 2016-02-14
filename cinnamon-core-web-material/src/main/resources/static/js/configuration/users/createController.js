@@ -1,7 +1,37 @@
 angular.module('cinnamon')
-.controller('configuration.users.create', function($scope, $http, $interval, $stateParams, $mdDialog) {
+.controller('configuration.users.create', function($scope, $http, $interval, $state, $mdToast, $mdDialog) {
 	console.log('configuration.users.create');
 	
-	
+	$scope.create = function(form, event) {
+		console.log('create');
+		
+		if (form.$valid == false ||
+			$scope.domain.password != $scope.domain.password2) {
+			
+			$mdToast.show(
+					$mdToast.simple()
+					.position('top right')
+					.textContent('입력값을 확인하시기 바랍니다.'));
+			return;
+		}
+		
+		$http.head('/rest/configuration/users/' + $scope.domain.userId)
+		.success(function(data, status) {
+			$mdToast.show(
+					$mdToast.simple()
+					.position('top right')
+					.textContent('이미 사용중인 아이디 입니다. 다른 아이디를 입력하시기 바랍니다.'));
+		}).error(function(data, status) {
+			if (status == 404) {
+				$http.post('/rest/configuration/users', $scope.domain)
+				.success(function(data, status, config) {
+					console.log(status);
+					
+					$state.go('view', {userId: $scope.domain.userId});
+				});
+			}
+		});
+		
+	}
 	
 });
