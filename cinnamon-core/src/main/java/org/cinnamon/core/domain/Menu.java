@@ -86,7 +86,7 @@ public class Menu {
 	 */
 	@JsonIgnore
 	@OneToMany(mappedBy="menu")
-	Set<MenuAuthority> grantedAuthorities;
+	Set<PermissionMenu> grantedAuthorities;
 	
 	/**
 	 * 순서
@@ -213,11 +213,11 @@ public class Menu {
 		this.menuGroup = menuGroup;
 	}
 
-	public Set<MenuAuthority> getGrantedAuthorities() {
+	public Set<PermissionMenu> getGrantedAuthorities() {
 		return grantedAuthorities;
 	}
 
-	public void setGrantedAuthorities(Set<MenuAuthority> grantedAuthorities) {
+	public void setGrantedAuthorities(Set<PermissionMenu> grantedAuthorities) {
 		this.grantedAuthorities = grantedAuthorities;
 	}
 

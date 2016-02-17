@@ -1,6 +1,6 @@
 package org.cinnamon.core.service;
 
-import org.cinnamon.core.domain.UserAuthority;
+import org.cinnamon.core.domain.Permission;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.repository.UserAuthorityRepository;
@@ -85,7 +85,7 @@ public class UserGroupService<T extends UserBase> {
 			throw new RuntimeException("등록되지 않은 사용자 입니다. userId: " + userId);
 		}
 		
-		UserAuthority userAuthority = userAuthorityRepository.findByAuthority(authority.toString());
+		Permission userAuthority = userAuthorityRepository.findByAuthority(authority.toString());
 		if (userAuthority == null) {
 			throw new RuntimeException("등록되지 않은 authority 입니다. authority: " + authority);
 		}
@@ -108,7 +108,7 @@ public class UserGroupService<T extends UserBase> {
 			throw new RuntimeException("등록되지 않은 사용자 입니다. userId: " + userId);
 		}
 		
-		UserAuthority userAuthority = userAuthorityRepository.findByAuthority(authority.toString());
+		Permission userAuthority = userAuthorityRepository.findByAuthority(authority.toString());
 		if (userAuthority == null) {
 			throw new RuntimeException("등록되지 않은 authority 입니다. authority: " + authority);
 		}

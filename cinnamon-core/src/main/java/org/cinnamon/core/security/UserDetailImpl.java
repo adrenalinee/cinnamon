@@ -30,7 +30,7 @@ public class UserDetailImpl implements UserDetails {
 		password = user.getUserPassword().getPassword();
 		
 		for (UserGroup userGroup: user.getUserGroups()) {
-			String authority = userGroup.getAuthority().getAuthority();
+			String authority = userGroup.getPermission().getAuthority();
 			SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authority);
 			authorities.add(simpleGrantedAuthority);
 		}

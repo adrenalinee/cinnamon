@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.cinnamon.core.domain.UserAuthority;
+import org.cinnamon.core.domain.Permission;
 
 /**
  * 
@@ -14,12 +14,12 @@ import org.cinnamon.core.domain.UserAuthority;
  */
 public class RoleWrapper {
 	
-	UserAuthority role;
+	Permission role;
 	
 	List<UserGroupWrapper> userGroupWrappers = new LinkedList<>();
 	
 	RoleWrapper(String name, String authority) {
-		role = new UserAuthority();
+		role = new Permission();
 		role.setName(name);
 		role.setAuthority(authority);
 	}

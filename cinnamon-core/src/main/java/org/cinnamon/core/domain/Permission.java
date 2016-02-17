@@ -1,6 +1,7 @@
 package org.cinnamon.core.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -21,15 +23,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 @Entity
-@Table(name="permission") //regacy DB 때문에 테이블 이름 다르게 함
-public class UserAuthority implements Serializable {
+//@Table(name="permission") //regacy DB 때문에 테이블 이름 다르게 함
+public class Permission implements Serializable {
+//public class UserAuthority implements Serializable {
 	
 	private static final long serialVersionUID = 2722212456650591701L;
 
+//	@Id
+//	@GeneratedValue
+//	@Column(name="permission_id")
+//	Long authorityId;
+	
 	@Id
 	@GeneratedValue
-	@Column(name="permission_id")
-	Long authorityId;
+//	@Column(name="permission_id")
+	Long permissionId;
+	
 	
 	@Column(nullable=false, length=50, unique=true)
 	String authority;
@@ -46,6 +55,10 @@ public class UserAuthority implements Serializable {
 //	@JsonIgnore
 //	@OneToMany(mappedBy="authority")
 //	List<MenuAuthority> roleMenus;
+	
+//	@OneToMany(mappedBy="authority")
+////	@JoinColumn(name="permission_permissionId")
+//	List<UserGroup> userGroups;
 	
 	@JsonIgnore
 	@OneToOne(optional=true)
@@ -117,12 +130,28 @@ public class UserAuthority implements Serializable {
 		this.defaultUserGroup = defaultUserGroup;
 	}
 
-	public Long getAuthorityId() {
-		return authorityId;
+//	public Long getAuthorityId() {
+//		return authorityId;
+//	}
+//
+//	public void setAuthorityId(Long authorityId) {
+//		this.authorityId = authorityId;
+//	}
+
+//	public List<UserGroup> getUserGroups() {
+//		return userGroups;
+//	}
+//
+//	public void setUserGroups(List<UserGroup> userGroups) {
+//		this.userGroups = userGroups;
+//	}
+
+	public Long getPermissionId() {
+		return permissionId;
 	}
 
-	public void setAuthorityId(Long authorityId) {
-		this.authorityId = authorityId;
+	public void setPermissionId(Long permissionId) {
+		this.permissionId = permissionId;
 	}
 
 }

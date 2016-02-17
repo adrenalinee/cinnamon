@@ -6,9 +6,9 @@ import javax.persistence.EntityManager;
 
 import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.QMenu;
-import org.cinnamon.core.domain.QMenuAuthority;
 import org.cinnamon.core.domain.QMenuGroup;
-import org.cinnamon.core.domain.QUserAuthority;
+import org.cinnamon.core.domain.QPermission;
+import org.cinnamon.core.domain.QPermissionMenu;
 import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.domain.enumeration.UseStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +35,13 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 	public List<Menu> find(String dimension, MenuPosition position, List<String> grantedAuthorities) {
 		QMenu menu = QMenu.menu;
 		QMenuGroup menuGroup = QMenuGroup.menuGroup;
-		QMenuAuthority menuAuthority = QMenuAuthority.menuAuthority;
-		QUserAuthority userAuthority = QUserAuthority.userAuthority;
+		QPermissionMenu menuAuthority = QPermissionMenu.permissionMenu;
+		QPermission userAuthority = QPermission.permission;
 		
 		return from(menu).distinct()
 		.innerJoin(menu.menuGroup, menuGroup)
 		.innerJoin(menu.grantedAuthorities, menuAuthority)
-		.innerJoin(menuAuthority.authority, userAuthority)
+		.innerJoin(menuAuthority.permission, userAuthority)
 		.where(
 			menu.position.eq(position)
 			.and(menu.parent.isNull())
@@ -68,12 +68,12 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 	@Override
 	public List<Menu> findByAuthority(String authority) {
 		QMenu menu = QMenu.menu;
-		QMenuAuthority roleMenu = QMenuAuthority.menuAuthority;
-		QUserAuthority role = QUserAuthority.userAuthority;
+		QPermissionMenu roleMenu = QPermissionMenu.permissionMenu;
+		QPermission role = QPermission.permission;
 		
 		return new JPAQuery(em).from(menu)
 				.join(menu.grantedAuthorities, roleMenu)
-				.join(roleMenu.authority, role)
+				.join(roleMenu.permission, role)
 				.where(role.authority.eq(authority))
 				.orderBy(menu.orders.asc())
 				.limit(100)

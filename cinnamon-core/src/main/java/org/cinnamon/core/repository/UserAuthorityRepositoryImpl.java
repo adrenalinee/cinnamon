@@ -5,13 +5,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.apache.commons.lang3.StringUtils;
-import org.cinnamon.core.domain.MenuAuthority;
+import org.cinnamon.core.domain.Permission;
+import org.cinnamon.core.domain.PermissionMenu;
 import org.cinnamon.core.domain.QMenu;
-import org.cinnamon.core.domain.QMenuAuthority;
 import org.cinnamon.core.domain.QMenuGroup;
-import org.cinnamon.core.domain.QUserAuthority;
+import org.cinnamon.core.domain.QPermission;
+import org.cinnamon.core.domain.QPermissionMenu;
 import org.cinnamon.core.domain.QUserGroup;
-import org.cinnamon.core.domain.UserAuthority;
 import org.cinnamon.core.domain.enumeration.UseStatus;
 import org.cinnamon.core.vo.search.AuthoritySearch;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +40,10 @@ public class UserAuthorityRepositoryImpl implements UserAuthorityRepositoryCusto
 	 * @return
 	 */
 	@Override
-	public List<UserAuthority> find(Long userGroupId, String uri) {
-		QUserAuthority role = QUserAuthority.userAuthority;
+	public List<Permission> find(Long userGroupId, String uri) {
+		QPermission role = QPermission.permission;
 		QMenu menu = QMenu.menu;
-		QMenuAuthority roleMenu = QMenuAuthority.menuAuthority;
+		QPermissionMenu roleMenu = QPermissionMenu.permissionMenu;
 		QUserGroup userGroup = QUserGroup.userGroup;
 		
 		
@@ -66,12 +66,12 @@ public class UserAuthorityRepositoryImpl implements UserAuthorityRepositoryCusto
 	 * @return
 	 */
 	@Override
-	public List<MenuAuthority> getMenuAuthoritues(String authority, String uri) {
-		QMenuAuthority roleMenu = QMenuAuthority.menuAuthority;
+	public List<PermissionMenu> getMenuAuthoritues(String authority, String uri) {
+		QPermissionMenu roleMenu = QPermissionMenu.permissionMenu;
 		
 		JPAQuery query = new JPAQuery(em);
 		query.from(roleMenu)
-			.where(roleMenu.menu.uri.eq(uri).and(roleMenu.authority.authority.eq(authority)))
+			.where(roleMenu.menu.uri.eq(uri).and(roleMenu.permission.authority.eq(authority)))
 			.limit(100);
 		
 		return query.list(roleMenu);
@@ -85,8 +85,8 @@ public class UserAuthorityRepositoryImpl implements UserAuthorityRepositoryCusto
 	 * @return
 	 */
 	@Override
-	public Page<UserAuthority> search(AuthoritySearch permissionSearch, Pageable pageable) {
-		QUserAuthority role = QUserAuthority.userAuthority;
+	public Page<Permission> search(AuthoritySearch permissionSearch, Pageable pageable) {
+		QPermission role = QPermission.permission;
 		
 		BooleanBuilder builder = new BooleanBuilder();
 		if (!StringUtils.isEmpty(permissionSearch.getName())) {
@@ -111,26 +111,26 @@ public class UserAuthorityRepositoryImpl implements UserAuthorityRepositoryCusto
 			.orderBy(role.authority.desc());
 		
 		
-		List<UserAuthority> domains = query.list(role);
+		List<Permission> domains = query.list(role);
 		long totalCount = query.count();
 		
-		Page<UserAuthority> page = new PageImpl<UserAuthority>(domains, pageable, totalCount);
+		Page<Permission> page = new PageImpl<Permission>(domains, pageable, totalCount);
 		
 		return page;
 	}
 
 
 	@Override
-	public List<MenuAuthority> find(String authoritiy, Long menuGroupId) {
-		QMenuAuthority roleMenu = QMenuAuthority.menuAuthority;
-		QUserAuthority role = QUserAuthority.userAuthority;
+	public List<PermissionMenu> find(String authoritiy, Long menuGroupId) {
+		QPermissionMenu roleMenu = QPermissionMenu.permissionMenu;
+		QPermission role = QPermission.permission;
 		QMenu menu = QMenu.menu;
 		QMenuGroup menuGroup = QMenuGroup.menuGroup;
 		
 		JPAQuery query = new JPAQuery(em).from(roleMenu);
 		
 		return query
-				.join(roleMenu.authority, role)
+				.join(roleMenu.permission, role)
 				.join(roleMenu.menu, menu)
 				.join(menu.menuGroup, menuGroup)
 				.where(

@@ -22,6 +22,6 @@ public class MenuPredicate {
 		.and(menu.useStatus.eq(UseStatus.enable))
 		.and(menu.parent.isNotNull())
 		.and(menu.menuGroup.dimension.eq(dimension))
-		.and(menu.grantedAuthorities.any().authority.authority.in(grantedAuthorities));
+		.and(menu.grantedAuthorities.any().permission.authority.in(grantedAuthorities));
 	}
 }

@@ -3,14 +3,12 @@ package org.cinnamon.core.domain;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,18 +18,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @since 2015. 2. 3.
  */
 @Entity
-@Table(name="permission_menu")
-public class MenuAuthority {
+//@Table(name="permission_menu")
+public class PermissionMenu {
 	
 	@Id
 	@GeneratedValue
-	@Column(name="permission_menu_id")
-	Long menuAuthorityId;
+//	@Column(name="permission_menu_id")
+//	Long menuAuthorityId;
+	Long permissionMenuId;
 	
 	@JsonIgnore
 	@ManyToOne
 //	@JoinColumn(name="permission_permissionId")
-	UserAuthority authority;
+	Permission permission;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -56,8 +55,8 @@ public class MenuAuthority {
 //	boolean readOnly;
 	
 	@MapKey(name="name")
-	@OneToMany(mappedBy="menuAuthority")
-	Map<String, MenuAuthorityDetail> details = new LinkedHashMap<String, MenuAuthorityDetail>();
+	@OneToMany(mappedBy="permissionMenu")
+	Map<String, PermissionMenuDetail> details = new LinkedHashMap<String, PermissionMenuDetail>();
 	
 	
 	/**
@@ -105,40 +104,40 @@ public class MenuAuthority {
 	}
 	
 	public void permitCreate() {
-		MenuAuthorityDetail detail = new MenuAuthorityDetail();
-		detail.setMenuAuthority(this);
+		PermissionMenuDetail detail = new PermissionMenuDetail();
+		detail.setPermissionMenu(this);
 		detail.setName("create");
 		
 		details.put("create", detail);
 	}
 	
 	public void permitView() {
-		MenuAuthorityDetail detail = new MenuAuthorityDetail();
-		detail.setMenuAuthority(this);
+		PermissionMenuDetail detail = new PermissionMenuDetail();
+		detail.setPermissionMenu(this);
 		detail.setName("view");
 		
 		details.put("view", detail);
 	}
 	
 	public void permitModify() {
-		MenuAuthorityDetail detail = new MenuAuthorityDetail();
-		detail.setMenuAuthority(this);
+		PermissionMenuDetail detail = new PermissionMenuDetail();
+		detail.setPermissionMenu(this);
 		detail.setName("modify");
 		
 		details.put("modify", detail);
 	}
 	
 	public void permitSearch() {
-		MenuAuthorityDetail detail = new MenuAuthorityDetail();
-		detail.setMenuAuthority(this);
+		PermissionMenuDetail detail = new PermissionMenuDetail();
+		detail.setPermissionMenu(this);
 		detail.setName("search");
 		
 		details.put("search", detail);
 	}
 	
 	public void permitSelect() {
-		MenuAuthorityDetail detail = new MenuAuthorityDetail();
-		detail.setMenuAuthority(this);
+		PermissionMenuDetail detail = new PermissionMenuDetail();
+		detail.setPermissionMenu(this);
 		detail.setName("select");
 		
 		details.put("select", detail);
@@ -149,14 +148,14 @@ public class MenuAuthority {
 	 * @param name
 	 */
 	public void permit(String name) {
-		MenuAuthorityDetail detail = null;
+		PermissionMenuDetail detail = null;
 		if (details.containsKey(name)) {
 			detail = details.get(name);
 		} else {
-			detail = new MenuAuthorityDetail();
+			detail = new PermissionMenuDetail();
 		}
 		
-		detail.setMenuAuthority(this);
+		detail.setPermissionMenu(this);
 		detail.setName(name);
 		detail.setPermit(true);
 		
@@ -233,11 +232,11 @@ public class MenuAuthority {
 //		this.deletePower = deletePower;
 //	}
 
-	public Map<String, MenuAuthorityDetail> getDetails() {
+	public Map<String, PermissionMenuDetail> getDetails() {
 		return details;
 	}
 
-	public void setDetails(Map<String, MenuAuthorityDetail> details) {
+	public void setDetails(Map<String, PermissionMenuDetail> details) {
 		this.details = details;
 	}
 
@@ -265,20 +264,36 @@ public class MenuAuthority {
 		this.permitRoot = permitRoot;
 	}
 
-	public UserAuthority getAuthority() {
-		return authority;
+	public Long getPermissionMenuId() {
+		return permissionMenuId;
 	}
 
-	public void setAuthority(UserAuthority authority) {
-		this.authority = authority;
+	public void setPermissionMenuId(Long permissionMenuId) {
+		this.permissionMenuId = permissionMenuId;
 	}
 
-	public Long getMenuAuthorityId() {
-		return menuAuthorityId;
+	public Permission getPermission() {
+		return permission;
 	}
 
-	public void setMenuAuthorityId(Long menuAuthorityId) {
-		this.menuAuthorityId = menuAuthorityId;
+	public void setPermission(Permission permission) {
+		this.permission = permission;
 	}
+
+//	public Permission getAuthority() {
+//		return authority;
+//	}
+//
+//	public void setAuthority(Permission authority) {
+//		this.authority = authority;
+//	}
+//
+//	public Long getMenuAuthorityId() {
+//		return menuAuthorityId;
+//	}
+//
+//	public void setMenuAuthorityId(Long menuAuthorityId) {
+//		this.menuAuthorityId = menuAuthorityId;
+//	}
 	
 }

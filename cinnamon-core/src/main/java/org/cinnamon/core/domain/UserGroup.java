@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -41,7 +42,9 @@ public class UserGroup implements Serializable {
 	
 	
 	@ManyToOne
-	UserAuthority authority;
+//	@JoinColumn(name="permission_permissionId")
+//	UserAuthority authority;
+	Permission permission;
 	
 	/**
 	 * 로그인후 처음으로 보여줄 페이지.
@@ -49,6 +52,7 @@ public class UserGroup implements Serializable {
 	 */
 //	String defualtPage;
 	
+	@Column(length=4000)
 	String description;
 	
 	@Column(nullable=false)
@@ -103,12 +107,20 @@ public class UserGroup implements Serializable {
 		this.users = users;
 	}
 
-	public UserAuthority getAuthority() {
-		return authority;
+//	public UserAuthority getAuthority() {
+//		return authority;
+//	}
+//
+//	public void setAuthority(UserAuthority authority) {
+//		this.authority = authority;
+//	}
+
+	public Permission getPermission() {
+		return permission;
 	}
 
-	public void setAuthority(UserAuthority authority) {
-		this.authority = authority;
+	public void setPermission(Permission permission) {
+		this.permission = permission;
 	}
 
 //	public String getDefualtPage() {

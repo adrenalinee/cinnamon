@@ -52,7 +52,7 @@ public class UserGroupRepositoryImpl implements UserGroupRepositoryCustom {
 //			builder.or(builder2);
 			
 			builder.or(userGroup.name.like("%" + keyword + "%"))
-					.or(userGroup.authority.authority.eq(keyword));
+					.or(userGroup.permission.authority.eq(keyword));
 		}
 		
 		JPAQuery query = new JPAQuery(em).from(userGroup);
@@ -72,7 +72,7 @@ public class UserGroupRepositoryImpl implements UserGroupRepositoryCustom {
 			builder.and(userGroup.name.like("%" + userGroupSearch.getName() + "%"));
 		}
 		if (!StringUtils.isEmpty(userGroupSearch.getAuthority())) {
-			builder.and(userGroup.authority.authority.eq(userGroupSearch.getAuthority()));
+			builder.and(userGroup.permission.authority.eq(userGroupSearch.getAuthority()));
 		}
 		if (userGroupSearch.getUseStatus() != null) {
 			builder.and(userGroup.useStatus.eq(userGroupSearch.getUseStatus()));

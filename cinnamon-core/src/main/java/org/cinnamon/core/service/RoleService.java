@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.cinnamon.core.domain.Menu;
-import org.cinnamon.core.domain.UserAuthority;
-import org.cinnamon.core.domain.MenuAuthority;
+import org.cinnamon.core.domain.Permission;
+import org.cinnamon.core.domain.PermissionMenu;
 import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.util.ListPage;
@@ -38,16 +38,16 @@ public class RoleService {
 	
 	
 	@Transactional(readOnly=true)
-	public ListPage<UserAuthority> search(AuthoritySearch permissionSearch, Pageable pageable) {
+	public ListPage<Permission> search(AuthoritySearch permissionSearch, Pageable pageable) {
 		logger.info("start");
 		
 		int size = pageable.getPageSize();
 		
-		Page<UserAuthority> domains = permissionRepository.search(permissionSearch, pageable);
+		Page<Permission> domains = permissionRepository.search(permissionSearch, pageable);
 		PagingUtil paging = new PagingUtil(domains.getNumber() + 1, size, domains.getTotalElements());
 		
 		
-		ListPage<UserAuthority> domainPage = new ListPage<UserAuthority>();
+		ListPage<Permission> domainPage = new ListPage<Permission>();
 		domainPage.setContent(domains.getContent());
 		domainPage.setPaging(paging);
 		
@@ -56,13 +56,13 @@ public class RoleService {
 	
 	
 	@Transactional(readOnly=true)
-	public Map<Long, MenuAuthority> getPermissionMenus(String authority, Long menuGroupId) {
+	public Map<Long, PermissionMenu> getPermissionMenus(String authority, Long menuGroupId) {
 		logger.info("start");
 		
-		List<MenuAuthority> permissionMenus = permissionRepository.find(authority, menuGroupId);
+		List<PermissionMenu> permissionMenus = permissionRepository.find(authority, menuGroupId);
 		
-		Map<Long, MenuAuthority> permissionMenusMap = new LinkedHashMap<Long, MenuAuthority>();
-		for (MenuAuthority pm: permissionMenus) {
+		Map<Long, PermissionMenu> permissionMenusMap = new LinkedHashMap<Long, PermissionMenu>();
+		for (PermissionMenu pm: permissionMenus) {
 			Menu menu = pm.getMenu();
 			permissionMenusMap.put(menu.getMenuId(), pm);
 			

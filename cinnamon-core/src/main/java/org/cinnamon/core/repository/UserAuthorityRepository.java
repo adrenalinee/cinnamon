@@ -1,6 +1,6 @@
 package org.cinnamon.core.repository;
 
-import org.cinnamon.core.domain.UserAuthority;
+import org.cinnamon.core.domain.Permission;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * created date: 2015. 8. 20.
  * @author 신동성
  */
-public interface UserAuthorityRepository extends JpaRepository<UserAuthority, Long>, UserAuthorityRepositoryCustom {
+public interface UserAuthorityRepository extends JpaRepository<Permission, Long>, UserAuthorityRepositoryCustom {
 	
-	UserAuthority findByAuthority(String authority);
+	Permission findByAuthority(String authority);
 }

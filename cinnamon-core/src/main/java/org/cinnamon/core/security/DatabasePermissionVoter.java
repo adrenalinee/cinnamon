@@ -6,9 +6,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.cinnamon.core.domain.Menu;
-import org.cinnamon.core.domain.MenuAuthority;
-import org.cinnamon.core.domain.MenuAuthorityDetail;
-import org.cinnamon.core.domain.UserAuthority;
+import org.cinnamon.core.domain.Permission;
+import org.cinnamon.core.domain.PermissionMenu;
+import org.cinnamon.core.domain.PermissionMenuDetail;
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
 import org.cinnamon.core.repository.MenuAuthorityRepository;
 import org.cinnamon.core.repository.MenuRepository;
@@ -124,8 +124,8 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 						
 						GrantedAuthority grantedAuthority = (GrantedAuthority) ga;
 						//TODO 최적화 필요
-						UserAuthority userAauthority = permissionRepository.findByAuthority(grantedAuthority.getAuthority());
-						MenuAuthority permissionMenu = permissionMenuRepository.findByAuthorityAndMenu(userAauthority, menu);
+						Permission userAauthority = permissionRepository.findByAuthority(grantedAuthority.getAuthority());
+						PermissionMenu permissionMenu = permissionMenuRepository.findByPermissionAndMenu(userAauthority, menu);
 						if (requestUrl.equals(menu.getUri())) {
 							if (permissionMenu.isPermitRoot()) {
 								return ACCESS_GRANTED;
@@ -142,7 +142,7 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 						System.out.println("subUri: " + subUri);
 
 						if (grantedAuthority != null) {
-							MenuAuthorityDetail detail = permissionMenu.getDetails().get(subUri);
+							PermissionMenuDetail detail = permissionMenu.getDetails().get(subUri);
 							
 							if (detail != null) {
 								if (!detail.isPermit()) {
@@ -167,20 +167,20 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 	}
 	
 	
-	public static void main(String[] args) {
-		
-		
-		
-		String requestUrl = "/users/me";
-		Menu menu = new Menu();
-		menu.setUri("/users");
-		
-		String menuUri = menu.getUri() + "/";
-		String subUri = requestUrl.substring(menuUri.length());
-		
-		System.out.println(requestUrl.startsWith(menu.getUri() + "/"));
-		
-		
-		
-	}
+//	public static void main(String[] args) {
+//		
+//		
+//		
+//		String requestUrl = "/users/me";
+//		Menu menu = new Menu();
+//		menu.setUri("/users");
+//		
+//		String menuUri = menu.getUri() + "/";
+//		String subUri = requestUrl.substring(menuUri.length());
+//		
+//		System.out.println(requestUrl.startsWith(menu.getUri() + "/"));
+//		
+//		
+//		
+//	}
 }

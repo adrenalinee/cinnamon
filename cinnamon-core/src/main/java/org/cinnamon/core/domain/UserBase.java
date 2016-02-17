@@ -54,7 +54,7 @@ public class UserBase implements UserEntity, Serializable {
 	
 	@JsonIgnore
 	@ManyToMany
-	Set<UserAuthority> authorities = new HashSet<UserAuthority>();
+	Set<Permission> permissions = new HashSet<Permission>();
 	
 	@Column(length=100)
 	String name;
@@ -367,12 +367,20 @@ public class UserBase implements UserEntity, Serializable {
 		this.job = job;
 	}
 
-	public Set<UserAuthority> getAuthorities() {
-		return authorities;
+//	public Set<Permission> getAuthorities() {
+//		return authorities;
+//	}
+//
+//	public void setAuthorities(Set<Permission> authorities) {
+//		this.authorities = authorities;
+//	}
+
+	public Set<Permission> getPermissions() {
+		return permissions;
 	}
 
-	public void setAuthorities(Set<UserAuthority> authorities) {
-		this.authorities = authorities;
+	public void setPermissions(Set<Permission> permissions) {
+		this.permissions = permissions;
 	}
 
 }

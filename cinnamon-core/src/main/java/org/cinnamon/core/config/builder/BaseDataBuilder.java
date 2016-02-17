@@ -8,10 +8,10 @@ import javax.persistence.EntityManager;
 
 import org.cinnamon.core.domain.Group;
 import org.cinnamon.core.domain.Menu;
-import org.cinnamon.core.domain.MenuAuthority;
+import org.cinnamon.core.domain.PermissionMenu;
 import org.cinnamon.core.domain.MenuGroup;
 import org.cinnamon.core.domain.Site;
-import org.cinnamon.core.domain.UserAuthority;
+import org.cinnamon.core.domain.Permission;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
 
@@ -107,7 +107,7 @@ public class BaseDataBuilder {
 		});
 		
 		roleWrappers.forEach(rw -> {
-			UserAuthority role = rw.role;
+			Permission role = rw.role;
 			System.out.println("role: " + role.getName() + "(" + role.getAuthority() + ")");
 		});
 		
@@ -171,12 +171,13 @@ public class BaseDataBuilder {
 	
 	private void buildRoles() {
 		roleWrappers.forEach(roleWrapper -> {
-			UserAuthority role = roleWrapper.role;
+			Permission role = roleWrapper.role;
 			em.persist(role);
 			
 			roleWrapper.userGroupWrappers.forEach(userGroupWrapper -> {
 				UserGroup userGroup = userGroupWrapper.userGroup;
-				userGroup.setAuthority(role);
+//				userGroup.setAuthority(role);
+				userGroup.setPermission(role);
 				em.persist(userGroup);
 				
 				if (userGroupWrapper.isDefault) {
@@ -241,17 +242,17 @@ public class BaseDataBuilder {
 		fixedGrantedAuthorities.forEach(authority -> {
 //			UserAuthority userAuthority = userAuthorityRepository.findByAuthority(authority);
 			
-			UserAuthority userAuthority =
-					em.createQuery("from UserAuthority ua where ua.authority = :authority", UserAuthority.class)
+			Permission userAuthority =
+					em.createQuery("from UserAuthority ua where ua.authority = :authority", Permission.class)
 						.setParameter("authority", authority).getSingleResult();
 			if (userAuthority == null) {
 				//정의 되지 않은 역할임
 				throw new RuntimeException("정의 되지 않은 권한입니다. authority: " + authority);
 			}
 			
-			MenuAuthority menuAuthority = new MenuAuthority();
+			PermissionMenu menuAuthority = new PermissionMenu();
 			menuAuthority.setMenu(menu);
-			menuAuthority.setAuthority(userAuthority);
+			menuAuthority.setPermission(userAuthority);
 			em.persist(menuAuthority);
 		});
 	}
