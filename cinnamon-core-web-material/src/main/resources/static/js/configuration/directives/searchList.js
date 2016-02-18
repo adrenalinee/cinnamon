@@ -10,7 +10,8 @@ angular.module('cinnamon')
 			domains: '=',
 			searchInfo: '=searchParams',
 			resourceUrl: '=',
-			defaultSearchParams: '='
+			defaultSearchParams: '=',
+			sortItems: '='
 		},
 		templateUrl: '/configuration/directives/searchList',
 		controller: 'searchListController'

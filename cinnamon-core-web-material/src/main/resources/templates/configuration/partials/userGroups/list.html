@@ -8,13 +8,18 @@
 </md-fab-speed-dial>
 
 
-<div class="content-container content">
+<div class="content-container">
 	<h3 layout-padding="" class="md-headline">사용자 모임</h3>
 	
 	<md-card md-whiteframe="3">
 		<cm-search-list
 			resource-url="'/rest/configuration/userGroups'"
-			domains="domains">
+			domains="domains"
+			sort-items="{
+				userGroupId: 'userGroupId',
+				name: '이름',
+				authority: '권한'
+			}">
 			
 			<cm-search-list-filters>
 				<md-card-content class="content" layout="column">

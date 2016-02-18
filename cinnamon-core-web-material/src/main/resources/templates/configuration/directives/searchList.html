@@ -13,6 +13,13 @@
 			<md-icon>sort</md-icon>
 		</md-button>
 		<md-menu-content>
+			<md-menu-item ng-repeat="item in sortItems">
+				<md-button layout="row">
+					{{item}}
+				</md-button>
+			</md-menu-item>
+			
+			
 			<md-menu-item>
 				<md-button layout="row">
 					이름
@@ -49,81 +56,8 @@
 	ng-change="onPageChange()" />
 
 
-<md-list layout-fill="">
+<md-list>
 	<md-divider></md-divider>
 	
 	<ng-transclude ng-transclude-slot="items" />
 </md-list>
-
-
-
-<!-- <md-card md-whiteframe="4">
-	<md-card-header layout="row" layout-align="center center">
-		<md-icon>search</md-icon>
-		<md-input-container md-no-float="true" flex="" layout-fill="">
-			<input ng-model="searchInfo.keyword" flex="" placeholder="검색어를 입력하세요" ng-keypress="onSearch($event)" />
-		</md-input-container>
-		<md-button class="md-icon-button" ng-click="showDetailSearch = !showDetailSearch">
-			<md-tooltip md-direction="top">상세 검색</md-tooltip>
-			<md-icon>expand_more</md-icon>
-		</md-button>
-		<md-menu>
-			<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
-				<md-tooltip md-direction="top">정렬</md-tooltip>
-				<md-icon>sort</md-icon>
-			</md-button>
-			<md-menu-content>
-				<md-menu-item>
-					<md-button layout="row">
-						이름
-						<md-icon>check</md-icon>
-					</md-button>
-				</md-menu-item>
-				<md-menu-item>
-					<md-button>
-						이메일
-					</md-button>
-				</md-menu-item>
-				<md-menu-item>
-					<md-button>
-						userId
-					</md-button>
-				</md-menu-item>
-			</md-menu-content>
-		</md-menu>
-	</md-card-header>
-	
-	<div ng-if="showDetailSearch">
-		<md-divider></md-divider>
-		<md-card-content class="content" layout="column">
-			<md-input-container layout-fill="">
-				<label>이름</label>
-				<input />
-			</md-input-container>
-			<md-input-container layout-fill="">
-				<label>userId</label>
-				<input />
-			</md-input-container>
-			<md-input-container layout-fill="">
-				<label>이메일</label>
-				<input />
-			</md-input-container>
-		</md-card-content>
-		<md-divider></md-divider>
-	</div>
-	
-	<uib-pagination
-		template-url="/configuration/partials/directive/pagination"
-		total-items="domains.totalElements"
-		items-per-page="domains.size"
-		boundary-links="true"
-		ng-model="searchInfo.page"
-		ng-change="onPageChange()" />
-	
-	
-	<md-list layout-fill="">
-		<md-divider></md-divider>
-		
-		<ng-transclude />
-	</md-list>
-</md-card> -->
