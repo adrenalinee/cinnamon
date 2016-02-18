@@ -243,7 +243,7 @@ public class BaseDataBuilder {
 //			UserAuthority userAuthority = userAuthorityRepository.findByAuthority(authority);
 			
 			Permission userAuthority =
-					em.createQuery("from UserAuthority ua where ua.authority = :authority", Permission.class)
+					em.createQuery("from Permission p where p.authority = :authority", Permission.class)
 						.setParameter("authority", authority).getSingleResult();
 			if (userAuthority == null) {
 				//정의 되지 않은 역할임

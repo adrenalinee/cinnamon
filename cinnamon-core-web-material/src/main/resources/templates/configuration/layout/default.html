@@ -56,7 +56,7 @@
 		</div>
 		
 	</md-toolbar>
-	<md-content flex="" layout="row" class="content">
+	<md-content layout="row" flex="" class="content">
 	<!-- style="background: transparent" -->
 	<!-- md-is-locked-open="$mdMedia('gt-lg')" -->
 		<md-sidenav md-component-id="leftSidenav" md-is-locked-open="$mdMedia('gt-sm')" style="width: 230px" ng-style="sidenavStyle">
@@ -81,7 +81,8 @@
 			</md-list>
 			
 		</md-sidenav>
-		<div layout:fragment="content">
+		<div flex="">
+			<div layout:fragment="content"></div>
 		</div>
 	</md-content>
 </body>
