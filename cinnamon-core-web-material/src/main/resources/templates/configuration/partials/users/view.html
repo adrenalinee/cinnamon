@@ -14,22 +14,6 @@
 	</md-fab-speed-dial>
 
 	<md-card>
-		<!-- <md-card-header>
-			<span flex=""></span>
-			<md-menu>
-				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
-					<md-icon>more_vert</md-icon>
-				</md-button>
-				<md-menu-content>
-					<md-menu-item>
-						<md-button>
-							<md-icon>edit</md-icon>
-							수정
-						</md-button>
-					</md-menu-item>
-				</md-menu-content>
-			</md-menu>
-		</md-card-header> -->
 		<md-card-title>
 			<md-card-title-text>
 				<span class="md-headline">{{domain.name}}</span>
@@ -75,8 +59,14 @@
 	</md-card>
 	
 	
-	<h3 layout-padding="" class="md-subhead">모임</h3>
+	<!-- <h3 layout-padding="" class="md-subhead">모임</h3> -->
 	<md-card>
+		<md-card-header>
+			<md-card-header-text layout="row">
+				<span class="md-title">모임</span>
+			</md-card-header-text>
+		</md-card-header>
+		
 		<cm-search-list
 			resource-url="'/rest/configuration/userGroups'"
 			search-params="searchInfo"

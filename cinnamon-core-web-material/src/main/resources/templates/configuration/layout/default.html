@@ -17,7 +17,7 @@
 <body layout:fragment="body" class="content" layout="column" ng-controller="layoutController">
 	<md-toolbar md-whiteframe="5">
 		<div class="md-toolbar-tools" layout-fill="">
-			<md-button class="md-icon-button" ng-click="toggleSidenav()">
+			<md-button class="md-icon-button" ng-click="toggleSidenav()" ng-show="showMenuButton()">
 				<md-icon>menu</md-icon>
 			</md-button>
 			<h2>Web console</h2>

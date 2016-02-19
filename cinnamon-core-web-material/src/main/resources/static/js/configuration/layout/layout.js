@@ -25,6 +25,11 @@ angular.module('cinnamon')
 		$mdSidenav('leftSidenav').close();
 	}
 	
+	$scope.showMenuButton = function() {
+		return !$mdMedia('gt-sm');
+	}
+	
+	
 	$scope.sidenavStyle;
 	$scope.isHideSidebarToolbar;
 	onResize($scope, $mdMedia);

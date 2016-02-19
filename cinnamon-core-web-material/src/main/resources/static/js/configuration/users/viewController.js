@@ -44,6 +44,10 @@ angular.module('cinnamon')
 					
 					$mdDialog.hide();
 				}
+				
+				$scope.close = function() {
+					$mdDialog.hide();
+				}
 			}
 		});
 	}
