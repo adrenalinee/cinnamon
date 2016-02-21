@@ -1,6 +1,6 @@
 angular.module('cinnamon')
-.controller('configuration.settings.profile', function($scope, $http, $interval, $stateParams, $mdDialog) {
-	console.log('configuration.settings.profile');
+.controller('configuration.users.modify', function($scope, $http, $interval, $state, $stateParams, $mdDialog) {
+	console.log('configuration.users.modify');
 	
 	var userId = $stateParams.userId;
 	$scope.userId = userId;
@@ -22,4 +22,19 @@ angular.module('cinnamon')
 		});
 	});
 	
+	
+	
+	$scope.goView = function() {
+		$interval(function() {
+			$state.go('view', {userId: userId});
+		}, 200, 1);
+	}
+	
+	$scope.update = function(form, event) {
+		$interval(function() {
+			$state.go('view', {userId: userId}, {
+				location: 'replace'
+			});
+		}, 200, 1);
+	}
 });

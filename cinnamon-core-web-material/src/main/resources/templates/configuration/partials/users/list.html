@@ -47,9 +47,9 @@
 			</md-menu>
 		</md-card-header>
 		
-		<div ng-if="showDetailSearch">
+		<div ng-if="showDetailSearch" class="content">
 			<md-divider></md-divider>
-			<md-card-content class="content" layout="column">
+			<md-card-content layout="column">
 				<md-input-container layout-fill="">
 					<label>이름</label>
 					<input />
@@ -63,10 +63,12 @@
 					<input />
 				</md-input-container>
 			</md-card-content>
+			<md-button class="md-primary md-raised" ng-click="search()">검색</md-button>
 			<md-divider></md-divider>
 		</div>
 		
 		<uib-pagination
+			layout-margin=""
 			template-url="/configuration/partials/directive/pagination"
 			total-items="domains.totalElements"
 			items-per-page="domains.size"

@@ -34,4 +34,8 @@ angular.module('cinnamon')
 		
 	}
 	
+	$scope.goList = function() {
+		$state.go('list');
+	}
+	
 });

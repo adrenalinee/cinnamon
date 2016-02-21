@@ -43,7 +43,9 @@ angular.module('cinnamon');
 							<label>비밀번호</label>
 							<input type="password" name="password" required="required" maxlength="30" />
 						</md-input-container>
-						<md-checkbox name="remember-me">로그인 상태 유지</md-checkbox>
+						
+						<input type="hidden" name="remember-me" value="{{remomberMe}}" />
+						<md-checkbox ng-model="remomberMe">로그인 상태 유지</md-checkbox>
 						<!-- <input type="hidden" name="remember-me" value="{{rememberMe}}" /> -->
 				</md-card-content>
 				<md-card-actions>

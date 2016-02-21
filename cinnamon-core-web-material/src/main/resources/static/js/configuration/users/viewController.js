@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.users.view', function($scope, $http, $interval, $stateParams, $mdDialog) {
+.controller('configuration.users.view', function($scope, $http, $interval, $state, $stateParams, $mdDialog) {
 	console.log('configuration.users.view');
 	
 	var userId = $stateParams.userId;
@@ -52,9 +52,7 @@ angular.module('cinnamon')
 		});
 	}
 	
-	$scope.goUserGroupView = function(userGroup) {
-		$interval(function() {
-			location.href = '/configuration/userGroups/' + userGroup.userGroupId;
-		}, 200);
+	$scope.aaa = function() {
+		$state.go('modify', {userId: userId});
 	}
 });

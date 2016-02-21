@@ -14,6 +14,6 @@ angular.module('cinnamon')
 	$scope.goView = function(userGroup) {
 		$interval(function() {
 			$state.go('view', {userGroupId: userGroup.userGroupId});
-		}, 200);
+		}, 200, 1);
 	}
 });

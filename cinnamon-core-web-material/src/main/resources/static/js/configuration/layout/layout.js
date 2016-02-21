@@ -11,7 +11,7 @@ angular.module('cinnamon')
 		if (menu.uri != null) {
 			$interval(function() {
 				location.href = menu.uri;
-			}, 200);
+			}, 200, 1);
 		} else {
 			
 		}
