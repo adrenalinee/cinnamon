@@ -93,10 +93,13 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 	
 	private void addSites(BaseDataBuilder baseData) {
 		baseData.addSite(
-			site("콘솔", "console")
-			.indexPage("/configuration")
+			site(true, "콘솔", "console")
+//			.indexPage("/configuration")
 			.addMenuGroup(
-				menuGroup("기본 설정 메뉴", "configuration").addMenusAtSidebar(
+				true,
+				menuGroup("기본 설정 메뉴", "configuration")
+				.defaultPage("/configuration")
+				.addMenusAtSidebar(
 					menu("사용자")
 						.uri("/configuration/users")
 						.iconClass("glyphicon glyphicon-user"),
@@ -134,6 +137,17 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 								.uri("/configuration")
 								.iconClass("fa fa-cogs")
 						)
+				)
+			).addMenuGroup(
+				menuGroup("개인 설정 메뉴", "settings")
+				.defaultPage("/settings")
+				.addMenusAtSidebar(
+					menu("계정")
+						.uri("/settings/account"),
+					menu("비밀번호")
+						.uri("/settings/password"),
+					menu("이메일")
+						.uri("/settings/email")
 				)
 			)
 		);

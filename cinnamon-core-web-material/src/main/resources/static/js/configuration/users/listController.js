@@ -22,7 +22,7 @@ angular.module('cinnamon')
 	$scope.goView = function(user) {
 		$interval(function() {
 			$state.go('view', {userId: user.userId});
-		}, 200, 1);
+		}, 150, 1);
 	}
 	
 	

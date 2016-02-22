@@ -15,6 +15,7 @@ public class SystemConfiguration {
 	 */
 	boolean initialize;
 	
-	
+//	@
+//	Site defaultSite;
 	
 }

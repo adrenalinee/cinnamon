@@ -8,11 +8,13 @@ import javax.persistence.EntityManager;
 
 import org.cinnamon.core.domain.Group;
 import org.cinnamon.core.domain.Menu;
-import org.cinnamon.core.domain.PermissionMenu;
 import org.cinnamon.core.domain.MenuGroup;
-import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.domain.Permission;
+import org.cinnamon.core.domain.PermissionMenu;
+import org.cinnamon.core.domain.Property;
+import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.domain.UserGroup;
+import org.cinnamon.core.enumeration.DefinedDBProperty;
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
 
 /**
@@ -35,6 +37,8 @@ public class BaseDataBuilder {
 	static List<RoleWrapper> roleWrappers = new LinkedList<>();
 	
 	static List<GroupWrapper> groupWrappers = new LinkedList<>();
+	
+	static SiteWrapper defaultSiteWrapper;
 	
 	public BaseDataBuilder(EntityManager em) {
 		this.em = em;
@@ -79,6 +83,19 @@ public class BaseDataBuilder {
 	
 	public static SiteWrapper site(String name, String siteId) {
 		return new SiteWrapper(name, siteId);
+	}
+	
+	/**
+	 * 
+	 * @param isDefault - 데이터베이스 전체의 기본 사이트인지 여부 (default = false)
+	 * @param name - 사이트 이름
+	 * @param siteId - 생성하려는 사이트 아이디
+	 * @return
+	 */
+	public static SiteWrapper site(boolean isDefault, String name, String siteId) {
+		SiteWrapper siteWrapper = new SiteWrapper(name, siteId);
+		defaultSiteWrapper = siteWrapper;
+		return siteWrapper;
 	}
 	
 	public static MenuGroupWrapper menuGroup(String name, String dimension) {
@@ -192,10 +209,21 @@ public class BaseDataBuilder {
 			Site site = siteWrapper.site;
 			em.persist(site);
 			
+			if (siteWrapper.equals(defaultSiteWrapper)) {
+				Property property = new Property();
+				property.setName(DefinedDBProperty.defaultSiteId.name());
+				em.persist(property);
+			}
+			
+			
 			siteWrapper.menuGroupWrappers.forEach(menuGroupWrapper -> {
 				MenuGroup menuGroup = menuGroupWrapper.menuGroup;
 				menuGroup.setSite(site);
 				em.persist(menuGroup);
+				
+				if (menuGroupWrapper.equals(siteWrapper.defaultMenuGroupWrapper)) {
+					site.setDefaultMenuGroup(menuGroup);
+				}
 				
 				Orders orders = new Orders();
 				menuGroupWrapper.menuWrappers.forEach(menuWrapper -> {
@@ -258,7 +286,11 @@ public class BaseDataBuilder {
 	}
 }
 
-
+/**
+ * 순서를 관리하기 위해 사용
+ * 
+ * @author 신동성
+ */
 class Orders {
 	int order;
 	

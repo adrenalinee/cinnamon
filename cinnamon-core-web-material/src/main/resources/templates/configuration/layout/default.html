@@ -68,6 +68,7 @@
 				</div>
 			</md-toolbar>
 			<md-list>
+				<md-subheader class="content">{{currentMenus.name}}</md-subheader>
 				<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
 					
 					{{menu.name}}

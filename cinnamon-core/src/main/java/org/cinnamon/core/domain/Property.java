@@ -36,6 +36,7 @@ public class Property {
 	@Temporal(TemporalType.TIMESTAMP)
 	Date createdAt;
 	
+	@Column(length=4000)
 	String description;
 
 	@PrePersist

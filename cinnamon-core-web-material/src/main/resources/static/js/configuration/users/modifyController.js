@@ -25,9 +25,11 @@ angular.module('cinnamon')
 	
 	
 	$scope.goView = function() {
-		$interval(function() {
-			$state.go('view', {userId: userId});
-		}, 200, 1);
+//		$interval(function() {
+//			$state.go('view', {userId: userId});
+//		}, 200, 1);
+		
+		history.go(-1);
 	}
 	
 	$scope.update = function(form, event) {

@@ -11,9 +11,9 @@ angular.module('cinnamon')
 		if (menu.uri != null) {
 			$interval(function() {
 				location.href = menu.uri;
-			}, 200, 1);
+			}, 150, 1);
 		} else {
-			
+			//TODO 가능할 경우 하위 메뉴 펼침
 		}
 	}
 	

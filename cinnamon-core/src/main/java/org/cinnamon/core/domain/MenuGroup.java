@@ -44,6 +44,12 @@ public class MenuGroup {
 //	@ManyToMany
 //	List<Menu> menus;
 	
+	/**
+	 * 기본으로 접근할 페이지 경로
+	 */
+	@Column(length=200)
+	String defaultPage;
+	
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="menuGroup")
@@ -123,6 +129,14 @@ public class MenuGroup {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getDefaultPage() {
+		return defaultPage;
+	}
+
+	public void setDefaultPage(String defaultPage) {
+		this.defaultPage = defaultPage;
 	}
 
 //	public Date getCreatedAt() {

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
@@ -36,6 +37,11 @@ public class Site {
 	@Column(length=200)
 	String url;
 	
+//	/**
+//	 * 기본 사이트인지 여부
+//	 */
+//	Boolean isDefault;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="site")
 	Set<MenuGroup> menuGroup;
@@ -45,6 +51,12 @@ public class Site {
 	 * 컨텍스트 루트에서 indexPage로 forward 된다.
 	 */
 	String indexPage;
+	
+	/**
+	 * 기본 메뉴 그룹
+	 */
+	@ManyToOne
+	MenuGroup defaultMenuGroup;
 	
 	@Column(length=4000)
 	String description;
@@ -125,5 +137,21 @@ public class Site {
 	public void setIndexPage(String indexPage) {
 		this.indexPage = indexPage;
 	}
+
+	public MenuGroup getDefaultMenuGroup() {
+		return defaultMenuGroup;
+	}
+
+	public void setDefaultMenuGroup(MenuGroup defaultMenuGroup) {
+		this.defaultMenuGroup = defaultMenuGroup;
+	}
+
+//	public Boolean getIsDefault() {
+//		return isDefault;
+//	}
+//
+//	public void setIsDefault(Boolean isDefault) {
+//		this.isDefault = isDefault;
+//	}
 	
 }

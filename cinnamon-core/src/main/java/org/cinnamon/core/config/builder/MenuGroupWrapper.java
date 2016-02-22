@@ -25,6 +25,11 @@ public class MenuGroupWrapper {
 		menuGroup.setDimension(dimension);
 	}
 	
+	public MenuGroupWrapper defaultPage(String defaultPage) {
+		menuGroup.setDefaultPage(defaultPage);
+		return this;
+	}
+	
 	public MenuGroupWrapper description(String description) {
 		menuGroup.setDescription(description);
 		return this;

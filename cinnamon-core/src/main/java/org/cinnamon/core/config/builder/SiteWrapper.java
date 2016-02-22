@@ -15,6 +15,8 @@ public class SiteWrapper {
 	
 	Site site;
 	
+	MenuGroupWrapper defaultMenuGroupWrapper;
+	
 	List<MenuGroupWrapper> menuGroupWrappers = new LinkedList<>();
 	
 	SiteWrapper(String name, String siteId) {
@@ -40,6 +42,16 @@ public class SiteWrapper {
 	
 	public SiteWrapper addMenuGroup(MenuGroupWrapper menuGroupWrapper) {
 		menuGroupWrappers.add(menuGroupWrapper);
+		return this;
+	}
+	
+	public SiteWrapper addMenuGroup(boolean isDefault, MenuGroupWrapper menuGroupWrapper) {
+		menuGroupWrappers.add(menuGroupWrapper);
+		
+		if (isDefault) {
+			defaultMenuGroupWrapper = menuGroupWrapper;
+		}
+		
 		return this;
 	}
 	
