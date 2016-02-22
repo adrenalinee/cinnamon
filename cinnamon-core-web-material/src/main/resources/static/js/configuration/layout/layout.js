@@ -1,7 +1,10 @@
 angular.module('cinnamon')
-.controller('layoutController', function($scope, $http, $interval, $window, $mdSidenav, $mdMedia) {
+.controller('layoutController', function($scope, $http, $interval, $location, $window, $mdSidenav, $mdMedia) {
 	
-	$http.get('/rest/session/current-menus/configuration')
+	var dimension = $location.path().split("/")[1];
+	console.log(dimension);
+	
+	$http.get('/rest/session/current-menus/' + dimension)
 	.success(function(data) {
 		console.log(data);
 		$scope.currentMenus = data;

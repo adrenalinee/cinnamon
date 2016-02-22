@@ -147,7 +147,9 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 					menu("비밀번호")
 						.uri("/settings/password"),
 					menu("이메일")
-						.uri("/settings/email")
+						.uri("/settings/email"),
+					menu("언어")
+						.uri("/settings/language")
 				)
 			)
 		);

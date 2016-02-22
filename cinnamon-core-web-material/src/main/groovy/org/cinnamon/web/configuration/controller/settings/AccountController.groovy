@@ -1,4 +1,4 @@
-package org.cinnamon.web.configuration.controller
+package org.cinnamon.web.configuration.controller.settings
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping
 /**
  * 
  * @author shindongseong
- * @since 2016. 2. 14.
+ * @since 2016. 2. 23.
  */
 @Controller
-@RequestMapping("/configuration/settings")
-class SettingController {
+@RequestMapping("/settings/account")
+class AccountController {
 	
 	@RequestMapping("**")
-	def settings() {
-		"configuration/settings"
+	def users() {
+		"settings/account"
 	}
 }
