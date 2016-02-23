@@ -63,7 +63,7 @@ public class Site {
 	
 	@Column(nullable=false)
 	@Enumerated(EnumType.STRING)
-	UseStatus useStatus = UseStatus.enable; 
+	UseStatus useStatus = UseStatus.enable;
 	
 	@Column(nullable=false, updatable=false)
 	@Temporal(TemporalType.TIMESTAMP)
