@@ -3,7 +3,7 @@ package org.cinnamon.web.configuration.restController
 import javax.validation.Valid
 
 import org.cinnamon.core.config.SystemConfigureService
-import org.cinnamon.core.vo.UserBaseVo
+import org.cinnamon.core.vo.UserJoinVo
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -39,7 +39,7 @@ class InitWizardRestController {
 	
 	
 	@RequestMapping(value="firstUser", method=RequestMethod.POST)
-	def firstUser(@RequestBody @Valid UserBaseVo userVo) {
+	def firstUser(@RequestBody @Valid UserJoinVo userVo) {
 		logger.info("start")
 		
 		systemConfigurerService.joinFirstSystemMaster(userVo)

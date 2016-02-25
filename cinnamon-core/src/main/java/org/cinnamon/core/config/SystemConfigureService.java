@@ -7,7 +7,7 @@ import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.enumeration.DefinedDBProperty;
 import org.cinnamon.core.repository.PropertyRepository;
 import org.cinnamon.core.service.UserBaseService;
-import org.cinnamon.core.vo.UserBaseVo;
+import org.cinnamon.core.vo.UserJoinVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,7 +120,7 @@ public class SystemConfigureService {
 	 * @param userVo
 	 */
 	@Transactional
-	public void joinFirstSystemMaster(UserBaseVo userVo) {
+	public void joinFirstSystemMaster(UserJoinVo userVo) {
 		logger.info("start");
 		
 		UserBase user = userService.joinSystemMaster(userVo);

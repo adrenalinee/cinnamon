@@ -98,15 +98,15 @@ angular.module('cinnamon')
 			<md-card>
 				<md-tabs md-selected="selectedStep" md-dynamic-height="true">
 					<md-tab label="초기화 시작" ng-disabled="isProcessCreateBaseData">
-						<md-content layout-padding="">
+						<div layout-padding="">
 							<p class="alert-info">시스템 초기화를 시작합니다.</p>
 							<md-button class="md-raised md-primary" ng-click="next()">
 								<md-icon md-font-icon="play_arrow"></md-icon> 초기화 시작
 							</md-button>
-						</md-content>
+						</div>
 					</md-tab>
 					<md-tab label="기본 데이터 생성" ng-disabled="isProcessCreateFirstUser">
-						<md-content layout-padding="">
+						<div layout-padding="">
 							<p class="alert-info">시스템 구동에 필요한 기본 데이터를 생성합니다.</p>
 							
 							<div layout="row">
@@ -115,13 +115,13 @@ angular.module('cinnamon')
 								</md-button>
 								<md-progress-circular md-mode="indeterminate" ng-if="isProcessCreateBaseData"></md-progress-circular>
 							</div>
-						</md-content>
+						</div>
 					</md-tab>
 					<md-tab label="최초 사용자 생성">
-						<md-content layout-padding="">
+						<div layout-padding="">
 							<p class="alert-info">최초로 로그인할 사용자 계정을 생성합니다.</p>
 							
-							<form name="firstUserform" ng-submit="createFirstUser(firstUserform, $event)" novalidate="novalidate">
+							<form name="firstUserform" novalidate="novalidate">
 								<md-input-container class="md-block">
 									<label>이름</label>
 									<input name="name" ng-model="domain.name" required="required" md-maxlength="50" maxlength="50" />
@@ -167,13 +167,13 @@ angular.module('cinnamon')
 								</md-input-container>
 								
 								<div layout="row">
-									<md-button class="md-raised md-primary" type="submit" ng-disabled="isProcessCreateFirstUser">
+									<md-button class="md-raised md-primary" type="submit" ng-disabled="isProcessCreateFirstUser" ng-click="createFirstUser(firstUserform, $event)">
 										<i class="fa fa-database"></i> 최초 사용자 생성
 									</md-button>
 									<md-progress-circular md-mode="indeterminate" ng-if="isProcessCreateFirstUser"></md-progress-circular>
 								</div>
 							</form>
-						</md-content>
+						</div>
 					</md-tab>
 				</md-tabs>
 			

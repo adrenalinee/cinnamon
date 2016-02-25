@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.users.modify', function($scope, $http, $interval, $state, $stateParams, $mdDialog) {
+.controller('configuration.users.modify', function($scope, $http, $interval, $state, $stateParams, $mdToast, $mdDialog) {
 	console.log('configuration.users.modify');
 	
 	var userId = $stateParams.userId;
@@ -12,7 +12,7 @@ angular.module('cinnamon')
 		$scope.domain = data;
 	});
 	
-	$http.get("/rest/configuration/groups/nations/childs")
+	$http.get('/rest/configuration/groups/nations/childs')
 	.success(function(data) {
 		console.log(data);
 		$scope.nations = data;
@@ -25,18 +25,36 @@ angular.module('cinnamon')
 	
 	
 	$scope.goView = function() {
-//		$interval(function() {
-//			$state.go('view', {userId: userId});
-//		}, 200, 1);
-		
 		history.go(-1);
 	}
 	
 	$scope.update = function(form, event) {
-		$interval(function() {
+		
+		if (form.$valid == false) {
+			$mdToast.show(
+				$mdToast.simple()
+				.position('top right')
+				.textContent('입력값을 확인하시기 바랍니다.'));
+			
+			return;
+		}
+		
+		$scope.isProcess = true;
+		$http.put('/rest/configuration/users/' + userId, $scope.domain)
+		.success(function(data) {
+			
+			
 			$state.go('view', {userId: userId}, {
 				location: 'replace'
 			});
-		}, 200, 1);
+		}).finally(function(data) {
+			$scope.isProcess = false;
+		});
+		
+		
+		
+//		$state.go('view', {userId: userId}, {
+//			location: 'replace'
+//		});
 	}
 });

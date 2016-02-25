@@ -6,7 +6,9 @@ import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.UserBaseRepository;
 import org.cinnamon.core.repository.UserGroupRepository;
+import org.cinnamon.core.vo.UserGroupVo;
 import org.cinnamon.core.vo.search.UserGroupSearch;
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +36,33 @@ public class UserGroupService<T extends UserBase> {
 	@Autowired
 	UserBaseRepository<T> userRepository;
 	
+	@Autowired
+	Mapper beanMapper;
+	
+	
 	@Transactional
-	public UserGroup save(UserGroup userGroup) {
+	public UserGroup save(UserGroupVo userGroupVo) {
 		logger.info("start");
 		
+		UserGroup userGroup = beanMapper.map(userGroupVo, UserGroup.class);
 		return userGroupRepository.save(userGroup);
 	}
+	
+	
+	@Transactional
+	public UserGroup save(Long userGroupId, UserGroupVo userGroupVo) {
+		logger.info("start");
+		
+		UserGroup userGroup = userGroupRepository.findOne(userGroupId);
+		if (userGroup == null) {
+			throw new RuntimeException("등록되지 않은 사용자 그룹입니다. userGroupId: " + userGroupId);
+		}
+		
+		beanMapper.map(userGroupVo, userGroup);
+		
+		return userGroup;
+	}
+	
 	
 	
 	@Transactional(readOnly=true)
@@ -62,7 +85,7 @@ public class UserGroupService<T extends UserBase> {
 	public void addMember(Long userGroupId, String userId) {
 		logger.info("start");
 		
-		UserBase user = userRepository.findOne(userId);
+		T user = userRepository.findOne(userId);
 		if (user == null) {
 			throw new RuntimeException("등록되지 않은 사용자 입니다. userId: " + userId);
 		}

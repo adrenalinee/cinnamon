@@ -9,7 +9,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -32,7 +31,7 @@ public class UserGroup implements Serializable {
 	@GeneratedValue
 	Long userGroupId;
 	
-	@Column(nullable=false)
+	@Column(length=50, nullable=false)
 	String name;
 	
 	@JsonIgnore

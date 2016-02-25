@@ -1,7 +1,10 @@
 <md-content class="content-container content">
-	<h3 layout-padding="" class="md-headline">사용자</h3>
+	<h3 layout-padding="" class="md-headline">
+		사용자
+		<span class="md-subhead text-muted">생성</span>
+	</h3>
 	
-	<form name="form" ng-submit="create(form, $event)" novalidate="novalidate">
+	<form name="form" novalidate="novalidate">
 		<md-card>
 			
 			<md-card-content>
@@ -47,7 +50,7 @@
 			</md-card-content>
 			<md-card-actions layout="row" layout-align="end center">
 				<md-button ng-click="goList()">취소</md-button>
-				<md-button class="md-raised md-primary" type="sumbit">생성</md-button>
+				<md-button class="md-raised md-primary" type="sumbit" ng-click="create(form, $event)">생성</md-button>
 			</md-card-actions>
 			
 		</md-card>

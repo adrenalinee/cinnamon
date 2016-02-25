@@ -22,6 +22,7 @@ import org.cinnamon.core.repository.UserPasswordRepository;
 import org.cinnamon.core.repository.predicate.UserBasePredicate;
 import org.cinnamon.core.service.userListener.AfterUserJoinListener;
 import org.cinnamon.core.vo.UserBaseVo;
+import org.cinnamon.core.vo.UserJoinVo;
 import org.cinnamon.core.vo.search.UserBaseSearch;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
@@ -178,6 +179,19 @@ public class UserBaseService<T extends UserBase> {
 	}
 	
 	
+	@Transactional
+	public void save(String userId, UserBaseVo userBaseVo) {
+		logger.info("start");
+		
+		T existUser = userRepository.findOne(userId);
+		if (existUser == null) {
+			throw new NotFoundException("존재하지 않는 회원입니다. userId: " + userId);
+		}
+		
+		beanMapper.map(userBaseVo, existUser);
+	}
+	
+	
 	
 	/**
 	 * 비밀번호가 일치하는지 확인
@@ -263,7 +277,7 @@ public class UserBaseService<T extends UserBase> {
 	 */
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public T join(UserBaseVo userVo) {
+	public T join(UserJoinVo userVo) {
 		logger.info("start");
 		
 		final String userId = userVo.getUserId();
@@ -323,7 +337,7 @@ public class UserBaseService<T extends UserBase> {
 	 */
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public T joinSystemMaster(UserBaseVo userVo) {
+	public T joinSystemMaster(UserJoinVo userVo) {
 		logger.info("start");
 		
 		final String userId = userVo.getUserId();
@@ -384,7 +398,7 @@ public class UserBaseService<T extends UserBase> {
 	 * @param userVo
 	 */
 	@Transactional
-	public void joinFirstSystemMaster(UserBaseVo userVo) {
+	public void joinFirstSystemMaster(UserJoinVo userVo) {
 		logger.info("start");
 		
 		T user = joinSystemMaster(userVo);

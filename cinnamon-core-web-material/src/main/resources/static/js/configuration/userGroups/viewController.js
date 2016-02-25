@@ -3,6 +3,7 @@ angular.module('cinnamon')
 	console.log('configuration.userGroups.view');
 	
 	var userGroupId = $stateParams.userGroupId;
+	$scope.userGroupId = userGroupId;
 	
 	$http.get('/rest/configuration/userGroups/' + userGroupId)
 	.success(function(data) {

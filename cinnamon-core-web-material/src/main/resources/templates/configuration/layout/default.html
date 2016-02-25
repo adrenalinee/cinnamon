@@ -20,7 +20,9 @@
 			<md-button class="md-icon-button" ng-click="toggleSidenav()" ng-show="showMenuButton()">
 				<md-icon>menu</md-icon>
 			</md-button>
-			<h2>Cinnamon</h2>
+			<h2>
+				<a href="/" target="_self">Cinnamon</a>
+			</h2>
 			<span flex=""></span>
 			
 			<md-button class="md-icon-button">
@@ -68,7 +70,7 @@
 				</div>
 			</md-toolbar>
 			<md-list>
-				<md-subheader class="content">{{currentMenus.name}}</md-subheader>
+				<md-subheader class="content md-no-sticky">{{currentMenus.name}}</md-subheader>
 				<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
 					
 					{{menu.name}}
