@@ -1,0 +1,35 @@
+<md-content class="content-container content">
+	<h3 layout-padding="" class="md-headline">
+		사용자 모임
+		<span class="md-subhead text-muted">정보 수정</span>
+	</h3>
+	
+	<form name="form" novalidate="novalidate">
+		<md-card>
+			<md-card-header>
+				<md-card-header-text>
+					<span class="md-title">{{domain.userId}}</span>
+				</md-card-header-text>
+			</md-card-header>
+			<md-card-content>
+				<md-input-container class="md-block">
+					<label>이름</label>
+					<input name="name" ng-model="domain.name" required="required" md-maxlength="50" maxlength="50" />
+					<div ng-messages="form.name.$error">
+						<div ng-message="required">필수 입력 항목입니다.</div>
+					</div>
+				</md-input-container>
+
+				<md-input-container class="md-block">
+					<label>설명</label>
+					<textarea name="description" ng-model="domain.description" md-maxlength="4000" maxlength="4000"></textarea>
+				</md-input-container>
+			</md-card-content>
+			<md-card-actions layout="row">
+				<md-button ng-click="goView()">취소</md-button>
+				<md-button class="md-raised md-primary" type="sumbit" ng-click="update(form, $event)" ng-disabled="isProcess">수정</md-button>
+			</md-card-actions>
+			
+		</md-card>
+	</form>
+</md-content>
