@@ -20,8 +20,6 @@ angular.module('cinnamon')
 //				.targetEvent($event)
 //		);
 		
-		console.log($event);
-		
 		$mdDialog.show({
 			targetEvent: $event,
 			templateUrl: '/configuration/partials/userGroups/select',
@@ -40,6 +38,8 @@ angular.module('cinnamon')
 								$mdToast.simple()
 								.position('top right')
 								.textContent('등록되었습니다.'));
+						
+						//TODO 사용자 목록을 새로 불러와야 함 
 					})
 					
 					$mdDialog.hide();

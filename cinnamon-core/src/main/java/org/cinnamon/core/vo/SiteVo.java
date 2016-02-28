@@ -10,8 +10,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class SiteVo {
 	
-	@NotEmpty
-	String siteId;
+//	@NotEmpty
+//	String siteId;
 	
 	@NotEmpty
 	String name;
@@ -25,13 +25,13 @@ public class SiteVo {
 //	
 //	Date createdAt;
 
-	public String getSiteId() {
-		return siteId;
-	}
-
-	public void setSiteId(String siteId) {
-		this.siteId = siteId;
-	}
+//	public String getSiteId() {
+//		return siteId;
+//	}
+//
+//	public void setSiteId(String siteId) {
+//		this.siteId = siteId;
+//	}
 
 	public String getName() {
 		return name;

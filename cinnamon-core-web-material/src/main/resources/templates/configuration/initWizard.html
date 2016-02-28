@@ -99,7 +99,7 @@ angular.module('cinnamon')
 				<md-tabs md-selected="selectedStep" md-dynamic-height="true">
 					<md-tab label="초기화 시작" ng-disabled="isProcessCreateBaseData">
 						<div layout-padding="">
-							<p class="alert-info">시스템 초기화를 시작합니다.</p>
+							<p class="alert-info" layout-padding="">시스템 초기화를 시작합니다.</p>
 							<md-button class="md-raised md-primary" ng-click="next()">
 								<md-icon md-font-icon="play_arrow"></md-icon> 초기화 시작
 							</md-button>
@@ -107,7 +107,7 @@ angular.module('cinnamon')
 					</md-tab>
 					<md-tab label="기본 데이터 생성" ng-disabled="isProcessCreateFirstUser">
 						<div layout-padding="">
-							<p class="alert-info">시스템 구동에 필요한 기본 데이터를 생성합니다.</p>
+							<p class="alert-info" layout-padding="">시스템 구동에 필요한 기본 데이터를 생성합니다.</p>
 							
 							<div layout="row">
 								<md-button class="md-raised md-primary" ng-click="createBaseData()" ng-disabled="isProcessCreateBaseData">
@@ -119,7 +119,7 @@ angular.module('cinnamon')
 					</md-tab>
 					<md-tab label="최초 사용자 생성">
 						<div layout-padding="">
-							<p class="alert-info">최초로 로그인할 사용자 계정을 생성합니다.</p>
+							<p class="alert-info" layout-padding="">최초로 로그인할 사용자 계정을 생성합니다.</p>
 							
 							<form name="firstUserform" novalidate="novalidate">
 								<md-input-container class="md-block">

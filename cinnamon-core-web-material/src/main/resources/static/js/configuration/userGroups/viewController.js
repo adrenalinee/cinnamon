@@ -12,5 +12,19 @@ angular.module('cinnamon')
 		$scope.domain = data;
 	});
 	
+	$scope.selectAuthority = function($event) {
+		$mdDialog.show(
+			$mdDialog.alert()
+				.targetEvent($event)
+				.title('권한 선택')
+		);
+	}
 	
+	$scope.selectUser = function($event) {
+		$mdDialog.show(
+			$mdDialog.alert()
+				.targetEvent($event)
+				.title('사용자 선택')
+		);
+	}
 });

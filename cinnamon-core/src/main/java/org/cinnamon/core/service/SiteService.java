@@ -1,19 +1,19 @@
 package org.cinnamon.core.service;
 
-import java.util.List;
-
 import org.cinnamon.core.domain.Property;
 import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.enumeration.DefinedDBProperty;
 import org.cinnamon.core.repository.PropertyRepository;
 import org.cinnamon.core.repository.SiteRepository;
 import org.cinnamon.core.vo.SiteVo;
+import org.cinnamon.core.vo.search.SiteSearch;
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -34,16 +34,27 @@ public class SiteService {
 	@Autowired
 	PropertyRepository propertyRepository;
 	
+	@Autowired
+	Mapper beanMapper;
+	
 	
 	/**
 	 * 
 	 * @return
 	 */
+//	@Transactional(readOnly=true)
+//	public List<Site> getAll() {
+//		logger.info("start");
+//		
+//		return siteRepository.findAll();
+//	}
+	
+	
 	@Transactional(readOnly=true)
-	public List<Site> getAll() {
+	public Page<Site> getList(SiteSearch siteSearch, Pageable pageable) {
 		logger.info("start");
 		
-		return siteRepository.findAll();
+		return siteRepository.findAll(pageable);
 	}
 	
 	
@@ -69,8 +80,7 @@ public class SiteService {
 	public Site save(SiteVo siteVo) {
 		logger.info("start");
 		
-		Site site = new Site();
-		BeanUtils.copyProperties(siteVo, site);
+		Site site = beanMapper.map(siteVo, Site.class);
 		
 		siteRepository.save(site);
 		return site;
