@@ -1,8 +1,10 @@
 package org.cinnamon.core.config.builder;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 
@@ -32,7 +34,10 @@ public class BaseDataBuilder {
 //	@Autowired
 //	UserAuthorityRepository userAuthorityRepository;
 	
-	static List<SiteWrapper> siteWrappers = new LinkedList<>();
+//	static List<SiteWrapper> siteWrappers = new LinkedList<>();
+	
+	static Map<String, SiteWrapper> siteWrappers = new LinkedHashMap<>();
+	
 	
 	static List<RoleWrapper> roleWrappers = new LinkedList<>();
 	
@@ -46,8 +51,15 @@ public class BaseDataBuilder {
 	
 	
 	public BaseDataBuilder addSite(SiteWrapper siteWrapper) {
-		siteWrappers.add(siteWrapper);
+//		siteWrappers.add(siteWrapper);
+		
+		siteWrappers.put(siteWrapper.site.getSiteId(), siteWrapper);
+		
 		return this;
+	}
+	
+	public SiteWrapper site(String siteId) {
+		return siteWrappers.get(siteId);
 	}
 	
 	public BaseDataBuilder addAuthorities(RoleWrapper... roleWrappers) {
@@ -129,11 +141,11 @@ public class BaseDataBuilder {
 		});
 		
 		
-		siteWrappers.forEach(sw -> {
-			Site site = sw.site;
+		siteWrappers.forEach((siteId, siteWrapper) -> {
+			Site site = siteWrapper.site;
 			System.out.println("site: " + site.getName() + "(" + site.getSiteId() + ")");
 			
-			sw.menuGroupWrappers.forEach(mgw -> {
+			siteWrapper.menuGroupWrappers.forEach(mgw -> {
 				MenuGroup menuGroup = mgw.menuGroup;
 				System.out.println("\tmenuGroup: " + menuGroup.getName());
 				
@@ -205,7 +217,7 @@ public class BaseDataBuilder {
 	}
 	
 	private void buildSites() {
-		siteWrappers.forEach(siteWrapper -> {
+		siteWrappers.forEach((siteId, siteWrapper) -> {
 			Site site = siteWrapper.site;
 			em.persist(site);
 			
