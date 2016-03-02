@@ -8,11 +8,11 @@ angular.module('cinnamon')
 		},
 		scope: {
 			domains: '=',
-			searchInfo: '=searchParams',
+//			searchInfo: '=searchParams',
 			resourceUrl: '=',
-			defaultSearchParams: '=',
-			sortItems: '=',
-			isPaging: '='
+			defaultSearchParams: '=?',
+			sortItems: '=?',
+			isPaging: '=?'
 		},
 		templateUrl: '/configuration/directives/searchList',
 		controller: 'searchListController'
@@ -32,7 +32,7 @@ angular.module('cinnamon')
 		$scope.isPaging = true
 	}
 	
-	$scope.showDetailSearch;
+	$scope.showDetailSearch = false;
 	
 	$scope.onSearch = function(event) {
 		if (event.keyCode == 13) {

@@ -12,11 +12,16 @@
 <script type="text/javascript" src="/js/configuration/directives/searchList.js"></script>
 
 <script type="text/javascript" src="/js/configuration/menuGroups/viewController.js"></script>
+<script type="text/javascript" src="/js/configuration/menuGroups/createController.js"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 angular.module('cinnamon')
 .config(function($stateProvider, $urlRouterProvider) {
-	$stateProvider.state('view', {
+	$stateProvider.state('create', {
+		url: '/configuration/menuGroups/create',
+		templateUrl: '/configuration/partials/menuGroups/create',
+		controller: 'configuration.menuGroups.create'
+	}).state('view', {
 		url: '/configuration/menuGroups/:menuGroupId',
 		templateUrl: '/configuration/partials/menuGroups/view',
 		controller: 'configuration.menuGroups.view'

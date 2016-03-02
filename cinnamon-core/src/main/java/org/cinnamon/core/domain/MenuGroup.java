@@ -30,10 +30,10 @@ public class MenuGroup {
 	@ManyToOne
 	Site site;
 	
-	@Column(nullable=false)
+	@Column(length=100, nullable=false)
 	String name;
 	
-	@Column(nullable=false, unique=true)
+	@Column(length=50, nullable=false, unique=true)
 	String dimension;
 	
 //	@Column(nullable=false)

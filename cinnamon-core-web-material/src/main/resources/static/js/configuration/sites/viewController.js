@@ -16,4 +16,8 @@ angular.module('cinnamon')
 	$scope.goMenuGroupView = function(domain) {
 		location.href = '/configuration/menuGroups/' + domain.menuGroupId;
 	}
+	
+	$scope.goCreateMenuGroup = function() {
+		location.href = '/configuration/menuGroups/create';
+	}
 });
