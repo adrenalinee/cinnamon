@@ -1,6 +1,6 @@
 package org.cinnamon.core.vo;
 
-import org.cinnamon.core.domain.Menu;
+import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.domain.enumeration.UseStatus;
 
 /**
@@ -12,7 +12,11 @@ import org.cinnamon.core.domain.enumeration.UseStatus;
 public class MenuVo {
 	Long menuId;
 	
-	Menu parent;
+//	Menu parent;
+	
+	Long parentMenuId;
+	
+	Long menuGroupId;
 	
 	String name;
 	
@@ -32,6 +36,8 @@ public class MenuVo {
 	
 	Integer orders;
 	
+	MenuPosition position;
+	
 	UseStatus useStatus;
 	
 	String description;
@@ -50,13 +56,13 @@ public class MenuVo {
 		this.menuId = menuId;
 	}
 
-	public Menu getParent() {
-		return parent;
-	}
-
-	public void setParent(Menu parent) {
-		this.parent = parent;
-	}
+//	public Menu getParent() {
+//		return parent;
+//	}
+//
+//	public void setParent(Menu parent) {
+//		this.parent = parent;
+//	}
 
 	public String getName() {
 		return name;
@@ -120,6 +126,30 @@ public class MenuVo {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Long getParentMenuId() {
+		return parentMenuId;
+	}
+
+	public void setParentMenuId(Long parentMenuId) {
+		this.parentMenuId = parentMenuId;
+	}
+
+	public Long getMenuGroupId() {
+		return menuGroupId;
+	}
+
+	public void setMenuGroupId(Long menuGroupId) {
+		this.menuGroupId = menuGroupId;
+	}
+
+	public MenuPosition getPosition() {
+		return position;
+	}
+
+	public void setPosition(MenuPosition position) {
+		this.position = position;
 	}
 
 //	public Boolean getActive() {

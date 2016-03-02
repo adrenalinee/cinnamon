@@ -49,6 +49,13 @@ public class UserGroupService<T extends UserBase> {
 	}
 	
 	
+	/**
+	 * 정보 수정
+	 * 
+	 * @param userGroupId
+	 * @param userGroupVo
+	 * @return
+	 */
 	@Transactional
 	public UserGroup save(Long userGroupId, UserGroupVo userGroupVo) {
 		logger.info("start");

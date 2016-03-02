@@ -17,7 +17,7 @@ class InitWizardController {
 	Logger logger = LoggerFactory.getLogger(getClass())
 	
 	@RequestMapping("**")
-	def users() {
+	def main() {
 		logger.info("start")
 		"configuration/initWizard"
 	}

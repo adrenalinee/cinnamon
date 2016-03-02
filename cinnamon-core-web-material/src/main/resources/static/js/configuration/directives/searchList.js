@@ -11,7 +11,8 @@ angular.module('cinnamon')
 			searchInfo: '=searchParams',
 			resourceUrl: '=',
 			defaultSearchParams: '=',
-			sortItems: '='
+			sortItems: '=',
+			isPaging: '='
 		},
 		templateUrl: '/configuration/directives/searchList',
 		controller: 'searchListController'
@@ -23,6 +24,12 @@ angular.module('cinnamon')
 	
 	if (angular.isDefined($scope.defaultSearchParams)) {
 		$scope.searchInfo = $scope.defaultSearchParams;
+	}
+	
+	if (angular.isDefined($scope.isPaging)) {
+		$scope.isPaging = $scope.isPaging;
+	} else {
+		$scope.isPaging = true
 	}
 	
 	$scope.showDetailSearch;

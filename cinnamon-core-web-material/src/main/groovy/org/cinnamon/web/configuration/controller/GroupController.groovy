@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 class GroupController {
 	
 	@RequestMapping("**")
-	def users() {
+	def main() {
 		"configuration/groups"
 	}
 }

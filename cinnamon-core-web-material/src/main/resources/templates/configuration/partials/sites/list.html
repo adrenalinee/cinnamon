@@ -42,10 +42,10 @@
 			<cm-search-list-items>
 				<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
 					
-					<div flex="5">
-						<md-icon>web</md-icon>
+					<div flex="15" class="text-muted">
+						{{domain.siteId}}
 					</div>
-					<b flex="50">{{domain.name}}</b>
+					<b flex="40">{{domain.name}}</b>
 					<span flex="45" class="text-muted">{{domain.authority.name}}</span>
 					
 					<md-divider ng-if="!$last"></md-divider>

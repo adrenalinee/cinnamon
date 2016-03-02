@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 class SiteController {
 	
 	@RequestMapping("**")
-	def users() {
+	def main() {
 		"configuration/sites"
 	}
 }

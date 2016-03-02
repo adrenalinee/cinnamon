@@ -11,7 +11,7 @@
 			<md-tooltip md-direction="top">상세 검색</md-tooltip>
 			<md-icon>expand_more</md-icon>
 		</md-button>
-		<md-menu>
+		<md-menu ng-if="sortItems != null">
 			<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
 				<md-tooltip md-direction="top">정렬</md-tooltip>
 				<md-icon>sort</md-icon>
@@ -23,7 +23,7 @@
 					</md-button>
 				</md-menu-item>
 				
-				<md-menu-item>
+				<!-- <md-menu-item>
 					<md-button layout="row">
 						이름
 						<md-icon>check</md-icon>
@@ -38,7 +38,7 @@
 					<md-button>
 						userId
 					</md-button>
-				</md-menu-item>
+				</md-menu-item> -->
 			</md-menu-content>
 		</md-menu>
 	</md-content>
@@ -50,15 +50,16 @@
 		<md-divider></md-divider>
 	</div>
 	
-	<uib-pagination
-		layout-margin=""
-		template-url="/configuration/partials/directive/pagination"
-		total-items="domains.totalElements"
-		items-per-page="domains.size"
-		boundary-links="true"
-		ng-model="searchInfo.page"
-		ng-change="onPageChange()" />
-	
+	<div ng-if="isPaging != false">
+		<uib-pagination
+			layout-margin=""
+			template-url="/configuration/partials/directive/pagination"
+			total-items="domains.totalElements"
+			items-per-page="domains.size"
+			boundary-links="true"
+			ng-model="searchInfo.page"
+			ng-change="onPageChange()" />
+	</div>
 	
 	<md-list>
 		<md-divider></md-divider>

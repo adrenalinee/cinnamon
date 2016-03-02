@@ -11,20 +11,15 @@
 
 <script type="text/javascript" src="/js/configuration/directives/searchList.js"></script>
 
-<script type="text/javascript" src="/js/configuration/sites/listController.js"></script>
-<script type="text/javascript" src="/js/configuration/sites/viewController.js"></script>
+<script type="text/javascript" src="/js/configuration/menuGroups/viewController.js"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 angular.module('cinnamon')
 .config(function($stateProvider, $urlRouterProvider) {
-	$stateProvider.state('list', {
-		url: '/configuration/sites',
-		templateUrl: '/configuration/partials/sites/list',
-		controller: 'configuration.sites.list'
-	}).state('view', {
-		url: '/configuration/sites/:siteId',
-		templateUrl: '/configuration/partials/sites/view',
-		controller: 'configuration.sites.view'
+	$stateProvider.state('view', {
+		url: '/configuration/menuGroups/:menuGroupId',
+		templateUrl: '/configuration/partials/menuGroups/view',
+		controller: 'configuration.menuGroups.view'
 	});
 	
 });

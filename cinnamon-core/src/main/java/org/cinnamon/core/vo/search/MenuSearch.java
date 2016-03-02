@@ -16,6 +16,10 @@ public class MenuSearch {
 	
 	String uri;
 	
+	Long menuGroupId;
+	
+	Long parentMenuId;
+	
 	MenuPosition position;
 	
 	public MenuPosition getPosition() {
@@ -25,8 +29,6 @@ public class MenuSearch {
 	public void setPosition(MenuPosition position) {
 		this.position = position;
 	}
-
-	Long parentMenuId;
 
 	public Long getMenuId() {
 		return menuId;
@@ -58,6 +60,14 @@ public class MenuSearch {
 
 	public void setParentMenuId(Long parentMenuId) {
 		this.parentMenuId = parentMenuId;
+	}
+
+	public Long getMenuGroupId() {
+		return menuGroupId;
+	}
+
+	public void setMenuGroupId(Long menuGroupId) {
+		this.menuGroupId = menuGroupId;
 	}
 	
 	

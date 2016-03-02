@@ -5,26 +5,26 @@
 		</md-button>
 	</md-fab-trigger>
 	<md-fab-actions>
-		<md-button class="md-fab md-accent md-raised md-mini" ng-click="selectUser($event)">
-			<md-tooltip md-direction="left">사용자 등록</md-tooltip>
-			<md-icon>person</md-icon>
+		<md-button class="md-fab md-accent md-raised md-mini" ng-click="selectMenuGroup($event)">
+			<md-tooltip md-direction="left">메뉴 모음 등록</md-tooltip>
+			<md-icon>apps</md-icon>
 		</md-button>
 	</md-fab-actions>
 </md-fab-speed-dial>
 
 <md-content class="content-container content">
 	<h3 layout-padding="" class="md-headline">
-		사용자 모임
-		<span class="md-subhead text-muted">정보</span>
+		사이트 및 메뉴
+		<span class="md-subhead text-muted">사이트 정보</span>
 	</h3>
 	
-	<md-card ng-clock="">
+	<md-card>
 		<md-card-header>
 			<md-card-header-text>
 				<span class="md-title">기본정보</span>
-				<span class="md-subhead">userGroupId: {{domain.userGroupId}}</span>
+				<span class="md-subhead">siteId: {{domain.siteId}}</span>
 			</md-card-header-text>
-			<md-button class="md-icon-button" ui-sref="modify({userGroupId: domain.userGroupId})">
+			<md-button class="md-icon-button" ui-sref="modify({siteId: domain.siteId})">
 				<md-tooltip>기본 정보 수정</md-tooltip>
 				<md-icon>edit</md-icon>
 			</md-button>
@@ -37,10 +37,20 @@
 					<td class="text-muted">{{domain.name}}</td>
 				</tr>
 				<tr>
-					<th>권한</th>
+					<th>URL</th>
+					<td class="text-muted">{{domain.url}}</td>
+				</tr>
+				<tr>
+					<th>기본 메뉴 모음</th>
 					<td class="text-muted">
-						{{domain.permission.name}}
-						<md-button class="md-raised md-primary" ng-click="selectPermission($event)">역할 선택</md-button>
+						{{domain.defaultMenuGroup.name}}
+						<md-button class="md-raised md-primary" ng-click="selectMenuGroup($event)">메뉴 모음 선택</md-button>
+					</td>
+				</tr>
+				<tr>
+					<th>생성일</th>
+					<td class="text-muted">
+						<small>{{domain.createdAt | date: 'yyyy년 MM월 dd일 HH:mm:ss'}}</small>
 					</td>
 				</tr>
 				<tr>
@@ -55,16 +65,16 @@
 	<md-card>
 		<md-card-header>
 			<md-card-header-text>
-				<span class="md-title">등록된 사용자</span>
+				<span class="md-title">메뉴 모음</span>
 			</md-card-header-text>
 		</md-card-header>
 		
 		<cm-search-list
-			resource-url="'/rest/configuration/users'"
-			domains="users"
-			default-search-params="{userGroupId: userGroupId}"
+			resource-url="'/rest/configuration/menuGroups'"
+			domains="menuGroups"
+			default-search-params="{siteId: siteId}"
 			sort-items="{
-				userId: 'userId',
+				menuGroupId: 'menuGroupId',
 				name: '이름'
 			}">
 			
@@ -85,13 +95,11 @@
 				</md-card-content>
 			</cm-search-list-filters>
 			<cm-search-list-items>
-			<md-list-item ng-repeat="domain in users.content" ng-click="goUserView(domain)" layout="row">
-				<div flex="5">
-					<md-icon>account_circle</md-icon>
-				</div>
+			<md-list-item ng-repeat="domain in menuGroups.content" ng-click="goMenuGroupView(domain)" layout="row">
+				<span flex="10" class="text-muted">{{domain.menuGroupId}}</span>
 				<b flex="30">{{domain.name}}</b>
-				<span flex="30" class="text-muted">{{domain.email}}</span>
-				<span class="text-muted">{{domain.tel}}</span>
+				<span flex="30" class="text-muted">{{domain.dimension}}</span>
+				<span flex="30" class="text-muted">{{domain.defaultPage}}</span>
 				<md-divider ng-if="!$last"></md-divider>
 			</md-list-item>
 			</cm-search-list-items>

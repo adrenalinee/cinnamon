@@ -2,12 +2,10 @@ package org.cinnamon.web.configuration.restController
 
 import javax.validation.Valid
 
-import org.cinnamon.core.domain.Site
-import org.cinnamon.core.domain.UserGroup
-import org.cinnamon.core.service.SiteService
-import org.cinnamon.core.vo.SiteVo
-import org.cinnamon.core.vo.search.SiteSearch
-import org.dozer.Mapper
+import org.cinnamon.core.domain.MenuGroup
+import org.cinnamon.core.service.MenuGroupService
+import org.cinnamon.core.vo.MenuGroupVo
+import org.cinnamon.core.vo.search.MenuGroupSearch
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,28 +23,29 @@ import org.springframework.web.util.UriComponentsBuilder
 /**
  * 
  * @author 신동성
+ * @since 2016. 3. 2.
  */
 @RestController
-@RequestMapping("/rest/configuration/sites")
-class SiteRestController {
+@RequestMapping("/rest/configuration/menuGroups")
+class MenuGroupRestController {
 	Logger logger = LoggerFactory.getLogger(getClass())
 	
 	@Autowired
-	SiteService siteService
+	MenuGroupService menuGroupService
 	
 	
 	@RequestMapping(value="", method=RequestMethod.POST)
-	ResponseEntity<Void> postSites(@RequestBody @Valid SiteVo siteVo, UriComponentsBuilder builder) {
+	ResponseEntity<Void> postMenuGroups(@RequestBody @Valid MenuGroupVo menuGroupVo, UriComponentsBuilder builder) {
 		logger.info("start")
 		
-		Site site = siteService.save(siteVo)
+		MenuGroup menuGroup = menuGroupService.save(menuGroupVo)
 		
 		URI location = MvcUriComponentsBuilder
 			.fromMethodName(
 				builder,
-				SiteRestController.class,
-				"getSite",
-				site.getSiteId())
+				MenuGroupRestController.class,
+				"getMenuGroup",
+				menuGroup.getMenuGroupId())
 			.build()
 			.toUri()
 		
@@ -57,25 +56,25 @@ class SiteRestController {
 	
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
-	Page<Site> getSites(SiteSearch siteSearch, Pageable pageable) {
+	Page<MenuGroup> getMenuGroups(MenuGroupSearch menuGroupSearch, Pageable pageable) {
 		logger.info("start")
 		
-		return siteService.getList(siteSearch, pageable)
+		return menuGroupService.getList(menuGroupSearch, pageable)
 	}
 	
 	
-	@RequestMapping(value="{SiteId}", method=RequestMethod.GET)
-	Site getSite(@PathVariable String SiteId) {
+	@RequestMapping(value="{menuGroupId}", method=RequestMethod.GET)
+	MenuGroup getMenuGroup(@PathVariable Long menuGroupId) {
 		logger.info("start")
 		
-		return siteService.get(SiteId)
+		return menuGroupService.get(menuGroupId)
 	}
 	
 	
-	@RequestMapping(value="{SiteId}", method=RequestMethod.PUT)
-	void putSite(@PathVariable String SiteId, @RequestBody @Valid SiteVo siteVo) {
+	@RequestMapping(value="{menuGroupId}", method=RequestMethod.PUT)
+	void putMenuGroup(@PathVariable Long menuGroupId, @RequestBody @Valid MenuGroupVo menuGroupVo) {
 		logger.info("start")
 		
-		siteService.save(SiteId, siteVo)
+		menuGroupService.save(menuGroupId, menuGroupVo)
 	}
 }

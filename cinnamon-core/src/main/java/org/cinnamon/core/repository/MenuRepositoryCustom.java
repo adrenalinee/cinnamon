@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.enumeration.MenuPosition;
+import org.cinnamon.core.vo.search.MenuSearch;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * 
@@ -12,6 +15,8 @@ import org.cinnamon.core.domain.enumeration.MenuPosition;
  * @author 신동성
  */
 public interface MenuRepositoryCustom {
+	
+	Page<Menu> find(MenuSearch menuSearch, Pageable pageable);
 	
 	List<Menu> find(String dimension, MenuPosition position, List<String> grantedAuthorities);
 	

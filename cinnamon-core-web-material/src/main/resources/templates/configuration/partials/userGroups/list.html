@@ -40,8 +40,8 @@
 			<cm-search-list-items>
 				<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
 					
-					<div flex="5">
-						<md-icon>group</md-icon>
+					<div flex="5" class="text-muted">
+						{{domain.userGroupId}}
 					</div>
 					<b flex="50">{{domain.name}}</b>
 					<span flex="45" class="text-muted">{{domain.authority.name}}</span>

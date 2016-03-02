@@ -102,40 +102,40 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 				.addMenusAtSidebar(
 					menu("사용자")
 						.uri("/configuration/users")
-						.iconClass("glyphicon glyphicon-user"),
+						.iconClass("account_circle"),
 					menu("사용자 모임")
 						.uri("/configuration/userGroups")
-						.iconClass("fa fa-users"),
+						.iconClass("group"),
 					menu("사이트 및 메뉴")
 						.uri("/configuration/sites")
-						.iconClass("fa fa-sitemap"),
+						.iconClass("web"),
 					menu("역할 및 권한")
 						.uri("/configuration/roles")
-						.iconClass("fa fa-shield"),
+						.iconClass("verified_user"),
 					menu("이메일")
-						.iconClass("fa fa-envelope")
+						.iconClass("email")
 						.addChilds(
 							menu("메일 서버")
 								.uri("/configuration/email/servers")
-								.iconClass("fa fa-server")
+								.iconClass("")
 						).addChilds(
 							menu("메일 템플릿")
 								.uri("/configuration/email/templates")
-								.iconClass("fa fa-envelope-o")
+								.iconClass("")
 						),
 					menu("코드")
 						.uri("/configuration/groups")
-						.iconClass("fa fa-folder"),
+						.iconClass("view_list"),
 					menu("첨부파일")
 						.uri("/configuration/files")
-						.iconClass("fa fa-upload")
+						.iconClass("attachment")
 				).addMenusAtHeaderRight(
 					menu("설정")
 						.iconClass("fa fa-gear")
 						.addChilds(
 							menu("기본 설정")
 								.uri("/configuration")
-								.iconClass("fa fa-cogs")
+								.iconClass("")
 						)
 				)
 			).addMenuGroup(

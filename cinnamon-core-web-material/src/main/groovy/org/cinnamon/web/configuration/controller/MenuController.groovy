@@ -5,16 +5,15 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 /**
  * 
- *
- * created date: 2015. 9. 9.
  * @author 신동성
+ * @since 2016. 3. 2.
  */
 @Controller
-@RequestMapping("/configuration/userGroups")
-class UserGroupController {
+@RequestMapping("/configuration/menus")
+class MenuController {
 	
 	@RequestMapping("**")
 	def main() {
-		"configuration/userGroups"
+		"configuration/menus"
 	}
 }

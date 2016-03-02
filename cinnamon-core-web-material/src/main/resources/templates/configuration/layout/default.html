@@ -84,7 +84,9 @@
 			<md-list>
 				<md-subheader class="content md-no-sticky">{{currentMenus.name}}</md-subheader>
 				<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
-					
+					<div flex="15">
+						<md-icon>{{menu.iconClass}}</md-icon>
+					</div>
 					{{menu.name}}
 				</md-list-item>
 				<md-list ng-if="menu.childs != 0">
