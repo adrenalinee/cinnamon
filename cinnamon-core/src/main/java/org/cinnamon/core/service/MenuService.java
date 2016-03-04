@@ -104,5 +104,10 @@ public class MenuService {
 		return menuRepository.save(menu);
 	}
 	
-	
+	@Transactional(readOnly=true)
+	public List<Menu> getMenus(Long menuGroupId) {
+		logger.info("start");
+		
+		return menuGroupRepository.findByMenuGroupId(menuGroupId).getMenus();
+	}
 }

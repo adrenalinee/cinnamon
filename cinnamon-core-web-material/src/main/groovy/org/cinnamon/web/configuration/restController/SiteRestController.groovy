@@ -2,12 +2,15 @@ package org.cinnamon.web.configuration.restController
 
 import javax.validation.Valid
 
+import org.cinnamon.core.domain.Menu
 import org.cinnamon.core.domain.Site
-import org.cinnamon.core.domain.UserGroup
+import org.cinnamon.core.domain.enumeration.MenuPosition
+import org.cinnamon.core.enumeration.Groups
+import org.cinnamon.core.service.GroupService
+import org.cinnamon.core.service.MenuService;
 import org.cinnamon.core.service.SiteService
 import org.cinnamon.core.vo.SiteVo
 import org.cinnamon.core.vo.search.SiteSearch
-import org.dozer.Mapper
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -34,6 +37,11 @@ class SiteRestController {
 	@Autowired
 	SiteService siteService
 	
+	@Autowired
+	GroupService groupService;
+	
+	@Autowired
+	MenuService menuService
 	
 	@RequestMapping(value="", method=RequestMethod.POST)
 	ResponseEntity<Void> postSites(@RequestBody @Valid SiteVo siteVo, UriComponentsBuilder builder) {
@@ -78,4 +86,82 @@ class SiteRestController {
 		
 		siteService.save(SiteId, siteVo)
 	}
+	
+	
+	// "/rest/configuration/sites/{siteId}/menuGroups/{menuGroupId}/menus"
+	@RequestMapping(value="{siteId}/menuGroups/{menuGroupId}/menus", method=RequestMethod.GET)
+	List<MenuWithPosition> list (@PathVariable String siteId, @PathVariable Long menuGroupId) {
+		logger.info("start");
+		
+		Map<String, String> groupsMap = groupService.childsMap(Groups.menuPositions.name());
+		
+		List<Menu> allMenus = menuService.getMenus(menuGroupId);
+		
+		List<MenuWithPosition> separatedMenus = new LinkedList<MenuWithPosition>();
+		List<Menu> sidebarMenus = new LinkedList<Menu>();
+		List<Menu> headerLeftMenus = new LinkedList<Menu>();
+		List<Menu> headerRightMenus = new LinkedList<Menu>();
+		
+		for (Menu menu: allMenus) {
+			if (MenuPosition.sidebar.equals(menu.getPosition())) {
+				sidebarMenus.add(menu);
+			}
+			
+			if (MenuPosition.headerLeft.equals(menu.getPosition())) {
+				headerLeftMenus.add(menu);
+			}
+			
+			if (MenuPosition.headerRight.equals(menu.getPosition())) {
+				headerRightMenus.add(menu);
+			}
+		}
+		
+		
+		MenuWithPosition menuWithPosition = new MenuWithPosition();
+		menuWithPosition.setPosition(groupsMap.get(MenuPosition.sidebar.name()));
+		menuWithPosition.setMenus(sidebarMenus);
+		separatedMenus.add(menuWithPosition);
+		
+		menuWithPosition = new MenuWithPosition();
+		menuWithPosition.setPosition(groupsMap.get(MenuPosition.headerLeft.name()));
+		menuWithPosition.setMenus(headerLeftMenus);
+		separatedMenus.add(menuWithPosition);
+		
+		menuWithPosition = new MenuWithPosition();
+		menuWithPosition.setPosition(groupsMap.get(MenuPosition.headerRight.name()));
+		menuWithPosition.setMenus(headerRightMenus);
+		separatedMenus.add(menuWithPosition);
+		
+		
+		return separatedMenus;
+	}
+}
+
+/**
+ *
+ * @author shindongseong
+ *
+ */
+class MenuWithPosition {
+	
+	String position;
+	
+	List<Menu> menus;
+
+	String getPosition() {
+		return position;
+	}
+
+	def setPosition(String position) {
+		this.position = position;
+	}
+
+	List<Menu> getMenus() {
+		return menus;
+	}
+
+	def setMenus(List<Menu> menus) {
+		this.menus = menus;
+	}
+	
 }

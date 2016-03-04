@@ -3,6 +3,7 @@ package org.cinnamon.web.configuration.restController
 import javax.validation.Valid
 
 import org.cinnamon.core.domain.Menu
+import org.cinnamon.core.service.GroupService
 import org.cinnamon.core.service.MenuService
 import org.cinnamon.core.vo.MenuVo
 import org.cinnamon.core.vo.search.MenuSearch
@@ -26,13 +27,12 @@ import org.springframework.web.util.UriComponentsBuilder
  * @since 2016. 3. 2.
  */
 @RestController
-@RequestMapping("/rest/configuration/menus")
+@RequestMapping(value="/rest/configuration/menus")
 class MenuRestController {
 	Logger logger = LoggerFactory.getLogger(getClass())
 	
 	@Autowired
 	MenuService menuService
-	
 	
 	@RequestMapping(value="", method=RequestMethod.POST)
 	ResponseEntity<Void> postMenus(

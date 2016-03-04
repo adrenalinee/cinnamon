@@ -3,9 +3,12 @@ package org.cinnamon.core.security;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.domain.enumeration.UseStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,10 +27,13 @@ public class UserDetailImpl implements UserDetails {
 	
 	String password;
 	
+	Logger logger = LoggerFactory.getLogger(getClass());
+	
 	public UserDetailImpl(UserBase user/*, Set<? extends GrantedAuthority> authorities*/) {
 		this.userBase = user;
-		
 		password = user.getUserPassword().getPassword();
+		
+		logger.info(ToStringBuilder.reflectionToString(user.getUserGroups()));
 		
 		for (UserGroup userGroup: user.getUserGroups()) {
 			String authority = userGroup.getPermission().getAuthority();

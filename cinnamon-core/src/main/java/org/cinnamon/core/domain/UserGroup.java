@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -41,10 +42,9 @@ public class UserGroup implements Serializable {
 	
 	
 	@ManyToOne
-//	@JoinColumn(name="permission_permissionId")
+//	@JoinColumn(name="permissionId")
 //	UserAuthority authority;
 	Permission permission;
-	
 	/**
 	 * 로그인후 처음으로 보여줄 페이지.
 	 * 혹은 갈곳이 없을때 보여줄 페이지.

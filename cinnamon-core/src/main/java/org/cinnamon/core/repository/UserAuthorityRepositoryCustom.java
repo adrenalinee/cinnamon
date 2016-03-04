@@ -23,5 +23,8 @@ public interface UserAuthorityRepositoryCustom {
 	List<PermissionMenu> getMenuAuthoritues(String authority, String uri);
 
 	List<Permission> find(Long userGroupId, String uri);
+	
+	// 2016.03.04 메뉴 권한 정보 가져오기 추가
+	List<PermissionMenu> find(Long permissionId, Long menuGroupId);
 
 }

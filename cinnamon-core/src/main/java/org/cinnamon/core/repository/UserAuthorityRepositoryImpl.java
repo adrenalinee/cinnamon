@@ -139,8 +139,30 @@ public class UserAuthorityRepositoryImpl implements UserAuthorityRepositoryCusto
 				.list(roleMenu);
 	}
 	
-	
-	
+	/**
+	 * 메뉴 권한 정보 가져오기
+	 * @author 정명성
+	 * create date : 2016. 3. 4.
+	 * @param permissionId
+	 * @param menuGroupId
+	 * @return
+	 */
+	public List<PermissionMenu> find(Long permissionId, Long menuGroupId) {
+		QPermissionMenu permissionMenu = QPermissionMenu.permissionMenu;
+		QPermission permission = QPermission.permission;
+		QMenu menu = QMenu.menu;
+		QMenuGroup menuGroup = QMenuGroup.menuGroup;
+		
+		JPAQuery query = new JPAQuery(em).from(permissionMenu);
+		
+		return query.join(permissionMenu.permission, permission)
+				.join(permissionMenu.menu, menu)
+				.join(menu.menuGroup, menuGroup)
+				.where(
+					permission.permissionId.eq(permissionId)
+					.and(menuGroup.menuGroupId.eq(menuGroupId)))
+				.list(permissionMenu);
+	}
 	
 	
 }
