@@ -12,4 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserAuthorityRepository extends JpaRepository<Permission, Long>, UserAuthorityRepositoryCustom {
 	
 	Permission findByAuthority(String authority);
+	
+	Permission findByPermissionId(Long permissionId);
 }

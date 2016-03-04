@@ -8,7 +8,8 @@ angular.module('cinnamon', [
 	'ui.router',
 	'ngMaterial',
 	'ui.bootstrap.paging',
-	'ui.bootstrap.pagination'
+	'ui.bootstrap.pagination',
+	'ui.bootstrap'
 //	'md.data.table'
 //	'ui.bootstrap'
 ]).config(function($locationProvider, $httpProvider, $mdThemingProvider) {
