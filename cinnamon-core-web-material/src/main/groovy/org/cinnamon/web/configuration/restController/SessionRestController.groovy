@@ -5,6 +5,7 @@ import org.cinnamon.core.domain.MenuGroup
 import org.cinnamon.core.domain.enumeration.MenuPosition
 import org.cinnamon.core.service.MenuGroupService
 import org.cinnamon.core.service.MenuService
+import org.cinnamon.core.service.SiteService
 import org.cinnamon.core.vo.resource.MenuGroupResource
 import org.cinnamon.core.vo.resource.MenuResource
 import org.dozer.Mapper
@@ -32,6 +33,9 @@ class SessionRestController {
 	MenuGroupService menuGroupService
 	
 	@Autowired
+	SiteService siteService
+	
+	@Autowired
 	Mapper beanMapper
 	
 	
@@ -47,6 +51,14 @@ class SessionRestController {
 		})
 		
 		MenuGroup menuGroup = menuGroupService.getByDimension(dimension)
+		if (menuGroup == null) {
+			//해당 dimension이 없으면 메인 경로 '/'에 해당하는 메뉴모음을 전달한다.
+			menuGroup = siteService.getDefault().getDefaultMenuGroup()
+			if (menuGroup != null) {
+				dimension = menuGroup.getDimension()
+			}
+		}
+		
 		MenuGroupResource menuGroupResource = beanMapper.map(menuGroup, MenuGroupResource)
 		
 		

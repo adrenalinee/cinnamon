@@ -1,5 +1,6 @@
 package org.cinnamon.core.config;
 
+import java.util.Comparator;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -32,14 +33,29 @@ public class SystemInitData implements InitData {
 		BaseDataBuilder baseDataBuilder = new BaseDataBuilder(em);
 		
 		Map<String, SystemConfigurer> systemConfigurers = ac.getBeansOfType(SystemConfigurer.class);
-		systemConfigurers.forEach((name, systemConfigurer) -> {
+		systemConfigurers.values().stream().sorted(new Comparator<SystemConfigurer>() {
+			
+			@Override
+			public int compare(SystemConfigurer o1, SystemConfigurer o2) {
+				if (o1.order() > o2.order()) {
+					return 1;
+				} else if (o1.order() < o2.order()) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		}).forEach(systemConfigurer -> {
 			systemConfigurer.configure(baseDataBuilder);
 		});
 		
 		baseDataBuilder.print();
 		baseDataBuilder.build();
 	}
-
+	
+	/**
+	 * 특별한 상황이 아니면 제일 먼저 실행되어야 한다.
+	 */
 	@Override
 	public int order() {
 		return -100;

@@ -17,8 +17,8 @@ import org.cinnamon.core.config.builder.GroupWrapper;
 import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.domain.enumeration.MenuType;
 import org.cinnamon.core.domain.enumeration.UseStatus;
-import org.cinnamon.core.enumeration.DefinedUserAuthority;
 import org.cinnamon.core.enumeration.DefinedGroups;
+import org.cinnamon.core.enumeration.DefinedUserAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -30,7 +30,14 @@ import org.springframework.util.StringUtils;
  */
 @Component
 public class CoreSystemConfigurer implements SystemConfigurer {
+	
 
+	@Override
+	public int order() {
+		return -100;
+	}
+	
+	
 	@Override
 	public void configure(BaseDataBuilder baseData) {
 		addGroups(baseData);
@@ -154,4 +161,5 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 			)
 		);
 	}
+
 }

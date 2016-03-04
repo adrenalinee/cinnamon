@@ -1,11 +1,12 @@
 package org.cinnamon.web.configuration.controller
 
-import org.cinnamon.core.domain.MenuGroup;
-import org.cinnamon.core.domain.Site;
+import org.cinnamon.core.domain.MenuGroup
+import org.cinnamon.core.domain.Site
 import org.cinnamon.core.service.SiteService
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping
 
 /**
@@ -14,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping
  * created date: 2015. 9. 24.
  * @author 신동성
  */
-@Controller
+@Controller("cinnamon.mainController")
 class MainController {
+	Logger logger = LoggerFactory.getLogger(getClass())
 	
 	@Autowired
 	SiteService siteService
@@ -26,6 +28,7 @@ class MainController {
 	
 	@RequestMapping("/")
 	String index() {
+		logger.info("start")
 //		"redirect:/configuration"
 		
 		if (defaultPage != null) {
@@ -34,7 +37,7 @@ class MainController {
 		
 		
 		Site site = siteService.getDefault();
-		println site
+		println site.getName()
 		if (site != null) {
 			MenuGroup menuGroup = site.getDefaultMenuGroup()
 			println menuGroup
@@ -42,6 +45,8 @@ class MainController {
 				println menuGroup.getDefaultPage()
 				defaultPage = "redirect:" + menuGroup.getDefaultPage()
 				return defaultPage
+			} else {
+				logger.warn("기본 메뉴 모음이 설정되어 있지 않습니다. siteId: {}", site.getSiteId())
 			}
 		}
 		
