@@ -64,9 +64,11 @@ public class MenuService {
 	public List<Menu> getList(String dimension, MenuPosition position , List<String> grantedAuthorities) {
 		logger.info("start");
 		
-//		grantedAuthorities.forEach(ga -> {
-//			System.out.println(ga);
-//		});
+		System.out.println(dimension);
+		System.out.println(position);
+		grantedAuthorities.forEach(ga -> {
+			System.out.println(ga);
+		});
 		
 		return menuRepository.find(dimension, position, grantedAuthorities);
 //		return menuRepository.findAll();

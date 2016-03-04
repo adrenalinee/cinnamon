@@ -88,4 +88,5 @@ public class MenuGroupService {
 	public MenuGroup getByDimension(String dimension) {
 		return menuGroupRepository.findByDimension(dimension);
 	}
+	
 }

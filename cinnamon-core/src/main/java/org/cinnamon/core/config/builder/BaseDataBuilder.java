@@ -232,8 +232,11 @@ public class BaseDataBuilder {
 				MenuGroup menuGroup = menuGroupWrapper.menuGroup;
 				menuGroup.setSite(site);
 				em.persist(menuGroup);
+				em.flush();
 				
-				if (menuGroupWrapper.equals(siteWrapper.defaultMenuGroupWrapper)) {
+				if (menuGroupWrapper.menuGroup.getName().equals(
+						siteWrapper.defaultMenuGroupWrapper.menuGroup.getName())) {
+					
 					site.setDefaultMenuGroup(menuGroup);
 				}
 				
