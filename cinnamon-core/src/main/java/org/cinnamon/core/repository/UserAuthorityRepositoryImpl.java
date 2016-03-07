@@ -164,5 +164,14 @@ public class UserAuthorityRepositoryImpl implements UserAuthorityRepositoryCusto
 				.list(permissionMenu);
 	}
 	
-	
+	/**
+	 * 메뉴 수정 정보 저장
+	 * @author 정명성
+	 * create date : 2016. 3. 7.
+	 * @param permissionMenu
+	 */
+	public void savePermissionMenu(PermissionMenu permissionMenu) {
+		em.persist(permissionMenu);
+	}
+
 }

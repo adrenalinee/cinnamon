@@ -12,11 +12,13 @@ import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.util.ListPage;
 import org.cinnamon.core.util.PagingUtil;
+import org.cinnamon.core.vo.PermissionMenuVo;
 import org.cinnamon.core.vo.PermissionVo;
 import org.cinnamon.core.vo.search.AuthoritySearch;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -129,7 +131,9 @@ public class RoleService {
 	@Transactional
 	public Permission createPermission(PermissionVo permissionVo) {
 		logger.info("start");
-		Permission permission = beanMapper.map(permissionVo, Permission.class);
+		Permission permission = new Permission();
+		BeanUtils.copyProperties(permissionVo, permission);
+		//Permission permission = beanMapper.map(permissionVo, Permission.class);
 		return permissionRepository.save(permission);
 	}
 	
@@ -147,5 +151,41 @@ public class RoleService {
 			throw new NotFoundException("권한 정보가 존재하지 않습니다. permissionId :" + permissionVo.getPermissionId());
 		}
 		permission = beanMapper.map(permissionVo, Permission.class);
+	}
+	
+	/**
+	 * 메뉴 권한 정보 수정
+	 * @author 정명성
+	 * create date : 2016. 3. 7.
+	 * @param permissionId
+	 * @param permissionMenuVo
+	 * @param menuGroupId
+	 */
+	@Transactional
+	public void modifyMenu(Long permissionId, List<PermissionMenuVo> permissionMenuVo , Long menuGroupId) {
+		logger.info("start");
+		// 메뉴 권한 리스트 가져오기
+		Permission permission = permissionRepository.findByPermissionId(permissionId);
+		
+		// 기존 권한 가져온 뒤 퍼미션 메뉴 리스트를 입력하여 수정한다.
+
+		// 기존 메뉴 정보 불러오기
+		List<PermissionMenu> permissionMenus = permissionRepository.find(permissionId, menuGroupId);
+		// 기존 메뉴 정보 삭제
+		permissionMenus = null;
+		
+		// 변경 메뉴 정보 입력
+		for(PermissionMenuVo pm : permissionMenuVo){
+			PermissionMenu permissionMenu = new PermissionMenu();
+			Menu menu = new Menu();
+			menu.setMenuId(pm.getMenuId());
+			permissionMenu.setMenu(menu);
+			permissionMenu.setPermitRoot(pm.isPermitRoot());
+			permissionMenu.setPermitElse(pm.isPermitElse());
+			permissionMenu.setPermission(permission);
+			
+			permissionRepository.savePermissionMenu(permissionMenu);
+		}
+		
 	}
 }

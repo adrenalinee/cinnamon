@@ -12,10 +12,12 @@ public class PermissionVo {
 	
 	@NotEmpty
 	@NotNull
+	@Size(max=50)
 	String authority;
 	
 	@NotEmpty
 	@NotNull
+	@Size(max=200)
 	String name;
 	
 	UseStatus useStatus = UseStatus.enable;

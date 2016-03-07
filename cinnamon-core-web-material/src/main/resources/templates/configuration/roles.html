@@ -23,19 +23,34 @@ angular.module('cinnamon')
 .config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider.state('list', {
 		url: '/configuration/roles',
-		templateUrl: '/configuration/partials/roles/roleList',
+		templateUrl: '/configuration/partials/roles/list',
 		controller: 'configuration.roles.list'
-	}).state('view', {
+	})
+	.state('create',{
+		url : '/configuration/roles/create',
+		templateUrl : '/configuration/partials/roles/create',
+		controller : 'configuration.roles.create'
+	})
+	.state('view', {
 		url: '/configuration/roles/:permissionId',
-		templateUrl: '/configuration/partials/roles/roleView',
+		templateUrl: '/configuration/partials/roles/view',
 		controller: 'configuration.roles.view'
-	});
+	})
+	.state('permissionView',{
+		url : '/configuration/roles/:permissionId/site/:siteId/menuGroup/:menuGroupId',
+		templateUrl : '/configuration/partials/roles/permission',
+		controller : 'configuration.roles.permission'
+	})
+	
+	;
 	
 });
 //]]>
 </script>
 <script src="/js/configuration/directives/searchList.js" type="text/javascript"></script>
-<script src="/js/configuration/roles/listController.js" type="text/javascript" ></script>	
+<script src="/js/configuration/roles/listController.js" type="text/javascript" ></script>
 <script src="/js/configuration/roles/viewController.js" type="text/javascript" ></script>
+<script src="/js/configuration/roles/permissionController.js" type="text/javascript" ></script>
+<script src="/js/configuration/roles/writeController.js" type="text/javascript" ></script>
 </body>
 </html>

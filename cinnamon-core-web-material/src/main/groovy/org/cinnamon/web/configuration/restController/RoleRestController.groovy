@@ -5,12 +5,14 @@ import javax.validation.Valid
 import org.cinnamon.core.domain.Permission
 import org.cinnamon.core.domain.PermissionMenu
 import org.cinnamon.core.service.RoleService
+import org.cinnamon.core.vo.PermissionMenuVo
 import org.cinnamon.core.vo.PermissionVo
 import org.cinnamon.core.vo.search.AuthoritySearch
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -59,8 +61,9 @@ class RoleRestController {
 	 * @return
 	 */
 	@RequestMapping(value="", method=RequestMethod.POST)
-	ResponseEntity<Void> create (@Valid @RequestBody PermissionVo permissionVo, UriComponentsBuilder builder) {
+	def create (@Valid @RequestBody PermissionVo permissionVo, UriComponentsBuilder builder) {
 		Permission permission = roleService.createPermission(permissionVo);
+		/*
 		URI location = MvcUriComponentsBuilder
 			.fromMethodName(
 				builder,
@@ -69,6 +72,9 @@ class RoleRestController {
 				permission.getPermissionId())
 			.build()
 			.toUri()
+		*/
+		URI location = builder.path("/configuration/roles/{permissionId}").buildAndExpand(permission.getPermissionId()).toUri()
+		
 		return ResponseEntity.created(location).build();
 	}
 	
@@ -88,5 +94,22 @@ class RoleRestController {
 	@RequestMapping(value="{permissionId}/menus")
 	Map<Long, PermissionMenu> permissionMenus(@PathVariable Long permissionId, Long menuGroupId) {
 		return roleService.getPermissionMenus(permissionId, menuGroupId);
+	}
+	
+	/**
+	 * 메뉴 권한 정보 수정
+	 * @author 정명성
+	 * create date : 2016. 3. 7.
+	 * @param permissionId
+	 * @param permissionMenuVo
+	 * @param menuGroupId
+	 * @throws Exception
+	 */
+	@RequestMapping(value="{permissionId}/menus/{menuGroupId}", method=RequestMethod.PUT)
+	public void put(@PathVariable Long permissionId,
+							@Valid @RequestBody List<PermissionMenuVo> permissionMenuVo,
+							@PathVariable Long menuGroupId) throws Exception {
+		
+		roleService.modifyMenu(permissionId, permissionMenuVo, menuGroupId);
 	}
 }

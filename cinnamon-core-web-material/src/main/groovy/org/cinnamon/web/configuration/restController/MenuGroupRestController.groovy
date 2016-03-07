@@ -77,4 +77,13 @@ class MenuGroupRestController {
 		
 		menuGroupService.save(menuGroupId, menuGroupVo)
 	}
+	
+	/**
+	 * 메뉴 그룹 가져오기
+	 */
+	@RequestMapping(value="/site/{siteId}", method=RequestMethod.GET)
+	List<MenuGroup> menuGroups(@PathVariable String siteId) {
+		logger.info("start")
+		return menuGroupService.getSiteMenuGroups(siteId);
+	}
 }

@@ -12,6 +12,13 @@ angular.module('cinnamon')
 		}, 200, 1);
 	}
 	
+	// 작성 페이지 이동
+	$scope.goWrite = function() {
+		$interval(function() {
+			$state.go('create');
+		}, 200, 1);
+	}
+	
 	// 초기 리스트 가져오기
 	$scope.load = function(params) {
 		$http.get('/rest/configuration/roles', {params : params})
@@ -32,4 +39,5 @@ angular.module('cinnamon')
 		console.log('onPageChange');
 		$scope.search();
 	}
+
 });
