@@ -36,6 +36,12 @@ public class MenuGroup {
 	@Column(length=50, nullable=false, unique=true)
 	String dimension;
 	
+	/**
+	 * 화면에 표시할 라벨
+	 */
+	@Column(length=100)
+	String label;
+	
 //	@Column(nullable=false)
 //	@Enumerated(EnumType.STRING)
 //	MenuGroupPosition position;
@@ -137,6 +143,14 @@ public class MenuGroup {
 
 	public void setDefaultPage(String defaultPage) {
 		this.defaultPage = defaultPage;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 //	public Date getCreatedAt() {
