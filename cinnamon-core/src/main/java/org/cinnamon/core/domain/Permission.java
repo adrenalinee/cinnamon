@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import org.cinnamon.core.domain.enumeration.UseStatus;
 
@@ -73,6 +72,10 @@ public class Permission implements Serializable {
 	@Column(length=4000)
 	String description;
 	
+	// 2016.03.07 추가 메뉴 권한도 같이 생성
+	@JsonIgnore
+	@OneToMany(mappedBy="permission")
+	List<PermissionMenu> permissionMenus;
 	
 //	public Long getPermissionId() {
 //		return permissionId;
