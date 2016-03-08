@@ -28,5 +28,4 @@ public interface UserAuthorityRepositoryCustom {
 	List<PermissionMenu> find(Long permissionId, Long menuGroupId);
 	// 2016.03.07 메뉴 권한 수정 정보 저장
 	public void savePermissionMenu(PermissionMenu permissionMenu);
-
 }

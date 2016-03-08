@@ -13,5 +13,4 @@ public interface UserAuthorityRepository extends JpaRepository<Permission, Long>
 	
 	Permission findByAuthority(String authority);
 	
-	Permission findByPermissionId(Long permissionId);
 }

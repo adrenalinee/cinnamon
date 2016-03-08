@@ -173,5 +173,4 @@ public class UserAuthorityRepositoryImpl implements UserAuthorityRepositoryCusto
 	public void savePermissionMenu(PermissionMenu permissionMenu) {
 		em.persist(permissionMenu);
 	}
-
 }

@@ -2,7 +2,7 @@ angular.module('cinnamon')
 .controller('configuration.roles.view', function($scope, $http, $interval, $stateParams, $log, $mdDialog, $mdMedia, $state) {
 	console.log('configuration.roles.view');
 	
-	// 초기 리스트 가져오기
+	// role 정보 가져오기
 	$scope.load = function() {
 		$http.get('/rest/configuration/roles/' + $stateParams.permissionId)
 		.then(
@@ -15,7 +15,7 @@ angular.module('cinnamon')
 		)
 	}
 	
-	// 권한 정보 가져오기
+	// role 정보 가져오기
 	$scope.load();
 	// 사이트
 	$scope.sites;

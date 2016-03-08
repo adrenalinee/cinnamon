@@ -8,6 +8,7 @@ import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.Permission;
 import org.cinnamon.core.domain.PermissionMenu;
 import org.cinnamon.core.exception.NotFoundException;
+import org.cinnamon.core.repository.MenuGroupRepository;
 import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.util.ListPage;
@@ -18,7 +19,6 @@ import org.cinnamon.core.vo.search.AuthoritySearch;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +37,9 @@ public class RoleService {
 	
 	@Autowired
 	UserAuthorityRepository permissionRepository;
+
+	@Autowired
+	MenuGroupRepository menuGroupRepository;
 	
 	@Autowired
 	MenuRepository menuRepository;
@@ -115,7 +118,7 @@ public class RoleService {
 	@Transactional(readOnly=true)
 	public Permission getPermission(Long permissionId) {
 		logger.info("start");
-		Permission permission = permissionRepository.findByPermissionId(permissionId);
+		Permission permission = permissionRepository.findOne(permissionId);
 		if(permission == null) {
 			throw new NotFoundException("권한 정보가 존재하지 않습니다. permissionId :" + permissionId);
 		}
@@ -131,9 +134,7 @@ public class RoleService {
 	@Transactional
 	public Permission createPermission(PermissionVo permissionVo) {
 		logger.info("start");
-		Permission permission = new Permission();
-		BeanUtils.copyProperties(permissionVo, permission);
-		//Permission permission = beanMapper.map(permissionVo, Permission.class);
+		Permission permission = beanMapper.map(permissionVo, Permission.class);
 		return permissionRepository.save(permission);
 	}
 	
@@ -144,13 +145,13 @@ public class RoleService {
 	 * @param permissionVo
 	 */
 	@Transactional
-	public void updatePermission(PermissionVo permissionVo) {
+	public void modifyPermission(Long permissionId, PermissionVo permissionVo) {
 		logger.info("start");
-		Permission permission = permissionRepository.findByPermissionId(permissionVo.getPermissionId());
+		Permission permission = permissionRepository.findOne(permissionId);
 		if(permission == null) {
-			throw new NotFoundException("권한 정보가 존재하지 않습니다. permissionId :" + permissionVo.getPermissionId());
+			throw new NotFoundException("권한 정보가 존재하지 않습니다. permissionId :" + permissionId);
 		}
-		permission = beanMapper.map(permissionVo, Permission.class);
+		beanMapper.map(permissionVo, permission);
 	}
 	
 	/**
@@ -165,7 +166,7 @@ public class RoleService {
 	public void modifyMenu(Long permissionId, List<PermissionMenuVo> permissionMenuVo , Long menuGroupId) {
 		logger.info("start");
 		// 메뉴 권한 리스트 가져오기
-		Permission permission = permissionRepository.findByPermissionId(permissionId);
+		Permission permission = permissionRepository.findOne(permissionId);
 		
 		// 기존 권한 가져온 뒤 퍼미션 메뉴 리스트를 입력하여 수정한다.
 

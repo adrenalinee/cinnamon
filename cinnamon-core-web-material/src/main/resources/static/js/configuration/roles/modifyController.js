@@ -1,9 +1,25 @@
 angular.module('cinnamon')
-.controller('configuration.roles.create', function($scope, $http, $interval, $stateParams, $log, $mdDialog, $mdMedia, $state, $mdToast) {
+.controller('configuration.roles.modify', function($scope, $http, $interval, $stateParams, $log, $mdDialog, $mdMedia, $state, $mdToast) {
 
+	// role 정보 가져오기
+	$scope.load = function() {
+		$http.get('/rest/configuration/roles/' + $stateParams.permissionId)
+		.then(
+			function(result) {
+				$log.info(result.data);
+				$scope.role = result.data;
+			}
+			,function(error) {
+				$log.error('error');
+			}
+		)
+	}
+	
+	// role 정보 가져오기
+	$scope.load();
+	
 	// 등록
-	$scope.create = function () {
-		
+	$scope.modify = function () {
 		if($scope.frm.$valid == false){
 		    $mdToast.show(
 		    	      $mdToast.simple()
@@ -16,25 +32,26 @@ angular.module('cinnamon')
 		// 파라미터
 		var params = angular.copy($scope.role);
 		console.log(params);
-		$http.post('/rest/configuration/roles',params).then(
+		$http.put('/rest/configuration/roles/' + $scope.role.permissionId, params).then(
 				function(result){
 				    $mdToast.show(
 				    	      $mdToast.simple()
-				    	        .textContent('등록되었습니다.')
+				    	        .textContent('수정되었습니다.')
 				    	        .position('top right')
 				    	        .hideDelay(3000)
 				    );
-
+				    
 					$interval(function() {
-						var viewLink = result.headers("Location");
-						location.href = viewLink;
+						$state.go('view', {permissionId : $scope.role.permissionId});
 					}, 200, 1);
+					
 				},
 				function(error){
 					$log.error("역할 및 권한 등록 Error! " + error);
 				}
 		)
 	}
+	
 	// 리스트로 돌아가기
 	$scope.goList = function() {
 		$interval(function() {

@@ -36,6 +36,11 @@ angular.module('cinnamon')
 		templateUrl: '/configuration/partials/roles/view',
 		controller: 'configuration.roles.view'
 	})
+	.state('modify', {
+		url: '/configuration/roles/modify/:permissionId',
+		templateUrl: '/configuration/partials/roles/modify',
+		controller: 'configuration.roles.modify'
+	})	
 	.state('permissionView',{
 		url : '/configuration/roles/:permissionId/site/:siteId/menuGroup/:menuGroupId',
 		templateUrl : '/configuration/partials/roles/permission',
@@ -52,5 +57,6 @@ angular.module('cinnamon')
 <script src="/js/configuration/roles/viewController.js" type="text/javascript" ></script>
 <script src="/js/configuration/roles/permissionController.js" type="text/javascript" ></script>
 <script src="/js/configuration/roles/writeController.js" type="text/javascript" ></script>
+<script src="/js/configuration/roles/modifyController.js" type="text/javascript" ></script>
 </body>
 </html>

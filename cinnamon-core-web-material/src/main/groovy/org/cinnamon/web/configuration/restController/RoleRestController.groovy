@@ -8,22 +8,24 @@ import org.cinnamon.core.service.RoleService
 import org.cinnamon.core.vo.PermissionMenuVo
 import org.cinnamon.core.vo.PermissionVo
 import org.cinnamon.core.vo.search.AuthoritySearch
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
-import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
 @RequestMapping(value="/rest/configuration/roles")
 class RoleRestController {
+	
+	Logger logger = LoggerFactory.getLogger(getClass())
 	
 	@Autowired
 	RoleService roleService;
@@ -38,6 +40,7 @@ class RoleRestController {
 	 */
 	@RequestMapping(value="", method=RequestMethod.GET)
 	Page<Permission> list (AuthoritySearch permissionSearch, Pageable pageable) {
+		 logger.info("start")
 		 return roleService.search(permissionSearch, pageable);
 	}
 	
@@ -50,6 +53,7 @@ class RoleRestController {
 	 */
 	@RequestMapping(value="{permissionId}", method=RequestMethod.GET)
 	Permission view (@PathVariable Long permissionId) {
+		logger.info("start")
 		return roleService.getPermission(permissionId);
 	}
 	
@@ -62,6 +66,7 @@ class RoleRestController {
 	 */
 	@RequestMapping(value="", method=RequestMethod.POST)
 	def create (@Valid @RequestBody PermissionVo permissionVo, UriComponentsBuilder builder) {
+		logger.info("start")
 		Permission permission = roleService.createPermission(permissionVo);
 		/*
 		URI location = MvcUriComponentsBuilder
@@ -85,14 +90,16 @@ class RoleRestController {
 	 * @param permissionVo
 	 * @return
 	 */
-	@RequestMapping(value="", method=RequestMethod.PUT)
-	ResponseEntity<Void> put(@Valid @RequestBody PermissionVo permissionVo) {
-		roleService.updatePermission(permissionVo);
+	@RequestMapping(value="{permissionId}", method=RequestMethod.PUT)
+	ResponseEntity<Void> put(@PathVariable Long permissionId, @Valid @RequestBody PermissionVo permissionVo) {
+		logger.info("start")
+		roleService.modifyPermission(permissionId, permissionVo);
 		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value="{permissionId}/menus")
 	Map<Long, PermissionMenu> permissionMenus(@PathVariable Long permissionId, Long menuGroupId) {
+		logger.info("start")
 		return roleService.getPermissionMenus(permissionId, menuGroupId);
 	}
 	
@@ -109,7 +116,7 @@ class RoleRestController {
 	public void put(@PathVariable Long permissionId,
 							@Valid @RequestBody List<PermissionMenuVo> permissionMenuVo,
 							@PathVariable Long menuGroupId) throws Exception {
-		
+		logger.info("start")
 		roleService.modifyMenu(permissionId, permissionMenuVo, menuGroupId);
 	}
 }

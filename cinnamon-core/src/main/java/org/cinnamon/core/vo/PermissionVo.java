@@ -7,8 +7,6 @@ import org.cinnamon.core.domain.enumeration.UseStatus;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class PermissionVo {
-
-	Long permissionId;
 	
 	@NotEmpty
 	@NotNull
@@ -24,14 +22,6 @@ public class PermissionVo {
 	
 	@Size(max=4000)
 	String description;
-
-	public Long getPermissionId() {
-		return permissionId;
-	}
-
-	public void setPermissionId(Long permissionId) {
-		this.permissionId = permissionId;
-	}
 
 	public String getAuthority() {
 		return authority;
