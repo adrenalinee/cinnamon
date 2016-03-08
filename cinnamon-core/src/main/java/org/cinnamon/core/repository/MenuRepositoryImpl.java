@@ -116,7 +116,6 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 		}
 		
 		
-		
 		List<Menu> domains = getQuerydsl().applyPagination(pageable, query).list(menu);
 		long totalCount = query.count();
 		

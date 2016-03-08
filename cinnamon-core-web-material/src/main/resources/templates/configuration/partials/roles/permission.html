@@ -39,6 +39,7 @@
 									<md-list-item ng-repeat="menu in menus.menus">
 										<p>{{menu.name}} </p>
 										<md-checkbox class="md-secondary" ng-model="permissionMenus[menu.menuId].permitRoot" ng-change="updateMenu()"  ></md-checkbox>
+										<md-divider ng-if="!$last"></md-divider>
 									</md-list-item>
 								</mg-list>
 					      	</md-content>
@@ -51,23 +52,4 @@
 
 </md-card>
 
-
 </div>
-
-
-
-<style>
-<!--
-
-.btn1 {
-  background-color: #008CBA;
-  font-size: 18px;
-  color : white;
-}
-
-.btn2 {
-  background-color: rgba(70, 80, 90, 0.35);
-  font-size: 16px;
-}
--->
-</style>

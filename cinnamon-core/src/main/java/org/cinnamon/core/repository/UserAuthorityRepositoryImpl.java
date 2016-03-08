@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
 import com.mysema.query.BooleanBuilder;
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -27,8 +28,12 @@ import com.mysema.query.jpa.impl.JPAQuery;
  * @author 동성
  * @since 2015. 2. 3.
  */
-public class UserAuthorityRepositoryImpl implements UserAuthorityRepositoryCustom {
+public class UserAuthorityRepositoryImpl extends QueryDslRepositorySupport implements UserAuthorityRepositoryCustom {
 	
+	public UserAuthorityRepositoryImpl() {
+		super(Permission.class);
+	}
+
 	@Autowired
 	EntityManager em;
 	
@@ -105,13 +110,10 @@ public class UserAuthorityRepositoryImpl implements UserAuthorityRepositoryCusto
 		
 		JPAQuery query = new JPAQuery(em).from(role);
 		query
-			.where(builder)
-			.offset(offset)
-			.limit(limit)
-			.orderBy(role.authority.desc());
+			.where(builder);
+
 		
-		
-		List<Permission> domains = query.list(role);
+		List<Permission> domains = getQuerydsl().applyPagination(pageable, query).list(role);
 		long totalCount = query.count();
 		
 		Page<Permission> page = new PageImpl<Permission>(domains, pageable, totalCount);

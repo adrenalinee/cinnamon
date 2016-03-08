@@ -120,7 +120,9 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 						.uri("/configuration/roles")
 						.iconClass("verified_user"),
 					menu("이메일")
+						.uri("/configuration/email")
 						.iconClass("email")
+						/* 2016.03.08 수정
 						.addChilds(
 							menu("메일 서버")
 								.uri("/configuration/email/servers")
@@ -129,7 +131,8 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 							menu("메일 템플릿")
 								.uri("/configuration/email/templates")
 								.iconClass("")
-						),
+						)*/
+						,
 					menu("코드")
 						.uri("/configuration/groups")
 						.iconClass("view_list"),

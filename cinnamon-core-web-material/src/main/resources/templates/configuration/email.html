@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/default">
+
+<head>
+<title>사이트</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<base href="/" />
+</head>
+
+<body layout:fragment="content">
+	<ui-view layout-fill=""/>
+	
+<script type="text/javascript" src="/js/configuration/directives/searchList.js"></script>
+<script type="text/javascript" src="/js/configuration/email/listController.js"></script>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+angular.module('cinnamon')
+.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider.state('list', {
+		url: '/configuration/email',
+		templateUrl: '/configuration/partials/email/list',
+		controller: 'configuration.email.list'
+	}).state('view', {
+		url: '/configuration/email/server/:emailId',
+		templateUrl: '/configuration/partials/email/view',
+		controller: 'configuration.email.view'
+	});
+	
+});
+/*]]>*/
+</script>
+</body>
+
+
+</html>

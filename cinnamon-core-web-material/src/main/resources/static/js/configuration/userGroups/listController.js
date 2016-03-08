@@ -11,6 +11,8 @@ angular.module('cinnamon')
 //		$scope.domains = data;
 //	});
 	
+	$scope.searchInfo = {};
+	
 	$scope.goView = function(userGroup) {
 		$interval(function() {
 			$state.go('view', {userGroupId: userGroup.userGroupId});

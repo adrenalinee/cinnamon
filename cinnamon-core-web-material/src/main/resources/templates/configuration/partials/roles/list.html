@@ -16,64 +16,41 @@
 	
 	
 	<!-- 상세 검색 시작 -->
-	<md-card md-whiteframe="4">
-		<md-card-header layout="row" layout-align="center center">
-			<md-icon>search</md-icon>
-			<md-input-container md-no-float="true" flex="" layout-fill="">
-				<input ng-model="searchInfo.keyword" flex="" placeholder="검색어를 입력하세요" ng-keypress="onSearch($event)" />
-			</md-input-container>
-				<md-button class="md-icon-button" ng-click="showDetailSearch = !showDetailSearch">
-					<md-tooltip md-direction="top">상세 검색</md-tooltip>
-					<md-icon>expand_more</md-icon>
-				</md-button>
-			<md-menu>
-				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
-					<md-tooltip md-direction="top">정렬</md-tooltip>
-					<md-icon>sort</md-icon>
-				</md-button>
-				<md-menu-content>
-					<md-menu-item>
-						<md-button layout="row">
-							이름
-							<md-icon>check</md-icon>
-						</md-button>
-					</md-menu-item>
-					<md-menu-item>
-						<md-button>
-							이메일
-						</md-button>
-					</md-menu-item>
-					<md-menu-item>
-						<md-button>
-							userId
-						</md-button>
-					</md-menu-item>
-				</md-menu-content>
-			</md-menu>
-		</md-card-header>
-		<!-- 상세 검색 끝 -->	
-	 <!-- 권한 리스트 -->
-	  <md-content>
-	    <md-list>
-	    	  <md-subheader class="md-no-sticky">역할 및 권한 리스트</md-subheader>
-			  <md-list-item ng-repeat="permission in domains.content" ng-click="goView(permission.permissionId)">
-			    <p class="text-muted">{{ permission.name }} </p>
-			    <p class="text-muted">{{ permission.authority }} </p>
-			  </md-list-item>
-	    </md-list>
-	 </md-content>
-	 <!-- 권한 리스트 끝 -->
-	 
-	<uib-pagination
-		layout-margin=""
-		template-url="/configuration/partials/directive/pagination"
-		total-items="domains.totalElements"
-		items-per-page="domains.size"
-		boundary-links="true"
-		ng-model="searchInfo.page"
-	ng-change="onPageChange()" /> 
-	
-	
+	<md-card md-whiteframe="3">
+		<cm-search-list
+			resource-url="'/rest/configuration/roles'"
+			domains="domains"
+			sort-items="{
+				name: '이름',
+				authority: '권한명'
+			}"
+			search-info="searchInfo"
+			>
+			<!-- 상세검색 필드 -->
+			<cm-search-list-filters>
+				<md-card-content class="content" layout="column">
+					<md-input-container layout-fill="">
+						<label>이름</label>
+						<input ng-model="searchInfo.name"/>
+					</md-input-container>
+					<md-input-container layout-fill="">
+						<label>Authority</label>
+						<input ng-model="searchInfo.authority" />
+					</md-input-container>
+				</md-card-content>
+			</cm-search-list-filters>
+			<!-- 상세검색 필드 끝-->
+			<!-- 리스트  -->
+			<cm-search-list-items>
+				<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
+				    <p class="text-muted">{{ domain.name }} </p>
+				    <p class="text-muted">{{ domain.authority }} </p>
+					<md-divider ng-if="!$last"></md-divider>
+				</md-list-item>
+			</cm-search-list-items>
+			<!-- 리스트  끝-->
+		</cm-search-list>
 	</md-card>
+
 </div>
 

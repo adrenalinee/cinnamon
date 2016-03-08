@@ -3,7 +3,7 @@ angular.module('cinnamon')
 	console.log('configuration.sites.list');
 	
 	$scope.domains;
-	
+	$scope.searchInfo = {};
 	
 	$scope.goView = function(site) {
 		$interval(function() {

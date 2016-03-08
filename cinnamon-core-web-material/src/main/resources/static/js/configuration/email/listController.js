@@ -1,12 +1,12 @@
 angular.module('cinnamon')
-.controller('configuration.roles.list', function($scope, $http, $interval, $state) {
-	console.log('configuration.roles.list');
+.controller('configuration.email.list', function($scope, $http, $interval, $state) {
+	console.log('configuration.email.list');
 	// 화면 도메인
 	$scope.domains;
 	$scope.searchInfo = {
 			sort: 'createdAt,desc'
 	};
-
+	
 	$scope.goView = function(domain) {
 		$interval(function() {
 			$state.go('view', {permissionId: domain.permissionId});
@@ -33,6 +33,6 @@ angular.module('cinnamon')
 		)
 	}
 	
-	$scope.load($scope.searchInfo);
-
+	//$scope.load($scope.searchInfo);
+	
 });

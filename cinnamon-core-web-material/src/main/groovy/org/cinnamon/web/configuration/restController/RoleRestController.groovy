@@ -2,6 +2,7 @@ package org.cinnamon.web.configuration.restController
 
 import javax.validation.Valid
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.cinnamon.core.domain.Permission
 import org.cinnamon.core.domain.PermissionMenu
 import org.cinnamon.core.service.RoleService
@@ -41,6 +42,7 @@ class RoleRestController {
 	@RequestMapping(value="", method=RequestMethod.GET)
 	Page<Permission> list (AuthoritySearch permissionSearch, Pageable pageable) {
 		 logger.info("start")
+		 logger.info(ToStringBuilder.reflectionToString(pageable))
 		 return roleService.search(permissionSearch, pageable);
 	}
 	

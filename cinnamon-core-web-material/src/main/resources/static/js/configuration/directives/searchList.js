@@ -12,7 +12,8 @@ angular.module('cinnamon')
 			resourceUrl: '=',
 			defaultSearchParams: '=?',
 			sortItems: '=?',
-			isPaging: '=?'
+			isPaging: '=?',
+			searchInfo: '='
 		},
 		templateUrl: '/configuration/directives/searchList',
 		controller: 'searchListController'
@@ -69,6 +70,21 @@ angular.module('cinnamon')
 //		$location.search($scope.searchInfo);
 		
 		$scope.load(params);
+	}
+	
+	$scope.sortItem = function(key ,value) {
+		console.info('sortItem');
+		// 같으면 내림차순
+		if($scope.searchInfo.sortKey == key) {
+			$scope.searchInfo.direction == 'desc' ? $scope.searchInfo.direction = 'asc' : $scope.searchInfo.direction = 'desc';
+		}else{
+		// 다르면 오름차순
+			$scope.searchInfo.sortKey = key;
+			$scope.searchInfo.direction = 'asc' ? $scope.searchInfo.direction = 'desc' : $scope.searchInfo.direction = 'asc';
+		}
+		// 정렬값 셋팅
+		$scope.searchInfo.sort = $scope.searchInfo.sortKey + "," + $scope.searchInfo.direction;
+		$scope.search();
 	}
 	
 	$scope.load($scope.searchInfo);
