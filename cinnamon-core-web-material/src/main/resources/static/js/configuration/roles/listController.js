@@ -4,7 +4,7 @@ angular.module('cinnamon')
 	// 화면 도메인
 	$scope.domains;
 	$scope.searchInfo = {
-			sort: 'createdAt,desc'
+			sort: 'permissionId,desc'
 	};
 
 	$scope.goView = function(domain) {

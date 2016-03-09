@@ -1,15 +1,19 @@
-
+<div class="content-container" ng-controller="configuration.email.list" ng-cloak="">
 
 <md-fab-speed-dial md-open="fabOpen" class="md-fab-bottom-right md-scale" style="position: fixed">
 	<md-fab-trigger>
-		<md-button class="md-fab" ui-sref="create">
+		<md-button class="md-fab" ui-sref="create" ng-show="showCreateBtn == 'server'">
 			<md-tooltip md-direction="left">이메일서버 등록</md-tooltip>
+			<md-icon>add</md-icon>
+		</md-button>
+		
+		<md-button class="md-fab" ui-sref="templateCreate" ng-show="showCreateBtn == 'template'">
+			<md-tooltip md-direction="left">템플릿 등록</md-tooltip>
 			<md-icon>add</md-icon>
 		</md-button>
 	</md-fab-trigger>
 </md-fab-speed-dial>
 
-<div class="content-container" ng-controller="configuration.email.list" ng-cloak="">
 	<h3 layout-padding="" class="md-headline">
 		이메일
 		<span class="md-subhead text-muted">서버 목록</span>
@@ -18,21 +22,60 @@
 		<md-content >
 		  <md-tabs md-dynamic-height="" md-border-bottom="">
 		  
-		    <md-tab label="서버">
-		      <md-content class="md-padding">
-		        <h1 class="md-display-2">서버(server)</h1>
-		        <p></p>
-		      </md-content>
+		    <md-tab label="서버" ng-click="showCreateBtn = 'server'">
+		        
+				<!-- 상세 검색 시작 -->
+					<cm-search-list
+						resource-url="'/rest/configuration/email/servers'"
+						domains="domains"
+						sort-items="{
+							name: '이름',
+							address: '호스트'
+						}"
+						search-info="searchInfo"
+						>
+						<!-- 상세검색 필드 -->
+						<cm-search-list-filters>
+							<md-card-content class="content" layout="column">
+								<md-input-container layout-fill="">
+									<label>이름</label>
+									<input ng-model="searchInfo.name"/>
+								</md-input-container>
+								<md-input-container layout-fill="">
+									<label>호스트</label>
+									<input ng-model="searchInfo.address" />
+								</md-input-container>
+							</md-card-content>
+						</cm-search-list-filters>
+						<!-- 상세검색 필드 끝-->
+						<!-- 리스트  -->
+						<cm-search-list-items>
+							<md-list-item ng-repeat="domain in domains.content" class="secondary-button-padding" ng-click="goView(domain)">
+							    <p class="" >{{ domain.name }} </p>
+							    <p class="" >{{ domain.address }} </p>
+							    <p class="" >{{ domain.fromAddress }} </p>
+							    <md-button ng-class="{ 'md-primary' : domain.defaultServer}" class="md-secondary md-icon-button" ng-click="setDefaultEmailServer(domain)">
+						    		<i class="material-icons">check</i>	
+						    	</md-button>
+						    	
+								<md-divider ng-if="!$last"></md-divider>
+							</md-list-item>
+						</cm-search-list-items>
+						<!-- 리스트  끝-->
+					</cm-search-list>
+				
 		    </md-tab>
 		    
-		    <md-tab label="템플릿">
+		    <md-tab label="템플릿" ng-click="showCreateBtn = 'template'">
 		      <md-content class="md-padding">
-		        <h1 class="md-display-2">템플릿(template)</h1>
+		        
+		        
+		        
 		      </md-content>
 		    </md-tab>
 		  </md-tabs>
 		  
-		</md-content>	
+		</md-content>
 	</md-card>
 </div>
 

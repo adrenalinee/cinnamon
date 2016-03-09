@@ -4,7 +4,6 @@ import javax.validation.Valid
 
 import org.cinnamon.core.domain.EmailServer
 import org.cinnamon.core.service.EmailServerService
-import org.cinnamon.core.util.EmailUtil
 import org.cinnamon.core.util.ListPage
 import org.cinnamon.core.util.PagingUtil
 import org.cinnamon.core.vo.EmailServerVo
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.util.UriComponentsBuilder
 
@@ -39,7 +39,7 @@ class EmailRestController {
 	 * @param pageable
 	 * @return
 	 */
-	@RequestMapping(value="/server/list")
+	@RequestMapping(value="/servers")
 	ListPage<EmailServer> emailList(EmailServerSearch emailServerSearch, Pageable pageable) {
 		logger.info("start")
 		
@@ -117,12 +117,14 @@ class EmailRestController {
 	 * @param emailServerId
 	 * @return
 	 */
+	
 	@RequestMapping(value="/server/{emailServerId}/test")
-	Map<String, String> emailServerSendTest(@PathVariable Long emailServerId) {
-		String result = emailServerService.mailSendTest(emailServerId)
-		Map<String, String> resultMap = new HashMap<String, String>();
-		resultMap.put("msg", result)
-		return result
+	@ResponseBody
+	Map emailServerSendTest(@PathVariable Long emailServerId) {
+		String message = emailServerService.mailSendTest(emailServerId)
+		Map resultMap = new HashMap()
+		resultMap.put("msg", message)
+		return resultMap
 	}
 	
 	/**

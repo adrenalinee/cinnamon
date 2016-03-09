@@ -34,19 +34,19 @@ public class EmailServer {
 	
 	Integer port;
 	
-	@Column(nullable=false, length=200)
+	@Column(length=200)
 	String username;
 	
 	/**
 	 * 암호화 예정
 	 */
-	@Column(nullable=false)
+	@Column(length=500)
 	String password;
 	
 	/**
 	 * 보내는 사람 주소
 	 */
-	@Column(nullable=false, length=200)
+	@Column(length=200)
 	String fromAddress;
 	
 	/**

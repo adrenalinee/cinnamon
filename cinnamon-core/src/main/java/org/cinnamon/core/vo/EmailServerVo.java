@@ -21,10 +21,10 @@ public class EmailServerVo {
 	@NotNull
 	Integer port;
 	
-	@NotEmpty
+	//@NotEmpty
 	String username;
 	
-	@NotEmpty
+	//@NotEmpty // smtp 서버 계정 없이도 사용 가능합니다.
 	String password;
 	
 	@NotEmpty

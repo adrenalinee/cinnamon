@@ -18,6 +18,9 @@
 	
 <script type="text/javascript" src="/js/configuration/directives/searchList.js"></script>
 <script type="text/javascript" src="/js/configuration/email/listController.js"></script>
+<script type="text/javascript" src="/js/configuration/email/viewController.js"></script>
+<script type="text/javascript" src="/js/configuration/email/modifyController.js"></script>
+<script type="text/javascript" src="/js/configuration/email/createController.js"></script>
 
 <script type="text/javascript">
 /*<![CDATA[*/
@@ -27,11 +30,23 @@ angular.module('cinnamon')
 		url: '/configuration/email',
 		templateUrl: '/configuration/partials/email/list',
 		controller: 'configuration.email.list'
-	}).state('view', {
-		url: '/configuration/email/server/:emailId',
+	})
+	.state('create', {
+		url: '/configuration/email/server/create',
+		templateUrl: '/configuration/partials/email/create',
+		controller: 'configuration.email.server.create'
+	})	
+	.state('view', {
+		url: '/configuration/email/server/:emailServerId',
 		templateUrl: '/configuration/partials/email/view',
-		controller: 'configuration.email.view'
-	});
+		controller: 'configuration.email.server.view'
+	})
+	.state('modify', {
+		url : '/configuration/email/server/modify/:emailServerId',
+		templateUrl : '/configuration/partials/email/modify',
+		controller : 'configuration.email.server.modify'
+	})
+	;
 	
 });
 /*]]>*/

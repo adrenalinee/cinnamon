@@ -1,9 +1,12 @@
 package org.cinnamon.core.service;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.cinnamon.core.domain.EmailServer;
 import org.cinnamon.core.domain.enumeration.UseStatus;
+import org.cinnamon.core.exception.InternalServerErrorException;
 import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.EmailServerRepository;
+import org.cinnamon.core.util.BlowfishCryptor;
 import org.cinnamon.core.util.EmailUtil;
 import org.cinnamon.core.vo.EmailServerVo;
 import org.cinnamon.core.vo.search.EmailServerSearch;
@@ -59,7 +62,7 @@ public class EmailServerService {
 	
 	
 	/**
-	 * 
+	 * 서버 정보 등록
 	 * @param emailServer
 	 */
 	@Transactional
@@ -68,7 +71,15 @@ public class EmailServerService {
 		
 		EmailServer emailServer = new EmailServer();
 		BeanUtils.copyProperties(emailServerVo, emailServer);
+		BlowfishCryptor e = new BlowfishCryptor();
 		
+		if(emailServer.getPassword() != null) {
+			try {
+				emailServer.setPassword(e.encrypt(emailServer.getPassword()));
+			} catch (Exception e1) {
+				throw new InternalServerErrorException("암호화에 실패했습니다. [서버 정보 등록] " + e1);
+			}
+		}
 		
 		emailServerRepository.save(emailServer);
 		
@@ -84,11 +95,19 @@ public class EmailServerService {
 	 */
 	@Transactional(readOnly=true)
 	public EmailServer getEmailServer(Long emailServerId) {
+		logger.info("start");
+		
 		EmailServer emailServer = emailServerRepository.findOne(emailServerId);
 		
 		if(emailServer == null || emailServer.getUseStatus() != UseStatus.enable) {
 			throw new NotFoundException("이메일 서버가 존재하지 않습니다. emailServerId : " + emailServerId);
 		}
+		
+		if(emailServer.getPassword() != null) {
+			BlowfishCryptor e = new BlowfishCryptor();
+			emailServer.setPassword(e.decrypt(emailServer.getPassword()));
+		}
+
 		
 		return emailServer;
 	}
@@ -101,6 +120,8 @@ public class EmailServerService {
 	 */
 	@Transactional
 	public void removeEmailServer(Long emailServerId) {
+		logger.info("start");
+		
 		EmailServer emailServer = emailServerRepository.findOne(emailServerId);
 		if(emailServer == null || emailServer.getUseStatus() == UseStatus.deleted) {
 			throw new NotFoundException("이메일 서버가 존재하지 않습니다. emailServerId : " + emailServerId);
@@ -117,9 +138,20 @@ public class EmailServerService {
 	 */
 	@Transactional
 	public void modifyEmailServer(Long emailServerId, EmailServerVo emailServerVo) {
+		logger.info("start");
+		
 		EmailServer emailServer = emailServerRepository.findOne(emailServerId);
 		if(emailServer == null || emailServer.getUseStatus() != UseStatus.enable) {
 			throw new NotFoundException("이메일 서버가 존재하지 않습니다. emailServerId : " + emailServerId);
+		}
+		
+		if(emailServerVo.getPassword() != null) {
+			BlowfishCryptor e = new BlowfishCryptor();
+			try {
+				emailServerVo.setPassword(e.encrypt(emailServerVo.getPassword()));
+			} catch (Exception e1) {
+				throw new InternalServerErrorException("암호화에 실패했습니다. [서버 정보 변경] " + e1);
+			}
 		}
 		mapper.map(emailServerVo, emailServer);
 	}
@@ -133,6 +165,8 @@ public class EmailServerService {
 	 */
 	@Transactional
 	public void setDefaultEmailServer(Long emailServerId) {
+		logger.info("start");
+		
 		EmailServer emailServer = emailServerRepository.findByUseStatusAndDefaultServer(UseStatus.enable, true);
 		if (emailServer != null) {
 			emailServer.setDefaultServer(false);
@@ -157,6 +191,8 @@ public class EmailServerService {
 	 * @return
 	 */
 	public String mailSendTest(Long emailServerId) throws Exception {
+		logger.info("start");
+		
 		EmailServer emailServer = emailServerRepository.findOne(emailServerId);
 		if (emailServer == null || emailServer.getUseStatus() != UseStatus.enable) {
 			throw new NotFoundException("메일 서버 정보가 없습니다. emailServerId : " + emailServerId);
