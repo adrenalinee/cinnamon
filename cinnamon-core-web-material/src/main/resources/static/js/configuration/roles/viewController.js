@@ -5,14 +5,9 @@ angular.module('cinnamon')
 	// role 정보 가져오기
 	$scope.load = function() {
 		$http.get('/rest/configuration/roles/' + $stateParams.permissionId)
-		.then(
-			function(result) {
-				$scope.domains = result.data;
-			}
-			,function(error) {
-				$log.error('error');
-			}
-		)
+		.success(function(result) {
+			$scope.domains = result;
+		})
 	}
 	
 	// role 정보 가져오기
@@ -24,34 +19,26 @@ angular.module('cinnamon')
 	
 	$scope.site = function() {
 		$http.get('/rest/configuration/sites')
-		.then ( 
-			function(result) {
-				$log.info(result);
-				$scope.sites = result.data.content; 
-			},
-			function(error) {
-				$log.error('사이트 가져오기 error' + error);
-			}
-		)
+		.success(function(result) {
+			$log.info(result);
+			$scope.sites = result.content; 
+		})
 	}
 	// 사이트 가져오기
 	$scope.site();
 	$scope.stieId;
+	
 	// 메뉴 그룹 가져오기
 	$scope.selectSite = function(siteId) {
 		$http.get('/rest/configuration/menuGroups/site/' + siteId)
-			.then(
-					function(result) {
-						$log.info(result);
-						$scope.menuGroups = result.data;
-						$scope.siteId = siteId;
-					},
-					function(error) {
-						$log.error('메뉴 그룹 가져오기 error' + error);
-					}
-			)
+			.success(function(result) {
+				$log.info(result);
+				$scope.menuGroups = result;
+				$scope.siteId = siteId;
+			})
 	}
 	
+	// 메뉴권한 페이지 이동
 	$scope.goPermission = function(menuGroupId) {
 		$interval(function() {
 			$state.go('permissionView', {permissionId : $stateParams.permissionId, siteId : $scope.siteId, menuGroupId : menuGroupId});

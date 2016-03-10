@@ -31,7 +31,7 @@ public class EmailUtil {
 	 * @throws Exception
 	 */
 	@SuppressWarnings({ "unused"})
-	public String sendMailTest(EmailServer emailServer) throws Exception {
+	public String sendMailTest(EmailServer emailServer, String toAddress) throws Exception {
 
 		try {
 
@@ -41,7 +41,7 @@ public class EmailUtil {
 
 			if (smtpPipe == null) {
 				// throw new Exception("smtp pipe create fail!!");
-				System.out.println("smtp pipe create fail!!.");
+				//System.out.println("smtp pipe create fail!!.");
 				return "smtp pipe create fail!!.";
 			}
 
@@ -51,7 +51,7 @@ public class EmailUtil {
 			out = new PrintWriter(new OutputStreamWriter(outt), true);
 			
 			if (inn == null || outt == null) {
-				System.out.println("Failed to open streams to socket.");
+				//System.out.println("Failed to open streams to socket.");
 				return "Failed to open streams to socket.";
 			}
 
@@ -64,17 +64,17 @@ public class EmailUtil {
 			out.println("mail from: <" + emailServer.getFromAddress() + ">");
 			sb.append(in.readLine() + "\n").append("RCPT TO: <audtjddld@daihan-biomedical.com>\n");
 
-			out.println("rcpt to : <audtjddld@daihan-biomedical.com>");
+			out.println("rcpt to : <" + toAddress + ">");
 			sb.append(in.readLine() + "\n");
-			sb.append("SUBJECT:test\n").append("DATA");
+			sb.append("SUBJECT:Test Email. \n").append("DATA");
 
 			out.println("DATA");
 			out.println("subject : test");
-			out.println("\n test mail ");
+			out.println("\n Test Email ");
 			out.println(".");
 			sb.append(in.readLine() + "\n");
-
-			sb.append("test.");
+			
+			sb.append("delete please.");
 			out.println("QUIT");
 			sb.append(in.readLine() + "\n").append("QUIT \n");
 			

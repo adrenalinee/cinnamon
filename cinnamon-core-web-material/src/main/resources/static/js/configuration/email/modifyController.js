@@ -9,14 +9,9 @@ angular.module('cinnamon')
 	// 초기 리스트 가져오기
 	$scope.load = function() {
 		$http.get('/rest/configuration/email/server/' + $stateParams.emailServerId)
-		.then(
-			function(result) {
-				$scope.emailServer = result.data;
-			}
-			,function(error) {
-				console.log('error');
-			}
-		)
+		.success(function(result) {
+			$scope.emailServer = result.data;
+		})
 	}
 	
 	$scope.load();
@@ -32,21 +27,16 @@ angular.module('cinnamon')
 		var params = angular.copy($scope.emailServer);
 		console.log(params);
 		$http.put('/rest/configuration/email/server/' + $stateParams.emailServerId, params)
-		.then(
-			function(result) {
-				console.log(result);
-				$mdToast.show(
-				    	$mdToast.simple()
-				    	.textContent('수정되었습니다.')
-				    	.position('top right')
-				    	.hideDelay(3000)
-				)
-				$scope.goView();
-			},
-			function(error) {
-				$log.error('이메일 서버 정보 수정 중 에러 ' + error);
-			}
-		)
+			.success(function(result) {
+						console.log(result);
+						$mdToast.show(
+								$mdToast.simple()
+								.textContent('수정되었습니다.')
+								.position('top right')
+								.hideDelay(3000)
+						)
+						$scope.goView();
+			})
 	}
 });
 

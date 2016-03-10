@@ -23,16 +23,10 @@ angular.module('cinnamon')
 	// 초기 리스트 가져오기
 	$scope.load = function(params) {
 		$http.get('/rest/configuration/roles', {params : params})
-		.then(
-			function(result) {
-				$scope.domains = result.data;
-			}
-			,function(error) {
-				console.log('error');
-			}
-		)
+		.success(function(result) {
+			$scope.domains = result.data;
+		})
 	}
 	
 	$scope.load($scope.searchInfo);
-
 });

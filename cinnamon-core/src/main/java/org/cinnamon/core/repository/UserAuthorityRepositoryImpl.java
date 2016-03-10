@@ -104,10 +104,6 @@ public class UserAuthorityRepositoryImpl extends QueryDslRepositorySupport imple
 			builder.and(role.useStatus.eq(UseStatus.valueOf(permissionSearch.getUseStatus())));
 		}
 		
-		
-		long offset = pageable.getOffset();
-		long limit = pageable.getPageSize();
-		
 		JPAQuery query = new JPAQuery(em).from(role);
 		query
 			.where(builder);

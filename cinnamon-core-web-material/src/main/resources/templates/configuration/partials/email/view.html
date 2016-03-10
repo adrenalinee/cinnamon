@@ -19,76 +19,88 @@
 			</md-btton>
 		</md-card-header>
 		<div>
-		  	<md-content>
-			    <md-list>
-			    	<md-list-item >
-			       		<p><strong>이름</strong></p>
-			          	<p>{{ domains.name }}</p>
-				     </md-list-item>
-				     <md-list-item >
-			       		<p><strong>서버주소</strong></p>
-			          	<p>{{ domains.address }}</p>
-				     </md-list-item>
-				     <md-list-item>
-			       		<p><strong>포트</strong></p>
-			          	<p>{{ domains.port }}</p>
-			    	</md-list-item>
-				     <md-list-item>
-			       		<p><strong>보내는 주소</strong></p>
-			          	<p>{{ domains.fromAddress }}</p>
-			    	</md-list-item>
-				     <md-list-item>
-			       		<p><strong>아이디</strong></p>
-			          	<p>{{ domains.username }}</p>
-			    	</md-list-item>
-				     <md-list-item>
-			       		<p><strong>비밀번호</strong></p>
-			          	<p>{{ domains.password }}</p>
-			    	</md-list-item>
-				     <md-list-item class="center">
-			       		<p>
-				       		<strong>기존서버여부</strong>
-			       		</p>
-			       		<p>
+			<md-content>
+				<md-list>
+					<md-list-item >
+						<p><strong>이름</strong></p>
+						<p>{{ domains.name }}</p>
+					</md-list-item>
+					<md-list-item >
+						<p><strong>서버주소</strong></p>
+						<p>{{ domains.address }}</p>
+					</md-list-item>
+					<md-list-item>
+						<p><strong>포트</strong></p>
+						<p>{{ domains.port }}</p>
+					</md-list-item>
+					<md-list-item>
+						<p><strong>보내는 주소</strong></p>
+						<p>{{ domains.fromAddress }}</p>
+					</md-list-item>
+					<md-list-item>
+						<p><strong>아이디</strong></p>
+						<p>{{ domains.username }}</p>
+					</md-list-item>
+					<md-list-item>
+						<p><strong>비밀번호</strong></p>
+						<p>{{ domains.password }}</p>
+					</md-list-item>
+					<md-list-item class="center">
+						<p>
+							<strong>기존서버여부</strong>
+						</p>
+						<p>
 							<md-button ng-show="!domains.defaultServer" ng-class="{'md-primary' : domains.defaultServer}" class="md-raised" ng-click="setDefaultEmailServer(domains.emailServerId)">
 								기본서버 등록	
 							</md-button>
 							<strong>{{domains.defaultServer == true ? '기본서버':''}}</strong>
-			       		</p>
-			    	</md-list-item>
-				     <md-list-item>
-				     	<md-input-container class="md-block" flex-gt-xs="">
-				       		<p><strong>설명</strong></p>
-				          	<textarea readonly="readonly" ng-model="domains.description"></textarea>
-				     	</md-input-container>
-			    	</md-list-item>
-			    </md-list>
+						</p>
+					</md-list-item>
+					<md-list-item>
+						<md-input-container class="md-block" flex-gt-xs="">
+							<p><strong>설명</strong></p>
+							<textarea readonly="readonly" ng-model="domains.description"></textarea>
+						</md-input-container>
+					</md-list-item>
+				</md-list>
 			</md-content>
 		</div>
 		
 		
 	</md-card>
 	
-	<md-card md-whiteframe="4" layout-padding="">
-		<md-card-header>
-			<md-card-header-text>
-				<span class="md-title">서버 로그 확인</span>
-			</md-card-header-text>
-		</md-card-header>
-	  	<md-content>
-	  		<strong>로그</strong>
-      		<md-button class="md-raised md-warn" ng-click="mailTest(domains.emailServerId)" ng-disabled ="{{mailTestBtn == true ? true : false}}" >메일발송테스트</md-button>
-      		<md-progress-linear ng-show="mailTestBtn == true"></md-progress-linear>
-	     	<md-input-container class="md-block" flex-gt-xs="">
-				<textarea readonly="readonly" ng-model="mailSendTestMsg"></textarea>
-	     	</md-input-container>
-	     	
-		</md-content>
-		
-		<md-card-actions layout="row">
-			<md-button class="md-raised" ng-click="goList()">목록</md-button>
-		</md-card-actions>
-	</md-card>
+	<form name="frm" novalidate="novalidate">
+		<md-card md-whiteframe="4" layout-padding="">
+			<md-card-header>
+				<md-card-header-text>
+					<span class="md-title">서버 로그 확인</span>
+				</md-card-header-text>
+			</md-card-header>
+				<md-content>
+					<md-button class="md-raised md-warn" ng-click="mailTest(domains.emailServerId)" ng-disabled ="{{mailTestBtn == true ? true : false}}" >메일발송테스트</md-button>
+					<md-progress-linear ng-show="mailTestBtn == true"></md-progress-linear>
+					<md-input-container class="md-block" flex-gt-xs="">
+						<label>테스트 이메일 주소</label>
+						<input type="email" name="toAddress" required="required" ng-model="toAddress" maxlength="50" />
+						<div ng-messages="frm.toAddress.$error">
+							<div ng-message="required">보내실 테스트 이메일 주소를 입력하세요.</div>
+							<div ng-message="md-maxlength">50자 이상 입력하실 수 없습니다.</div>
+							<div ng-message="email">이메일 형식으로 입력하세요.</div>
+						</div>
+					</md-input-container>
+					
+					<md-input-container class="md-block" flex-gt-xs="">
+						<label>응답 메시지</label>
+						<textarea readonly="readonly" ng-model="mailSendTestMsg" area-label="테스트 요청 메일 응답 메시지"></textarea>
+					</md-input-container>
+				
+			</md-content>
+			
+			<md-card-actions layout="row">
+				<md-button class="md-raised" ng-click="goList()">목록</md-button>
+			</md-card-actions>
+		</md-card>
+	</form>
 	
 </div>
 

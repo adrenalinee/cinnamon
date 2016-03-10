@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
 import com.mysema.query.BooleanBuilder;
 import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.path.StringPath;
 
 /**
  * 
@@ -92,8 +94,20 @@ public class GroupRepositoryImpl extends QueryDslRepositorySupport implements Gr
 		query
 			.where(builder)
 			.offset(offset)
-			.limit(limit)
-			.orderBy(group.parent.groupId.asc(), group.orders.asc());
+			.limit(limit);
+			//.orderBy(group.parent.groupId.asc(), group.orders.asc());
+		
+		pageable.getSort().forEach(sort -> {
+			if(sort.getProperty().equals("groupId")) {
+				setDirection(query, group.groupId, sort.getDirection());
+			}
+			if(sort.getProperty().equals("name")) {
+				setDirection(query, group.name, sort.getDirection());
+			}
+			if(sort.getProperty().equals("parentGroupId")) {
+				setDirection(query, group.parent.groupId, sort.getDirection());
+			}
+		});
 		
 		
 		List<Group> domains = query.list(group);
@@ -103,5 +117,20 @@ public class GroupRepositoryImpl extends QueryDslRepositorySupport implements Gr
 		
 		return page;
 	}
-
+	
+	/**
+	 * 코드 정렬 값 셋팅
+	 * @author 정명성
+	 * create date : 2016. 3. 10.
+	 * @param query
+	 * @param property
+	 * @param direction
+	 */
+	public void setDirection(JPAQuery query, StringPath property, Direction direction) {
+		if(direction.equals(Direction.ASC)) {
+			query.orderBy(property.asc());
+		} else {
+			query.orderBy(property.desc());
+		}
+	}
 }

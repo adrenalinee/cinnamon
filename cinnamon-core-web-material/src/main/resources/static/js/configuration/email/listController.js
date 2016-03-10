@@ -27,42 +27,23 @@ angular.module('cinnamon')
 	// 초기 리스트 가져오기
 	$scope.load = function(params) {
 		$http.get('/rest/configuration/email/servers', {params : params})
-		.then(
-			function(result) {
-				$scope.domains = result.data;
-			}
-			,function(error) {
-				console.log('error');
-			}
-		)
+		.success(function(result) {
+				$scope.domains = result;
+		})
 	}
 	
 	// 기본 메일 등록
 	$scope.setDefaultEmailServer = function(domain) {
 		$http.patch('/rest/configuration/email/server/' + domain.emailServerId)
-		.then (
-			function(result) {
-				if(result.status == '200') {
-					$mdToast.show(
-					    	$mdToast.simple()
-					    	.textContent('기본서버로 설정되었습니다.')
-					    	.position('top right')
-					    	.hideDelay(3000)
-						)
-						$scope.load($scope.searchInfo);
-				}else {
-					$mdToast.show(
-					    	$mdToast.simple()
-					    	.textContent('기본서버 등록에 실패하였습니다.')
-					    	.position('top right')
-					    	.hideDelay(3000)
-						)
-				}
-			},
-			function(error) {
-				$log.error("기본서버 설정시 Error!" + error);
-			}
-		)
+		.success (function(result) {
+				$mdToast.show(
+						$mdToast.simple()
+						.textContent('기본서버로 설정되었습니다.')
+						.position('top right')
+						.hideDelay(3000)
+					)
+				$scope.load($scope.searchInfo);
+		})
 	}
 	
 	$scope.load($scope.searchInfo);

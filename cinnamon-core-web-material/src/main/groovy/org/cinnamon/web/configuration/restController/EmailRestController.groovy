@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -120,8 +121,8 @@ class EmailRestController {
 	
 	@RequestMapping(value="/server/{emailServerId}/test")
 	@ResponseBody
-	Map emailServerSendTest(@PathVariable Long emailServerId) {
-		String message = emailServerService.mailSendTest(emailServerId)
+	Map emailServerSendTest(@PathVariable Long emailServerId, @ModelAttribute EmailServerVo emailServerVo) {
+		String message = emailServerService.mailSendTest(emailServerId, emailServerVo)
 		Map resultMap = new HashMap()
 		resultMap.put("msg", message)
 		return resultMap

@@ -42,7 +42,6 @@ class RoleRestController {
 	@RequestMapping(value="", method=RequestMethod.GET)
 	Page<Permission> list (AuthoritySearch permissionSearch, Pageable pageable) {
 		 logger.info("start")
-		 logger.info(ToStringBuilder.reflectionToString(pageable))
 		 return roleService.search(permissionSearch, pageable);
 	}
 	

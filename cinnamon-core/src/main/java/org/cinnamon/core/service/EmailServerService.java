@@ -1,9 +1,9 @@
 package org.cinnamon.core.service;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.cinnamon.core.domain.EmailServer;
 import org.cinnamon.core.domain.enumeration.UseStatus;
 import org.cinnamon.core.exception.InternalServerErrorException;
+import org.cinnamon.core.exception.InvalidParameterException;
 import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.EmailServerRepository;
 import org.cinnamon.core.util.BlowfishCryptor;
@@ -44,20 +44,7 @@ public class EmailServerService {
 	@Transactional(readOnly=true)
 	public Page<EmailServer>getList(EmailServerSearch emailServerSearch, Pageable pageable) {
 		logger.info("start");
-		
 		return emailServerRepository.search(emailServerSearch, pageable);
-		
-//		int size = pageable.getPageSize();
-//		
-//		Page<EmailServer> domains = emailServerRepository.find(emailServerSearch, pageable);
-//		PagingUtil paging = new PagingUtil(domains.getNumber() + 1, size, domains.getTotalElements());
-//		
-//		
-//		ListPage<EmailServer> domainPage = new ListPage<EmailServer>();
-//		domainPage.setContent(domains.getContent());
-//		domainPage.setPaging(paging);
-//		
-//		return domainPage;
 	}
 	
 	
@@ -190,13 +177,16 @@ public class EmailServerService {
 	 * @param emailServerId
 	 * @return
 	 */
-	public String mailSendTest(Long emailServerId) throws Exception {
+	public String mailSendTest(Long emailServerId, EmailServerVo emailServerVo) throws Exception {
 		logger.info("start");
 		
 		EmailServer emailServer = emailServerRepository.findOne(emailServerId);
 		if (emailServer == null || emailServer.getUseStatus() != UseStatus.enable) {
 			throw new NotFoundException("메일 서버 정보가 없습니다. emailServerId : " + emailServerId);
 		}
-		return emailUtil.sendMailTest(emailServer);
+		if(emailServerVo.getToAddress() == null){
+			throw new InvalidParameterException("테스트 메일 주소가 없습니다. toAddress : " + emailServerVo.getToAddress());
+		}
+		return emailUtil.sendMailTest(emailServer, emailServerVo.getToAddress());
 	}
 }
