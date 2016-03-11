@@ -5,7 +5,7 @@
 		<span class="md-subhead text-muted">정보</span>
 	</h3>
 	
-	<md-card>
+	<md-card layout-padding="">
 		<md-card-header>
 			<md-card-header-text>
 				<span class="md-title">기본정보</span>
@@ -18,11 +18,14 @@
 		
 		<div ng-cloak="">
 			<md-content>
-				<md-list>
-					<md-list-item >
-				 		<p><strong>부모코드</strong></p>
+				<md-list flax="">
+					<md-list-item>
+				 		<p style="padding-left:15px;"><strong>부모코드</strong></p>
 						<p>
 							<a href="/configuration/groups/{{domains.parent.groupId}}">{{ domains.parent.name }}</a>
+							<md-button class="md-primary md-raised" ng-click="popupParentList()">
+								부모코드 등록
+							</md-button>
 						</p>
 					</md-list-item>
 					<md-list-item >
@@ -31,27 +34,50 @@
 					</md-list-item>
 					<md-list-item >
 						<p><strong>이름</strong></p>
-						<p>{{ domains.name }}</p>
+						<p>
+							{{ domains.name }} 
+						</p>
 					</md-list-item>
 					<md-list-item>
 						<p><strong>설명</strong></p>
 						<p>{{ domains.description }}</p>
 					</md-list-item>
 					<md-list-item>
-						<p><strong>사용상태</strong></p>
+						<p class="text-muted" >
+							<strong>사용상태</strong>
+						</p>
+						<p class="text-muted">
+							{{domains.useStatus}}
+						</p>
+					</md-list-item>
+				</md-list>
+			</md-content>
+		</div>
+	</md-card>
+
+	<md-card layout-padding="">
+		<md-card-header>
+			<md-card-header-text>
+				<span class="md-title">하위코드</span>
+			</md-card-header-text>
+			<md-button class="md-icon-button" ng-click="popupCreateChild($event)">
+				<md-tooltip>하위코드 등록</md-tooltip>
+				<md-icon>add</md-icon>
+			</md-button>
+		</md-card-header>
+		
+		<div ng-cloak="">
+			<md-content>
+				<md-list>
+					<md-list-item ng-repeat="child in childs">
 						<p>
-							<md-button class="md-icon-button md-primary" ng-show="domains.useStatus == 'enable'">
-								<md-tooltip>
-									사용중
-								</md-tooltip>
-								<i class="material-icons">panorama_fish_eye</i>
-							</md-button>
-							<md-button class="md-icon-button md-warn" ng-show="domains.useStatus == 'disable'">
-								<md-tooltip>
-									사용안함
-								</md-tooltip>
-								<i class="material-icons">do_not_disturb_alt</i>
-							</md-button>
+							<a href="/configuration/groups/{{child.groupId}}">{{child.groupId}}</a>
+						</p>
+						<p>
+							{{child.name}}
+						</p>
+						<p>
+							{{child.useStatus}}
 						</p>
 					</md-list-item>
 				</md-list>

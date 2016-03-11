@@ -97,18 +97,19 @@ public class GroupRepositoryImpl extends QueryDslRepositorySupport implements Gr
 			.limit(limit);
 			//.orderBy(group.parent.groupId.asc(), group.orders.asc());
 		
-		pageable.getSort().forEach(sort -> {
-			if(sort.getProperty().equals("groupId")) {
-				setDirection(query, group.groupId, sort.getDirection());
-			}
-			if(sort.getProperty().equals("name")) {
-				setDirection(query, group.name, sort.getDirection());
-			}
-			if(sort.getProperty().equals("parentGroupId")) {
-				setDirection(query, group.parent.groupId, sort.getDirection());
-			}
-		});
-		
+		if(pageable.getSort() != null) {
+			pageable.getSort().forEach(sort -> {
+				if(sort.getProperty().equals("groupId")) {
+					setDirection(query, group.groupId, sort.getDirection());
+				}
+				if(sort.getProperty().equals("name")) {
+					setDirection(query, group.name, sort.getDirection());
+				}
+				if(sort.getProperty().equals("parentGroupId")) {
+					setDirection(query, group.parent.groupId, sort.getDirection());
+				}
+			});
+		}
 		
 		List<Group> domains = query.list(group);
 		long totalCount = query.count();

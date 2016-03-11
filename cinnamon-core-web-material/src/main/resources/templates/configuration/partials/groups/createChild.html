@@ -1,0 +1,50 @@
+<md-dialog aria-label="하위 코드 등록" >
+	<form name="frm" novalidate="novalidate">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<h2>하위 코드 등록</h2>
+				<span flex=""></span>
+				<md-button class="md-icon-button" ng-click="close()">
+					<md-icon>close</md-icon>
+				</md-button>
+			</div>
+		</md-toolbar>
+		<md-dialog-content style="max-width:800px;max-height:810px;">
+			<md-list>
+				<md-list-item>
+					<md-input-container class="md-block">
+						<label>groupId</label>
+						<input name="groupId" ng-model="group.groupId" required="required" md-maxlength="30"/>
+						<div ng-messages="frm.group.$error ">
+							<div ng-message="required">groupId을 입력하세요.</div>
+							<div ng-message="md-maxlength">30자 이상 입력하실 수 없습니다.</div>
+						</div>
+					</md-input-container>
+				</md-list-item>
+				<md-list-item>
+					<md-input-container class="md-block">
+						<label>이름</label>
+						<input name="name" ng-model="group.name" required="required" md-maxlength="50"/>
+						<div ng-messages="frm.name.$error ">
+							<div ng-message="required">이름을 입력하세요.</div>
+							<div ng-message="md-maxlength">50자 이상 입력하실 수 없습니다.</div>
+						</div>
+					</md-input-container>
+				</md-list-item>
+				<md-list-item>
+					<md-input-container class="md-block">
+						<label>설명</label>
+						<textarea name="name" ng-model="group.description" maxlength="2000"></textarea>
+						<div ng-messages="frm.name.$error ">
+							<div ng-message="md-maxlength">200자 이상 입력하실 수 없습니다.</div>
+						</div>
+					</md-input-container>
+				</md-list-item>
+				
+			</md-list>
+			
+			<md-button ng-click="close()">취소</md-button>
+			<md-button class="md-raised md-primary" type="sumbit" ng-click="createChild(group)" ng-disabled="!frm.$valid">등록</md-button>
+		</md-dialog-content>
+	</form>
+</md-dialog>

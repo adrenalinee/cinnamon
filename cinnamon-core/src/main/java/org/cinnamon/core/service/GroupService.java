@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.cinnamon.core.domain.Group;
 import org.cinnamon.core.domain.enumeration.UseStatus;
 import org.cinnamon.core.exception.InvalidParameterException;
@@ -74,6 +75,7 @@ public class GroupService {
 	 * @param pageable
 	 * @return
 	 */
+	@Transactional(readOnly=true)
 	public Page<Group> search(GroupSearch groupSearch, Pageable pageable) {
 		logger.info("start");
 		return groupRepository.search(groupSearch, pageable);
@@ -86,6 +88,7 @@ public class GroupService {
 	 * @param groupVo
 	 * @return
 	 */
+	@Transactional
 	public Group create(GroupVo groupVo) {
 		logger.info("start");
 		
@@ -104,6 +107,7 @@ public class GroupService {
 	 * create date : 2016. 3. 10.
 	 * @param groupVo
 	 */
+	@Transactional
 	public void modify(GroupVo groupVo) {
 		logger.info("start");
 		
@@ -120,19 +124,43 @@ public class GroupService {
 	 * @param parentGroupId
 	 * @param groupVo
 	 */
+	@Transactional
 	public void childCreate(String parentGroupId, GroupVo groupVo) {
 		logger.info("start");
+		Group group = groupRepository.findOne(groupVo.getGroupId());
+		if(group != null) {
+			throw new InvalidParameterException("이미 등록된 GroupId 입니다. groupId : " + groupVo.getGroupId());
+		}
+		group = mapper.map(groupVo, Group.class);
+		Group parent = groupRepository.findOne(parentGroupId);
+		if(parent == null) {
+			throw new NotFoundException("부모 코드가 존재하지 않습니다. parentGroupId : " + parentGroupId);
+		}
+		group.setParent(parent);
+		groupRepository.save(group);
 		
+	}
+	
+	/**
+	 * 부모 코드 변경
+	 * @author 정명성
+	 * create date : 2016. 3. 11.
+	 * @param parentGroupId
+	 * @param groupId
+	 */
+	@Transactional
+	public void modifyParent(String parentGroupId, String groupId) {
+		logger.info("start");
 		Group parent = groupRepository.findOne(parentGroupId);
 		if(parent == null) {
 			throw new NotFoundException("부모 코드가 존재하지 않습니다. parentGroupId : " + parentGroupId);
 		}
 		
-		Group group = new Group();
-		mapper.map(groupVo, group);
+		Group group = groupRepository.findOne(groupId);
+		if(group == null) {
+			throw new NotFoundException("그룹 코드가 존재하지 않습니다. groupId : " + groupId);
+		}
+		
 		group.setParent(parent);
-		
-		groupRepository.save(group);
-		
 	}
 }

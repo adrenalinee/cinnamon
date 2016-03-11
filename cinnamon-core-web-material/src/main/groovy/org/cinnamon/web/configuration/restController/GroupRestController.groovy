@@ -113,4 +113,18 @@ class GroupRestController {
 		groupService.childCreate(parentGroupId, groupVo)
 	}
 	
+	/**
+	 * 부모 코드 변경
+	 * @author 정명성
+	 * create date : 2016. 3. 11.
+	 * @param parentGroupId
+	 * @param groupId
+	 * @return
+	 */
+	@RequestMapping(value="{parentGroupId}/parent", method=RequestMethod.PUT)
+	def parentModify(@PathVariable String parentGroupId, @RequestBody String groupId) {
+		logger.info("start")
+		groupService.modifyParent(parentGroupId, groupId)
+	}
+	
 }
