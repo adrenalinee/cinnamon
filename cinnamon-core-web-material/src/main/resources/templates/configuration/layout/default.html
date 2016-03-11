@@ -34,6 +34,11 @@
 				</md-menu-content>
 			</md-menu> -->
 			
+			<md-button class="md-raised" ng-repeat="menu in currentMenus.headerLeft" ng-href="{{menu.uri}}" target="_self">
+				{{menu.name}}
+			</md-button>
+			
+			
 			<span flex=""></span>
 			
 			<md-button class="md-icon-button">
