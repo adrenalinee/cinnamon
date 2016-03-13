@@ -44,11 +44,15 @@ angular.module('cinnamon')
 	
 	$scope.load = function(params) {
 		console.log(params);
+		
+		$scope.showProgress = true;
 		$http.get($scope.resourceUrl, {params: params})
 		.success(function(data) {
 			console.log(data);
 			
 			$scope.domains = data;
+		}).finally(function() {
+			$scope.showProgress = false;
 		});
 	}
 	

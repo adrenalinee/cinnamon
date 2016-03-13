@@ -9,7 +9,7 @@ angular.module('cinnamon', [
 	'ngMaterial',
 	'ui.bootstrap.paging',
 	'ui.bootstrap.pagination',
-	'ui.bootstrap'
+	'ui.bootstrap.pager',
 //	'md.data.table'
 //	'ui.bootstrap'
 ]).config(function($locationProvider, $httpProvider, $mdThemingProvider) {

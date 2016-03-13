@@ -38,4 +38,7 @@ angular.module('cinnamon')
 		$state.go('list');
 	}
 	
+	$scope.close = function() {
+		$mdDialog.hide();
+	}
 });
