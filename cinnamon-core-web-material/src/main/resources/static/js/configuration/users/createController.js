@@ -15,19 +15,25 @@ angular.module('cinnamon')
 			return;
 		}
 		
+		$scope.isProcess = true;
 		$http.head('/rest/configuration/users/' + $scope.domain.userId)
 		.success(function(data, status) {
 			$mdToast.show(
 					$mdToast.simple()
 					.position('top right')
 					.textContent('이미 사용중인 아이디 입니다. 다른 아이디를 입력하시기 바랍니다.'));
+			$scope.isProcess = false;
 		}).error(function(data, status) {
 			if (status == 404) {
+				$scope.isProcess = true;
 				$http.post('/rest/configuration/users', $scope.domain)
 				.success(function(data, status, config) {
 					console.log(status);
 					
-					$state.go('view', {userId: $scope.domain.userId});
+					$mdDialog.hide()
+					.then(function() {
+						$state.go('view', {userId: $scope.domain.userId});
+					});
 				});
 			}
 		});
