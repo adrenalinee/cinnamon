@@ -11,11 +11,13 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.util.UriComponentsBuilder
 
 /**
  * 
@@ -66,9 +68,13 @@ class GroupRestController {
 	 * @return
 	 */
 	@RequestMapping(value="", method=RequestMethod.POST)
-	def create(@Valid @RequestBody GroupVo groupVo) {
+	def create(@Valid @RequestBody GroupVo groupVo , UriComponentsBuilder builder) {
 		logger.info("start")
-		groupService.create(groupVo)
+		Group group = groupService.create(groupVo)
+		
+		URI location = builder.path("/configuration/groups/{groupId}").buildAndExpand(group.getGroupId()).toUri()
+		
+		ResponseEntity.created(location).build();
 	}
 	
 	

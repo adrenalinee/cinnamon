@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.cinnamon.core.domain.Group;
 import org.cinnamon.core.domain.enumeration.UseStatus;
 import org.cinnamon.core.exception.InvalidParameterException;
@@ -96,7 +95,7 @@ public class GroupService {
 		if(group != null) {
 			throw new InvalidParameterException("이미 등록되어 있는 코드 아이디 입니다. groupId : " + groupVo.getGroupId());
 		}
-		mapper.map(groupVo, group);
+		group = mapper.map(groupVo, Group.class);
 		// 생성
 		return groupRepository.save(group);
 	}
@@ -115,6 +114,8 @@ public class GroupService {
 		if(group == null) {
 			throw new NotFoundException("코드를 찾을 수 없습니다. groupId : " + groupVo.getGroupId());
 		}
+		
+		group = mapper.map(groupVo, Group.class);
 	}
 	
 	/**

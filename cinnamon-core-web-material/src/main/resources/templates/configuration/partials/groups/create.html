@@ -1,11 +1,51 @@
-<div class="content-container" ng-controller="configuration.group.list" ng-cloak="">
+<div class="content-container" ng-controller="configuration.group.create" ng-cloak="">
 
 	<h3 layout-padding="" class="md-headline">
 		코드
 		<span class="md-subhead text-muted">정보</span>
 	</h3>
 	
+	<md-card md-whiteframe="4" layout-padding="">
+		<md-subheader class="md-no-sticky">새 코드</md-subheader>
+			<md-content>
+				<form name="frm" novalidate="novalidate">
+				
+					<md-input-container class="md-block">
+						<label>groupId</label>
+							<input required="required" name="groupId" ng-model="group.groupId" md-maxlength="30" />
+							<div ng-messages="frm.groupId.$error ">
+							<div ng-message="required">groupId을 입력하세요.</div>
+							<div ng-message="md-maxlength">30자 이상 입력하실 수 없습니다.</div>
+						</div>
+					</md-input-container>
+
+					<md-input-container class="md-block">
+						<label>이름</label>
+							<input required="required" name="name" ng-model="group.name" md-maxlength="30" />
+							<div ng-messages="frm.name.$error ">
+							<div ng-message="required">이름을 입력하세요.</div>
+							<div ng-message="md-maxlength">30자 이상 입력하실 수 없습니다.</div>
+						</div>
+					</md-input-container>
+
+					<md-input-container class="md-block">
+						<label>설명</label>
+							<textarea name="description" ng-model="group.description" rows="5" md-maxlength="2000"></textarea>
+							<div ng-messages="frm.description.$error ">
+							<div ng-message="required">내용을 입력하세요.</div>
+							<div ng-message="md-maxlength">2000자 이상 입력하실 수 없습니다.</div>
+						</div>
+					</md-input-container>
+				</form>
+				
+			</md-content>
+			
+			<md-card-actions layout="row">
+				<md-button ng-click="goList()">취소</md-button>
+				<md-button class="md-raised md-primary" type="sumbit" ng-click="create()" ng-disabled="!frm.$valid">생성</md-button>
+			</md-card-actions>
 	
+	</md-card>
 
 
 </div>

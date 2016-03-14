@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/default">
+
+<head>
+<title>코드</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<base href="/" />
+</head>
+
+<body layout:fragment="content">
+	<ui-view layout-fill=""/>
+
+
+<script type="text/javascript">
+//<![CDATA[
+angular.module('cinnamon')
+.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider.state('list', {
+		url: '/configuration/files',
+		templateUrl: '/configuration/partials/files/list',
+		controller: 'configuration.file.list'
+	})
+	
+	.state('view', {
+		url: '/configuration/files/:fileId',
+		templateUrl: '/configuration/partials/files/view',
+		controller: 'configuration.file.view'
+	})
+
+});
+//]]>
+</script>
+<script src="/js/configuration/directives/searchList.js" type="text/javascript"></script>
+<script src="/js/configuration/files/listController.js" type="text/javascript"></script>
+<script src="/js/configuration/files/viewController.js" type="text/javascript"></script>
+
+</body>
+
+</html>

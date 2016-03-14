@@ -136,4 +136,12 @@ angular.module('cinnamon')
 			$scope.customFullscreen = (wantsFullScreen === true);
 		});
 	}
+	
+	// 목록으로 이동
+	$scope.goList = function() {
+		$interval(function() {
+			$state.go('list');
+		}, 200, 1);
+	}	
+
 });

@@ -15,26 +15,26 @@
 						<label>이름</label>
 							<input required="required" name="name" ng-model="role.name" md-maxlength="100" />
 							<div ng-messages="frm.name.$error ">
-							<div ng-message="required">이름을 입력하세요.</div>
-							<div ng-message="md-maxlength">100자 이상 입력하실 수 없습니다.</div>
-						</div>
+								<div ng-message="required">이름을 입력하세요.</div>
+								<div ng-message="md-maxlength">100자 이상 입력하실 수 없습니다.</div>
+							</div>
 					</md-input-container>
 					
 					<md-input-container class="md-block">
 						<label>Authority</label>
 							<input required="required" ng-model="role.authority" name="authority" md-maxlength="25"/>
 							<div ng-messages="frm.authority.$error ">
-							<div ng-message="required">권한명을 입력하세요.</div>
-							<div ng-message="md-maxlength">30자 이상 입력하실 수 없습니다.</div>
-						</div>
+								<div ng-message="required">권한명을 입력하세요.</div>
+								<div ng-message="md-maxlength">30자 이상 입력하실 수 없습니다.</div>
+							</div>
 					</md-input-container>
 					
 					<md-input-container class="md-block">
 						<label>description</label>
-							<textareang-model="role.description" md-maxlength="2000" rows="5" md-select-on-focus="" ></textarea>
+							<textarea ng-model="role.description" md-maxlength="2000" rows="5" md-select-on-focus="" ></textarea>
 							<div ng-messages="frm.description.$error ">
-							<div ng-message="md-maxlength">2000자 이상 입력하실 수 없습니다.</div>
-						</div>
+								<div ng-message="md-maxlength">2000자 이상 입력하실 수 없습니다.</div>
+							</div>
 					</md-input-container>
 					
 				</form>
