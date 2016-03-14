@@ -18,7 +18,7 @@ angular.module('cinnamon')
 		templateUrl: '/configuration/directives/searchList',
 		controller: 'searchListController'
 	}
-}).controller('searchListController', function($scope, $http) {
+}).controller('searchListController', function($scope, $http, $mdMedia) {
 	console.log('searchListController');
 	
 //	$scope.domains;
@@ -74,6 +74,10 @@ angular.module('cinnamon')
 //		$location.search($scope.searchInfo);
 		
 		$scope.load(params);
+	}
+	
+	$scope.isMobile = function() {
+		return !$mdMedia('gt-sm');
 	}
 	
 	$scope.sortItem = function(key ,value) {

@@ -16,7 +16,7 @@
 <body layout:fragment="body" class="content" layout="column" ng-controller="layoutController">
 	<md-toolbar md-whiteframe="5" layout-align="center center">
 		<div class="md-toolbar-tools" layout-fill="">
-			<md-button class="md-icon-button" ng-click="toggleSidenav()">
+			<md-button class="md-icon-button" ng-click="toggleSidenav()" ng-show="isMobile()">
 				<md-icon>menu</md-icon>
 			</md-button>
 			<h2>
@@ -41,11 +41,13 @@
 			
 			<span flex=""></span>
 			
-			<md-button class="md-icon-button">
+			<!-- <md-button class="md-icon-button">
 				<md-icon>notifications_none</md-icon>
-			</md-button>
+			</md-button> -->
 			
-			<md-menu ng-if="!$mdMedia('gt-md')">
+			{{me.name}}
+			
+			<md-menu ng-show="!isMobile()">
 				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
 					<md-icon>person</md-icon>
 				</md-button>
@@ -84,21 +86,41 @@
 				<h2>Cinnamon</h2>
 			</div>
 		</md-toolbar>
-		<md-subheader>{{currentMenus.name}}</md-subheader>
-		<md-list>
-			<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
-				<div flex="15">
-					<md-icon>{{menu.iconClass}}</md-icon>
-				</div>
-				{{menu.name}}
-			</md-list-item>
-			<md-list ng-if="menu.childs != 0">
-				<md-list-item ng-repeat="childMenu in menu.childs" ng-click="selectMenu(childMenu)">
-					{{childMenu.name}}
+		
+		<!-- <md-menu>
+			<md-button ng-click="$mdOpenMenu($event)">
+				<md-icon>person</md-icon>
+				{{me.name}}
+			</md-button>
+			<md-menu-content>
+				<md-menu-item>
+					<md-button>프로필</md-button>
+				</md-menu-item>
+				<md-menu-item>
+					<md-button ng-href="/settings" target="_self">개인 설정</md-button>
+				</md-menu-item>
+				<md-menu-item>
+					<md-button ng-href="/logout" target="_self">로그아웃</md-button>
+				</md-menu-item>
+			</md-menu-content>
+		</md-menu> -->
+		
+		<md-content>
+			<md-subheader>{{currentMenus.name}}</md-subheader>
+			<md-list>
+				<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
+					<div flex="15">
+						<md-icon>{{menu.iconClass}}</md-icon>
+					</div>
+					{{menu.name}}
 				</md-list-item>
+				<md-list ng-if="menu.childs != 0">
+					<md-list-item ng-repeat="childMenu in menu.childs" ng-click="selectMenu(childMenu)">
+						{{childMenu.name}}
+					</md-list-item>
+				</md-list>
 			</md-list>
-			
-		</md-list>
+		</md-content>
 		
 	</md-sidenav>
 	
@@ -111,7 +133,7 @@
 	<md-content layout="row" flex="" class="content">
 	<!-- style="background: transparent" -->
 	<!-- md-is-locked-open="$mdMedia('gt-lg')" -->
-		<!-- <md-sidenav md-component-id="leftSidenav" md-is-locked-open="$mdMedia('gt-sm')" style="width: 230px" ng-style="sidenavStyle">
+		<md-sidenav md-is-locked-open="$mdMedia('gt-sm')" style="width: 230px;background: transparent">
 			<md-list>
 				<md-subheader class="content md-no-sticky">{{currentMenus.name}}</md-subheader>
 				<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
@@ -128,7 +150,7 @@
 				
 			</md-list>
 			
-		</md-sidenav> -->
+		</md-sidenav>
 		<div flex="">
 			<div layout:fragment="content"></div>
 		</div>
