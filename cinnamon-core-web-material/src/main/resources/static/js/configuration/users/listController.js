@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.users.list', function($scope, $http, $interval, $state, $location) {
+.controller('configuration.users.list', function($scope, $http, $interval, $state, $location, $mdDialog, $mdMedia) {
 	console.log('configuration.users.list');
 	
 //	$http.get('/rest/configuration/users')
@@ -8,6 +8,21 @@ angular.module('cinnamon')
 //		
 //		$scope.domains = data;
 //	});
+	
+	
+	$scope.create = function($event) {
+		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+		$mdDialog.show({
+			targetEvent: $event,
+			templateUrl: '/configuration/partials/users/create',
+			controller: 'configuration.users.create',
+			fullscreen: useFullScreen
+		});
+	}
+	
+	
+	
+	
 	
 	$scope.searchInfo = {};
 	

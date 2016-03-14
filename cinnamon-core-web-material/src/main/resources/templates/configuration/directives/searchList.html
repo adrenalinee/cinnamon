@@ -4,12 +4,13 @@
 </div>
  -->
 <div ng-clock="">
-	<!-- 상세검색 헤더 -->
-	<md-card-header layout="row" layout-align="center center">
 	
-		<md-input-container md-no-float="true" flex="" layout-fill="">
-			<md-icon>search</md-icon>
-			<input ng-model="searchInfo.keyword" flex="" placeholder="검색어를 입력하세요" ng-keypress="onSearch($event)" />
+	<!-- 상세검색 헤더 -->
+	<md-progress-linear ng-if="showProgress" md-mode="indeterminate"></md-progress-linear>
+	<md-content layout-padding="" layout="row" layout-align="center center">
+		<md-input-container class="md-icon-float" flex="">
+			<!-- <md-icon>search</md-icon> -->
+			<input ng-model="searchInfo.keyword" placeholder="검색어를 입력하세요" ng-keypress="onSearch($event)" />
 		</md-input-container>
 		
 		<md-button class="md-icon-button" ng-click="showDetailSearch = !showDetailSearch">
@@ -36,7 +37,7 @@
 			</md-menu-content>
 		</md-menu>
 		
-	</md-card-header>
+	</md-content>
 	<!-- 상세검색 헤더 끝 -->
 	<!-- 상세 검색 필드 -->
 	<div ng-if="showDetailSearch" class="content">
@@ -49,6 +50,7 @@
 	<!-- 페이징 -->
 	<div ng-if="isPaging != false">
 		<uib-pagination
+			ng-if="!isMobile()"
 			layout-margin=""
 			template-url="/configuration/partials/directive/pagination"
 			total-items="domains.totalElements"
@@ -56,15 +58,23 @@
 			boundary-links="true"
 			ng-model="searchInfo.page"
 			ng-change="onPageChange()" />
+		
+		<uib-pager
+			ng-if="isMobile()"
+			layout-margin=""
+			template-url="/configuration/partials/directive/pager"
+			total-items="domains.totalElements"
+			ng-model="searchInfo.page"
+			ng-change="onPageChange()" />
 	</div>
 	<!-- 페이징 끝-->
 	<!-- 리스트 -->
-	<md-list>
+	<md-list style="padding: 0 0 0 0">
 		<md-divider></md-divider>
 		<ng-transclude ng-transclude-slot="items" />
 		
 		<md-list-item ng-if="domains.content.length == 0" class="text-center">
-		    <p>검색 결과 없음.</p>
+			<p>검색 결과 없음.</p>
 			<md-divider ng-if="!$last"></md-divider>
 		</md-list-item>
 	</md-list>

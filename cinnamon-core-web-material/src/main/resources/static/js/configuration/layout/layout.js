@@ -4,10 +4,16 @@ angular.module('cinnamon')
 	var dimension = $location.path().split("/")[1];
 	console.log(dimension);
 	
-	$http.get('/rest/session/current-menus/' + dimension)
+	$http.get('/rest/cinnamon/session/current-menus/' + dimension)
 	.success(function(data) {
 		console.log(data);
 		$scope.currentMenus = data;
+	});
+	
+	$http.get('/rest/cinnamon/session/me')
+	.success(function(data) {
+		console.log(data);
+		$scope.me = data;
 	});
 	
 	$scope.selectMenu = function(menu) {
@@ -28,22 +34,22 @@ angular.module('cinnamon')
 		$mdSidenav('leftSidenav').close();
 	}
 	
-	$scope.showMenuButton = function() {
+	$scope.isMobile = function() {
 		return !$mdMedia('gt-sm');
 	}
 	
 	
-	$scope.sidenavStyle;
-	$scope.isHideSidebarToolbar;
-	onResize($scope, $mdMedia);
-	
-	angular.element($window).on('resize', function(event) {
-		console.log('resize');
-		
-		onResize($scope, $mdMedia);
-		
-		$scope.$apply();
-	});
+//	$scope.sidenavStyle;
+//	$scope.isHideSidebarToolbar;
+//	onResize($scope, $mdMedia);
+//	
+//	angular.element($window).on('resize', function(event) {
+//		console.log('resize');
+//		
+//		onResize($scope, $mdMedia);
+//		
+//		$scope.$apply();
+//	});
 	
 });
 

@@ -2,10 +2,12 @@ package org.cinnamon.web.configuration.restController
 
 import org.cinnamon.core.domain.Menu
 import org.cinnamon.core.domain.MenuGroup
+import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.enumeration.MenuPosition
 import org.cinnamon.core.service.MenuGroupService
 import org.cinnamon.core.service.MenuService
 import org.cinnamon.core.service.SiteService
+import org.cinnamon.core.service.UserBaseService;
 import org.cinnamon.core.vo.resource.MenuGroupResource
 import org.cinnamon.core.vo.resource.MenuResource
 import org.dozer.Mapper
@@ -22,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 
 @RestController("cinnamon.sessionRestController")
-@RequestMapping("/rest/session")
+@RequestMapping("/rest/cinnamon/session")
 class SessionRestController {
 	Logger logger = LoggerFactory.getLogger(getClass())
 	
@@ -34,6 +36,10 @@ class SessionRestController {
 	
 	@Autowired
 	SiteService siteService
+	
+	@Autowired
+	UserBaseService<UserBase> userBaseService
+	
 	
 	@Autowired
 	Mapper beanMapper
@@ -82,5 +88,13 @@ class SessionRestController {
 		
 		
 		return menuGroupResource
+	}
+	
+	
+	@RequestMapping(value="/me", method=RequestMethod.GET)
+	UserBase getMe(@AuthenticationPrincipal UserDetails userDetails) {
+		logger.info("start")
+		
+		return userBaseService.get(userDetails.getUsername());
 	}
 }

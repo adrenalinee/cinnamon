@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.users.create', function($scope, $http, $interval, $state, $mdToast, $mdDialog) {
+.controller('configuration.users.create', function($scope, $http, $interval, $state, $mdToast, $mdDialog, $mdMedia) {
 	console.log('configuration.users.create');
 	
 	$scope.create = function(form, event) {
@@ -34,8 +34,16 @@ angular.module('cinnamon')
 		
 	}
 	
-	$scope.goList = function() {
-		$state.go('list');
+//	$scope.goList = function() {
+//		$state.go('list');
+//	}
+	
+	$scope.close = function() {
+		$mdDialog.hide();
 	}
 	
+	
+	$scope.isMobile = function() {
+		return !$mdMedia('gt-sm');
+	}
 });

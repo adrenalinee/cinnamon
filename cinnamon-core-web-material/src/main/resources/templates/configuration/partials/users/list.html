@@ -1,6 +1,6 @@
 <md-fab-speed-dial md-open="fabOpen" class="md-fab-bottom-right md-scale" style="position: fixed">
 	<md-fab-trigger>
-		<md-button class="md-fab" ui-sref="create">
+		<md-button class="md-fab" ng-click="create($event)">
 			<md-tooltip md-direction="left">사용자 생성</md-tooltip>
 			<md-icon>person_add</md-icon>
 		</md-button>
@@ -12,7 +12,49 @@
 	<h3 layout-padding="" class="md-headline">사용자</h3>
 	
 	<md-card md-whiteframe="4">
-		<md-card-header layout="row" layout-align="center center">
+		
+		<cm-search-list
+			resource-url="'/rest/configuration/users'"
+			domains="domains"
+			search-info="searchInfo"
+			sort-items="{
+				userId: 'userId',
+				name: '이름',
+				email: '이메일'
+			}">
+			
+			<cm-search-list-filters>
+				<md-card-content class="content" layout="column">
+					<md-input-container layout-fill="">
+						<label>이름</label>
+						<input ng-model="searchInfo.name" />
+					</md-input-container>
+					<md-input-container layout-fill="">
+						<label>userId</label>
+						<input ng-model="searchInfo.userId" />
+					</md-input-container>
+					<md-input-container layout-fill="">
+						<label>이메일</label>
+						<input ng-model="searchInfo.email" />
+					</md-input-container>
+				</md-card-content>
+			</cm-search-list-filters>
+			<cm-search-list-items>
+				<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)" layout="row">
+					<div flex="5">
+						<md-icon>account_circle</md-icon>
+					</div>
+					<b flex="30">{{domain.name}}</b>
+					<span flex="30" class="text-muted">{{domain.email}}</span>
+					<span class="text-muted">{{domain.tel}}</span>
+					<md-divider ng-if="!$last"></md-divider>
+				</md-list-item>
+			</cm-search-list-items>
+		</cm-search-list>
+		
+		
+		
+		<!-- <md-card-header layout="row" layout-align="center center">
 			<md-icon>search</md-icon>
 			<md-input-container md-no-float="true" flex="" layout-fill="">
 				<input ng-model="searchInfo.keyword" flex="" placeholder="검색어를 입력하세요" ng-keypress="onSearch($event)" />
@@ -88,7 +130,7 @@
 				<span class="text-muted">{{domain.tel}}</span>
 				<md-divider ng-if="!$last"></md-divider>
 			</md-list-item>
-		</md-list>
+		</md-list> -->
 	</md-card>
 	
 </div>
