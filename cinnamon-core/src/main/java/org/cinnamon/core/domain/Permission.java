@@ -1,5 +1,6 @@
 package org.cinnamon.core.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -20,8 +21,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author 동성
  *
  */
+@SuppressWarnings("serial")
 @Entity
-public class Permission {
+public class Permission implements Serializable{
 	
 	@Id
 	@GeneratedValue

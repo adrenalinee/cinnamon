@@ -51,7 +51,11 @@ angular.module('cinnamon')
 			console.log(data);
 			
 			$scope.domains = data;
-		}).finally(function() {
+		})
+		.error(function(error) {
+			console.log('no data');
+		})
+		.finally(function() {
 			$scope.showProgress = false;
 		});
 	}

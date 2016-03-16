@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @since 2014. 12. 22.
  */
 @Entity
-public class UserGroup  {
+public class UserGroup implements Serializable {
 
 	@Id
 	@GeneratedValue

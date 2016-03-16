@@ -7,7 +7,7 @@ import org.cinnamon.core.domain.Site
 import org.cinnamon.core.domain.enumeration.MenuPosition
 import org.cinnamon.core.enumeration.Groups
 import org.cinnamon.core.service.GroupService
-import org.cinnamon.core.service.MenuService;
+import org.cinnamon.core.service.MenuService
 import org.cinnamon.core.service.SiteService
 import org.cinnamon.core.vo.SiteVo
 import org.cinnamon.core.vo.search.SiteSearch
@@ -44,23 +44,14 @@ class SiteRestController {
 	MenuService menuService
 	
 	@RequestMapping(value="", method=RequestMethod.POST)
-	ResponseEntity<Void> postSites(@RequestBody @Valid SiteVo siteVo, UriComponentsBuilder builder) {
+	ResponseEntity<Void> postSites(@Valid @RequestBody SiteVo siteVo, UriComponentsBuilder builder) {
 		logger.info("start")
 		
 		Site site = siteService.save(siteVo)
 		
-		URI location = MvcUriComponentsBuilder
-			.fromMethodName(
-				builder,
-				SiteRestController.class,
-				"getSite",
-				site.getSiteId())
-			.build()
-			.toUri()
+		URI location = builder.path("/configuration/sites/{siteId}").buildAndExpand(site.getSiteId()).toUri()
 		
-		return ResponseEntity
-			.created(location)
-			.build()
+		return ResponseEntity.created(location).build()
 	}
 	
 	

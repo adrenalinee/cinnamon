@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.roles.view', function($scope, $http, $interval, $stateParams, $log, $mdDialog, $mdMedia, $state) {
+.controller('configuration.roles.view', function($scope, $http, $interval, $stateParams, $log, $mdDialog, $mdMedia, $state, $sce) {
 	console.log('configuration.roles.view');
 	
 	// role 정보 가져오기

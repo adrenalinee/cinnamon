@@ -22,7 +22,7 @@ angular.module('cinnamon')
 								.textContent('등록되었습니다.')
 								.position('top right')
 								.hideDelay(3000)
-					);
+					)
 
 					$interval(function() {
 						var viewLink = headers("Location");

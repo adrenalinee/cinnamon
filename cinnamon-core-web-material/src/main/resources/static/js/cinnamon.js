@@ -10,6 +10,8 @@ angular.module('cinnamon', [
 	'ui.bootstrap.paging',
 	'ui.bootstrap.pagination',
 	'ui.bootstrap.pager',
+	'ngSanitize'
+	
 //	'md.data.table'
 //	'ui.bootstrap'
 ]).config(function($locationProvider, $httpProvider, $mdThemingProvider) {

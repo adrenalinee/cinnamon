@@ -5,6 +5,8 @@ angular.module('cinnamon')
 	var siteId = $stateParams.siteId;
 	$scope.siteId = siteId;
 	
+	$scope.searchInfo = {};
+	
 	$http.get('/rest/configuration/sites/' + siteId)
 	.success(function(data) {
 		console.log(data);

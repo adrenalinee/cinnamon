@@ -14,6 +14,7 @@
 
 <script type="text/javascript" src="/js/configuration/sites/listController.js"></script>
 <script type="text/javascript" src="/js/configuration/sites/viewController.js"></script>
+<script type="text/javascript" src="/js/configuration/sites/createController.js"></script>
 <script type="text/javascript">
 /*<![CDATA[*/
 angular.module('cinnamon')
@@ -22,6 +23,10 @@ angular.module('cinnamon')
 		url: '/configuration/sites',
 		templateUrl: '/configuration/partials/sites/list',
 		controller: 'configuration.sites.list'
+	}).state('create', {
+		url: '/configuration/sites/create',
+		templateUrl: '/configuration/partials/sites/create',
+		controller: 'configuration.sites.create'
 	}).state('view', {
 		url: '/configuration/sites/:siteId',
 		templateUrl: '/configuration/partials/sites/view',

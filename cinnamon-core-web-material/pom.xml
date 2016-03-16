@@ -84,6 +84,11 @@
 			<artifactId>font-awesome</artifactId>
 			<version>4.5.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular-sanitize</artifactId>
+			<version>1.5.0-rc.1</version>
+		</dependency>
 		<!-- <dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-material-data-table</artifactId>
