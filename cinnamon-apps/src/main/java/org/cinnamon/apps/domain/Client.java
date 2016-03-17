@@ -47,9 +47,9 @@ public class Client {
 	
 //	tring type;
 	
-	Integer accessTokenValiditySeconds = 36000;
+	Integer accessTokenValiditySeconds = 60 * 60 * 2;	// 2 hour 7200 sec
 	
-	Integer refreshTokenValiditySeconds = 36000;
+	Integer refreshTokenValiditySeconds = 60 * 60 * 24 * 30;	// 30 days 
 	
 	
 	@ManyToOne(optional=false)
