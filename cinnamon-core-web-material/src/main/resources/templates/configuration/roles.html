@@ -37,7 +37,7 @@ angular.module('cinnamon')
 		controller: 'configuration.roles.view'
 	})
 	.state('modify', {
-		url: '/configuration/roles/modify/:permissionId',
+		url: '/configuration/roles/:permissionId/modify',
 		templateUrl: '/configuration/partials/roles/modify',
 		controller: 'configuration.roles.modify'
 	})	

@@ -15,6 +15,8 @@
 <script type="text/javascript" src="/js/configuration/sites/listController.js"></script>
 <script type="text/javascript" src="/js/configuration/sites/viewController.js"></script>
 <script type="text/javascript" src="/js/configuration/sites/createController.js"></script>
+<script type="text/javascript" src="/js/configuration/sites/modifyController.js"></script>
+
 <script type="text/javascript">
 /*<![CDATA[*/
 angular.module('cinnamon')
@@ -31,7 +33,12 @@ angular.module('cinnamon')
 		url: '/configuration/sites/:siteId',
 		templateUrl: '/configuration/partials/sites/view',
 		controller: 'configuration.sites.view'
-	});
+	})
+	.state('modify', {
+		url: '/configuration/sites/:siteId/modify',
+		templateUrl: '/configuration/partials/sites/modify',
+		controller: 'configuration.sites.modify'
+	})
 	
 });
 /*]]>*/

@@ -1,0 +1,38 @@
+	<md-card layout-padding="">
+		<md-card-header>
+			<md-card-header-text>
+				<span class="md-title">메뉴그룹</span>
+			</md-card-header-text>
+		</md-card-header>
+		<cm-search-list
+			resource-url="'/rest/configuration/menuGroups'"
+			domains="domains"
+			is-paging="false"
+			default-search-params="{name: '이름'}"
+			search-info="searchInfo">
+			
+			<cm-search-list-filters>
+				<md-card-content class="content" layout="column">
+					<md-input-container layout-fill="">
+						<label>이름</label>
+						<input name="name" />
+					</md-input-container>
+				</md-card-content>
+			</cm-search-list-filters>
+			
+			<cm-search-list-items>
+				<md-list-item ng-repeat="domain in domains.content" layout="row">
+					<p>{{domain.name}}</p>
+
+					<md-button class="md-primary md-raised" ng-show="{{domain.menuGroupId != siteInfo.defaultMenuGroup.menuGroupId}}" ng-click="putDefaultMenuGroup(domain.menuGroupId)">
+						설정
+					</md-button>
+					<md-button class="md-raised" ng-show="{{domain.menuGroupId == siteInfo.defaultMenuGroup.menuGroupId}}" ng-click="deleteDefaultMenuGroup(domain.menuGroupId)">
+						취소
+					</md-button>
+					<md-divider ng-if="!$last"></md-divider>
+				</md-list-item>
+			</cm-search-list-items>
+			
+		</cm-search-list>
+	</md-card>

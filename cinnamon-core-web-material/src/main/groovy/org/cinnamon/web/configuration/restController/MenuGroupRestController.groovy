@@ -86,4 +86,5 @@ class MenuGroupRestController {
 		logger.info("start")
 		return menuGroupService.getSiteMenuGroups(siteId);
 	}
+
 }

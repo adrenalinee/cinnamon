@@ -42,7 +42,7 @@ angular.module('cinnamon')
 		controller: 'configuration.email.server.view'
 	})
 	.state('modify', {
-		url : '/configuration/email/server/modify/:emailServerId',
+		url : '/configuration/email/server/:emailServerId/modify',
 		templateUrl : '/configuration/partials/email/modify',
 		controller : 'configuration.email.server.modify'
 	})

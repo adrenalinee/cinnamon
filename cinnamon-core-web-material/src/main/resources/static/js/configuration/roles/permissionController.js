@@ -79,7 +79,6 @@ angular.module('cinnamon')
 		// 변경되는 메뉴
 		var changePermitMenu = [];
 		
-		
 		for(var obj in permitMenus){
 			changePermitMenu.push({menuId : obj, permitRoot : permitMenus[obj].permitRoot}); 
 		}

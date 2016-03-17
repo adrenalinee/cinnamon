@@ -3,6 +3,7 @@ package org.cinnamon.core.service;
 import org.cinnamon.core.domain.Property;
 import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.enumeration.DefinedDBProperty;
+import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.PropertyRepository;
 import org.cinnamon.core.repository.SiteRepository;
 import org.cinnamon.core.vo.SiteVo;
@@ -95,6 +96,8 @@ public class SiteService {
 	 */
 	@Transactional(readOnly=true)
 	public Site getDefault() {
+		logger.info("start");
+		
 		Property property = propertyRepository.findOne(DefinedDBProperty.defaultSiteId.name());
 		if (property != null) {
 			String defaultSiteId = property.getValue();
@@ -112,4 +115,23 @@ public class SiteService {
 		return null;
 	}
 	
+	
+	/**
+	 * site 정보 수정
+	 * @author 정명성
+	 * create date : 2016. 3. 17.
+	 * @param siteId
+	 * @param siteVo
+	 */
+	@Transactional
+	public void modify(String siteId, SiteVo siteVo) {
+		logger.info("start");
+		
+		Site site = siteRepository.findOne(siteId);
+		if(site == null) {
+			throw new NotFoundException("site가 존재하지 않습니다. siteId : " + siteId);
+		}
+		
+		beanMapper.map(siteVo, site);
+	}
 }

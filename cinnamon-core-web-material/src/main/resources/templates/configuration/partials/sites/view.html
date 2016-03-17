@@ -44,7 +44,7 @@
 					<th>기본 메뉴 모음</th>
 					<td class="text-muted">
 						{{domain.defaultMenuGroup.name}}
-						<md-button class="md-raised md-primary" ng-click="selectMenuGroup($event)">메뉴 모음 선택</md-button>
+						<md-button class="md-raised md-primary" ng-click="popupDefaultSite()">메뉴 모음 선택</md-button>
 					</td>
 				</tr>
 				<tr>
@@ -55,7 +55,9 @@
 				</tr>
 				<tr>
 					<th>설명</th>
-					<td class="text-muted">{{domain.description}}</td>
+					<td class="text-muted">
+						<textarea rows="5" ng-bind-html="domain.description" style="width:95%;border:0px;" readonly="true"></textarea>
+					</td>
 				</tr>
 			</table>
 		</md-content>

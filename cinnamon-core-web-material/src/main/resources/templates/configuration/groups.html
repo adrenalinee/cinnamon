@@ -37,7 +37,7 @@ angular.module('cinnamon')
 		controller: 'configuration.group.view'
 	})
 	.state('modify', {
-		url: '/configuration/groups/modify/:groupId',
+		url: '/configuration/groups/:groupId/modify',
 		templateUrl: '/configuration/partials/groups/modify',
 		controller: 'configuration.group.modify'
 	});

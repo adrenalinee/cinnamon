@@ -7,6 +7,7 @@ import org.cinnamon.core.domain.Site
 import org.cinnamon.core.domain.enumeration.MenuPosition
 import org.cinnamon.core.enumeration.Groups
 import org.cinnamon.core.service.GroupService
+import org.cinnamon.core.service.MenuGroupService;
 import org.cinnamon.core.service.MenuService
 import org.cinnamon.core.service.SiteService
 import org.cinnamon.core.vo.SiteVo
@@ -43,6 +44,9 @@ class SiteRestController {
 	@Autowired
 	MenuService menuService
 	
+	@Autowired
+	MenuGroupService menuGroupService
+	
 	@RequestMapping(value="", method=RequestMethod.POST)
 	ResponseEntity<Void> postSites(@Valid @RequestBody SiteVo siteVo, UriComponentsBuilder builder) {
 		logger.info("start")
@@ -70,12 +74,18 @@ class SiteRestController {
 		return siteService.get(SiteId)
 	}
 	
-	
+	/**
+	 * 사이트 정보 수정
+	 * @author 정명성
+	 * create date : 2016. 3. 17.
+	 * @param SiteId
+	 * @param siteVo
+	 */
 	@RequestMapping(value="{SiteId}", method=RequestMethod.PUT)
 	void putSite(@PathVariable String SiteId, @RequestBody @Valid SiteVo siteVo) {
 		logger.info("start")
 		
-		siteService.save(SiteId, siteVo)
+		siteService.modify(SiteId, siteVo)
 	}
 	
 	
@@ -125,6 +135,24 @@ class SiteRestController {
 		
 		
 		return separatedMenus;
+	}
+	
+	/**
+	 * 메뉴 기본 그룹 설정
+	 */
+	@RequestMapping(value="{siteId}/defaultMenuGroup/{menuGroupId}", method=RequestMethod.PUT)
+	def putDefaultMenuGroup(@PathVariable String siteId, @PathVariable Long menuGroupId) {
+		logger.info("start")
+		menuGroupService.putDefaultMenuGroup(siteId, menuGroupId)
+	}
+	
+	/**
+	 * 메뉴 기본 그룹 설정
+	 */
+	@RequestMapping(value="{siteId}/defaultMenuGroup/{menuGroupId}", method=RequestMethod.DELETE)
+	def deleteDefaultMenuGroup(@PathVariable String siteId, @PathVariable Long menuGroupId) {
+		logger.info("start")
+		menuGroupService.putDefaultMenuGroup(siteId, menuGroupId)
 	}
 }
 
