@@ -7,7 +7,9 @@ import javax.persistence.EntityManager;
 import org.apache.commons.lang3.StringUtils;
 import org.cinnamon.core.domain.EmailServer;
 import org.cinnamon.core.domain.QEmailServer;
+import org.cinnamon.core.domain.enumeration.UseStatus;
 import org.cinnamon.core.vo.search.EmailServerSearch;
+import org.neo4j.cypher.internal.compiler.v2_1.perty.docbuilders.toStringDocBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -57,7 +59,8 @@ public class EmailServerRepositoryImpl implements EmailServerRepositoryCustom {
 		if (!StringUtils.isEmpty(emailServerSearch.getAddress())) {
 			builder.and(emailServer.address.like("%" + emailServerSearch.getAddress() + "%"));
 		}
-		
+		// 2016.03.09 추가
+		builder.and(emailServer.useStatus.eq(UseStatus.enable));
 		
 		long offset = pageable.getOffset();
 		long limit = pageable.getPageSize();

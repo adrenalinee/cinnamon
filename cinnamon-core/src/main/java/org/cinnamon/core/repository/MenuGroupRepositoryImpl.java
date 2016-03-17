@@ -5,16 +5,19 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import org.apache.commons.lang3.StringUtils;
 import org.cinnamon.core.domain.MenuGroup;
+import org.cinnamon.core.domain.QMenu;
 import org.cinnamon.core.domain.QMenuGroup;
+import org.cinnamon.core.domain.QSite;
 import org.cinnamon.core.vo.search.MenuGroupSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
+import org.springframework.util.StringUtils;
 
-import com.mysema.query.BooleanBuilder;
+import com.mysema.query.jpa.JPQLQuery;
 import com.mysema.query.jpa.impl.JPAQuery;
 
 /**
@@ -23,11 +26,15 @@ import com.mysema.query.jpa.impl.JPAQuery;
  * @author 동성
  *
  */
-public class MenuGroupRepositoryImpl implements MenuGroupRepositoryCustom {
+public class MenuGroupRepositoryImpl extends QueryDslRepositorySupport implements MenuGroupRepositoryCustom {
 	
 	@Autowired
 	EntityManager em;
 	
+	
+	public MenuGroupRepositoryImpl() {
+		super(MenuGroup.class);
+	}
 	
 	@Override
 	public MenuGroup getSiteMenuPosition(String siteId, String dimension) {
@@ -71,30 +78,34 @@ public class MenuGroupRepositoryImpl implements MenuGroupRepositoryCustom {
 	
 
 	@Override
-	public Page<MenuGroup> search(MenuGroupSearch menuGroupSearch, Pageable pageable) {
+	public Page<MenuGroup> find(MenuGroupSearch menuGroupSearch, Pageable pageable) {
 		QMenuGroup menuGroup = QMenuGroup.menuGroup;
 		
-		BooleanBuilder builder = new BooleanBuilder();
+		JPQLQuery query = from(menuGroup);
 		if (menuGroupSearch.getMenuGroupId() != null) {
-			builder.and(menuGroup.menuGroupId.eq(menuGroupSearch.getMenuGroupId()));
+			query.where(menuGroup.menuGroupId.eq(menuGroupSearch.getMenuGroupId()));
+		}
+		if (!StringUtils.isEmpty(menuGroupSearch.getSiteId())) {
+			QSite site = QSite.site;
+			
+			query
+				.innerJoin(menuGroup.site, site)
+				.where(site.siteId.eq(menuGroupSearch.getSiteId()));
 		}
 		if (!StringUtils.isEmpty(menuGroupSearch.getDimension())) {
-			builder.and(menuGroup.dimension.like("%" + menuGroupSearch.getDimension() + "%"));
+			query.where(menuGroup.dimension.eq(menuGroupSearch.getDimension()));
+		}
+		if (menuGroupSearch.getHasdMenuId() != null) {
+			QMenu menu = QMenu.menu;
+			
+			query
+				.innerJoin(menuGroup.menus, menu)
+				.where(menu.menuId.eq(menuGroupSearch.getHasdMenuId()));
 		}
 		
 		
-		long offset = pageable.getOffset();
-		long limit = pageable.getPageSize();
 		
-		JPAQuery query = new JPAQuery(em).from(menuGroup);
-		query
-			.where(builder)
-			.offset(offset)
-			.limit(limit)
-			.orderBy(menuGroup.menuGroupId.desc());
-		
-		
-		List<MenuGroup> domains = query.list(menuGroup);
+		List<MenuGroup> domains = getQuerydsl().applyPagination(pageable, query).list(menuGroup);
 		long totalCount = query.count();
 		
 		Page<MenuGroup> page = new PageImpl<MenuGroup>(domains, pageable, totalCount);

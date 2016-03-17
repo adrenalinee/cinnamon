@@ -25,13 +25,13 @@ public class SiteVo {
 //	
 //	Date createdAt;
 
-	public String getSiteId() {
-		return siteId;
-	}
-
-	public void setSiteId(String siteId) {
-		this.siteId = siteId;
-	}
+//	public String getSiteId() {
+//		return siteId;
+//	}
+//
+//	public void setSiteId(String siteId) {
+//		this.siteId = siteId;
+//	}
 
 	public String getName() {
 		return name;
@@ -55,6 +55,14 @@ public class SiteVo {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public String getSiteId() {
+		return siteId;
+	}
+
+	public void setSiteId(String siteId) {
+		this.siteId = siteId;
 	}
 
 //	public Date getCreatedAt() {

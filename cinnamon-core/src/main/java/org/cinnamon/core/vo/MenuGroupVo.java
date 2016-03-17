@@ -1,7 +1,5 @@
 package org.cinnamon.core.vo;
 
-import javax.validation.constraints.Null;
-
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -12,7 +10,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class MenuGroupVo {
 	
-	@Null
+//	@Null
 	Long menuGroupId;
 	
 	@NotEmpty

@@ -13,6 +13,6 @@ import org.springframework.data.domain.Pageable;
  */
 public interface UserGroupRepositoryCustom {
 
-	Page<UserGroup> search(UserGroupSearch userGroupSearch, Pageable pageable);
+	Page<UserGroup> find(UserGroupSearch userGroupSearch, Pageable pageable);
 
 }

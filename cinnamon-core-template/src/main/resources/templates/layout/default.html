@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/base">
+	
+<head>
+
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/directives/header/header.js"></script>
+<script type="text/javascript" src="/js/directives/sidebar/sidebar.js"></script>
+<script type="text/javascript" src="/js/directives/footer/footer.js"></script>
+<script type="text/javascript" src="/js/directives/controlSidebar/controlSidebar.js"></script>
+<script type="text/javascript" src="/js/directives/layout/layout.js"></script>
+<script type="text/javascript" src="/js/directives/icheck/icheck.js"></script>
+<script type="text/javascript" src="/js/directives/selectOrder/selectOrder.js"></script>
+<script type="text/javascript" src="/js/directives/inputField/inputField.js"></script>
+
+</head>
+<body class="skin-red-light sidebar-mini" layout:fragment="body">
+	<layout ng-cloak="" ng-transclude="">
+		<header></header>
+		<sidebar menus="sideMenus"></sidebar>
+		
+		<content>
+			<div layout:fragment="content"></div>
+		</content>
+		
+		<footer></footer>
+		<control-sidebar></control-sidebar>
+	</layout>
+</body>
+</html>

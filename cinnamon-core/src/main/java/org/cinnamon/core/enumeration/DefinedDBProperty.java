@@ -50,5 +50,11 @@ public enum DefinedDBProperty {
 	 * 전체 시스템의 최초 운영자.
 	 * 최초 운영자는 무조건 최고 권한을 가지며 시스템에서 지워질 수 없다.
 	 */
-	systemFirstUserId
+	systemFirstUserId,
+	
+	
+	/**
+	 * 특별한 설정이 없을시 열릴 기본 사이트 
+	 */
+	defaultSiteId,
 }

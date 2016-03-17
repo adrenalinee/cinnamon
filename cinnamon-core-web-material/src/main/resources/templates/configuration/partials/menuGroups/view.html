@@ -1,0 +1,184 @@
+<md-fab-speed-dial md-open="fabOpen" md-direction="up" class="md-fab-bottom-right md-scale"  style="position: fixed">
+	<md-fab-trigger>
+		<md-button class="md-fab md-accent">
+			<md-icon>edit</md-icon>
+		</md-button>
+	</md-fab-trigger>
+	<md-fab-actions>
+		<md-button class="md-fab md-accent md-raised md-mini" ng-click="selectMenuGroup($event)">
+			<md-tooltip md-direction="left">메뉴 생성</md-tooltip>
+			<md-icon>menu</md-icon>
+		</md-button>
+	</md-fab-actions>
+</md-fab-speed-dial>
+
+<md-content class="content-container content">
+	<h3 layout-padding="" class="md-headline">
+		사이트 및 메뉴
+		<span class="md-subhead text-muted">메뉴 모음 정보</span>
+	</h3>
+	
+	<md-card>
+		<md-card-header>
+			<md-card-header-text>
+				<span class="md-title">기본정보</span>
+				<span class="md-subhead">menuGroupId: {{domain.menuGroupId}}</span>
+			</md-card-header-text>
+			<md-button class="md-icon-button" ui-sref="modify({menuGroupId: domain.menuGroupId})">
+				<md-tooltip>기본 정보 수정</md-tooltip>
+				<md-icon>edit</md-icon>
+			</md-button>
+		</md-card-header>
+		
+		<md-content layout-padding="">
+			<table class="table table-hover">
+				<tr>
+					<th>이름</th>
+					<td class="text-muted">{{domain.name}}</td>
+				</tr>
+				<tr>
+					<th>dimension</th>
+					<td class="text-muted">{{domain.dimension}}</td>
+				</tr>
+				<tr>
+					<th>기본 페이지</th>
+					<td class="text-muted">{{domain.defaultPage}}</td>
+				</tr>
+				<tr>
+					<th>사이트</th>
+					<td class="text-muted">
+						{{domain.site.name}}
+						<md-button class="md-raised md-primary" ng-click="selectSite($event)">사이트 선택</md-button>
+					</td>
+				</tr>
+				<!-- <tr>
+					<th>생성일</th>
+					<td class="text-muted">
+						<small>{{domain.createdAt | date: 'yyyy년 MM월 dd일 HH:mm:ss'}}</small>
+					</td>
+				</tr> -->
+				<tr>
+					<th>설명</th>
+					<td class="text-muted">{{domain.description}}</td>
+				</tr>
+			</table>
+		</md-content>
+		
+	</md-card>
+	
+	<md-card>
+		<md-card-header>
+			<md-card-header-text>
+				<span class="md-title">메뉴</span>
+			</md-card-header-text>
+		</md-card-header>
+		
+		
+		<md-tabs md-dynamic-height="true">
+			<md-tab label="사이드바">
+				<cm-search-list
+					resource-url="'/rest/configuration/menus'"
+					domains="sidebarMenus"
+					is-paging="false"
+					default-search-params="{menuGroupId: menuGroupId, position: 'sidebar'}">
+					
+					<cm-search-list-filters>
+						<md-card-content class="content" layout="column">
+							<md-input-container layout-fill="">
+								<label>menuId</label>
+								<input name="menuId" />
+							</md-input-container>
+							<md-input-container layout-fill="">
+								<label>이름</label>
+								<input name="name" />
+							</md-input-container>
+							<md-input-container layout-fill="">
+								<label>경로</label>
+								<input name="uri" />
+							</md-input-container>
+						</md-card-content>
+					</cm-search-list-filters>
+					<cm-search-list-items>
+					<md-list-item ng-repeat="domain in sidebarMenus.content" ng-click="goMenuView(domain)" layout="row">
+						<span flex="10" class="text-muted">{{domain.menuId}}</span>
+						<b flex="30">{{domain.name}}</b>
+						<span flex="30" class="text-muted">{{domain.uri}}</span>
+						<span flex="30" class="text-muted">{{domain.type}}</span>
+						<md-divider ng-if="!$last"></md-divider>
+					</md-list-item>
+					</cm-search-list-items>
+				</cm-search-list>
+			</md-tab>
+			<md-tab label="해더 왼쪽">
+				<cm-search-list
+					resource-url="'/rest/configuration/menus'"
+					domains="headerLeftMenus"
+					is-paging="false"
+					default-search-params="{menuGroupId: menuGroupId, position: 'headerLeft'}">
+					
+					<cm-search-list-filters>
+						<md-card-content class="content" layout="column">
+							<md-input-container layout-fill="">
+								<label>menuId</label>
+								<input name="menuId" />
+							</md-input-container>
+							<md-input-container layout-fill="">
+								<label>이름</label>
+								<input name="name" />
+							</md-input-container>
+							<md-input-container layout-fill="">
+								<label>경로</label>
+								<input name="uri" />
+							</md-input-container>
+						</md-card-content>
+					</cm-search-list-filters>
+					<cm-search-list-items>
+					<md-list-item ng-repeat="domain in headerLeftMenus.content" ng-click="goMenuView(domain)" layout="row">
+						<span flex="10" class="text-muted">{{domain.menuId}}</span>
+						<b flex="30">{{domain.name}}</b>
+						<span flex="30" class="text-muted">{{domain.uri}}</span>
+						<span flex="30" class="text-muted">{{domain.type}}</span>
+						<md-divider ng-if="!$last"></md-divider>
+					</md-list-item>
+					</cm-search-list-items>
+				</cm-search-list>
+			</md-tab>
+			<md-tab label="해더 오른쪽">
+				<cm-search-list
+					resource-url="'/rest/configuration/menus'"
+					domains="headerRightMenus"
+					is-paging="false"
+					default-search-params="{menuGroupId: menuGroupId, position: 'headerRight'}">
+					
+					<cm-search-list-filters>
+						<md-card-content class="content" layout="column">
+							<md-input-container layout-fill="">
+								<label>menuId</label>
+								<input name="menuId" />
+							</md-input-container>
+							<md-input-container layout-fill="">
+								<label>이름</label>
+								<input name="name" />
+							</md-input-container>
+							<md-input-container layout-fill="">
+								<label>경로</label>
+								<input name="uri" />
+							</md-input-container>
+						</md-card-content>
+					</cm-search-list-filters>
+					<cm-search-list-items>
+					<md-list-item ng-repeat="domain in headerRightMenus.content" ng-click="goMenuView(domain)" layout="row">
+						<span flex="10" class="text-muted">{{domain.menuId}}</span>
+						<b flex="30">{{domain.name}}</b>
+						<span flex="30" class="text-muted">{{domain.uri}}</span>
+						<span flex="30" class="text-muted">{{domain.type}}</span>
+						<md-divider ng-if="!$last"></md-divider>
+					</md-list-item>
+					</cm-search-list-items>
+				</cm-search-list>
+			</md-tab>
+		</md-tabs>
+		
+		
+	</md-card>
+</md-content>

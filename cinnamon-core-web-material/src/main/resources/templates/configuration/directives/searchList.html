@@ -1,0 +1,82 @@
+<!-- 
+<div ng-if="domains.content.length == 0" layout-padding="" ng-clock="">
+	<span class="text-muted">비어 있습니다.</span>
+</div>
+ -->
+<div ng-clock="">
+	
+	<!-- 상세검색 헤더 -->
+	<md-progress-linear ng-if="showProgress" md-mode="indeterminate"></md-progress-linear>
+	<md-content layout-padding="" layout="row" layout-align="center center">
+		<md-input-container class="md-icon-float" flex="">
+			<!-- <md-icon>search</md-icon> -->
+			<input ng-model="searchInfo.keyword" placeholder="검색어를 입력하세요" ng-keypress="onSearch($event)" />
+		</md-input-container>
+		
+		<md-button class="md-icon-button" ng-click="showDetailSearch = !showDetailSearch">
+			<md-tooltip md-direction="top">상세 검색</md-tooltip>
+			<md-icon>expand_more</md-icon>
+		</md-button>
+			
+		<md-menu ng-if="sortItems != null">
+			<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)" >
+				<md-tooltip md-direction="top">정렬</md-tooltip>
+				<md-icon>sort</md-icon>
+			</md-button>
+			<md-menu-content>
+				<md-menu-item ng-repeat="(key, value) in sortItems" >
+					<md-button layout="row" ng-click="sortItem(key, value)">
+						{{value}}
+						<!-- 내림차순 -->
+						<md-icon ng-if="searchInfo.sortKey == key &amp;&amp; searchInfo.direction == 'desc'">keyboard_arrow_down</md-icon>
+						<!-- 오름차순 -->
+						<md-icon ng-if="searchInfo.sortKey == key &amp;&amp; searchInfo.direction == 'asc'">keyboard_arrow_up</md-icon>
+						
+					</md-button>
+				</md-menu-item>
+			</md-menu-content>
+		</md-menu>
+		
+	</md-content>
+	<!-- 상세검색 헤더 끝 -->
+	<!-- 상세 검색 필드 -->
+	<div ng-if="showDetailSearch" class="content">
+		<md-divider></md-divider>
+		<ng-transclude ng-transclude-slot="filters" />
+		<md-button class="md-primary md-raised" ng-click="search()">검색</md-button>
+		<md-divider></md-divider>
+	</div>
+	<!-- 상세 검색 필드 끝 -->
+	<!-- 페이징 -->
+	<div ng-if="isPaging != false">
+		<uib-pagination
+			ng-if="!isMobile()"
+			layout-margin=""
+			template-url="/configuration/partials/directive/pagination"
+			total-items="domains.totalElements"
+			items-per-page="domains.size"
+			boundary-links="true"
+			ng-model="searchInfo.page"
+			ng-change="onPageChange()" />
+		
+		<uib-pager
+			ng-if="isMobile()"
+			layout-margin=""
+			template-url="/configuration/partials/directive/pager"
+			total-items="domains.totalElements"
+			ng-model="searchInfo.page"
+			ng-change="onPageChange()" />
+	</div>
+	<!-- 페이징 끝-->
+	<!-- 리스트 -->
+	<md-list style="padding: 0 0 0 0">
+		<md-divider></md-divider>
+		<ng-transclude ng-transclude-slot="items" />
+		
+		<md-list-item ng-if="domains.content.length == 0" class="text-center">
+			<p>검색 결과 없음.</p>
+			<md-divider ng-if="!$last"></md-divider>
+		</md-list-item>
+	</md-list>
+	<!-- 리스트 끝-->
+</div>

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.apache.commons.lang3.StringUtils;
+import org.cinnamon.core.domain.QUserBase;
 import org.cinnamon.core.domain.QUserGroup;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.vo.search.UserGroupSearch;
@@ -28,10 +29,42 @@ public class UserGroupRepositoryImpl implements UserGroupRepositoryCustom {
 	
 	
 	@Override
-	public Page<UserGroup> search(UserGroupSearch userGroupSearch, Pageable pageable) {
+	public Page<UserGroup> find(UserGroupSearch userGroupSearch, Pageable pageable) {
 		QUserGroup userGroup = QUserGroup.userGroup;
 		
 		BooleanBuilder builder = new BooleanBuilder();
+		if (!StringUtils.isEmpty(userGroupSearch.getKeyword())) {
+			String keyword = userGroupSearch.getKeyword();
+//			Long longValue = null;
+//			BooleanBuilder builder2 = new BooleanBuilder();
+//			try {
+//				longValue = Long.parseLong(keyword);
+//			} catch (NumberFormatException e) {
+//				
+//			}
+//			if (longValue != null) {
+//				builder2.or(userGroup.userGroupId.eq(longValue));
+//			}
+//			
+//			builder2.or(userGroup.name.like("%" + keyword + "%"))
+//					.or(userGroup.authority.authority.eq(keyword));
+//			
+//			builder.or(builder2);
+			
+			builder.or(userGroup.name.like("%" + keyword + "%"))
+					.or(userGroup.permission.authority.eq(keyword));
+		}
+		
+		JPAQuery query = new JPAQuery(em).from(userGroup);
+		
+		if (!StringUtils.isEmpty(userGroupSearch.getUserId())) {
+			QUserBase user = QUserBase.userBase;
+			
+			query.innerJoin(userGroup.users, user);
+			builder.and(user.userId.eq(userGroupSearch.getUserId()));
+		}
+		
+		
 		if (userGroupSearch.getUserGroupId() != null) {
 			builder.and(userGroup.userGroupId.eq(userGroupSearch.getUserGroupId()));
 		}
@@ -39,14 +72,16 @@ public class UserGroupRepositoryImpl implements UserGroupRepositoryCustom {
 			builder.and(userGroup.name.like("%" + userGroupSearch.getName() + "%"));
 		}
 		if (!StringUtils.isEmpty(userGroupSearch.getAuthority())) {
-			builder.and(userGroup.role.authority.eq(userGroupSearch.getAuthority()));
+			builder.and(userGroup.permission.authority.eq(userGroupSearch.getAuthority()));
+		}
+		if (userGroupSearch.getUseStatus() != null) {
+			builder.and(userGroup.useStatus.eq(userGroupSearch.getUseStatus()));
 		}
 		
 		
 		long offset = pageable.getOffset();
 		long limit = pageable.getPageSize();
 		
-		JPAQuery query = new JPAQuery(em).from(userGroup);
 		query
 			.where(builder)
 			.offset(offset)

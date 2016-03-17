@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/default">
+
+<head>
+<title>사용자 모임</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script type="text/javascript" src="/js/configuration/directives/searchList.js"></script>
+
+<script type="text/javascript" src="/js/configuration/userGroups/viewController.js"></script>
+<script type="text/javascript" src="/js/configuration/userGroups/listController.js"></script>
+<script type="text/javascript" src="/js/configuration/userGroups/modifyController.js"></script>
+<script type="text/javascript" src="/js/configuration/userGroups/createController.js"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+angular.module('cinnamon')
+.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider.state('userGroups', {
+		url: '/configuration/userGroups',
+		templateUrl: '/configuration/partials/userGroups/list',
+		controller: 'configuration.userGroups.list'
+	}).state('create', {
+		url: '/configuration/userGroups/create',
+		templateUrl: '/configuration/partials/userGroups/create',
+		controller: 'configuration.userGroups.create'
+	}).state('view', {
+		url: '/configuration/userGroups/:userGroupId',
+		templateUrl: '/configuration/partials/userGroups/view',
+		controller: 'configuration.userGroups.view'
+	}).state('modify', {
+		url: '/configuration/userGroups/:userGroupId/modify',
+		templateUrl: '/configuration/partials/userGroups/modify',
+		controller: 'configuration.userGroups.modify'
+	});
+	
+	//$urlRouterProvider.otherwise('/configuration/users');
+});
+/*]]>*/
+</script>
+
+<base href="/" />
+</head>
+
+<body layout:fragment="content">
+	<ui-view layout-fill=""/>
+</body>
+</html>

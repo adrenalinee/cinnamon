@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/default">
+
+<head>
+<title>사이트</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script type="text/javascript" src="/js/configuration/directives/searchList.js"></script>
+
+<script type="text/javascript" src="/js/configuration/sites/listController.js"></script>
+<script type="text/javascript" src="/js/configuration/sites/viewController.js"></script>
+<script type="text/javascript" src="/js/configuration/sites/createController.js"></script>
+<script type="text/javascript" src="/js/configuration/sites/modifyController.js"></script>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+angular.module('cinnamon')
+.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider.state('list', {
+		url: '/configuration/sites',
+		templateUrl: '/configuration/partials/sites/list',
+		controller: 'configuration.sites.list'
+	}).state('create', {
+		url: '/configuration/sites/create',
+		templateUrl: '/configuration/partials/sites/create',
+		controller: 'configuration.sites.create'
+	}).state('view', {
+		url: '/configuration/sites/:siteId',
+		templateUrl: '/configuration/partials/sites/view',
+		controller: 'configuration.sites.view'
+	})
+	.state('modify', {
+		url: '/configuration/sites/:siteId/modify',
+		templateUrl: '/configuration/partials/sites/modify',
+		controller: 'configuration.sites.modify'
+	})
+	
+});
+/*]]>*/
+</script>
+
+<base href="/" />
+</head>
+
+<body layout:fragment="content">
+	<ui-view layout-fill=""/>
+</body>
+</html>

@@ -21,10 +21,10 @@ public class EmailServerVo {
 	@NotNull
 	Integer port;
 	
-	@NotEmpty
+	//@NotEmpty
 	String username;
 	
-	@NotEmpty
+	//@NotEmpty // smtp 서버 계정 없이도 사용 가능합니다.
 	String password;
 	
 	@NotEmpty
@@ -35,7 +35,9 @@ public class EmailServerVo {
 	String subjectPrefix;
 	
 	String description;
-
+	// 메일 테스트 전용 주소
+	String toAddress;
+	
 	public String getName() {
 		return name;
 	}
@@ -106,6 +108,14 @@ public class EmailServerVo {
 
 	public void setFromAddress(String fromAddress) {
 		this.fromAddress = fromAddress;
+	}
+
+	public String getToAddress() {
+		return toAddress;
+	}
+
+	public void setToAddress(String toAddress) {
+		this.toAddress = toAddress;
 	}
 	
 	

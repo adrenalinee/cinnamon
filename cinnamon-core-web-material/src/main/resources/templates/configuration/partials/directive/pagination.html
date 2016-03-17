@@ -1,0 +1,34 @@
+<div layout="row" class="cm-pagination">
+	<md-button ng-if="::boundaryLinks" class="md-icon-button page" ng-click="selectPage(1, $event)">
+		<md-icon>first_page</md-icon>
+	</md-button>
+	<md-button ng-if="::directionLinks" class="md-icon-button page" ng-click="selectPage(page - 1, $event)">
+		<md-icon>chevron_left</md-icon>
+	</md-button>
+	
+	<md-button
+		class="md-icon-button cm-page"
+		ng-class="{'md-raised md-primary': page.active, disabled: ngDisabled &amp;&amp; !page.active}"
+		ng-repeat="page in pages track by $index"
+		ng-click="selectPage(page.number, $event)">
+		{{page.text}}
+	</md-button>
+	
+	<!-- <md-button class="md-icon-button md-raised md-primary">1</md-button>
+	<md-button class="md-icon-button">2</md-button>
+	<md-button class="md-icon-button">3</md-button>
+	<md-button class="md-icon-button">4</md-button>
+	<md-button class="md-icon-button">5</md-button>
+	<md-button class="md-icon-button">6</md-button>
+	<md-button class="md-icon-button">7</md-button>
+	<md-button class="md-icon-button">8</md-button>
+	<md-button class="md-icon-button">9</md-button>
+	<md-button class="md-icon-button">10</md-button> -->
+	
+	<md-button ng-if="::directionLinks" class="md-icon-button page" ng-click="selectPage(page + 1, $event)">
+		<md-icon>chevron_right</md-icon>
+	</md-button>
+	<md-button ng-if="::boundaryLinks" class="md-icon-button page" ng-click="selectPage(totalPages, $event)">
+		<md-icon>last_page</md-icon>
+	</md-button>
+</div>

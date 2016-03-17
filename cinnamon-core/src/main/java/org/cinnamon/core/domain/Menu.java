@@ -1,6 +1,7 @@
 package org.cinnamon.core.domain;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +17,9 @@ import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.domain.enumeration.MenuType;
 import org.cinnamon.core.domain.enumeration.UseStatus;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * 
@@ -24,16 +27,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="menuId")
 public class Menu {
 	
 	@Id
 	@GeneratedValue
 	Long menuId;
 	
+//	@JsonManagedReference
 	@ManyToOne
 	Menu parent;
 	
-	@JsonIgnore
+//	@JsonIgnore
+//	@JsonBackReference
 	@OneToMany(mappedBy="parent")
 	@OrderBy("orders asc")
 	List<Menu> childs;
@@ -67,7 +73,7 @@ public class Menu {
 //	@ManyToMany(mappedBy="menus")
 //	Set<MenuGroup> menuGroups;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@ManyToOne
 	MenuGroup menuGroup;
 	
@@ -75,6 +81,12 @@ public class Menu {
 //	@OneToMany(mappedBy="menu")
 //	Set<PermissionMenu> permissionMenus;
 	
+	/**
+	 * 메뉴 접근이 허용된 역할
+	 */
+	@JsonIgnore
+	@OneToMany(mappedBy="menu")
+	Set<PermissionMenu> grantedAuthorities;
 	
 	/**
 	 * 순서
@@ -201,12 +213,12 @@ public class Menu {
 		this.menuGroup = menuGroup;
 	}
 
-//	public Set<SiteScene> getSiteScenes() {
-//		return siteScenes;
-//	}
-//
-//	public void setSiteScenes(Set<SiteScene> siteScenes) {
-//		this.siteScenes = siteScenes;
-//	}
-	
+	public Set<PermissionMenu> getGrantedAuthorities() {
+		return grantedAuthorities;
+	}
+
+	public void setGrantedAuthorities(Set<PermissionMenu> grantedAuthorities) {
+		this.grantedAuthorities = grantedAuthorities;
+	}
+
 }
