@@ -48,7 +48,6 @@ angular.module('cinnamon')
 		$mdDialog.hide();
 	}
 	
-	
 	$scope.isMobile = function() {
 		return !$mdMedia('gt-sm');
 	}

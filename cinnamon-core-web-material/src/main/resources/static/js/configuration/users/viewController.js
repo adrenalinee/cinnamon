@@ -40,7 +40,7 @@ angular.module('cinnamon')
 								.textContent('등록되었습니다.'));
 						
 						//TODO 사용자 목록을 새로 불러와야 함 
-					})
+					});
 					
 					$mdDialog.hide();
 				}

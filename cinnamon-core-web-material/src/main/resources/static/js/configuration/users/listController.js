@@ -14,9 +14,9 @@ angular.module('cinnamon')
 		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
 		$mdDialog.show({
 			targetEvent: $event,
+			fullscreen: useFullScreen,
 			templateUrl: '/configuration/partials/users/create',
-			controller: 'configuration.users.create',
-			fullscreen: useFullScreen
+			controller: 'configuration.users.create'
 		});
 	}
 	
