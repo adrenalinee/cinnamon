@@ -59,10 +59,10 @@
 			</md-input-container>
 		</form>
 	</md-dialog-content>
-	<md-dialog-actions layout="row" ng-if="!isMobile()" layout-align="none center">
-		<md-button ng-click="close()">취소</md-button>
-		<md-button class="md-raised md-primary" ng-click="create(form, $event)" ng-disabled="isProcess">생성</md-button>
+	<md-dialog-actions layout="row" ng-if="!isMobile()">
 		<md-progress-circular md-mode="indeterminate" ng-show="isProcess"></md-progress-circular>
+		<md-button class="md-raised md-primary" ng-click="create(form, $event)" ng-disabled="isProcess">생성</md-button>
+		<md-button ng-click="close()">취소</md-button>
 	</md-dialog-actions>
 	
 </md-dialog>

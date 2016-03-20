@@ -14,7 +14,7 @@ angular.module('cinnamon')
 	
 	$http.get('/rest/configuration/groups/nations/childs')
 	.success(function(data) {
-		console.log(data);
+//		console.log(data);
 		$scope.nations = data;
 		
 		$scope.nations.sort(function(a, b) {
@@ -24,12 +24,15 @@ angular.module('cinnamon')
 	
 	
 	
-	$scope.goView = function() {
-		history.go(-1);
-	}
+//	$scope.goView = function() {
+//		history.go(-1);
+//	}
 	
-	$scope.update = function(form, event) {
+	$scope.update = function(event) {
+		console.log('update');
+		console.log($scope.form);
 		
+		var form = $scope.form;
 		if (form.$valid == false) {
 			$mdToast.show(
 				$mdToast.simple()
@@ -39,16 +42,15 @@ angular.module('cinnamon')
 			return;
 		}
 		
-		$scope.isProcess = true;
+//		$scope.isProcess = true;
 		$http.put('/rest/configuration/users/' + userId, $scope.domain)
 		.success(function(data) {
-			
 			
 			$state.go('view', {userId: userId}, {
 				location: 'replace'
 			});
-		}).finally(function(data) {
-			$scope.isProcess = false;
+//		}).finally(function(data) {
+//			$scope.isProcess = false;
 		});
 		
 		

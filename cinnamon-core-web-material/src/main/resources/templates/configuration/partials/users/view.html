@@ -21,7 +21,7 @@
 				<span class="md-title">기본정보</span>
 				<!-- <span class="md-subhead">{{domain.nation}} {{domain.language}}</span> -->
 			</md-card-title-text>
-			<md-button class="md-icon-button" ui-sref="modify({userId: domain.userId})">
+			<md-button class="md-icon-button" ng-click="modify($event)">
 				<md-tooltip>기본 정보 수정</md-tooltip>
 				<md-icon>edit</md-icon>
 			</md-button>

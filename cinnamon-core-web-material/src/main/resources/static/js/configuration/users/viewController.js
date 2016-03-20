@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.users.view', function($scope, $http, $interval, $state, $stateParams, $mdDialog) {
+.controller('configuration.users.view', function($scope, $http, $interval, $state, $stateParams, $mdDialog, $mdMedia) {
 	console.log('configuration.users.view');
 	
 	var userId = $stateParams.userId;
@@ -20,14 +20,12 @@ angular.module('cinnamon')
 //				.targetEvent($event)
 //		);
 		
+		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
 		$mdDialog.show({
 			targetEvent: $event,
+			fullscreen: useFullScreen,
 			templateUrl: '/configuration/partials/userGroups/select',
 			controller: function($scope, $http, $mdDialog, $mdToast) {
-				$scope.close = function() {
-					$mdDialog.hide();
-				}
-				
 				$scope.onSelect = function(userGroup) {
 					console.log('onSelect');
 					
@@ -44,15 +42,17 @@ angular.module('cinnamon')
 					
 					$mdDialog.hide();
 				}
-				
-				$scope.close = function() {
-					$mdDialog.hide();
-				}
 			}
 		});
 	}
 	
-	$scope.aaa = function() {
-		$state.go('modify', {userId: userId});
+	$scope.modify = function($event) {
+		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+		$mdDialog.show({
+			targetEvent: $event,
+			fullscreen: useFullScreen,
+			templateUrl: '/configuration/partials/users/modify2',
+			controller: 'configuration.users.modify'
+		});
 	}
 });

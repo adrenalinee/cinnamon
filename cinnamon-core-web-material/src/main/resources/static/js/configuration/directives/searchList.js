@@ -13,7 +13,7 @@ angular.module('cinnamon')
 			defaultSearchParams: '=?',
 			sortItems: '=?',
 			isPaging: '=?',
-			searchInfo: '='
+			searchInfo: '=?'
 		},
 		templateUrl: '/configuration/directives/searchList',
 		controller: 'searchListController'
