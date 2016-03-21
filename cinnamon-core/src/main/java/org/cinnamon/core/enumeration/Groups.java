@@ -2,9 +2,9 @@ package org.cinnamon.core.enumeration;
 
 /**
  * 
- * create date: 2015. 5. 6.
- * @author 신동성
- *
+ * @author 정명성
+ * create date : 2016. 3. 3.
+ * org.cinnamon.core.enumeration.Groups.java
  */
 public enum Groups {
 	useStatus,

@@ -1,0 +1,154 @@
+<aside>
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			<span>사용자 모임</span> <small>설정</small>
+			<button class="btn btn-primary btn-sm"
+				ng-bootbox-title="사용자 모임 생성"
+				ng-bootbox-custom-dialog=""
+				ng-bootbox-custom-dialog-template="/configuration/partials/userGroups/create"
+				ng-bootbox-buttons="createDialogButtons">
+				<i class="fa fa-plus"></i> 사용자 모임 생성
+			</button>
+		</h1>
+	</section>
+	
+	<!-- Main content -->
+	<section class="content">
+		
+		<div class="box box-solid">
+			<div class="box-body">
+				
+				<!-- <div class="form-group">
+					<button class="btn btn-primary btn-sm">
+						<i class="fa fa-plus"></i> 사용자 등록
+					</button>
+				</div> -->
+				
+				
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon input-lg">
+							<i class="fa fa-search"></i> 검색
+						</span>
+						<input type="text" class="form-control input-lg" data-ng-model="searchInfo.keyword" ng-keypress="onSearch($event)" maxlength="200" />
+						<!-- <span class="input-group-btn">
+							<button class="btn btn-primary input-lg" type="button" data-ng-click="search()">
+								<i class="fa fa-search fa-lg"></i> 검색
+							</button>
+						</span> -->
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<a href="" class="btn btn-default btn-sm" ng-click="showDetailSearch = !showDetailSearch">상세 검색</a>
+					<a href="" class="text-muted" data-ng-click="initSearch()" uib-tooltip="검색을 초기화 합니다.">검색취소</a>
+					<select-order order-fields="sortFields" on-changed="onChangeOrder(field, direction)" />
+					<!-- <div class="btn-group pull-right" uib-dropdown="">
+						<button class="btn btn-defaulf btn-sm" uib-dropdown-toggle="">
+							정렬 <i class="fa fa-chevron-down"></i>
+						</button>
+						<ul class="uib-dropdown-menu" role="menu">
+							<li role="menuitem">
+								<a href="" ng-click="changeOder('userGroupId')">userGroupId</a>
+							</li>
+							<li role="menuitem" class="active">
+								<a href=""><i class="fa fa-arrow-down"></i> 사용자 모임 이름</a>
+							</li>
+							<li class="divider"></li>
+							<li role="menuitem">
+								<a href="">초기화</a>
+							</li>
+						</ul>
+					</div> -->
+				</div>
+				
+				<div ng-show="showDetailSearch" ng-class="showDetailSearch ? 'animated fadeIn': ''">
+					<div class="well well-sm">
+					
+						<div class="form-group">
+							<label class="form-label text-muted">상세 조건</label>
+							<button class="btn btn-primary btn-sm" ng-click="search()"><i class="fa fa-search"></i> 검색</button>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon">
+									userGroupId
+								</span>
+								<input type="number" class="form-control" ng-model="searchInfo.userGroupId" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon">
+									사용자 모임 이름
+								</span>
+								<input type="text" class="form-control" ng-model="searchInfo.name" maxlength="200" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon">
+									상태
+								</span>
+								<input type="text" class="form-control" ng-model="searchInfo.useStatus" maxlength="200" />
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				
+				
+				<uib-pagination
+					class="pagination-sm"
+					total-items="domains.totalElements"
+					items-per-page="domains.size"
+					boundary-links="true"
+					max-size="10"
+					ng-model="searchInfo.page"
+					first-text="처음"
+					previous-text="이전"
+					next-text="다음"
+					last-text="끝"
+					ng-change="onPageChange()"
+					ng-if="domains.totalPages > 1" />
+				
+				<table class="table table-hover">
+					<tbody>
+						<tr ng-repeat="domain in domains.content">
+							<td>
+								<i class="fa fa-users fa-2x text-muted"></i>
+							</td>
+							<td>
+								<!-- <b><a ui-sref="userGroups.view({userGrouId: domain.userGroupId})">{{domain.userGroupId}}. {{domain.name}}</a></b> -->
+								<b><a ng-href="/configuration/userGroups/{{domain.userGroupId}}">{{domain.userGroupId}}. {{domain.name}}</a></b>
+								<br />
+								<small class="text-muted">권한: {{domain.authority.name || '설정안됨'}} </small>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<hr />
+				
+				<uib-pagination
+					class="pagination-sm"
+					total-items="domains.totalElements"
+					items-per-page="domains.size"
+					boundary-links="true"
+					max-size="10"
+					ng-model="searchInfo.page"
+					first-text="처음"
+					previous-text="이전"
+					next-text="다음"
+					last-text="끝"
+					ng-change="onPageChange()" />
+				
+				
+				
+				
+			</div>
+		</div>
+		
+	</section>
+	<!-- /.content -->
+</aside>

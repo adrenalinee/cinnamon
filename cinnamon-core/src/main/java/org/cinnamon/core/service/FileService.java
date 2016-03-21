@@ -16,11 +16,15 @@ import org.cinnamon.core.repository.FileInfoRepository;
 import org.cinnamon.core.util.MD5Creator;
 import org.cinnamon.core.util.PathUtil;
 import org.cinnamon.core.vo.UploadFileInfo;
+import org.cinnamon.core.vo.search.FileInformationSearch;
+import org.cinnamon.core.vo.search.FileInformationSearch;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -50,6 +54,19 @@ public class FileService {
 	@Transactional(readOnly=true)
 	public FileInformation get(Long fileId) {
 		return fileInfoRepository.findOne(fileId);
+	}
+	
+	/**
+	 * 파일 리스트 조회
+	 * @author 정명성
+	 * create date : 2016. 3. 14.
+	 * @param fileInformationSearch
+	 * @param pageable
+	 * @return
+	 */
+	public Page<FileInformation> search(FileInformationSearch fileInformationSearch, Pageable pageable) {
+		
+		return fileInfoRepository.search(fileInformationSearch, pageable);
 	}
 	
 	

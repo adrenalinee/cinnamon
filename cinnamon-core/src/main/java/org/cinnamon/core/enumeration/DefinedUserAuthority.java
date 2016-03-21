@@ -11,7 +11,7 @@ public enum DefinedUserAuthority {
 	/**
 	 * 일반
 	 */
-	normal,
+	user,
 	
 	/**
 	 * 시스템 최고 운영자

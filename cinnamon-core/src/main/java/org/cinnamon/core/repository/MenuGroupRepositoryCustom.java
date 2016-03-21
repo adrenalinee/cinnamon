@@ -15,7 +15,7 @@ import org.springframework.data.domain.Pageable;
  */
 public interface MenuGroupRepositoryCustom {
 
-	Page<MenuGroup> search(MenuGroupSearch menuGroupSearch, Pageable pageable);
+	Page<MenuGroup> find(MenuGroupSearch menuGroupSearch, Pageable pageable);
 
 	List<MenuGroup> find(String siteId);
 

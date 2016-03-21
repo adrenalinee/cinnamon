@@ -1,14 +1,19 @@
 package org.cinnamon.core.service;
 
-import org.cinnamon.core.domain.Role;
+import org.cinnamon.core.domain.Permission;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserGroup;
-import org.cinnamon.core.repository.RoleRepository;
+import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.UserBaseRepository;
 import org.cinnamon.core.repository.UserGroupRepository;
+import org.cinnamon.core.vo.UserGroupVo;
+import org.cinnamon.core.vo.search.UserGroupSearch;
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,31 +31,123 @@ public class UserGroupService<T extends UserBase> {
 	UserGroupRepository userGroupRepository;
 	
 	@Autowired
-	RoleRepository permissionRepository;
+	UserAuthorityRepository userAuthorityRepository;
 	
 	@Autowired
 	UserBaseRepository<T> userRepository;
 	
+	@Autowired
+	Mapper beanMapper;
+	
 	
 	@Transactional
-	public void addMember(String authority, String userId) {
+	public UserGroup save(UserGroupVo userGroupVo) {
 		logger.info("start");
 		
-		UserBase user = userRepository.findOne(userId);
+		UserGroup userGroup = beanMapper.map(userGroupVo, UserGroup.class);
+		return userGroupRepository.save(userGroup);
+	}
+	
+	
+	/**
+	 * 정보 수정
+	 * 
+	 * @param userGroupId
+	 * @param userGroupVo
+	 * @return
+	 */
+	@Transactional
+	public UserGroup save(Long userGroupId, UserGroupVo userGroupVo) {
+		logger.info("start");
+		
+		UserGroup userGroup = userGroupRepository.findOne(userGroupId);
+		if (userGroup == null) {
+			throw new RuntimeException("등록되지 않은 사용자 그룹입니다. userGroupId: " + userGroupId);
+		}
+		
+		beanMapper.map(userGroupVo, userGroup);
+		
+		return userGroup;
+	}
+	
+	
+	
+	@Transactional(readOnly=true)
+	public UserGroup get(Long userGroupId) {
+		logger.info("start");
+		
+		return userGroupRepository.findOne(userGroupId);
+	}
+	
+	
+	@Transactional(readOnly=true)
+	public Page<UserGroup> getList(UserGroupSearch userGroupSearch, Pageable pageable) {
+		logger.info("start");
+		
+		return userGroupRepository.find(userGroupSearch, pageable);
+	}
+	
+	
+	@Transactional
+	public void addMember(Long userGroupId, String userId) {
+		logger.info("start");
+		
+		T user = userRepository.findOne(userId);
 		if (user == null) {
 			throw new RuntimeException("등록되지 않은 사용자 입니다. userId: " + userId);
 		}
 		
-		Role permission = permissionRepository.findOne(authority);
-		if (permission == null) {
+		UserGroup userGroup = userGroupRepository.findOne(userGroupId);
+		if (userGroup == null) {
+			throw new RuntimeException("등록되지 않은 사용자 그룹입니다. userGroupId: " + userGroupId);
+		}
+		
+		user.getUserGroups().add(userGroup);
+	}
+	
+	
+	@Transactional
+	public void addMember(Object authority, String userId) {
+		logger.info("start");
+		
+		T user = userRepository.findOne(userId);
+		if (user == null) {
+			throw new RuntimeException("등록되지 않은 사용자 입니다. userId: " + userId);
+		}
+		
+		Permission userAuthority = userAuthorityRepository.findByAuthority(authority.toString());
+		if (userAuthority == null) {
 			throw new RuntimeException("등록되지 않은 authority 입니다. authority: " + authority);
 		}
 		
-		UserGroup userGroup = permission.getDefaultUserGroup();
+		UserGroup userGroup = userAuthority.getDefaultUserGroup();
 		if (userGroup == null) {
 			throw new RuntimeException("기본 사용자 그룹이 등록되지 않았습니다. authority: " + authority);
 		}
 		
 		user.getUserGroups().add(userGroup);
+	}
+	
+	
+	@Transactional
+	public void removeMember(Object authority, String userId) {
+		logger.info("start");
+		
+		T user = userRepository.findOne(userId);
+		if (user == null) {
+			throw new RuntimeException("등록되지 않은 사용자 입니다. userId: " + userId);
+		}
+		
+		Permission userAuthority = userAuthorityRepository.findByAuthority(authority.toString());
+		if (userAuthority == null) {
+			throw new RuntimeException("등록되지 않은 authority 입니다. authority: " + authority);
+		}
+		
+		UserGroup userGroup = userAuthority.getDefaultUserGroup();
+		if (userGroup == null) {
+			throw new RuntimeException("기본 사용자 그룹이 등록되지 않았습니다. authority: " + authority);
+		}
+		
+		user.getUserGroups().remove(userGroup);
 	}
 }

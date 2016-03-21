@@ -1,16 +1,23 @@
 package org.cinnamon.core.service;
 
-import java.util.List;
-
+import org.cinnamon.core.domain.Property;
 import org.cinnamon.core.domain.Site;
+import org.cinnamon.core.enumeration.DefinedDBProperty;
+import org.cinnamon.core.exception.NotFoundException;
+import org.cinnamon.core.repository.PropertyRepository;
 import org.cinnamon.core.repository.SiteRepository;
 import org.cinnamon.core.vo.SiteVo;
+import org.cinnamon.core.vo.search.SiteSearch;
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 /**
  * 
@@ -25,16 +32,30 @@ public class SiteService {
 	@Autowired
 	SiteRepository siteRepository;
 	
+	@Autowired
+	PropertyRepository propertyRepository;
+	
+	@Autowired
+	Mapper beanMapper;
+	
 	
 	/**
 	 * 
 	 * @return
 	 */
+//	@Transactional(readOnly=true)
+//	public List<Site> getAll() {
+//		logger.info("start");
+//		
+//		return siteRepository.findAll();
+//	}
+	
+	
 	@Transactional(readOnly=true)
-	public List<Site> getAll() {
+	public Page<Site> getList(SiteSearch siteSearch, Pageable pageable) {
 		logger.info("start");
 		
-		return siteRepository.findAll();
+		return siteRepository.findAll(pageable);
 	}
 	
 	
@@ -60,11 +81,57 @@ public class SiteService {
 	public Site save(SiteVo siteVo) {
 		logger.info("start");
 		
-		Site site = new Site();
-		BeanUtils.copyProperties(siteVo, site);
+		Site site = beanMapper.map(siteVo, Site.class);
 		
 		siteRepository.save(site);
 		return site;
 	}
 	
+	
+	/**
+	 * 기본 사이트를 전달한다.
+	 * 기본 사이트 지정이 되어 있으면 그걸 주고없으면 검색해서 처음 나온것을 전달한다. 등록된 사이트가 없으면 null을 전달한다.
+	 * 
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public Site getDefault() {
+		logger.info("start");
+		
+		Property property = propertyRepository.findOne(DefinedDBProperty.defaultSiteId.name());
+		if (property != null) {
+			String defaultSiteId = property.getValue();
+			if (!StringUtils.isEmpty(defaultSiteId)) {
+				return siteRepository.findOne(defaultSiteId);
+			}
+		}
+		
+		PageRequest pageable = new PageRequest(0, 1);
+		Page<Site> sites = siteRepository.findAll(pageable);
+		if (sites.getContent().size() > 0) {
+			return sites.getContent().get(0);
+		}
+		
+		return null;
+	}
+	
+	
+	/**
+	 * site 정보 수정
+	 * @author 정명성
+	 * create date : 2016. 3. 17.
+	 * @param siteId
+	 * @param siteVo
+	 */
+	@Transactional
+	public void modify(String siteId, SiteVo siteVo) {
+		logger.info("start");
+		
+		Site site = siteRepository.findOne(siteId);
+		if(site == null) {
+			throw new NotFoundException("site가 존재하지 않습니다. siteId : " + siteId);
+		}
+		
+		beanMapper.map(siteVo, site);
+	}
 }

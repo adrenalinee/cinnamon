@@ -1,0 +1,41 @@
+<md-dialog flex="70" cm-dialog-template="" toolbar-title="'사용자 모임 선택'">
+	<cm-dialog-template-content>
+		
+		<!-- <span class="md-title">사용자 모임 선택</span> -->
+		<cm-search-list
+			resource-url="'/rest/configuration/userGroups'"
+			domains="domains">
+			
+			<cm-search-list-filters>
+				<md-dialog-content class="content md-dialog-content" layout="column">
+					<md-input-container layout-fill="">
+						<label>이름</label>
+						<input />
+					</md-input-container>
+					<md-input-container layout-fill="">
+						<label>userId</label>
+						<input />
+					</md-input-container>
+					<md-input-container layout-fill="">
+						<label>이메일</label>
+						<input />
+					</md-input-container>
+				</md-dialog-content>
+			</cm-search-list-filters>
+			<cm-search-list-items>
+				<md-list-item ng-repeat="domain in domains.content" ng-click="onSelect(domain)">
+					
+					<div flex="10">
+						<md-icon>group</md-icon>
+					</div>
+					<b flex="50">{{domain.name}}</b>
+					<span flex="45" class="text-muted">{{domain.authority.name}}</span>
+					
+					<md-divider></md-divider>
+				</md-list-item>
+			</cm-search-list-items>
+		</cm-search-list>
+		
+		
+	</cm-dialog-template-content>
+</md-dialog>

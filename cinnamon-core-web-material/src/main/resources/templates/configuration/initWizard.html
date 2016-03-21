@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/base">
+
+<head>
+<title>cnnnamon 초기화</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="/css/cinnamon.css" rel="stylesheet" type="text/css" />
+
+
+<script type="text/javascript" src="/js/cinnamon.js"></script>
+<!-- <script type="text/javascript" src="/js/configuration/initWizard/welcome.js"></script>
+<script type="text/javascript" src="/js/configuration/initWizard/baseData.js"></script>
+<script type="text/javascript" src="/js/configuration/initWizard/firstUser.js"></script> -->
+<script type="text/javascript">
+/*<![CDATA[*/
+'use strict';
+angular.module('cinnamon')
+.controller('wizardController', function($scope, $http, $mdToast, $mdDialog) {
+	$scope.selectedStep = 0;
+	
+	$scope.next = function() {
+		$scope.selectedStep++;
+	}
+	
+	$scope.createBaseData = function() {
+		$scope.isProcessCreateBaseData = true;
+		$http.post('/rest/configuration/initWizard/baseData')
+		.success(function(data) {
+			
+			$scope.next();
+		});
+	}
+	
+	$scope.createFirstUser = function(form, $event) {
+		console.log('createFirstUser');
+		
+		if (form.$valid == false) {
+//			toastr.warning('입력값을 확인하시기 바랍니다.');
+			$mdToast.show(
+					$mdToast.simple()
+					.position('top right')
+					.theme('md-warn')
+					.textContent('입력값을 확인하시기 바랍니다.'));
+			return;
+		}
+		
+		
+		$scope.isProcessCreateFirstUser = true;
+		$http.post('/rest/configuration/initWizard/firstUser', $scope.domain)
+			.success(function(data, status) {
+				$mdDialog.show(
+					$mdDialog.alert()
+					.targetEvent($event)
+					.textContent('축하합니다. 시스템 초기화가  성공적으로 마무리되었습니다.')
+					.ok('시작하기!'))
+				.finally(function() {
+					//메인 페이지로이동시킴
+					location.href = "/";
+				});
+				
+				
+				/* $ngBootbox.customDialog({
+					message: '축하합니다. 시스템 초기화가  성공적으로 마무리되었습니다.',
+					buttons: {
+						ok: {
+							label: '시작하기!',
+							callback: function() {
+								//메인 페이지로이동시킴
+								location.href = "/configuration";
+							}
+						}
+					}
+				}); */
+			});
+	}
+});
+/*]]>*/
+</script>
+<base href="/" />
+</head>
+
+<!-- style="background-color: #ecf0f5" -->
+<body layout:fragment="body" class="content" layout="column">
+	<md-toolbar md-whiteframe="5">
+		<div class="md-toolbar-tools">
+			<h3>Cinnamon 시스템 초기화</h3>
+		</div>
+	</md-toolbar>
+	
+	<div flex="">
+		<md-content ng-controller="wizardController" class="container content">
+		
+			<md-card>
+				<md-tabs md-selected="selectedStep" md-dynamic-height="true">
+					<md-tab label="초기화 시작" ng-disabled="isProcessCreateBaseData">
+						<div layout-padding="">
+							<p class="alert-info" layout-padding="">시스템 초기화를 시작합니다.</p>
+							<md-button class="md-raised md-primary" ng-click="next()">
+								<md-icon md-font-icon="play_arrow"></md-icon> 초기화 시작
+							</md-button>
+						</div>
+					</md-tab>
+					<md-tab label="기본 데이터 생성" ng-disabled="isProcessCreateFirstUser">
+						<div layout-padding="">
+							<p class="alert-info" layout-padding="">시스템 구동에 필요한 기본 데이터를 생성합니다.</p>
+							
+							<div layout="row">
+								<md-button class="md-raised md-primary" ng-click="createBaseData()" ng-disabled="isProcessCreateBaseData">
+									<i class="fa fa-database"></i> 기본 데이터 생성
+								</md-button>
+								<md-progress-circular md-mode="indeterminate" ng-if="isProcessCreateBaseData"></md-progress-circular>
+							</div>
+						</div>
+					</md-tab>
+					<md-tab label="최초 사용자 생성">
+						<div layout-padding="">
+							<p class="alert-info" layout-padding="">최초로 로그인할 사용자 계정을 생성합니다.</p>
+							
+							<form name="firstUserform" novalidate="novalidate">
+								<md-input-container class="md-block">
+									<label>이름</label>
+									<input name="name" ng-model="domain.name" required="required" md-maxlength="50" maxlength="50" />
+									<div ng-messages="firstUserform.name.$submitted">
+										<div ng-message="required" ng-show="firstUserform.name.$error.required">필수 입력 항목입니다.</div>
+									</div>
+								</md-input-container>
+								
+								<md-input-container class="md-block">
+									<label>user ID</label>
+									<input name="userId" ng-model="domain.userId" required="required" md-maxlength="20" maxlength="20" minlength="6" />
+									<div ng-messages="firstUserform.userId.$submitted">
+										<div ng-message="required" ng-show="firstUserform.userId.$error.required">필수 입력 항목입니다.</div>
+										<div ng-message="required" ng-show="firstUserform.userId.$error.minlength">최소 6자리 이상 입력하시기 바랍니다.</div>
+									</div>
+								</md-input-container>
+								
+								<md-input-container class="md-block">
+									<label>이메일</label>
+									<input type="email" name="email" ng-model="domain.email" required="required" md-maxlength="200" maxlength="200" />
+									<div ng-messages="firstUserform.email.$submitted">
+										<div ng-message="required" ng-show="firstUserform.email.$error.required">필수 입력 항목입니다.</div>
+										<div ng-message="email" ng-show="firstUserform.email.$error.email">이메일 형식을 입력하시기 바랍니다.</div>
+									</div>
+								</md-input-container>
+								
+								<md-input-container class="md-block">
+									<label>비밀번호</label>
+									<input type="password" name="password" ng-model="domain.password" required="required" md-maxlength="30" maxlength="30" minlength="6" />
+									<div ng-messages="firstUserform.password.$submitted">
+										<div ng-message="required" ng-show="firstUserform.password.$error.required">필수 입력 항목입니다.</div>
+										<div ng-message="required" ng-show="firstUserform.password.$error.minlength">최소 6자리 이상 입력하시기 바랍니다.</div>
+									</div>
+								</md-input-container>
+								
+								<md-input-container class="md-block">
+									<label>비밀번호 확인</label>
+									<input type="password" name="password2" ng-model="domain.password2" required="required" md-maxlength="30" maxlength="30" />
+									<div ng-messages="firstUserform.password2.$dirty">
+										<div ng-message="required" ng-show="firstUserform.password2.$error.required">필수 입력 항목입니다.</div>
+										<div ng-message="required" ng-show="domain.password != domain.password2">비밀번호가 일치하지 않습니다.</div>
+									</div>
+								</md-input-container>
+								
+								<div layout="row">
+									<md-button class="md-raised md-primary" type="submit" ng-disabled="isProcessCreateFirstUser" ng-click="createFirstUser(firstUserform, $event)">
+										<i class="fa fa-database"></i> 최초 사용자 생성
+									</md-button>
+									<md-progress-circular md-mode="indeterminate" ng-if="isProcessCreateFirstUser"></md-progress-circular>
+								</div>
+							</form>
+						</div>
+					</md-tab>
+				</md-tabs>
+			
+			</md-card>
+			
+		</md-content>
+	</div>
+</body>
+</html>

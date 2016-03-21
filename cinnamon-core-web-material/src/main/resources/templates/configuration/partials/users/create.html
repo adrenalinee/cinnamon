@@ -1,0 +1,68 @@
+<md-dialog ng-clock="" flex="50">
+	<md-toolbar ng-if="isMobile()">
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" ng-click="close()">
+				<md-icon>arrow_back</md-icon>
+			</md-button>
+			<h2 class="md-title">사용자 생성</h2>
+			<span flex=""></span>
+			<!-- <md-button class="md-icon-button" ng-click="close()">
+				<md-icon>close</md-icon>
+			</md-button> -->
+			
+			<span flex=""></span>
+			<md-button class="md-raised" ng-disabled="isProcess" ng-click="create(form, $event)">생성</md-button>
+			
+		</div>
+	</md-toolbar>
+	<md-dialog-content layout-padding="">
+		<h2 class="md-title">사용자 정보</h2>
+		<form name="form" novalidate="novalidate">
+			<md-input-container class="md-block">
+				<label>userId</label>
+				<input name="userId" ng-model="domain.userId" required="required" md-maxlength="20" maxlength="20" ng-minlength="6" />
+				<div ng-messages="form.userId.$error" ng-show="form.userId.$dirty">
+					<div ng-message="required">필수 입력 항목입니다.</div>
+					<div ng-message="minlength">최소 6자리 이상 입력하시기 바랍니다.</div>
+				</div>
+			</md-input-container>
+			<md-input-container class="md-block">
+				<label>이름</label>
+				<input name="name" ng-model="domain.name" required="required" md-maxlength="50" maxlength="50" />
+				<div ng-messages="form.name.$error" ng-show="form.name.$dirty">
+					<div ng-message="required">필수 입력 항목입니다.</div>
+				</div>
+			</md-input-container>
+			<md-input-container class="md-block">
+				<label>이메일</label>
+				<input type="email" name="email" ng-model="domain.email" required="required" md-maxlength="200" maxlength="200" />
+				<div ng-messages="form.email.$error" ng-show="form.email.$dirty">
+					<div ng-message="required">필수 입력 항목입니다.</div>
+					<div ng-message="email">이메일 형식을 입력하시기 바랍니다.</div>
+				</div>
+			</md-input-container>
+			<md-input-container class="md-block">
+				<label>비밀번호</label>
+				<input type="password" name="password" ng-model="domain.password" required="required" md-maxlength="30" maxlength="30" ng-minlength="6" />
+				<div ng-messages="form.password.$error" ng-show="form.password.$dirty">
+					<div ng-message="required">필수 입력 항목입니다.</div>
+					<div ng-message="minlength">최소 6자리 이상 입력하시기 바랍니다.</div>
+				</div>
+			</md-input-container>
+			<md-input-container class="md-block">
+				<label>비밀번호 확인</label>
+				<input type="password" name="password2" ng-model="domain.password2"  required="required" md-maxlength="30" maxlength="30" />
+				<div ng-messages="form.password2.$error" ng-show="form.password2.$dirty">
+					<div ng-message="required">필수 입력 항목입니다.</div>
+					<div ng-show="domain.password != domain.password2">비밀번호가 일치하지 않습니다.</div>
+				</div>
+			</md-input-container>
+		</form>
+	</md-dialog-content>
+	<md-dialog-actions layout="row" ng-if="!isMobile()">
+		<md-progress-circular md-mode="indeterminate" ng-show="isProcess"></md-progress-circular>
+		<md-button class="md-raised md-primary" ng-click="create(form, $event)" ng-disabled="isProcess">생성</md-button>
+		<md-button ng-click="close()">취소</md-button>
+	</md-dialog-actions>
+	
+</md-dialog>
