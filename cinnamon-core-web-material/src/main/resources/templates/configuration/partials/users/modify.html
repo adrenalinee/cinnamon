@@ -59,9 +59,9 @@
 					</md-select>
 				</md-input-container>
 			</md-card-content>
-			<md-card-actions layout="row">
-				<md-button ng-click="goView()">취소</md-button>
+			<md-card-actions layout="row" layout-align="end">
 				<md-button class="md-raised md-primary" type="sumbit" ng-click="update(form, $event)" ng-disabled="isProcess">수정</md-button>
+				<md-button ng-click="goBack()">취소</md-button>
 			</md-card-actions>
 			
 		</md-card>

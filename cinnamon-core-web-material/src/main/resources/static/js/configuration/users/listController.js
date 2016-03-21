@@ -10,15 +10,15 @@ angular.module('cinnamon')
 //	});
 	
 	
-	$scope.create = function($event) {
-		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
-		$mdDialog.show({
-			targetEvent: $event,
-			fullscreen: useFullScreen,
-			templateUrl: '/configuration/partials/users/create',
-			controller: 'configuration.users.create'
-		});
-	}
+//	$scope.create = function($event) {
+//		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+//		$mdDialog.show({
+//			targetEvent: $event,
+//			fullscreen: useFullScreen,
+//			templateUrl: '/configuration/partials/users/create',
+//			controller: 'configuration.users.create'
+//		});
+//	}
 	
 	
 	

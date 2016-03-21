@@ -22,17 +22,6 @@
 			<h2>
 				<a href="/" target="_self">Cinnamon</a>
 			</h2>
-			<!-- <md-button class="md-raised md-accent">스마트랩</md-button> -->
-			<!-- <md-menu>
-				<md-button class="md-raised" ng-click="$mdOpenMenu($event)">
-					프로젝트
-				</md-button>
-				<md-menu-content>
-					<md-menu-item>
-						<md-button>스마트랩</md-button>
-					</md-menu-item>
-				</md-menu-content>
-			</md-menu> -->
 			
 			<md-button class="md-raised" ng-repeat="menu in currentMenus.headerLeft" ng-href="{{menu.uri}}" target="_self">
 				{{menu.name}}
@@ -72,13 +61,6 @@
 		</div>
 		
 		<div class="md-primary md-hue-1" layout-fill="" ng-if="childMenus != null">
-			<!-- <uib-tabset
-				template-url="/configuration/partials/directive/tabset">
-				<uib-tab
-					template-url="/configuration/partials/directive/tab"
-					ng-repeat="menu in childMenus" heading="{{menu.name}}" />
-			</uib-tabset> -->
-			
 			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md-selected="selectedChildMenuIndex">
 				<md-tab label="{{menu.name}}" md-on-select="selectChildMenu(menu)" ng-repeat="menu in childMenus" />
 			</md-tabs>
