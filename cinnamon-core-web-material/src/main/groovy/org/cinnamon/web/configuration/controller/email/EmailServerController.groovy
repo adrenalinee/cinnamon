@@ -1,21 +1,23 @@
-package org.cinnamon.web.configuration.controller
+package org.cinnamon.web.configuration.controller.email
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
 
+/**
+ * 
+ * @author 신동성
+ * @since 2016. 3. 21.
+ */
 @Controller
-@RequestMapping(value="/configuration/email")
-class EmailController {
-	
+@RequestMapping(value="/configuration/email/servers")
+class EmailServerController {
 	Logger logger = LoggerFactory.getLogger(getClass())
 	
 	@RequestMapping(value="**")
 	def index() {
 		logger.info("start");
-		"redirect:email/servers"
+		"configuration/email/servers"
 	}
 }

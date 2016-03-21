@@ -14,7 +14,7 @@
 
 </head>
 <body layout:fragment="body" class="content" layout="column" ng-controller="layoutController">
-	<md-toolbar md-whiteframe="5" layout-align="center center">
+	<md-toolbar md-whiteframe="4" layout-align="center center" ng-clock="">
 		<div class="md-toolbar-tools" layout-fill="">
 			<md-button class="md-icon-button" ng-click="toggleSidenav()" ng-show="isMobile()">
 				<md-icon>menu</md-icon>
@@ -41,13 +41,9 @@
 			
 			<span flex=""></span>
 			
-			<!-- <md-button class="md-icon-button">
-				<md-icon>notifications_none</md-icon>
-			</md-button> -->
-			
 			{{me.name}}
 			
-			<md-menu ng-show="!isMobile()">
+			<md-menu ng-show="!isMobile()" ng-clock="">
 				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
 					<md-icon>person</md-icon>
 				</md-button>
@@ -75,12 +71,18 @@
 			</md-menu>
 		</div>
 		
-		<div class="md-primary md-hue-1"  layout-fill="">
-			<md-tabs class="md-primary md-hue-1" md-center-tabs="true">
-				<md-tab label="Tab #1"></md-tab>
-				<md-tab label="Tab #2"></md-tab>
-				<md-tab label="Tab #3"></md-tab>
+		<div class="md-primary md-hue-1" layout-fill="" ng-if="childMenus != null">
+			<!-- <uib-tabset
+				template-url="/configuration/partials/directive/tabset">
+				<uib-tab
+					template-url="/configuration/partials/directive/tab"
+					ng-repeat="menu in childMenus" heading="{{menu.name}}" />
+			</uib-tabset> -->
+			
+			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md-selected="selectedChildMenuIndex">
+				<md-tab label="{{menu.name}}" md-on-select="selectChildMenu(menu)" ng-repeat="menu in childMenus" />
 			</md-tabs>
+			
 		</div>
 		
 	</md-toolbar>
@@ -113,7 +115,7 @@
 			</md-menu-content>
 		</md-menu> -->
 		
-		<md-content>
+		<md-content ng-clock="">
 			<md-subheader>{{currentMenus.name}}</md-subheader>
 			<md-list>
 				<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
@@ -122,26 +124,15 @@
 					</div>
 					{{menu.name}}
 				</md-list-item>
-				<md-list ng-if="menu.childs != 0">
-					<md-list-item ng-repeat="childMenu in menu.childs" ng-click="selectMenu(childMenu)">
-						{{childMenu.name}}
-					</md-list-item>
-				</md-list>
 			</md-list>
 		</md-content>
 		
 	</md-sidenav>
 	
-	
-	
-	
-	
-	
-	
-	<md-content layout="row" flex="" class="content">
+	<md-content layout="row" flex="" class="content" ng-clock="">
 	<!-- style="background: transparent" -->
 	<!-- md-is-locked-open="$mdMedia('gt-lg')" -->
-		<md-sidenav md-is-locked-open="$mdMedia('gt-sm')" style="width: 230px;background: transparent">
+		<md-sidenav md-is-locked-open="$mdMedia('gt-sm')" style="width: 230px;background: transparent;">
 			<md-list>
 				<md-subheader class="content md-no-sticky">{{currentMenus.name}}</md-subheader>
 				<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
@@ -150,14 +141,7 @@
 					</div>
 					{{menu.name}}
 				</md-list-item>
-				<md-list ng-if="menu.childs != 0">
-					<md-list-item ng-repeat="childMenu in menu.childs" ng-click="selectMenu(childMenu)">
-						{{childMenu.name}}
-					</md-list-item>
-				</md-list>
-				
 			</md-list>
-			
 		</md-sidenav>
 		<div flex="">
 			<div layout:fragment="content"></div>

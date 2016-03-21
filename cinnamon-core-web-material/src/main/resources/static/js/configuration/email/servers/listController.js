@@ -1,6 +1,6 @@
 angular.module('cinnamon')
-.controller('configuration.email.list', function($scope, $http, $interval, $state, $log, $mdToast, $mdDialog, $mdMedia) {
-	console.log('configuration.email.list');
+.controller('configuration.email.server.list', function($scope, $http, $interval, $state, $log, $mdToast, $mdDialog, $mdMedia) {
+	console.log('configuration.email.server.list');
 	// 화면 도메인
 	$scope.domains;
 	$scope.searchInfo = {

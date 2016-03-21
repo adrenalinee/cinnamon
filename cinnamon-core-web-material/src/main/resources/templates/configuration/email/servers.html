@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/default">
+
+<head>
+<title>사이트</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script type="text/javascript" src="/js/configuration/directives/searchList.js"></script>
+<script type="text/javascript" src="/js/configuration/email/servers/listController.js"></script>
+<script type="text/javascript" src="/js/configuration/email/servers/viewController.js"></script>
+<script type="text/javascript" src="/js/configuration/email/servers/modifyController.js"></script>
+<script type="text/javascript" src="/js/configuration/email/servers/createController.js"></script>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+angular.module('cinnamon')
+.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider.state('list', {
+		url: '/configuration/email/servers',
+		templateUrl: '/configuration/partials/email/servers/list',
+		controller: 'configuration.email.server.list'
+	})
+	.state('create', {
+		url: '/configuration/email/servers/create',
+		templateUrl: '/configuration/partials/email/servers/create',
+		controller: 'configuration.email.server.create'
+	})	
+	.state('view', {
+		url: '/configuration/email/servers/:emailServerId',
+		templateUrl: '/configuration/partials/email/servers/view',
+		controller: 'configuration.email.server.view'
+	})
+	.state('modify', {
+		url : '/configuration/email/servers/:emailServerId/modify',
+		templateUrl : '/configuration/partials/email/servers/modify',
+		controller : 'configuration.email.server.modify'
+	})
+	;
+	
+});
+/*]]>*/
+</script>
+<base href="/" />
+</head>
+
+<body layout:fragment="content">
+	<ui-view layout-fill="" />
+</body>
+
+
+</html>

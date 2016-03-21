@@ -10,6 +10,7 @@ angular.module('cinnamon', [
 	'ui.bootstrap.paging',
 	'ui.bootstrap.pagination',
 	'ui.bootstrap.pager',
+	'ui.bootstrap.tabs',
 	'ngSanitize'
 	
 //	'md.data.table'
