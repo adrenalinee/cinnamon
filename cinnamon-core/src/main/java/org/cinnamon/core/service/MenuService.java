@@ -91,15 +91,16 @@ public class MenuService {
 		if (menuGroup == null) {
 			throw new InvalidEntityException("menuGroup이 없습니다. menuGroupId: " + menuGroupId);
 		}
-		
-		Menu parent = menuRepository.findOne(parentMenuId);
-		if (parent == null) {
-			throw new InvalidEntityException("parent가 없습니다. parentMenuId: " + parentMenuId);
-		}
-		
 		Menu menu = beanMapper.map(menuVo, Menu.class);
 		menu.setMenuGroup(menuGroup);
-		menu.setParent(parent);
+		
+		if(parentMenuId != null) {
+			Menu parent = menuRepository.findOne(parentMenuId);
+			if (parent == null) {
+				throw new InvalidEntityException("parent가 없습니다. parentMenuId: " + parentMenuId);
+			}
+			menu.setParent(parent);
+		}
 		
 		return menuRepository.save(menu);
 	}

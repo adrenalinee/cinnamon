@@ -1,5 +1,7 @@
 package org.cinnamon.core.repository;
 
+import java.util.List;
+
 import org.cinnamon.core.domain.Site;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QueryDslPredicateExecutor;
@@ -21,4 +23,13 @@ public interface SiteRepository extends JpaRepository<Site, String>, QueryDslPre
 	 * @return
 	 */
 	Site findBySiteIdAndDefaultMenuGroupMenuGroupId(String siteId, Long defaultMenuGroupId);
+	
+	/**
+	 * 메뉴 그룹 별 사이트 가져오기
+	 * @author 정명성
+	 * create date : 2016. 3. 21.
+	 * @param menuGroupId
+	 * @return
+	 */
+	Site findByMenuGroupMenuGroupId(Long menuGroupId);
 }

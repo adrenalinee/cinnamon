@@ -3,6 +3,7 @@ package org.cinnamon.core.repository;
 import java.util.List;
 
 import org.cinnamon.core.domain.MenuGroup;
+import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.vo.search.MenuGroupSearch;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

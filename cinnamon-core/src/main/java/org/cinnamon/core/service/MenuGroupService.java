@@ -8,6 +8,7 @@ import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.exception.InvalidEntityException;
 import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.MenuGroupRepository;
+import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.repository.SiteRepository;
 import org.cinnamon.core.vo.search.MenuGroupSearch;
 import org.slf4j.Logger;
@@ -136,4 +137,40 @@ public class MenuGroupService {
 		}
 		site = null;
 	}
+	
+	/**
+	 * 메뉴 그룹 별 사이트 목록 가져오기
+	 * @author 정명성
+	 * create date : 2016. 3. 21.
+	 * @param menuGroupId
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public Site getSitesOfMenuGroup (Long menuGroupId) {
+		logger.info("start");
+		return siteRepository.findByMenuGroupMenuGroupId(menuGroupId);
+	}
+	
+	/**
+	 * 메뉴 그룹의 사이트를 지정한다.
+	 * @author 정명성
+	 * create date : 2016. 3. 21.
+	 * @param siteId
+	 * @param menuGroupId
+	 */
+	@Transactional
+	public void putSiteOfMenuGroup(Long menuGroupId, String siteId) {
+		logger.info("start");
+		
+		Site site = siteRepository.findOne(siteId);
+		if(site == null) {
+			throw new NotFoundException("존재하지 않는 사이트 입니다. siteId : " + siteId);
+		}
+		MenuGroup menuGroup = menuGroupRepository.findOne(menuGroupId);
+		if(menuGroup == null) {
+			throw new NotFoundException("존재하지 않는 메뉴 그룹 입니다. menuGroupId : " + menuGroupId);
+		}
+		menuGroup.setSite(site);
+	}
+
 }

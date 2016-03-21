@@ -36,7 +36,7 @@ class MenuRestController {
 	
 	@RequestMapping(value="", method=RequestMethod.POST)
 	ResponseEntity<Void> postMenus(
-		@PathVariable Long menuGroupId,
+		//@PathVariable Long menuGroupId,
 		@RequestBody @Valid MenuVo menuVo, UriComponentsBuilder builder) {
 		logger.info("start")
 		

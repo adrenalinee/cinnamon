@@ -145,15 +145,7 @@ class SiteRestController {
 		logger.info("start")
 		menuGroupService.putDefaultMenuGroup(siteId, menuGroupId)
 	}
-	
-	/**
-	 * 메뉴 기본 그룹 설정
-	 */
-	@RequestMapping(value="{siteId}/defaultMenuGroup/{menuGroupId}", method=RequestMethod.DELETE)
-	def deleteDefaultMenuGroup(@PathVariable String siteId, @PathVariable Long menuGroupId) {
-		logger.info("start")
-		menuGroupService.putDefaultMenuGroup(siteId, menuGroupId)
-	}
+
 }
 
 /**

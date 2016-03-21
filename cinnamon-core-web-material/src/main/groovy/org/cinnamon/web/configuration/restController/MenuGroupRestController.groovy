@@ -87,4 +87,32 @@ class MenuGroupRestController {
 		return menuGroupService.getSiteMenuGroups(siteId);
 	}
 
+	/**
+	 * 사이트 리스트 가져오기
+	 * @author 정명성
+	 * create date : 2016. 3. 21.
+	 * @param menuGroupId
+	 * @return
+	 */
+	@RequestMapping(value="{menuGroupId}/sites", method=RequestMethod.GET)
+	def getSitesOfMenuGroup(@PathVariable Long menuGroupId) {
+		logger.info("start")
+		return menuGroupService.getSitesOfMenuGroup(menuGroupId)
+	}
+	
+	
+	/**
+	 * 메뉴 그룹 사이트 추가
+	 * @author 정명성
+	 * create date : 2016. 3. 21.
+	 * @param siteId
+	 * @param menuGroupId
+	 * @return
+	 */
+	@RequestMapping(value="{menuGroupId}/site/{siteId}", method=RequestMethod.PUT)
+	def putMenuGroupOfSite(@PathVariable Long menuGroupId, @PathVariable String siteId) {
+		logger.info("start")
+		menuGroupService.putSiteOfMenuGroup(menuGroupId, siteId)
+	}
+
 }

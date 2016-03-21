@@ -2,7 +2,7 @@
 
 	<md-toolbar>
 		<div class="md-toolbar-tools">
-			<h2 class="md-title">메뉴 그룹</h2>
+			<h2 class="md-title">사이트 목록</h2>
 			<span flex=""></span>
 			<md-button class="md-icon-button" ng-click="close()">
 				<md-icon>close</md-icon>
@@ -11,9 +11,9 @@
 	</md-toolbar>
 	
 	<md-card layout-padding="">
-	
+
 		<cm-search-list
-			resource-url="'/rest/configuration/menuGroups'"
+			resource-url="'/rest/configuration/sites'"
 			domains="domains"
 			is-paging="false"
 			default-search-params="{name: '이름'}"
@@ -30,14 +30,12 @@
 			
 			<cm-search-list-items>
 				<md-list-item ng-repeat="domain in domains.content" layout="row">
-					<p>{{domain.name}}</p>
-
-					<md-button class="md-primary md-raised" ng-show="{{domain.menuGroupId != siteInfo.defaultMenuGroup.menuGroupId}}" ng-click="putDefaultMenuGroup(domain.menuGroupId)">
-						기본메뉴설정
-					</md-button>
-					<p ng-show="{{domain.menuGroupId == siteInfo.defaultMenuGroup.menuGroupId}}" style="margin-left:15px;">
-						기본메뉴
+					<p>
+						{{domain.name}}
 					</p>
+					<md-button class="md-primary md-raised" ng-click="putSiteOfMenuGroup(domain.siteId)" ng-show="siteId != domain.siteId">
+						사이트 설정
+					</md-button>
 					<md-divider ng-if="!$last"></md-divider>
 				</md-list-item>
 			</cm-search-list-items>

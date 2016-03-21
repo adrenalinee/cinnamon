@@ -42,4 +42,8 @@ angular.module('cinnamon')
 			}, 200, 1);
 		})
 	}
+	
+	$scope.goView = function() {
+		$state.go('view', {siteId : $stateParams.siteId})
+	}
 });

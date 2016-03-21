@@ -5,15 +5,18 @@ angular.module('cinnamon')
 	var siteId = $stateParams.siteId;
 	var siteInfo;
 	$scope.searchInfo = {};
-	
-	$http.get('/rest/configuration/sites/' + siteId)
-		.success(function(data) {
-			console.log(data);
-			
-			siteInfo = $scope.domain = data;
+		$scope.load = function() {
+			$http.get('/rest/configuration/sites/' + siteId)
+			.success(function(data) {
+				console.log(data);
+				
+				siteInfo = $scope.domain = data;
 		});
-	
-	
+	}
+
+	// 사이트 정보 불러오기
+	$scope.load();
+
 	$scope.goMenuGroupView = function(domain) {
 		location.href = '/configuration/menuGroups/' + domain.menuGroupId;
 	}
@@ -61,29 +64,18 @@ angular.module('cinnamon')
 									.position('top right')
 									.hideDelay(3000)
 								)
-								$scope.load();
+								$mdDialog.hide();
 							})
 					}
-					
-					$scope.deleteDefaultMenuGroup = function(menuGroupId) {
-						$http.delete('/rest/configuration/sites/' + siteInfo.siteId + "/defaultMenuGroup/" + menuGroupId)
-							.success(function(result) {
-								$mdToast.show(
-										$mdToast.simple()
-										.textContent('삭제되었습니다.')
-										.position('top right')
-										.hideDelay(3000)
-								)
-								$scope.load();
-							})
-					}
-
+		
 					$scope.$watch(function() {
 						return $mdMedia('xs') || $mdMedia('sm');
 					}, function(wantsFullScreen) {
 						$scope.customFullscreen = (wantsFullScreen === true);
 					});
 			}
+		}).then(function() {
+			$scope.load();
 		})
 	}
 });
