@@ -57,7 +57,7 @@ public class UserGroupService<T extends UserBase> {
 	 * @return
 	 */
 	@Transactional
-	public UserGroup save(Long userGroupId, UserGroupVo userGroupVo) {
+	public UserGroup modify(Long userGroupId, UserGroupVo userGroupVo) {
 		logger.info("start");
 		
 		UserGroup userGroup = userGroupRepository.findOne(userGroupId);

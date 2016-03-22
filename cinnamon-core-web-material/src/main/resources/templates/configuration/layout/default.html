@@ -48,7 +48,21 @@
 					</md-menu-item>
 				</md-menu-content>
 			</md-menu>
-			<md-menu>
+			
+			<md-menu ng-repeat="menu in currentMenus.headerRight">
+				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon>{{menu.iconClass}}</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item ng-repeat="child in menu.childs">
+						<md-button ng-href="{{child.uri}}" target="_self">
+						<md-icon>{{child.iconClass}}</md-icon> {{child.name}}</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+			
+			
+			<!-- <md-menu>
 				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
 					<md-icon>more_vert</md-icon>
 				</md-button>
@@ -57,28 +71,17 @@
 						<md-button ng-href="/configuration" target="_self">설정</md-button>
 					</md-menu-item>
 				</md-menu-content>
-			</md-menu>
+			</md-menu> -->
 		</div>
 		
-<<<<<<< HEAD
-		<div class="md-primary md-hue-1" ng-if="childMenus != null">
-			<!-- <uib-tabset
-				template-url="/configuration/partials/directive/tabset">
-				<uib-tab
-					template-url="/configuration/partials/directive/tab"
-					ng-repeat="menu in childMenus" heading="{{menu.name}}" />
-			</uib-tabset> -->
-			
-=======
 		<div class="md-primary md-hue-1" layout-fill="" ng-if="childMenus != null">
->>>>>>> branch 'master' of https://github.com/adrenalinee/cinnamon.git
 			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md-selected="selectedChildMenuIndex">
 				<md-tab label="{{menu.name}}" md-on-select="selectChildMenu(menu)" ng-repeat="menu in childMenus" />
 			</md-tabs>
 			
 		</div>
-		
 	</md-toolbar>
+	
 	
 	<md-sidenav md-component-id="leftSidenav">
 		<md-toolbar>

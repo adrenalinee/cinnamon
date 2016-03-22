@@ -82,6 +82,6 @@ class UserGroupRestController {
 	void putUserGroup(@PathVariable Long userGroupId, @RequestBody @Valid UserGroupVo userGroupVo) {
 		logger.info("String")
 		
-		userGroupService.save(userGroupId, userGroupVo)
+		userGroupService.modify(userGroupId, userGroupVo)
 	}
 }

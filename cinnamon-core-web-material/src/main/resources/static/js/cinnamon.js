@@ -5,16 +5,13 @@ angular.module('cinnamon', [
 	'ngMessages',
 	'ngAnimate',
 	'ngAria',
+	'ngSanitize',
 	'ui.router',
 	'ngMaterial',
 	'ui.bootstrap.paging',
 	'ui.bootstrap.pagination',
-	'ui.bootstrap.pager',
-	'ui.bootstrap.tabs',
-	'ngSanitize'
+	'ui.bootstrap.pager'
 	
-//	'md.data.table'
-//	'ui.bootstrap'
 ]).config(function($locationProvider, $httpProvider, $mdThemingProvider) {
 	var token;
 	var header;

@@ -133,4 +133,11 @@ class GroupRestController {
 		groupService.modifyParent(parentGroupId, groupId)
 	}
 	
+	
+	@RequestMapping(value="{groupId}/childsMap", method=RequestMethod.GET)
+	Map<String, String> childsMap(@PathVariable String groupId) {
+		logger.info("start");
+		
+		return groupService.childsMap(groupId);
+	}
 }

@@ -76,7 +76,7 @@ class SessionRestController {
 		
 		menuResources = new LinkedList<>()
 		menuService.getList(dimension, MenuPosition.headerRight, authorities).each({menu ->
-			menuResources.add(BeanUtils.copyProperties(menu, MenuResource.class))
+			menuResources.add(beanMapper.map(menu, MenuResource.class))
 		})
 		menuGroupResource.setHeaderRight(menuResources)
 		
