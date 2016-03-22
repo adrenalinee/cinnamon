@@ -14,25 +14,14 @@
 
 </head>
 <body layout:fragment="body" class="content" layout="column" ng-controller="layoutController">
-	<md-toolbar md-whiteframe="4" layout-align="center center" ng-clock="">
-		<div class="md-toolbar-tools" layout-fill="">
+	<md-toolbar md-whiteframe="4" ng-clock="">
+		<div class="md-toolbar-tools" layout-align="none center">
 			<md-button class="md-icon-button" ng-click="toggleSidenav()" ng-show="isMobile()">
 				<md-icon>menu</md-icon>
 			</md-button>
 			<h2>
 				<a href="/" target="_self">Cinnamon</a>
 			</h2>
-			<!-- <md-button class="md-raised md-accent">스마트랩</md-button> -->
-			<!-- <md-menu>
-				<md-button class="md-raised" ng-click="$mdOpenMenu($event)">
-					프로젝트
-				</md-button>
-				<md-menu-content>
-					<md-menu-item>
-						<md-button>스마트랩</md-button>
-					</md-menu-item>
-				</md-menu-content>
-			</md-menu> -->
 			
 			<md-button class="md-raised" ng-repeat="menu in currentMenus.headerLeft" ng-href="{{menu.uri}}" target="_self">
 				{{menu.name}}
@@ -71,7 +60,7 @@
 			</md-menu>
 		</div>
 		
-		<div class="md-primary md-hue-1" layout-fill="" ng-if="childMenus != null">
+		<div class="md-primary md-hue-1" ng-if="childMenus != null">
 			<!-- <uib-tabset
 				template-url="/configuration/partials/directive/tabset">
 				<uib-tab
