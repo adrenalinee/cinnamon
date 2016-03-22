@@ -1,7 +1,7 @@
 package org.cinnamon.core.config.builder;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.cinnamon.core.domain.Site;
 
@@ -17,7 +17,11 @@ public class SiteWrapper {
 	
 	MenuGroupWrapper defaultMenuGroupWrapper;
 	
-	List<MenuGroupWrapper> menuGroupWrappers = new LinkedList<>();
+//	List<MenuGroupWrapper> menuGroupWrappers = new LinkedList<>();
+	
+	Map<String, MenuGroupWrapper> menuGroupWrappers = new LinkedHashMap<>();
+	
+	
 	
 	SiteWrapper(String name, String siteId) {
 		site = new Site();
@@ -41,18 +45,24 @@ public class SiteWrapper {
 	}
 	
 	public SiteWrapper addMenuGroup(MenuGroupWrapper menuGroupWrapper) {
-		menuGroupWrappers.add(menuGroupWrapper);
+//		menuGroupWrappers.add(menuGroupWrapper);
+		menuGroupWrappers.put(menuGroupWrapper.menuGroup.getDimension(), menuGroupWrapper);
 		return this;
 	}
 	
 	public SiteWrapper addMenuGroup(boolean isDefault, MenuGroupWrapper menuGroupWrapper) {
-		menuGroupWrappers.add(menuGroupWrapper);
+//		menuGroupWrappers.add(menuGroupWrapper);
+		menuGroupWrappers.put(menuGroupWrapper.menuGroup.getDimension(), menuGroupWrapper);
 		
 		if (isDefault) {
 			defaultMenuGroupWrapper = menuGroupWrapper;
 		}
 		
 		return this;
+	}
+	
+	public MenuGroupWrapper menuGroup(String dimension) {
+		return menuGroupWrappers.get(dimension);
 	}
 	
 }

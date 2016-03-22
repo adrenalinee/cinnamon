@@ -60,6 +60,7 @@
 			</md-menu>
 		</div>
 		
+<<<<<<< HEAD
 		<div class="md-primary md-hue-1" ng-if="childMenus != null">
 			<!-- <uib-tabset
 				template-url="/configuration/partials/directive/tabset">
@@ -68,6 +69,9 @@
 					ng-repeat="menu in childMenus" heading="{{menu.name}}" />
 			</uib-tabset> -->
 			
+=======
+		<div class="md-primary md-hue-1" layout-fill="" ng-if="childMenus != null">
+>>>>>>> branch 'master' of https://github.com/adrenalinee/cinnamon.git
 			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md-selected="selectedChildMenuIndex">
 				<md-tab label="{{menu.name}}" md-on-select="selectChildMenu(menu)" ng-repeat="menu in childMenus" />
 			</md-tabs>

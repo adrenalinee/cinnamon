@@ -40,9 +40,9 @@ angular.module('cinnamon')
 		
 	}
 	
-//	$scope.goList = function() {
-//		$state.go('list');
-//	}
+	$scope.goBack = function() {
+		history.go(-1);
+	}
 	
 	$scope.close = function() {
 		$mdDialog.hide();

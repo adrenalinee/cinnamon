@@ -58,6 +58,11 @@ public class BaseDataBuilder {
 		return this;
 	}
 	
+	/**
+	 * 이미 생성된 사이트에서 찾아서 전달.
+	 * @param siteId
+	 * @return
+	 */
 	public SiteWrapper site(String siteId) {
 		return siteWrappers.get(siteId);
 	}
@@ -145,7 +150,7 @@ public class BaseDataBuilder {
 			Site site = siteWrapper.site;
 			System.out.println("site: " + site.getName() + "(" + site.getSiteId() + ")");
 			
-			siteWrapper.menuGroupWrappers.forEach(mgw -> {
+			siteWrapper.menuGroupWrappers.forEach((dimension, mgw) -> {
 				MenuGroup menuGroup = mgw.menuGroup;
 				System.out.println("\tmenuGroup: " + menuGroup.getName());
 				
@@ -228,20 +233,20 @@ public class BaseDataBuilder {
 			}
 			
 			
-			siteWrapper.menuGroupWrappers.forEach(menuGroupWrapper -> {
-				MenuGroup menuGroup = menuGroupWrapper.menuGroup;
+			siteWrapper.menuGroupWrappers.forEach((dimension, mgw) -> {
+				MenuGroup menuGroup = mgw.menuGroup;
 				menuGroup.setSite(site);
 				em.persist(menuGroup);
 				em.flush();
 				
-				if (menuGroupWrapper.menuGroup.getName().equals(
+				if (mgw.menuGroup.getName().equals(
 						siteWrapper.defaultMenuGroupWrapper.menuGroup.getName())) {
 					
 					site.setDefaultMenuGroup(menuGroup);
 				}
 				
 				Orders orders = new Orders();
-				menuGroupWrapper.menuWrappers.forEach(menuWrapper -> {
+				mgw.menuWrappers.forEach(menuWrapper -> {
 					buildMenu(menuGroup, menuWrapper, orders);
 				});
 			});

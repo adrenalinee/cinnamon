@@ -1,4 +1,8 @@
-<ul class="pager">
-  <li ng-class="{disabled: noPrevious()||ngDisabled, previous: align}"><a href="" ng-click="selectPage(page - 1, $event)">{{::getText('previous')}}</a></li>
-  <li ng-class="{disabled: noNext()||ngDisabled, next: align}"><a href="" ng-click="selectPage(page + 1, $event)">{{::getText('next')}}</a></li>
-</ul>
+<div class="pager">
+	<div ng-class="{disabled: noPrevious()||ngDisabled, previous: align}">
+		<md-button href="" ng-click="selectPage(page - 1, $event)" class="md-raised">{{::getText('previous')}}</md-button>
+	</div>
+	<div ng-class="{disabled: noNext()||ngDisabled, next: align}">
+		<md-button href="" ng-click="selectPage(page + 1, $event)" class="md-raised">{{::getText('next')}}</md-button>
+	</div>
+</div>
