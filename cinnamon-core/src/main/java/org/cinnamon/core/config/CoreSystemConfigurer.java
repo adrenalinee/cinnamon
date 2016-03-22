@@ -139,11 +139,11 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 						.iconClass("attachment")
 				).addMenusAtHeaderRight(
 					menu("설정")
-						.iconClass("fa fa-gear")
+						.iconClass("more_vert")
 						.addChilds(
 							menu("기본 설정")
 								.uri("/configuration")
-								.iconClass("")
+								.iconClass("settings")
 						)
 				)
 			).addMenuGroup(
@@ -158,6 +158,14 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 						.uri("/settings/email"),
 					menu("언어")
 						.uri("/settings/language")
+				).addMenusAtHeaderRight(
+					menu("설정")
+						.iconClass("more_vert")
+						.addChilds(
+							menu("기본 설정")
+								.uri("/configuration")
+								.iconClass("settings")
+						)
 				)
 			)
 		);
