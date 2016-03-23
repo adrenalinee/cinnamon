@@ -1,0 +1,28 @@
+<div>
+	
+	<md-button ngf-select="" ng-model="fileModel" name="file" class="md-raised md-primary">퍄일 선택...</md-button>
+	
+	<div ngf-drop="" class="drop-box well" ng-model="fileModel" name="file"
+		ngf-drag-over-class="'dragover'" layout-margin="">
+		<h2 class="text-muted">업로드할 파일을 여기로 드래그 하세요.</h2>
+	</div>
+	
+	
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>파일명</th>
+				<th>파일 타입</th>
+				<th>파일 크기</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{{fileModel.name}}</td>
+				<td>{{fileModel.type}}</td>
+				<td>{{fileModel.size | number}} byte</td>
+			</tr>
+		</tbody>
+	</table>
+	
+</div>

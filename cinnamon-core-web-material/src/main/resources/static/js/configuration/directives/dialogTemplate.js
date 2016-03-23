@@ -1,7 +1,7 @@
 angular.module('cinnamon')
 .directive('cmDialogTemplate', function() {
 	return {
-		restrict: 'A',
+		restrict: 'EA',
 		transclude: true,
 		scope: {
 			toolbarTitle: '=',

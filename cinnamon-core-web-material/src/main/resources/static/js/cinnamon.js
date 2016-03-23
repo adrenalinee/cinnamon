@@ -10,7 +10,8 @@ angular.module('cinnamon', [
 	'ngMaterial',
 	'ui.bootstrap.paging',
 	'ui.bootstrap.pagination',
-	'ui.bootstrap.pager'
+	'ui.bootstrap.pager',
+	'ngFileUpload'
 	
 ]).config(function($locationProvider, $httpProvider, $mdThemingProvider) {
 	var token;
