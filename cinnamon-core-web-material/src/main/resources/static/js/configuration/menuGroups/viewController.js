@@ -155,23 +155,25 @@ angular.module('cinnamon')
 	$scope.headerLeftMenus;
 	$scope.headerRightMenus;
 	$scope.getMenus = function () {
+		
+		// 각 메뉴 탭 데이터 갱신
 		$http.get('/rest/configuration/menus', {params: {menuGroupId : menuGroupId, position: 'sidebar', page:0}})
 			.success(function(result) {
 				console.log(result);
 				$scope.sidebarMenus = result;
-			})
+		})
 			
 		$http.get('/rest/configuration/menus', {params: {menuGroupId : menuGroupId, position: 'headerLeft', page:0}})
 			.success(function(result) {
 				console.log(result);
 				$scope.headerLeftMenus = result;
-			})
+		})
 			
 		$http.get('/rest/configuration/menus', {params: {menuGroupId : menuGroupId, position: 'headerRight', page:0}})
 			.success(function(result) {
 				console.log(result);
 				$scope.headerRightMenus = result;
-			})
+		})
 	}
 
 });
