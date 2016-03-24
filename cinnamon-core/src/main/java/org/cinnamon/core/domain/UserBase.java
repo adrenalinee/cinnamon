@@ -146,6 +146,9 @@ public class UserBase implements UserEntity, Serializable {
 	@Enumerated(EnumType.STRING)
 	EntityType entityType;
 	
+	@Column(length=20)
+	String creator;
+	
 	@Column(nullable=false)
 	@Enumerated(EnumType.STRING)
 	UseStatus useStatus = UseStatus.enable;
@@ -381,6 +384,14 @@ public class UserBase implements UserEntity, Serializable {
 
 	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
+	}
+
+	public String getCreator() {
+		return creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
 }

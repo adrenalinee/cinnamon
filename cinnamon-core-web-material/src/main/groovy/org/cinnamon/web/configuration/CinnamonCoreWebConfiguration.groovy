@@ -96,10 +96,12 @@ class CinnamonCoreWebConfiguration {
 		@Override
 		void configure(HttpSecurity http) throws Exception {
 			http.antMatcher("/rest/**").authorizeRequests().anyRequest().authenticated()
-			
+//			http.authorizeRequests().antMatchers("/join").permitAll()
 			http.antMatcher("/**").authorizeRequests().anyRequest().denyAll()
 			http.formLogin().loginPage("/login").permitAll()
-			http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+			
+			http.logout().permitAll()
+//			http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 			http.rememberMe().tokenRepository(new InMemoryTokenRepositoryImpl())
 			
 			WebExpressionVoter webExpressionVoter = new WebExpressionVoter()
@@ -113,7 +115,7 @@ class CinnamonCoreWebConfiguration {
 			web.ignoring()
 					.antMatchers(
 					"/",
-					"/join",
+//					"/join",
 					"/webjars/**",
 					"/fonts/**",
 					"/configuration/partials/**",

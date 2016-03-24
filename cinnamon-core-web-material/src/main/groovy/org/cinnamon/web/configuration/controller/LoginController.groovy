@@ -22,7 +22,8 @@ class LoginController {
 	}
 	
 	@RequestMapping(value="/join")
-		void join() {
-			logger.info("start")
-		}
+	void join() {
+		logger.info("start")
+		"configuration/join"
+	}
 }

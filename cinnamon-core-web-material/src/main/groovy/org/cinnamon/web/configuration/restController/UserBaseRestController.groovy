@@ -3,7 +3,7 @@ package org.cinnamon.web.configuration.restController
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder
 import org.cinnamon.core.domain.UserBase
 import org.cinnamon.core.service.UserBaseService
 import org.cinnamon.core.service.UserGroupService
@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -46,10 +48,13 @@ class UserBaseRestController {
 	Mapper beanMapper
 	
 	@RequestMapping(value="", method=RequestMethod.POST)
-	def postUsers(@RequestBody @Valid UserJoinVo userVo, UriComponentsBuilder builder) {
+	def postUsers(
+		@AuthenticationPrincipal UserDetails userDetails,
+		@RequestBody @Valid UserJoinVo userVo, UriComponentsBuilder builder) {
 		logger.info("start")
 		
-		UserBase user = userService.join(userVo)
+		String creator = userDetails.getUsername()
+		UserBase user = userService.join(creator, userVo)
 		
 		URI location = MvcUriComponentsBuilder
 			.fromMethodName(

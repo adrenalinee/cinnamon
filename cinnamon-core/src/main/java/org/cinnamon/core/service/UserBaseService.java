@@ -277,7 +277,7 @@ public class UserBaseService<T extends UserBase> {
 	 */
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public T join(UserJoinVo userVo) {
+	public T join(String creator, UserJoinVo userVo) {
 		logger.info("start");
 		
 		final String userId = userVo.getUserId();
@@ -286,17 +286,6 @@ public class UserBaseService<T extends UserBase> {
 			throw new BadRequestException("이미 사용중인 아이디 입니다. userId: " + userVo.getUserId());
 		}
 		
-		
-//		Property property = propertyRepository.findByName(DefinedDBProperty.defaultUserGroup);
-//		if (property == null) {
-//			new RuntimeException("defaultNormalGroup property 값이 없습니다.");
-//		}
-//		
-//		Long defaultUserGroupId = property.getLongValue();
-//		UserGroup userGroup = userGroupRepository.findById(defaultUserGroupId);
-//		if (userGroup == null) {
-//			new RuntimeException("defaultUserGroupId 이 존재하지 않습니다. defaultUserGroupId: " + defaultUserGroupId);
-//		}
 		
 		Permission permission = permissionRepository.findByAuthority(DefinedUserAuthority.user.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
@@ -317,8 +306,8 @@ public class UserBaseService<T extends UserBase> {
 		T user = (T) new UserBase();
 		BeanUtils.copyProperties(userVo, user);
 		user.setUserPassword(userPassword);
-//		user.setUserGroup(userGroup);
 		user.getUserGroups().add(userGroup);
+		user.setCreator(creator);
 		
 		userRepository.save(user);
 		
