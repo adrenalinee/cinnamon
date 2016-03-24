@@ -43,7 +43,7 @@ angular.module('cinnamon')
 	}
 	
 	$scope.load = function(params) {
-		console.log(params);
+//		console.log(params);
 		
 		$scope.showProgress = true;
 		$http.get($scope.resourceUrl, {params: params})

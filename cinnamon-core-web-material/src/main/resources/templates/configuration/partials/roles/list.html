@@ -11,7 +11,7 @@
 
 	<h3 layout-padding="" class="md-headline">
 		역할 및 권한
-		<span class="md-subhead text-muted">역할 및 권한 목록</span>
+		<span class="md-subhead text-muted">역할 목록</span>
 	</h3>
 	
 	
@@ -24,8 +24,7 @@
 				name: '이름',
 				authority: '권한명'
 			}"
-			search-info="searchInfo"
-			>
+			search-info="searchInfo">
 			<!-- 상세검색 필드 -->
 			<cm-search-list-filters>
 				<md-card-content class="content" layout="column">
@@ -43,8 +42,9 @@
 			<!-- 리스트  -->
 			<cm-search-list-items>
 				<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
-				    <p class="text-muted">{{ domain.name }} </p>
-				    <p class="text-muted">{{ domain.authority }} </p>
+					<p class="text-muted" flex="10">{{ domain.permissionId }} </p>
+					<b flex="">{{ domain.name }} </b>
+					<p class="text-muted" flex="">{{ domain.authority }} </p>
 					<md-divider ng-if="!$last"></md-divider>
 				</md-list-item>
 			</cm-search-list-items>
