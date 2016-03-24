@@ -141,7 +141,7 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 					menu("설정")
 						.iconClass("more_vert")
 						.addChilds(
-							menu("기본 설정")
+							menu("서버 설정")
 								.uri("/configuration")
 								.iconClass("settings")
 						)

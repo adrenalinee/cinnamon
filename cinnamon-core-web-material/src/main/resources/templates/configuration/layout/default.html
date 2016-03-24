@@ -38,13 +38,19 @@
 				</md-button>
 				<md-menu-content>
 					<md-menu-item>
-						<md-button>프로필</md-button>
+						<md-button>
+							<md-icon>account_circle</md-icon> 프로필
+						</md-button>
 					</md-menu-item>
 					<md-menu-item>
-						<md-button ng-href="/settings" target="_self">개인 설정</md-button>
+						<md-button ng-href="/settings" target="_self">
+							<md-icon></md-icon> 개인 설정
+						</md-button>
 					</md-menu-item>
 					<md-menu-item>
-						<md-button ng-href="/logout" target="_self">로그아웃</md-button>
+						<md-button ng-href="/logout" target="_self">
+							<md-icon>power_settings_new</md-icon> 로그아웃
+						</md-button>
 					</md-menu-item>
 				</md-menu-content>
 			</md-menu>
@@ -126,8 +132,6 @@
 	</md-sidenav>
 	
 	<md-content layout="row" flex="" class="content" ng-clock="">
-	<!-- style="background: transparent" -->
-	<!-- md-is-locked-open="$mdMedia('gt-lg')" -->
 		<md-sidenav md-is-locked-open="$mdMedia('gt-sm')" style="width: 230px;background: transparent;">
 			<md-list>
 				<md-subheader class="content md-no-sticky">{{currentMenus.name}}</md-subheader>

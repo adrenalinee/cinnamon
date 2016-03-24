@@ -154,19 +154,19 @@ public class BaseDataBuilder {
 				MenuGroup menuGroup = mgw.menuGroup;
 				System.out.println("\tmenuGroup: " + menuGroup.getName());
 				
-				mgw.menuWrappers.forEach(mw -> {
-					Menu menu = mw.menu;
+				mgw.menuWrappers.forEach((name, menuWrapper) -> {
+					Menu menu = menuWrapper.menu;
 					System.out.println("\t\tmenu: " + menu.getName() + "(" + menu.getUri() + ")");
 					
-					mw.grantedAuthorities.forEach(grantedAuthority -> {
+					menuWrapper.grantedAuthorities.forEach(grantedAuthority -> {
 						System.out.println("\t\t\tgrantedAuthority: " + grantedAuthority);
 					});
 					
-					mw.childMenuWrappers.forEach(cmw -> {
+					menuWrapper.childMenuWrappers.forEach(cmw -> {
 						Menu child = cmw.menu;
 						System.out.println("\t\t\tchildMenu: " + child.getName() + "(" + child.getUri() + ")");
 						
-						mw.grantedAuthorities.forEach(grantedAuthority -> {
+						menuWrapper.grantedAuthorities.forEach(grantedAuthority -> {
 							System.out.println("\t\t\t\tgrantedAuthority: " + grantedAuthority);
 						});
 					});
@@ -246,7 +246,7 @@ public class BaseDataBuilder {
 				}
 				
 				Orders orders = new Orders();
-				mgw.menuWrappers.forEach(menuWrapper -> {
+				mgw.menuWrappers.forEach((name, menuWrapper) -> {
 					buildMenu(menuGroup, menuWrapper, orders);
 				});
 			});

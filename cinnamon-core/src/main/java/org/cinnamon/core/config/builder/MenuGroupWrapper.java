@@ -1,8 +1,8 @@
 package org.cinnamon.core.config.builder;
 
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.cinnamon.core.domain.MenuGroup;
 import org.cinnamon.core.domain.enumeration.MenuPosition;
@@ -17,7 +17,9 @@ public class MenuGroupWrapper {
 	
 	MenuGroup menuGroup;
 	
-	List<MenuWrapper> menuWrappers = new LinkedList<>();
+//	List<MenuWrapper> menuWrappers = new LinkedList<>();
+	
+	Map<String, MenuWrapper> menuWrappers = new LinkedHashMap<>();
 	
 	MenuGroupWrapper(String name, String dimension) {
 		menuGroup = new MenuGroup();
@@ -38,7 +40,8 @@ public class MenuGroupWrapper {
 	public MenuGroupWrapper addMenusAtSidebar(MenuWrapper... menuWrappers) {
 		Arrays.asList(menuWrappers).forEach(menuWrapper -> {
 			menuWrapper.menu.setPosition(MenuPosition.sidebar);
-			this.menuWrappers.add(menuWrapper);
+//			this.menuWrappers.add(menuWrapper);
+			this.menuWrappers.put(menuWrapper.menu.getName(), menuWrapper);
 		});
 		return this;
 	}
@@ -46,7 +49,8 @@ public class MenuGroupWrapper {
 	public MenuGroupWrapper addMenusAtHeaderRight(MenuWrapper... menuWrappers) {
 		Arrays.asList(menuWrappers).forEach(menuWrapper -> {
 			menuWrapper.menu.setPosition(MenuPosition.headerRight);
-			this.menuWrappers.add(menuWrapper);
+//			this.menuWrappers.add(menuWrapper);
+			this.menuWrappers.put(menuWrapper.menu.getName(), menuWrapper);
 		});
 		return this;
 	}
@@ -54,8 +58,13 @@ public class MenuGroupWrapper {
 	public MenuGroupWrapper addMenusAtHeaderLeft(MenuWrapper... menuWrappers) {
 		Arrays.asList(menuWrappers).forEach(menuWrapper -> {
 			menuWrapper.menu.setPosition(MenuPosition.headerLeft);
-			this.menuWrappers.add(menuWrapper);
+//			this.menuWrappers.add(menuWrapper);
+			this.menuWrappers.put(menuWrapper.menu.getName(), menuWrapper);
 		});
 		return this;
+	}
+	
+	public MenuWrapper menu(String name) {
+		return menuWrappers.get(name);
 	}
 }
