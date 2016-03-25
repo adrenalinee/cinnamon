@@ -1,5 +1,10 @@
 package org.cinnamon.web.configuration
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.TimeZone;
+
 import javax.sql.DataSource
 
 import org.cinnamon.core.security.DatabasePermissionVoter
@@ -9,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
 import org.springframework.security.access.vote.AffirmativeBased
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -25,8 +32,12 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
@@ -37,7 +48,29 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan
 @Configuration
 class CinnamonCoreWebConfiguration {
-
+	
+	@Configuration
+//	@EnableWebMvc
+	protected static class WebMvcConfigurer extends WebMvcConfigurerAdapter {
+		
+		@Override
+		public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+			DateFormat defaultDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+			defaultDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+			
+			for (HttpMessageConverter<?> conterter: converters) {
+				if (conterter instanceof AbstractJackson2HttpMessageConverter) {
+					AbstractJackson2HttpMessageConverter jacksonConverter =
+							(AbstractJackson2HttpMessageConverter) conterter;
+					ObjectMapper om = jacksonConverter.getObjectMapper();
+					om.setSerializationInclusion(Include.NON_NULL);
+					om.setDateFormat(defaultDateFormat);
+				}
+			}
+		}
+	}
+	
+	
 	@Configuration
 	protected static class CinnamonWebWebMvcConfigurer extends WebMvcConfigurerAdapter {
 		
