@@ -1,0 +1,82 @@
+<aside>
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			<span>사용자</span> <small>설정</small>
+			<button class="btn btn-primary btn-sm">
+				<i class="fa fa-user"></i> 개인설정
+			</button>
+		</h1>
+	</section>
+	
+	<!-- Main content -->
+	<section class="content">
+		
+		<div class="row">
+			<div class="col-md-3">
+				
+				<div class="box box-solid">
+					<div class="box-body box-profile">
+						
+						<img class="profile-user-img img-responsive img-circle" src="/webjars/adminlte/2.3.2/dist/img/user2-160x160.jpg" alt="User profile picture" />
+						
+						<h3 class="profile-username text-center">{{domain.name}}</h3>
+						<p class="text-muted text-center">{{domain.job}}</p>
+						
+						<!-- <ul class="list-group list-group-unbordered">
+							<li class="list-group-item"><b>{{domain.email}}</b></li>
+							<li class="list-group-item"><b>{{domain.createdAt}}</b></li>
+							<li class="list-group-item"><b>{{domain.nation}}</b></li>
+						</ul> -->
+						
+						<hr />
+						<strong><i class="fa fa-envelope margin-r-5"></i> Email</strong>
+						<p class="text-muted">{{domain.email}}</p>
+						
+						<hr />
+						<strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+						<p class="text-muted">{{domain.location}}</p>
+						
+						<hr />
+						<strong><i class="fa fa-phone-square margin-r-5"></i> phone</strong>
+						<p class="text-muted">{{domain.tel}}</p>
+						
+						<hr />
+						<strong><i class="fa fa-language margin-r-5"></i> Language</strong>
+						<p class="text-muted">{{domain.language}}</p>
+						
+						<hr />
+						<strong><i class="fa fa-globe margin-r-5"></i> Nation</strong>
+						<p class="text-muted">{{domain.nation}}</p>
+						
+					</div>
+				</div>
+				
+			</div>
+			<div class="col-md-9">
+				<uib-tabset class="nav-tabs-custom">
+					<uib-tab >
+						<uib-tab-heading>
+							<i class="fa fa-commenting"></i> 소개
+						</uib-tab-heading>
+						
+					</uib-tab>
+					<uib-tab>
+						<uib-tab-heading>
+							<i class="fa fa-users"></i> 사용자 그룹
+						</uib-tab-heading>
+						
+					</uib-tab>
+					<uib-tab>
+						<uib-tab-heading>
+							<i class="fa fa-rss"></i> 활동기록
+						</uib-tab-heading>
+						
+					</uib-tab>
+				</uib-tabset>
+			</div>
+		</div>
+
+	</section>
+	<!-- /.content -->
+</aside>

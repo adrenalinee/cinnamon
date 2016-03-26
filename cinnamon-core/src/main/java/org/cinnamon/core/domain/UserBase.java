@@ -1,5 +1,6 @@
 package org.cinnamon.core.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,8 +33,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity(name="user")
 @Inheritance
-public class UserBase implements UserEntity {
+public class UserBase implements UserEntity, Serializable {
 	
+	private static final long serialVersionUID = -2151815201770420809L;
+
 	@Id
 	@Column(length=20)
 	String userId;
@@ -51,7 +54,7 @@ public class UserBase implements UserEntity {
 	
 	@JsonIgnore
 	@ManyToMany
-	Set<Role> roles = new HashSet<Role>();
+	Set<Permission> permissions = new HashSet<Permission>();
 	
 	@Column(length=100)
 	String name;
@@ -92,6 +95,7 @@ public class UserBase implements UserEntity {
 	/**
 	 * 직업
 	 */
+	@Column(length=200)
 	String job;
 	
 	/**
@@ -104,7 +108,8 @@ public class UserBase implements UserEntity {
 	String phone;
 	
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@PrimaryKeyJoinColumn
 	UserIntroduce userIntroduce;
 	
 	/**
@@ -140,6 +145,9 @@ public class UserBase implements UserEntity {
 	@Column(length=50)
 	@Enumerated(EnumType.STRING)
 	EntityType entityType;
+	
+	@Column(length=20)
+	String creator;
 	
 	@Column(nullable=false)
 	@Enumerated(EnumType.STRING)
@@ -226,13 +234,13 @@ public class UserBase implements UserEntity {
 //		this.position = position;
 //	}
 
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
-	}
+//	public Set<UserAuthority> getRoles() {
+//		return roles;
+//	}
+//
+//	public void setRoles(Set<UserAuthority> roles) {
+//		this.roles = roles;
+//	}
 
 	public boolean isValidEmail() {
 		return validEmail;
@@ -360,6 +368,30 @@ public class UserBase implements UserEntity {
 
 	public void setJob(String job) {
 		this.job = job;
+	}
+
+//	public Set<Permission> getAuthorities() {
+//		return authorities;
+//	}
+//
+//	public void setAuthorities(Set<Permission> authorities) {
+//		this.authorities = authorities;
+//	}
+
+	public Set<Permission> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(Set<Permission> permissions) {
+		this.permissions = permissions;
+	}
+
+	public String getCreator() {
+		return creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 
 }

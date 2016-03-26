@@ -1,5 +1,7 @@
 package org.cinnamon.core.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -10,8 +12,10 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class UserIntroduce {
+public class UserIntroduce implements Serializable {
 	
+	private static final long serialVersionUID = -6721576340741184823L;
+
 	@Id
 	String userId;
 	

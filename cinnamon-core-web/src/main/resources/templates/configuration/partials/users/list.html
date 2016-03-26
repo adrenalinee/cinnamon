@@ -1,0 +1,81 @@
+<aside>
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			<span>사용자</span> <small>설정</small>
+			<!-- <button class="btn btn-primary btn-sm"
+				ng-bootbox-title="회원 등록"
+				ng-bootbox-custom-dialog=""
+				ng-bootbox-custom-dialog-template="/configuration/partials/users/create">
+				<i class="fa fa-plus"></i> 사용자 등록
+			</button> -->
+		</h1>
+	</section>
+	
+	<md-fab-speed-dial md-open="fabOpen" class="md-fab-bottom-right md-scale" style="position: fixed">
+		<md-fab-trigger>
+			<md-button class="md-fab md-accent">
+				<md-tooltip md-direction="left">사용자 생성</md-tooltip>
+				<md-icon>person_add</md-icon>
+			</md-button>
+		</md-fab-trigger>
+	</md-fab-speed-dial>
+	
+	
+	<!-- Main content -->
+	<!-- <section class="content"> -->
+		
+	<md-content style="background: transparent">
+		
+		<md-card>
+			<md-card-header>
+				<md-card-header-text class="md-headline">사용자</md-card-header-text>
+				<md-button class="md-icon-button">
+					<md-tooltip md-direction="top">정렬</md-tooltip>
+					<md-icon>search</md-icon>
+				</md-button>
+				<md-button class="md-icon-button">
+					<md-tooltip md-direction="top">정렬</md-tooltip>
+					<md-icon>sort</md-icon>
+				</md-button>
+			</md-card-header>
+				<!-- <md-list>
+					<md-list-item ng-click="goView()">
+						<div layout="column" class="md-list-item-text">
+							<b>신동성</b>
+							<small class="text-muted">adrenalinee31@gmail.com</small>
+						</div>
+					</md-list-item>
+					<md-divider></md-divider>
+					<md-list-item ng-click="goView()">
+						<div layout="column" class="md-list-item-text">
+							<b>이문상</b>
+							<small class="text-muted">tlset@lycos.co.kr</small>
+						</div>
+					</md-list-item>
+					<md-divider></md-divider>
+				</md-list> -->
+				
+				
+				
+				
+				<md-list>
+					<md-divider></md-divider>
+					<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)" layout="row">
+						<b flex="30">{{domain.name}}</b>
+						<span flex="30" class="text-muted">{{domain.email}}</span>
+						<span class="text-muted">{{domain.tel}}</span>
+						<!-- <div layout="column" class="md-list-item-text">
+							<b>{{domain.name}}</b>
+							<small class="text-muted">{{domain.email}}</small>
+						</div> -->
+						<md-divider ng-if="!$last"></md-divider>
+					</md-list-item>
+				</md-list>
+		</md-card>
+		
+	</md-content>
+	
+	<!-- </section> -->
+	<!-- /.content -->
+</aside>

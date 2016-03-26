@@ -1,0 +1,30 @@
+<!-- <md-dialog ng-clock="" flex="50"> -->
+	<md-toolbar ng-if="isMobile()">
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" ng-click="close()">
+				<md-icon>arrow_back</md-icon>
+			</md-button>
+			<h2 class="md-title">{{toolbarTitle}}</h2>
+			<span flex=""></span>
+			<md-button
+				ng-if="onAction != null"
+				class="md-raised"
+				ng-disabled="isProcess"
+				ng-click="onAction({target: $event})">{{actionName}}</md-button>
+			
+		</div>
+	</md-toolbar>
+	<span class="md-title" layout-margin="" ng-if="!isMobile()">{{toolbarTitle}}</span>
+	<md-dialog-content ng-transclude="">
+	</md-dialog-content>
+	<md-dialog-actions layout="row" ng-if="!isMobile()">
+		<md-progress-circular md-mode="indeterminate" ng-show="isProcess"></md-progress-circular>
+		<md-button
+			ng-if="onAction != null"
+			class="md-raised md-primary"
+			ng-disabled="isProcess"
+			ng-click="onAction({target: $event})">{{actionName}}</md-button>
+		<md-button ng-click="close()">취소</md-button>
+	</md-dialog-actions>
+	
+<!-- </md-dialog> -->

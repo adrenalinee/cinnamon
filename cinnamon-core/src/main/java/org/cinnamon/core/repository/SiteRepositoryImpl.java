@@ -71,5 +71,4 @@ public class SiteRepositoryImpl implements SiteRepositoryCustom {
 		
 		return page;
 	}
-	
 }

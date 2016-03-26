@@ -10,13 +10,11 @@ public class MenuGroupSearch {
 	
 	Long menuGroupId;
 	
-	String site;
+	String siteId;
 	
 	String dimension;
 	
-	String position;
-	
-	Long includedMenuId;
+	Long hasdMenuId;
 
 	public Long getMenuGroupId() {
 		return menuGroupId;
@@ -24,14 +22,6 @@ public class MenuGroupSearch {
 
 	public void setMenuGroupId(Long menuGroupId) {
 		this.menuGroupId = menuGroupId;
-	}
-
-	public String getSite() {
-		return site;
-	}
-
-	public void setSite(String site) {
-		this.site = site;
 	}
 
 	public String getDimension() {
@@ -42,20 +32,20 @@ public class MenuGroupSearch {
 		this.dimension = dimension;
 	}
 
-	public String getPosition() {
-		return position;
+	public String getSiteId() {
+		return siteId;
 	}
 
-	public void setPosition(String position) {
-		this.position = position;
+	public void setSiteId(String siteId) {
+		this.siteId = siteId;
 	}
 
-	public Long getIncludedMenuId() {
-		return includedMenuId;
+	public Long getHasdMenuId() {
+		return hasdMenuId;
 	}
 
-	public void setIncludedMenuId(Long includedMenuId) {
-		this.includedMenuId = includedMenuId;
+	public void setHasdMenuId(Long hasdMenuId) {
+		this.hasdMenuId = hasdMenuId;
 	}
 	
 	

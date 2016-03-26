@@ -33,7 +33,7 @@ public class UserActivity {
 	String userId;
 	
 	/**
-	 * 활종 종류
+	 * 활동 종류
 	 */
 	@Column(nullable=false)
 	String type;

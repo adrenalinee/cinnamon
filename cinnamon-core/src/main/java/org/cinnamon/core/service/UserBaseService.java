@@ -4,35 +4,38 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.cinnamon.core.domain.Role;
-import org.cinnamon.core.domain.UserActivity;
+import org.cinnamon.core.domain.Permission;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.domain.UserPassword;
 import org.cinnamon.core.domain.enumeration.UseStatus;
-import org.cinnamon.core.domain.enumeration.UserActivityType;
+import org.cinnamon.core.enumeration.DefinedUserActivity;
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
 import org.cinnamon.core.exception.BadRequestException;
 import org.cinnamon.core.exception.NotFoundException;
-import org.cinnamon.core.repository.RoleRepository;
+import org.cinnamon.core.repository.GroupRepository;
 import org.cinnamon.core.repository.PropertyRepository;
-import org.cinnamon.core.repository.UserActivityRepository;
+import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.UserBaseRepository;
 import org.cinnamon.core.repository.UserGroupRepository;
 import org.cinnamon.core.repository.UserPasswordRepository;
 import org.cinnamon.core.repository.predicate.UserBasePredicate;
-import org.cinnamon.core.service.listener.UserListener;
-import org.cinnamon.core.vo.UserVo;
-import org.cinnamon.core.vo.search.UserSearch;
+import org.cinnamon.core.service.userListener.AfterUserJoinListener;
+import org.cinnamon.core.vo.UserBaseVo;
+import org.cinnamon.core.vo.UserJoinVo;
+import org.cinnamon.core.vo.search.UserBaseSearch;
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 
 /**
@@ -47,8 +50,8 @@ public class UserBaseService<T extends UserBase> {
 	@Autowired
 	UserBaseRepository<T> userRepository;
 	
-	@Autowired
-	UserActivityRepository userActivityRepository;
+//	@Autowired
+//	UserActivityRepository userActivityRepository;
 	
 	@Autowired
 	UserGroupRepository userGroupRepository;
@@ -63,25 +66,48 @@ public class UserBaseService<T extends UserBase> {
 //	EmailService emailService;
 	
 	@Autowired
-	RoleRepository permissionRepository;
+	UserAuthorityRepository permissionRepository;
 	
-	List<UserListener> userListeners = new LinkedList<UserListener>();
+	@Autowired
+	GroupRepository groupRepository;
+	
+	@Autowired
+	UserActivityService<T> userActivityService;
+	
+	@Autowired
+	Mapper beanMapper;
+	
+	List<AfterUserJoinListener<T>> afterUserJoinListeners = new LinkedList<AfterUserJoinListener<T>>();
 	
 	
-	public void addListener(UserListener userListener) {
-		logger.info("start");
-		userListeners.add(userListener);
+	public void addAfterUserJoinListener(AfterUserJoinListener<T> afterUserJoinListener) {
+		afterUserJoinListeners.add(afterUserJoinListener);
 	}
 	
-	public void removeListener(UserListener userListener) {
-		logger.info("start");
-		userListeners.remove(userListener);
+	public void removeAfterUserJoinListener(AfterUserJoinListener<T> afterUserJoinListener) {
+		afterUserJoinListeners.remove(afterUserJoinListener);
 	}
+	
+//	@Transactional(readOnly=true)
+//	public Page<T> search(UserBaseSearch userSearch, Pageable pageable) {
+//		logger.info("start");
+//		return userRepository.findAll(UserBasePredicate.search(userSearch), pageable);
+//	}
+	
+	
 	
 	@Transactional(readOnly=true)
-	public Page<T> search(UserSearch userSearch, Pageable pageable) {
+	public Page<T> getList(UserBaseSearch userSearch, Pageable pageable) {
 		logger.info("start");
+		
 		return userRepository.findAll(UserBasePredicate.search(userSearch), pageable);
+	}
+	
+	
+	@Transactional(readOnly=true)
+	public UserBase get(String userId) {
+		logger.info("start");
+		return userRepository.findOne(userId);
 	}
 	
 	
@@ -95,7 +121,6 @@ public class UserBaseService<T extends UserBase> {
 		
 		return userRepository.count();
 	}
-	
 	
 	
 	@Transactional(readOnly=true)
@@ -112,6 +137,60 @@ public class UserBaseService<T extends UserBase> {
 		
 		//TODO 사용자 활동 로그
 	}
+	
+//	/**
+//	 * 
+//	 * @param userId
+//	 * @param userVo - 갱신할 값(null이 아닌 값만 갱신된다)
+//	 * @throws Exception
+//	 */
+//	@Transactional
+//	public void modify(String userId, Map<String, ?> source) throws Exception {
+//		logger.info("start");
+//		
+//		T existUser = userRepository.findOne(userId);
+//		if (existUser == null) {
+//			throw new NotFoundException("존재하지 않는 회원입니다. userId: " + userId);
+//		}
+//		
+//		MapObjectMerger.copy(source, existUser);
+//		
+////		ObjectMerger.merge(user, existUser);
+//	}
+	
+	
+	/**
+	 * 
+	 * @param userId
+	 * @param userVo - 갱신할 값(null이 아닌 값만 갱신된다)
+	 * @throws Exception
+	 */
+	@Transactional
+	public void merge(T user) {
+		logger.info("start");
+		
+		String userId = user.getUserId();
+		T existUser = userRepository.findOne(userId);
+		if (existUser == null) {
+			throw new NotFoundException("존재하지 않는 회원입니다. userId: " + userId);
+		}
+		
+		beanMapper.map(user, existUser);
+	}
+	
+	
+	@Transactional
+	public void save(String userId, UserBaseVo userBaseVo) {
+		logger.info("start");
+		
+		T existUser = userRepository.findOne(userId);
+		if (existUser == null) {
+			throw new NotFoundException("존재하지 않는 회원입니다. userId: " + userId);
+		}
+		
+		beanMapper.map(userBaseVo, existUser);
+	}
+	
 	
 	
 	/**
@@ -146,25 +225,24 @@ public class UserBaseService<T extends UserBase> {
 		
 		final String userId = user.getUserId();
 		
+		//국가 코드가 정상인지 확인!!
+		String nation = user.getNation();
+		if (!StringUtils.isEmpty(nation)) {
+			if (!groupRepository.exists(nation)) {
+				throw new BadRequestException("지정되지 않은 국가 코드 입니다. nation: " + nation);
+			}
+		}
+		
+		//TODO 사용불가한 아이디 인지 확인
+		
+		
 		T existUser = userRepository.findOne(userId);
 		if (existUser != null) {
 			throw new BadRequestException("이미 사용중인 아이디 입니다. userId: " + userId);
 		}
 		
 		
-//		Property property = propertyRepository.findByName(DefinedDBProperty.defaultUserGroup);
-//		if (property == null) {
-//			new RuntimeException("defaultNormalGroup property 값이 없습니다.");
-//		}
-//		
-//		Long defaultUserGroupId = property.getLongValue();
-//		UserGroup userGroup = userGroupRepository.findById(defaultUserGroupId);
-//		if (userGroup == null) {
-//			new RuntimeException("defaultUserGroupId 이 존재하지 않습니다. defaultUserGroupId: " + defaultUserGroupId);
-//		}
-		
-		
-		Role permission = permissionRepository.findOne(DefinedUserAuthority.normal.name());
+		Permission permission = permissionRepository.findByAuthority(DefinedUserAuthority.user.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
 			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");
@@ -186,12 +264,9 @@ public class UserBaseService<T extends UserBase> {
 		userRepository.save(user);
 		
 		
-		//사용자 활동 로그
-		UserActivity userActivity = new UserActivity();
-		userActivity.setUserId(user.getUserId());
-		userActivity.setType(UserActivityType.join.name());
-		
-		userActivityRepository.persist(userActivity);
+		//사용자 활동기록 등록
+		userActivityService.addActivity(user, DefinedUserActivity.signup);
+		notifyAfterJoin(user);
 	}
 	
 	/**
@@ -202,7 +277,7 @@ public class UserBaseService<T extends UserBase> {
 	 */
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public T join(UserVo userVo) {
+	public T join(String creator, UserJoinVo userVo) {
 		logger.info("start");
 		
 		final String userId = userVo.getUserId();
@@ -212,18 +287,7 @@ public class UserBaseService<T extends UserBase> {
 		}
 		
 		
-//		Property property = propertyRepository.findByName(DefinedDBProperty.defaultUserGroup);
-//		if (property == null) {
-//			new RuntimeException("defaultNormalGroup property 값이 없습니다.");
-//		}
-//		
-//		Long defaultUserGroupId = property.getLongValue();
-//		UserGroup userGroup = userGroupRepository.findById(defaultUserGroupId);
-//		if (userGroup == null) {
-//			new RuntimeException("defaultUserGroupId 이 존재하지 않습니다. defaultUserGroupId: " + defaultUserGroupId);
-//		}
-		
-		Role permission = permissionRepository.findOne(DefinedUserAuthority.normal.name());
+		Permission permission = permissionRepository.findByAuthority(DefinedUserAuthority.user.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
 			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");
@@ -242,17 +306,13 @@ public class UserBaseService<T extends UserBase> {
 		T user = (T) new UserBase();
 		BeanUtils.copyProperties(userVo, user);
 		user.setUserPassword(userPassword);
-//		user.setUserGroup(userGroup);
 		user.getUserGroups().add(userGroup);
+		user.setCreator(creator);
 		
 		userRepository.save(user);
 		
-		
-		UserActivity userActivity = new UserActivity();
-		userActivity.setUserId(userId);
-		userActivity.setType(UserActivityType.join.name());
-		
-		userActivityRepository.persist(userActivity);
+		//사용자 활동기록 등록
+		userActivityService.addActivity(user, DefinedUserActivity.signup);
 		
 		notifyAfterJoin(user);
 		return user;
@@ -266,7 +326,7 @@ public class UserBaseService<T extends UserBase> {
 	 */
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public T joinSystemMaster(UserVo userVo) {
+	public T joinSystemMaster(UserJoinVo userVo) {
 		logger.info("start");
 		
 		final String userId = userVo.getUserId();
@@ -287,7 +347,7 @@ public class UserBaseService<T extends UserBase> {
 //		Long defaultSystemMasterGroupId = (Long) property.getLongValue();
 //		UserGroup userGroup = userGroupRepository.findById(defaultSystemMasterGroupId);
 		
-		Role permission = permissionRepository.findOne(DefinedUserAuthority.systemMaster.name());
+		Permission permission = permissionRepository.findByAuthority(DefinedUserAuthority.systemMaster.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
 			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");
@@ -312,13 +372,8 @@ public class UserBaseService<T extends UserBase> {
 		userRepository.save(user);
 		
 		
-		//사용자 활동 등록
-		UserActivity userActivity = new UserActivity();
-		userActivity.setUserId(userId);
-		userActivity.setType(UserActivityType.join.name());
-		
-		userActivityRepository.persist(userActivity);
-		
+		//사용자 활동기록 등록
+		userActivityService.addActivity(user, DefinedUserActivity.signup);
 		
 		notifyAfterJoin(user);
 		
@@ -332,7 +387,7 @@ public class UserBaseService<T extends UserBase> {
 	 * @param userVo
 	 */
 	@Transactional
-	public void joinFirstSystemMaster(UserVo userVo) {
+	public void joinFirstSystemMaster(UserJoinVo userVo) {
 		logger.info("start");
 		
 		T user = joinSystemMaster(userVo);
@@ -399,11 +454,43 @@ public class UserBaseService<T extends UserBase> {
 	
 	
 	/**
+	 * 삭제
+	 * 
+	 * 실제 지우지 않고 상태(useStatus)만 삭제상태로 바꾼다.
+	 * 
+	 * 
+	 * 
+	 * @param userId
+	 */
+	@Transactional
+	public void leave(String userId) {
+		logger.info("start");
+		
+		T user = userRepository.findOne(userId);
+		if (user == null) {
+			throw new NotFoundException("userExtension이 생성되지 않았습니다. userId: " + userId);
+		}
+		
+		try {
+			//TODO 활동 기록이 있으면 조인된 테이블과 외래키로 역여 있기때문에 삭제 되지 않는 점을 이용해서 일단 지워보고 안지워 지면 상태만 바꾸고 향후 관련 모든 기록을 지워야 함
+			// 이렇게 처리하는것이 맞을지 무조건 상태만 변경하는 형태로 가야할지 검토 및 결정 필요
+			userRepository.delete(user);
+		} catch (DataAccessException e) {
+			logger.warn("할동 기록이 있어 해당 사용자정보를 삭제 할 수 없음. 사용상태만 deleted로 변경함. userId: " + userId, e);
+			
+			user.setUseStatus(UseStatus.deleted);
+		}
+		
+		userActivityService.addActivity(user, DefinedUserActivity.deleteAccount);
+	}
+	
+	
+	/**
 	 * 사용자 서비스 실행에 대해서 리스너에게 노티를 준다.
 	 * @param user
 	 */
 	private void notifyAfterJoin(T user) {
-		for (UserListener listener: userListeners) {
+		for (AfterUserJoinListener listener: afterUserJoinListeners) {
 			try {
 				listener.afterJoin(user);
 			} catch (Exception ex) {

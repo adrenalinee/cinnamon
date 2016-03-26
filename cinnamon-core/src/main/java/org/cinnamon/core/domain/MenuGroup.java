@@ -30,11 +30,17 @@ public class MenuGroup {
 	@ManyToOne
 	Site site;
 	
-	@Column(nullable=false)
+	@Column(length=100, nullable=false)
 	String name;
 	
-	@Column(nullable=false)
+	@Column(length=50, nullable=false, unique=true)
 	String dimension;
+	
+	/**
+	 * 화면에 표시할 라벨
+	 */
+	@Column(length=100)
+	String label;
 	
 //	@Column(nullable=false)
 //	@Enumerated(EnumType.STRING)
@@ -44,11 +50,18 @@ public class MenuGroup {
 //	@ManyToMany
 //	List<Menu> menus;
 	
+	/**
+	 * 기본으로 접근할 페이지 경로
+	 */
+	@Column(length=200)
+	String defaultPage;
+	
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="menuGroup")
 	List<Menu> menus;
 	
+	@Column(length=4000)
 	String description;
 	
 //	@Column(nullable=false, updatable=false)
@@ -122,6 +135,22 @@ public class MenuGroup {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getDefaultPage() {
+		return defaultPage;
+	}
+
+	public void setDefaultPage(String defaultPage) {
+		this.defaultPage = defaultPage;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 //	public Date getCreatedAt() {

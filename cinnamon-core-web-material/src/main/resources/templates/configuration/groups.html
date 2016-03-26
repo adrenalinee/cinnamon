@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/default">
+
+<head>
+<title>코드</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<base href="/" />
+</head>
+
+<body layout:fragment="content">
+	<ui-view layout-fill=""/>
+
+
+<script type="text/javascript">
+//<![CDATA[
+angular.module('cinnamon')
+.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider.state('list', {
+		url: '/configuration/groups',
+		templateUrl: '/configuration/partials/groups/list',
+		controller: 'configuration.group.list'
+	})
+	.state('create',{
+		url : '/configuration/groups/create',
+		templateUrl : '/configuration/partials/groups/create',
+		controller : 'configuration.group.create'
+	})
+	.state('view', {
+		url: '/configuration/groups/:groupId',
+		templateUrl: '/configuration/partials/groups/view',
+		controller: 'configuration.group.view'
+	})
+	.state('modify', {
+		url: '/configuration/groups/:groupId/modify',
+		templateUrl: '/configuration/partials/groups/modify',
+		controller: 'configuration.group.modify'
+	});
+});
+//]]>
+</script>
+<script src="/js/configuration/directives/searchList.js" type="text/javascript"></script>
+<script src="/js/configuration/groups/listController.js" type="text/javascript"></script>
+<script src="/js/configuration/groups/viewController.js" type="text/javascript"></script>
+<script src="/js/configuration/groups/createController.js" type="text/javascript"></script>
+<script src="/js/configuration/groups/modifyController.js" type="text/javascript"></script>
+
+</body>
+
+</html>

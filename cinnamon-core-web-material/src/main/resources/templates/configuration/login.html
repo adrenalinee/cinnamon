@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/base">
+
+<head>
+<title>cinnamon 로그인</title>
+<link href="/css/cinnamon.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="/js/cinnamon.js"></script>
+<script type="text/javascript">
+angular.module('cinnamon');
+</script>
+</head>
+<body layout:fragment="body" layout-gt-xs="row" layout-align-gt-xs="center start" class="content">
+
+	<md-content flex-gt-xs="30" class="content">
+		
+		<form th:action="@{/login}" method="post">
+			<md-card layout-padding="">
+				<md-card-header>
+					<md-card-header-text>
+						<span class="md-title">welcom to Cinnamon</span>
+					</md-card-header-text>
+				</md-card-header>
+				
+				<p th:if="${param.error}" class="alert-danger animated fadeIn">
+					아이디나 비밀번호가 일치하지 않습니다.
+				</p>
+				<div th:if="${param.logout}" class="alert-success animated fadeIn">
+					로그아웃되었습니다.
+				</div>
+				
+				<md-card-content>
+						<md-input-container class="md-block">
+							<label>userId</label>
+							<input name="username" required="required" maxlength="20" />
+						</md-input-container>
+						<md-input-container class="md-block">
+							<label>비밀번호</label>
+							<input type="password" name="password" required="required" maxlength="30" />
+						</md-input-container>
+						
+						<input type="hidden" name="remember-me" value="{{remomberMe}}" />
+						<md-checkbox ng-model="remomberMe">로그인 상태 유지</md-checkbox>
+						<!-- <input type="hidden" name="remember-me" value="{{rememberMe}}" /> -->
+				</md-card-content>
+				<md-card-actions>
+					<md-button type="submit" class="md-raised md-primary">로그인</md-button>
+					<md-button ng-href="/join">회원가입</md-button>
+				</md-card-actions>
+			</md-card>
+		</form>
+		
+	</md-content>
+</body>
+</html>

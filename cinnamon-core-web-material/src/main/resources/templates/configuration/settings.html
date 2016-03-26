@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/default">
+
+<head>
+<title>개인설정</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script type="text/javascript" src="/js/configuration/settings/profileController.js"></script>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+angular.module('cinnamon')
+.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider.state('profile', {
+		url: '/configuration/settings/profile',
+		templateUrl: '/configuration/partials/settings/profile',
+		controller: 'configuration.settings.profile'
+	});
+	
+	$urlRouterProvider.otherwise('/configuration/settings/profile');
+});
+/*]]>*/
+</script>
+
+<base href="/" />
+</head>
+
+<body layout:fragment="content">
+	<ui-view layout-fill="" />
+</body>
+</html>

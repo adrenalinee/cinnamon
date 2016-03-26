@@ -1,6 +1,7 @@
 package org.cinnamon.core.service;
 
 import org.cinnamon.core.domain.UserActivity;
+import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.repository.UserActivityRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class UserActivityServiceImpl implements UserActivityService {
+public class UserActivityServiceImpl<T extends UserBase> implements UserActivityService <T> {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
@@ -28,4 +29,18 @@ public class UserActivityServiceImpl implements UserActivityService {
 		
 		userActivityRepository.persist(userActivity);
 	}
+
+
+	@Override
+	public void addActivity(T user, Object activityType) {
+		logger.info("start");
+		
+		UserActivity userActivity = new UserActivity();
+		userActivity.setUserId(user.getUserId());
+		userActivity.setType(activityType.toString());
+		
+		userActivityRepository.persist(userActivity);
+	}
+
+
 }

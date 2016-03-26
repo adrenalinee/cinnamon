@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/base">
+
+<head>
+<link href="/css/cinnamon.css" rel="stylesheet" type="text/css" />
+
+
+<script type="text/javascript" src="/js/cinnamon.js"></script>
+<script type="text/javascript" src="/js/configuration/layout/layout.js"></script>
+
+
+</head>
+<body layout:fragment="body" class="content" layout="column" ng-controller="layoutController">
+	<md-toolbar md-whiteframe="4" ng-clock="">
+		<div class="md-toolbar-tools" layout-align="none center">
+			<md-button class="md-icon-button" ng-click="toggleSidenav()" ng-show="isMobile()">
+				<md-icon>menu</md-icon>
+			</md-button>
+			<h2>
+				<a href="/" target="_self">Cinnamon</a>
+			</h2>
+			
+			<md-button class="md-raised" ng-repeat="menu in currentMenus.headerLeft" ng-href="{{menu.uri}}" target="_self">
+				{{menu.name}}
+			</md-button>
+			
+			
+			<span flex=""></span>
+			
+			{{me.name}}
+			
+			<md-menu ng-show="!isMobile()" ng-clock="">
+				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon>person</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button ng-href="/" target="_self">
+							<md-icon>account_circle</md-icon> 프로필
+						</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button ng-href="/settings" target="_self">
+							<md-icon></md-icon> 개인 설정
+						</md-button>
+					</md-menu-item>
+					<md-menu-item>
+						<md-button ng-href="/logout" target="_self">
+							<md-icon>power_settings_new</md-icon> 로그아웃
+						</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+			
+			<md-menu ng-repeat="menu in currentMenus.headerRight">
+				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon>{{menu.iconClass}}</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item ng-repeat="child in menu.childs">
+						<md-button ng-href="{{child.uri}}" target="_self">
+						<md-icon>{{child.iconClass}}</md-icon> {{child.name}}</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
+			
+			
+			<!-- <md-menu>
+				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon>more_vert</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button ng-href="/configuration" target="_self">설정</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu> -->
+		</div>
+		
+		<div class="md-primary md-hue-1" layout-fill="" ng-if="childMenus != null">
+			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md-selected="selectedChildMenuIndex">
+				<md-tab label="{{menu.name}}" md-on-select="selectChildMenu(menu)" ng-repeat="menu in childMenus" />
+			</md-tabs>
+			
+		</div>
+	</md-toolbar>
+	
+	
+	<md-sidenav md-component-id="leftSidenav">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<md-button class="md-icon-button" ng-click="closeSidenav()">
+					<md-icon>arrow_back</md-icon>
+				</md-button>
+				<h2>Cinnamon</h2>
+			</div>
+		</md-toolbar>
+		
+		<!-- <md-menu>
+			<md-button ng-click="$mdOpenMenu($event)">
+				<md-icon>person</md-icon>
+				{{me.name}}
+			</md-button>
+			<md-menu-content>
+				<md-menu-item>
+					<md-button>프로필</md-button>
+				</md-menu-item>
+				<md-menu-item>
+					<md-button ng-href="/settings" target="_self">개인 설정</md-button>
+				</md-menu-item>
+				<md-menu-item>
+					<md-button ng-href="/logout" target="_self">로그아웃</md-button>
+				</md-menu-item>
+			</md-menu-content>
+		</md-menu> -->
+		
+		<md-content ng-clock="">
+			<md-subheader>{{currentMenus.name}}</md-subheader>
+			<md-list>
+				<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
+					<div flex="15">
+						<md-icon>{{menu.iconClass}}</md-icon>
+					</div>
+					{{menu.name}}
+				</md-list-item>
+			</md-list>
+		</md-content>
+		
+	</md-sidenav>
+	
+	<md-content layout="row" flex="" class="content" ng-clock="">
+		<md-sidenav md-is-locked-open="$mdMedia('gt-sm')" style="width: 230px;background: transparent;">
+			<md-list>
+				<md-subheader class="content md-no-sticky">{{currentMenus.name}}</md-subheader>
+				<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
+					<div flex="15">
+						<md-icon>{{menu.iconClass}}</md-icon>
+					</div>
+					{{menu.name}}
+				</md-list-item>
+			</md-list>
+		</md-sidenav>
+		<div flex="">
+			<div layout:fragment="content"></div>
+		</div>
+	</md-content>
+</body>
+</html>

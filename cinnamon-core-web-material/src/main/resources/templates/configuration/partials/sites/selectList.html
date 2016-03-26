@@ -1,0 +1,45 @@
+<md-dialog ng-clock="" flex="70">
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2 class="md-title">사이트 목록</h2>
+			<span flex=""></span>
+			<md-button class="md-icon-button" ng-click="close()">
+				<md-icon>close</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<md-card layout-padding="">
+
+		<cm-search-list
+			resource-url="'/rest/configuration/sites'"
+			domains="domains"
+			is-paging="false"
+			default-search-params="{name: '이름'}"
+			search-info="searchInfo">
+			
+			<cm-search-list-filters>
+				<md-card-content class="content" layout="column">
+					<md-input-container layout-fill="">
+						<label>이름</label>
+						<input name="name" />
+					</md-input-container>
+				</md-card-content>
+			</cm-search-list-filters>
+			
+			<cm-search-list-items>
+				<md-list-item ng-repeat="domain in domains.content" layout="row">
+					<p>
+						{{domain.name}}
+					</p>
+					<md-button class="md-primary md-raised" ng-click="putSiteOfMenuGroup(domain.siteId)" ng-show="siteId != domain.siteId">
+						사이트 설정
+					</md-button>
+					<md-divider ng-if="!$last"></md-divider>
+				</md-list-item>
+			</cm-search-list-items>
+			
+		</cm-search-list>
+	</md-card>
+</md-dialog>

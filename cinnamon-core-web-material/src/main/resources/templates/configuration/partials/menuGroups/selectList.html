@@ -1,0 +1,47 @@
+<md-dialog ng-clock="" flex="70">
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2 class="md-title">메뉴 그룹</h2>
+			<span flex=""></span>
+			<md-button class="md-icon-button" ng-click="close()">
+				<md-icon>close</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<md-card layout-padding="">
+	
+		<cm-search-list
+			resource-url="'/rest/configuration/menuGroups'"
+			domains="domains"
+			is-paging="false"
+			default-search-params="{name: '이름'}"
+			search-info="searchInfo">
+			
+			<cm-search-list-filters>
+				<md-card-content class="content" layout="column">
+					<md-input-container layout-fill="">
+						<label>이름</label>
+						<input name="name" />
+					</md-input-container>
+				</md-card-content>
+			</cm-search-list-filters>
+			
+			<cm-search-list-items>
+				<md-list-item ng-repeat="domain in domains.content" layout="row">
+					<p>{{domain.name}}</p>
+
+					<md-button class="md-primary md-raised" ng-show="{{domain.menuGroupId != siteInfo.defaultMenuGroup.menuGroupId}}" ng-click="putDefaultMenuGroup(domain.menuGroupId)">
+						기본메뉴설정
+					</md-button>
+					<p ng-show="{{domain.menuGroupId == siteInfo.defaultMenuGroup.menuGroupId}}" style="margin-left:15px;">
+						기본메뉴
+					</p>
+					<md-divider ng-if="!$last"></md-divider>
+				</md-list-item>
+			</cm-search-list-items>
+			
+		</cm-search-list>
+	</md-card>
+</md-dialog>

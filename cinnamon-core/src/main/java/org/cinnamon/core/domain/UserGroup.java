@@ -1,5 +1,6 @@
 package org.cinnamon.core.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -22,30 +24,32 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @since 2014. 12. 22.
  */
 @Entity
-public class UserGroup {
-	
+public class UserGroup implements Serializable {
+
 	@Id
 	@GeneratedValue
 	Long userGroupId;
 	
-	@Column(nullable=false)
+	@Column(length=50, nullable=false)
 	String name;
 	
 	@JsonIgnore
-	@ManyToMany(mappedBy="userGroups")
 //	@OneToMany(mappedBy="userGroup")
+	@ManyToMany(mappedBy="userGroups")
 	List<UserBase> users;
 	
 	
 	@ManyToOne
-	Role role;
-	
+//	@JoinColumn(name="permissionId")
+//	UserAuthority authority;
+	Permission permission;
 	/**
 	 * 로그인후 처음으로 보여줄 페이지.
 	 * 혹은 갈곳이 없을때 보여줄 페이지.
 	 */
 //	String defualtPage;
 	
+	@Column(length=4000)
 	String description;
 	
 	@Column(nullable=false)
@@ -68,13 +72,13 @@ public class UserGroup {
 		this.useStatus = useStatus;
 	}
 
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role permission) {
-		this.role = permission;
-	}
+//	public UserAuthority getRole() {
+//		return role;
+//	}
+//
+//	public void setRole(UserAuthority permission) {
+//		this.role = permission;
+//	}
 
 	public String getDescription() {
 		return description;
@@ -98,6 +102,22 @@ public class UserGroup {
 
 	public void setUsers(List<UserBase> users) {
 		this.users = users;
+	}
+
+//	public UserAuthority getAuthority() {
+//		return authority;
+//	}
+//
+//	public void setAuthority(UserAuthority authority) {
+//		this.authority = authority;
+//	}
+
+	public Permission getPermission() {
+		return permission;
+	}
+
+	public void setPermission(Permission permission) {
+		this.permission = permission;
 	}
 
 //	public String getDefualtPage() {

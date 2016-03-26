@@ -3,6 +3,7 @@ package org.cinnamon.core.repository;
 import java.util.List;
 
 import org.cinnamon.core.domain.MenuGroup;
+import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.vo.search.MenuGroupSearch;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +16,7 @@ import org.springframework.data.domain.Pageable;
  */
 public interface MenuGroupRepositoryCustom {
 
-	Page<MenuGroup> search(MenuGroupSearch menuGroupSearch, Pageable pageable);
+	Page<MenuGroup> find(MenuGroupSearch menuGroupSearch, Pageable pageable);
 
 	List<MenuGroup> find(String siteId);
 

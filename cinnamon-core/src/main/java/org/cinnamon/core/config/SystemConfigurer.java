@@ -1,6 +1,6 @@
 package org.cinnamon.core.config;
 
-import org.cinnamon.core.config.baseData.BaseDataBuilder;
+import org.cinnamon.core.config.builder.BaseDataBuilder;
 
 /**
  * 
@@ -11,4 +11,11 @@ import org.cinnamon.core.config.baseData.BaseDataBuilder;
 public interface SystemConfigurer {
 	
 	void configure(BaseDataBuilder baseData);
+	
+	/**
+	 * 시스템 설정이 실행될 순서를 결정
+	 * 
+	 * @return
+	 */
+	int order();
 }
