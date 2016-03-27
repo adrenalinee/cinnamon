@@ -12,12 +12,18 @@
 
 <script type="text/javascript" src="/js/cinnamon.js"></script>
 <script type="text/javascript">
-angular.module('cinnamon');
+angular.module('cinnamon')
+.controller('loginController', function($scope) {
+	$scope.goJoin = function() {
+		console.log('goJoin');
+		location.href = '/join';
+	}
+});
 </script>
 </head>
 <body layout:fragment="body" layout-gt-xs="row" layout-align-gt-xs="center start" class="content">
 
-	<md-content flex-gt-xs="30" class="content">
+	<md-content flex-gt-xs="30" class="content" ng-controller="loginController">
 		
 		<form th:action="@{/login}" method="post">
 			<md-card layout-padding="">
@@ -50,7 +56,7 @@ angular.module('cinnamon');
 				</md-card-content>
 				<md-card-actions>
 					<md-button type="submit" class="md-raised md-primary">로그인</md-button>
-					<md-button ng-href="/join">회원가입</md-button>
+					<md-button ng-click="goJoin()">회원가입</md-button>
 				</md-card-actions>
 			</md-card>
 		</form>
