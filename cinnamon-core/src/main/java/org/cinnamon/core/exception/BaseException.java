@@ -5,12 +5,13 @@ package org.cinnamon.core.exception;
  * @author dsshin
  *
  */
+@SuppressWarnings("serial")
 public abstract class BaseException extends RuntimeException {
 	
-	/**
-	 * 
-	 */
-	static final long serialVersionUID = 8354030469784217227L;
+//	/**
+//	 * 
+//	 */
+//	static final long serialVersionUID = 8354030469784217227L;
 
 	public BaseException() {
 		super();
