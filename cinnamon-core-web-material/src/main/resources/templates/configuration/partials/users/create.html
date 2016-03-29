@@ -48,7 +48,7 @@
 				</md-input-container>
 			</form>
 		</md-card-content>
-		<md-card-actions layout="row" layout-align="end" ng-if="!isMobile()">
+		<md-card-actions layout="row" layout-align="end">
 			<md-progress-circular md-mode="indeterminate" ng-show="isProcess"></md-progress-circular>
 			<md-button class="md-raised md-primary" ng-click="create(form, $event)" ng-disabled="isProcess">생성</md-button>
 			<md-button ng-click="goBack()">취소</md-button>

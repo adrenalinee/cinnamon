@@ -7,7 +7,7 @@ import org.cinnamon.core.domain.Site
 import org.cinnamon.core.domain.enumeration.MenuPosition
 import org.cinnamon.core.enumeration.Groups
 import org.cinnamon.core.service.GroupService
-import org.cinnamon.core.service.MenuGroupService;
+import org.cinnamon.core.service.MenuGroupService
 import org.cinnamon.core.service.MenuService
 import org.cinnamon.core.service.SiteService
 import org.cinnamon.core.vo.SiteVo
@@ -39,7 +39,7 @@ class SiteRestController {
 	SiteService siteService
 	
 	@Autowired
-	GroupService groupService;
+	GroupService groupService
 	
 	@Autowired
 	MenuService menuService
@@ -47,13 +47,17 @@ class SiteRestController {
 	@Autowired
 	MenuGroupService menuGroupService
 	
+	
 	@RequestMapping(value="", method=RequestMethod.POST)
 	ResponseEntity<Void> postSites(@Valid @RequestBody SiteVo siteVo, UriComponentsBuilder builder) {
 		logger.info("start")
 		
 		Site site = siteService.save(siteVo)
 		
-		URI location = builder.path("/configuration/sites/{siteId}").buildAndExpand(site.getSiteId()).toUri()
+		URI location = builder
+			.path("/configuration/sites/{siteId}")
+			.buildAndExpand(site.getSiteId())
+			.toUri()
 		
 		return ResponseEntity.created(location).build()
 	}
@@ -92,49 +96,49 @@ class SiteRestController {
 	// "/rest/configuration/sites/{siteId}/menuGroups/{menuGroupId}/menus"
 	@RequestMapping(value="{siteId}/menuGroups/{menuGroupId}/menus", method=RequestMethod.GET)
 	List<MenuWithPosition> list (@PathVariable String siteId, @PathVariable Long menuGroupId) {
-		logger.info("start");
+		logger.info("start")
 		
-		Map<String, String> groupsMap = groupService.childsMap(Groups.menuPositions.name());
+		Map<String, String> groupsMap = groupService.childsMap(Groups.menuPositions.name())
 		
-		List<Menu> allMenus = menuService.getMenus(menuGroupId);
+		List<Menu> allMenus = menuService.getMenus(menuGroupId)
 		
-		List<MenuWithPosition> separatedMenus = new LinkedList<MenuWithPosition>();
-		List<Menu> sidebarMenus = new LinkedList<Menu>();
-		List<Menu> headerLeftMenus = new LinkedList<Menu>();
-		List<Menu> headerRightMenus = new LinkedList<Menu>();
+		List<MenuWithPosition> separatedMenus = new LinkedList<MenuWithPosition>()
+		List<Menu> sidebarMenus = new LinkedList<Menu>()
+		List<Menu> headerLeftMenus = new LinkedList<Menu>()
+		List<Menu> headerRightMenus = new LinkedList<Menu>()
 		
 		for (Menu menu: allMenus) {
 			if (MenuPosition.sidebar.equals(menu.getPosition())) {
-				sidebarMenus.add(menu);
+				sidebarMenus.add(menu)
 			}
 			
 			if (MenuPosition.headerLeft.equals(menu.getPosition())) {
-				headerLeftMenus.add(menu);
+				headerLeftMenus.add(menu)
 			}
 			
 			if (MenuPosition.headerRight.equals(menu.getPosition())) {
-				headerRightMenus.add(menu);
+				headerRightMenus.add(menu)
 			}
 		}
 		
 		
-		MenuWithPosition menuWithPosition = new MenuWithPosition();
-		menuWithPosition.setPosition(groupsMap.get(MenuPosition.sidebar.name()));
-		menuWithPosition.setMenus(sidebarMenus);
-		separatedMenus.add(menuWithPosition);
+		MenuWithPosition menuWithPosition = new MenuWithPosition()
+		menuWithPosition.setPosition(groupsMap.get(MenuPosition.sidebar.name()))
+		menuWithPosition.setMenus(sidebarMenus)
+		separatedMenus.add(menuWithPosition)
 		
-		menuWithPosition = new MenuWithPosition();
-		menuWithPosition.setPosition(groupsMap.get(MenuPosition.headerLeft.name()));
-		menuWithPosition.setMenus(headerLeftMenus);
-		separatedMenus.add(menuWithPosition);
+		menuWithPosition = new MenuWithPosition()
+		menuWithPosition.setPosition(groupsMap.get(MenuPosition.headerLeft.name()))
+		menuWithPosition.setMenus(headerLeftMenus)
+		separatedMenus.add(menuWithPosition)
 		
-		menuWithPosition = new MenuWithPosition();
-		menuWithPosition.setPosition(groupsMap.get(MenuPosition.headerRight.name()));
-		menuWithPosition.setMenus(headerRightMenus);
-		separatedMenus.add(menuWithPosition);
+		menuWithPosition = new MenuWithPosition()
+		menuWithPosition.setPosition(groupsMap.get(MenuPosition.headerRight.name()))
+		menuWithPosition.setMenus(headerRightMenus)
+		separatedMenus.add(menuWithPosition)
 		
 		
-		return separatedMenus;
+		return separatedMenus
 	}
 	
 	/**
@@ -155,24 +159,24 @@ class SiteRestController {
  */
 class MenuWithPosition {
 	
-	String position;
+	String position
 	
-	List<Menu> menus;
+	List<Menu> menus
 
 	String getPosition() {
-		return position;
+		return position
 	}
 
 	def setPosition(String position) {
-		this.position = position;
+		this.position = position
 	}
 
 	List<Menu> getMenus() {
-		return menus;
+		return menus
 	}
 
 	def setMenus(List<Menu> menus) {
-		this.menus = menus;
+		this.menus = menus
 	}
 	
 }

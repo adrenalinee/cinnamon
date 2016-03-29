@@ -13,7 +13,24 @@ angular.module('cinnamon', [
 	'ui.bootstrap.pager',
 	'ngFileUpload'
 	
-]).config(function($locationProvider, $httpProvider, $mdThemingProvider) {
+]).factory('defaultErrorInterceptor', function($q, $mdDialog) {
+	return {
+		'responseError': function(rejection) {
+			console.log('responseError');
+			console.log(rejection);
+			
+			$mdDialog.show(
+				$mdDialog.alert()
+					.title('오류')
+					.textContent(rejection.data.message)
+					.ok('확인')
+			);
+			
+			
+			return $q.reject(rejection);
+		}
+	};
+}).config(function($locationProvider, $httpProvider, $mdThemingProvider) {
 	var token;
 	var header;
 	
@@ -38,6 +55,9 @@ angular.module('cinnamon', [
 	
 	
 	$httpProvider.defaults.headers.common[header] = token;
+	$httpProvider.interceptors.push('defaultErrorInterceptor');
+	
+	
 	
 	$locationProvider.html5Mode({
 		enabled: true,
@@ -71,4 +91,4 @@ angular.module('cinnamon', [
 //	  });
 //	  $mdThemingProvider.theme('default')
 //	    .primaryPalette('amazingPaletteName')
-})
+});
