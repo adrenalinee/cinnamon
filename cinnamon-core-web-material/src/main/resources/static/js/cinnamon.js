@@ -13,7 +13,7 @@ angular.module('cinnamon', [
 	'ui.bootstrap.pager',
 	'ngFileUpload'
 	
-]).factory('defaultErrorInterceptor', function($q, $mdDialog) {
+]).factory('defaultErrorInterceptor', function($q) {
 	return {
 		'responseError': function(rejection) {
 			console.log('responseError');
