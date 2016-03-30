@@ -49,7 +49,8 @@ public class Client {
 	
 	Integer accessTokenValiditySeconds = 60 * 60 * 2;	// 2 hour 7200 sec
 	
-	Integer refreshTokenValiditySeconds = 60 * 60 * 24 * 30;	// 30 days 
+	//Integer refreshTokenValiditySeconds = 60 * 60 * 24 * 30;	// 30 days 
+	Integer refreshTokenValiditySeconds = 0;
 	
 	
 	@ManyToOne(optional=false)
