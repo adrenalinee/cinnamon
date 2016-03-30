@@ -1,5 +1,7 @@
 package org.cinnamon.core.vo;
 
+import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -11,14 +13,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class SiteVo {
 	
 	@NotEmpty
+	@Size(max=200)
 	String siteId;
 	
 	@NotEmpty
+	@Size(max=200)
 	String name;
 	
-	@NotEmpty
+//	@NotEmpty
+	@Size(max=200)
 	String url;
 	
+	@Size(max=4000)
 	String description;
 	
 //	UseStatus useStatus;

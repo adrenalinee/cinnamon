@@ -6,50 +6,47 @@
 	<form name="frm" novalidte="novalidte">
 		
 		<md-card>
-			<md-card-header>
+			<!-- <md-card-header>
 				<md-card-header-text>
 					<span class="md-title">사이트 정보 입력</span>
 				</md-card-header-text>
-			</md-card-header>
+			</md-card-header> -->
 			
 			<md-content layout-padding="">
 				<md-input-container class="md-block">
 					<label>siteId</label>
-						<input required="required" name="siteId" ng-model="site.siteId" md-maxlength="200" />
+						<input required="required" name="siteId" ng-model="site.siteId" md-maxlength="200" maxlength="200" />
 						<div ng-messages="frm.siteId.$error ">
-						<div ng-message="required">siteId을 입력하세요.</div>
-						<div ng-message="md-maxlength">200자 이상 입력하실 수 없습니다.</div>
-					</div>
+							<div ng-message="required">siteId을 입력하세요.</div>
+						</div>
 				</md-input-container>
 				<md-input-container class="md-block">
 					<label>이름</label>
-						<input required="required" name="name" ng-model="site.name" md-maxlength="200" />
+						<input name="name" ng-model="site.name" md-maxlength="200" maxlength="200" />
 						<div ng-messages="frm.url.$error ">
-						<div ng-message="required">이름을 입력하세요.</div>
-						<div ng-message="md-maxlength">200자 이상 입력하실 수 없습니다.</div>
-					</div>
+							<div ng-message="required">이름을 입력하세요.</div>
+						</div>
 				</md-input-container>
 				<md-input-container class="md-block">
 					<label>URL</label>
-						<input required="required" name="url" ng-model="site.url" md-maxlength="200" />
+						<input name="url" ng-model="site.url" md-maxlength="200" maxlength="200" />
 						<div ng-messages="frm.url.$error ">
-						<div ng-message="required">url을 입력하세요.</div>
-						<div ng-message="md-maxlength">200자 이상 입력하실 수 없습니다.</div>
-					</div>
+							<div ng-message="required">url을 입력하세요.</div>
+						</div>
 				</md-input-container>
 				<md-input-container class="md-block">
 					<label>설명</label>
-						<textarea name="description" ng-model="site.description" rows="5" md-maxlength="2000"></textarea>
+						<textarea name="description" ng-model="site.description" rows="5" md-maxlength="2000" maxlength="2000"></textarea>
 						<div ng-messages="frm.description.$error ">
-						<div ng-message="required">내용을 입력하세요.</div>
-						<div ng-message="md-maxlength">2000자 이상 입력하실 수 없습니다.</div>
-					</div>
+							<div ng-message="required">내용을 입력하세요.</div>
+						</div>
 				</md-input-container>
 			</md-content>
 			
-			<md-card-actions layout="row">
-				<md-button ng-click="goList()">취소</md-button>
-				<md-button class="md-raised md-primary" type="sumbit" ng-click="create()" ng-disabled="!frm.$valid">생성</md-button>
+			<md-card-actions layout="row" layout-align="end">
+				<md-progress-circular md-mode="indeterminate" ng-show="isProcess"></md-progress-circular>
+				<md-button class="md-raised md-primary" ng-click="create($event)" ng-disabled="isProcess">생성</md-button>
+				<md-button ng-click="goBack()">취소</md-button>
 			</md-card-actions>
 		</md-card>
 	</form>

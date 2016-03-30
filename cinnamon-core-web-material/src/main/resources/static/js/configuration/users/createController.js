@@ -9,8 +9,7 @@ angular.module('cinnamon')
 			$scope.domain.password != $scope.domain.password2) {
 			
 			$mdToast.show(
-					$mdToast.simple()
-					.position('top right')
+				$mdToast.simple()
 					.textContent('입력값을 확인하시기 바랍니다.'));
 			return;
 		}

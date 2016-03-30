@@ -31,7 +31,7 @@ public class Site {
 	@Column(length=200)
 	String siteId;
 	
-	@Column(length=200)
+	@Column(length=200, nullable=false)
 	String name;
 	
 	@Column(length=200)

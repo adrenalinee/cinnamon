@@ -14,7 +14,6 @@ import org.cinnamon.core.advice.vo.NotFoundInfo;
 import org.cinnamon.core.advice.vo.UnauthorizedInfo;
 import org.cinnamon.core.advice.vo.Violation;
 import org.cinnamon.core.exception.BadRequestException;
-import org.cinnamon.core.exception.InvalidParameterException;
 import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.exception.UnauthorizedException;
 import org.slf4j.Logger;
