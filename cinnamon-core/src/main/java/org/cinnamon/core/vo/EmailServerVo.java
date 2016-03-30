@@ -4,12 +4,15 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * 
  * create date: 2015. 4. 20.
  * @author 동성
  *
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EmailServerVo {
 	
 	@NotEmpty
@@ -117,6 +120,4 @@ public class EmailServerVo {
 	public void setToAddress(String toAddress) {
 		this.toAddress = toAddress;
 	}
-	
-	
 }

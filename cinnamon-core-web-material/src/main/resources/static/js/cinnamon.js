@@ -11,9 +11,11 @@ angular.module('cinnamon', [
 	'ui.bootstrap.paging',
 	'ui.bootstrap.pagination',
 	'ui.bootstrap.pager',
-	'ngFileUpload'
+	'ngFileUpload',
+	'mdPickers'
 	
-]).factory('defaultErrorInterceptor', function($q) {
+])
+/*.factory('defaultErrorInterceptor', function($q) {
 	return {
 		'responseError': function(rejection) {
 			console.log('responseError');
@@ -30,7 +32,8 @@ angular.module('cinnamon', [
 			return $q.reject(rejection);
 		}
 	};
-}).config(function($locationProvider, $httpProvider, $mdThemingProvider) {
+})
+*/.config(function($locationProvider, $httpProvider, $mdThemingProvider) {
 	var token;
 	var header;
 	
@@ -55,7 +58,7 @@ angular.module('cinnamon', [
 	
 	
 	$httpProvider.defaults.headers.common[header] = token;
-	$httpProvider.interceptors.push('defaultErrorInterceptor');
+	//$httpProvider.interceptors.push('defaultErrorInterceptor');
 	
 	
 	

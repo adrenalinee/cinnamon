@@ -2,7 +2,7 @@ angular.module('cinnamon')
 .controller('configuration.email.server.modify', function($scope, $http, $interval, $state, $stateParams, $log, $mdToast, $mdDialog, $mdMedia) {
 	console.log('configuration.email.server.modify');
 	// 화면 도메인
-	$scope.emailServer;
+	$scope.emailServer = {};
 	// 메일 테스트 버튼
 	$scope.mailTestBtn = false;
 	
@@ -10,7 +10,7 @@ angular.module('cinnamon')
 	$scope.load = function() {
 		$http.get('/rest/configuration/email/server/' + $stateParams.emailServerId)
 		.success(function(result) {
-			$scope.emailServer = result.data;
+			$scope.emailServer = result;
 		})
 	}
 	

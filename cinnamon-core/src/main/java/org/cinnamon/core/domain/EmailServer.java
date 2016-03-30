@@ -1,5 +1,6 @@
 package org.cinnamon.core.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,8 +20,9 @@ import org.cinnamon.core.domain.enumeration.UseStatus;
  * @author 동성
  * @since 2014. 12. 19.
  */
+@SuppressWarnings("serial")
 @Entity
-public class EmailServer {
+public class EmailServer implements Serializable{
 	
 	@Id
 	@GeneratedValue

@@ -69,7 +69,7 @@ class EmailRestController {
 		logger.info("start")
 		EmailServer emailServer = emailServerService.saveEmailServer(emailServerVo);
 		
-		URI location = builder.path("/configuration/email/server/{emailServerId}")
+		URI location = builder.path("/configuration/email/servers/{emailServerId}")
 				.buildAndExpand(emailServer.getEmailServerId()).toUri()
 
 		ResponseEntity.created(location).build()
@@ -85,6 +85,7 @@ class EmailRestController {
 	 */
 	@RequestMapping(value="/server/{emailServerId}")
 	EmailServer findEmailServer(@PathVariable Long emailServerId) {
+		logger.info("start")
 		emailServerService.getEmailServer(emailServerId);
 	}
 	
@@ -96,7 +97,8 @@ class EmailRestController {
 	 * @param emailServerVo
 	 */
 	@RequestMapping(value="/server/{emailServerId}", method=RequestMethod.PUT)
-	void putEmailServer(@PathVariable Long emailServerId, @RequestBody EmailServerVo emailServerVo) {
+	void putEmailServer(@PathVariable Long emailServerId, @Valid @RequestBody EmailServerVo emailServerVo) {
+		logger.info("start")
 		emailServerService.modifyEmailServer(emailServerId, emailServerVo)
 	}
 	
@@ -108,6 +110,7 @@ class EmailRestController {
 	 */
 	@RequestMapping(value="/server/{emailServerId}", method=RequestMethod.DELETE)
 	void removeEmailServer(@PathVariable Long emailServerId) {
+		logger.info("start")
 		emailServerService.removeEmailServer(emailServerId)
 	}
 	
@@ -122,6 +125,7 @@ class EmailRestController {
 	@RequestMapping(value="/server/{emailServerId}/test")
 	@ResponseBody
 	Map emailServerSendTest(@PathVariable Long emailServerId, @ModelAttribute EmailServerVo emailServerVo) {
+		logger.info("start")
 		String message = emailServerService.mailSendTest(emailServerId, emailServerVo)
 		Map resultMap = new HashMap()
 		resultMap.put("msg", message)
@@ -136,6 +140,7 @@ class EmailRestController {
 	 */
 	@RequestMapping(value="/server/{emailServerId}", method=RequestMethod.PATCH)
 	void patchDefaultEmailServer(@PathVariable Long emailServerId) {
+		logger.info("start")
 		emailServerService.setDefaultEmailServer(emailServerId)
 	}
 }
