@@ -9,7 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * 
@@ -17,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author 동성
  *
  */
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "menuGroupId")
 @Entity
 public class MenuGroup {
 	
@@ -26,7 +29,6 @@ public class MenuGroup {
 	
 //	String site;
 	
-	@JsonIgnore
 	@ManyToOne
 	Site site;
 	

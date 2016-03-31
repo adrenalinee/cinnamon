@@ -16,7 +16,9 @@ import javax.persistence.TemporalType;
 
 import org.cinnamon.core.domain.enumeration.UseStatus;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * 
@@ -24,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author 동성
  *
  */
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "siteId")
 @Entity
 public class Site {
 	

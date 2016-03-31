@@ -43,7 +43,7 @@ angular.module('cinnamon')
 		})
 	}
 	
-	$scope.goView = function() {
-		$state.go('view', {siteId : $stateParams.siteId})
+	$scope.goBack = function() {
+		history.go(-1);
 	}
 });

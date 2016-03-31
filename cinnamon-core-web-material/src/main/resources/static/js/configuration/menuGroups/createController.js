@@ -1,9 +1,8 @@
 angular.module('cinnamon')
-.controller('configuration.menuGroups.create', function($scope, $http, $interval, $state, $stateParams, $mdToast, $mdDialog) {
+.controller('configuration.menuGroups.create', function($scope, $http, $interval, $state, $location, $mdToast, $mdDialog) {
 	console.log('configuration.menuGroups.create');
 	
-	var siteId = $stateParams.siteId;
-	
+	var siteId = $location.search().siteId;
 	
 	$scope.create = function(form, event) {
 		console.log('create');

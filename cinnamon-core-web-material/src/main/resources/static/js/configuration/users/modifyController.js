@@ -59,4 +59,8 @@ angular.module('cinnamon')
 //			location: 'replace'
 //		});
 	}
+	
+	$scope.goBack = function() {
+		history.go(-1);
+	}
 });

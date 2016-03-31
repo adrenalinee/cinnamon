@@ -25,10 +25,10 @@ angular.module('cinnamon')
 	// 메뉴그룹 별 사이트 목록 가져오기
 	$scope.sitesOfMenuGroup = function() {
 		$http.get('/rest/configuration/menuGroups/' + menuGroupId + '/sites')
-		 .success(function(data) {
-			 console.log(data);
-			 sites = $scope.sites = data;
-		 })
+		.success(function(data) {
+			console.log(data);
+			sites = $scope.sites = data;
+		});
 	}
 	
 	$scope.sitesOfMenuGroup();

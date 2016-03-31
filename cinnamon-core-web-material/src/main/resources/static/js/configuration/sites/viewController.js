@@ -22,7 +22,7 @@ angular.module('cinnamon')
 	}
 	
 	$scope.goCreateMenuGroup = function() {
-		location.href = '/configuration/menuGroups/create' + '/sites/' + siteId;
+		location.href = '/configuration/menuGroups/create?siteId=' + siteId;
 	}
 	
 	// 기본 메뉴 등록

@@ -20,15 +20,17 @@
 			
 			<cm-search-list-items>
 				<md-list-item ng-repeat="domain in domains.content" layout="row">
-					<p>{{domain.name}}</p>
-
+					<div flex="30">
+						{{domain.name}}
+					</div>
+					
 					<md-button class="md-primary md-raised" ng-show="{{domain.menuGroupId != siteInfo.defaultMenuGroup.menuGroupId}}" ng-click="putDefaultMenuGroup(domain.menuGroupId)">
 						기본메뉴설정
 					</md-button>
 					<p ng-show="{{domain.menuGroupId == siteInfo.defaultMenuGroup.menuGroupId}}" style="margin-left:15px;">
 						기본메뉴
 					</p>
-					<md-divider ng-if="!$last"></md-divider>
+					<md-divider></md-divider>
 				</md-list-item>
 			</cm-search-list-items>
 			

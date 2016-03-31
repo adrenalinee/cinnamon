@@ -50,7 +50,7 @@
 				<tr>
 					<th>사이트</th>
 					<td class="text-muted">
-						{{sites.name}}
+						<a ng-href="/configuration/sites/{{domain.site.siteId}}" target="_self">{{domain.site.name}}</a>
 						<md-button class="md-raised md-primary" ng-click="openSiteList()">사이트 선택</md-button>
 					</td>
 				</tr>
