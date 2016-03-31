@@ -17,7 +17,6 @@ import org.cinnamon.core.util.MD5Creator;
 import org.cinnamon.core.util.PathUtil;
 import org.cinnamon.core.vo.UploadFileInfo;
 import org.cinnamon.core.vo.search.FileInformationSearch;
-import org.cinnamon.core.vo.search.FileInformationSearch;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

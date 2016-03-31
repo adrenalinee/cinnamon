@@ -1,5 +1,6 @@
 package org.cinnamon.web;
 
+import org.cinnamon.apps.CinnamonAppsConfiguration;
 import org.cinnamon.core.CinnamonCoreConfiguration;
 import org.cinnamon.web.configuration.CinnamonCoreWebConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @Import(value={
 		CinnamonCoreConfiguration.class,
+		CinnamonAppsConfiguration.class,
 		CinnamonCoreWebConfiguration.class})
 public class Application extends SpringBootServletInitializer {
 	

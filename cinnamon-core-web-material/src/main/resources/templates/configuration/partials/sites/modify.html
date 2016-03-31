@@ -27,7 +27,7 @@
 				</md-input-container>
 				<md-input-container class="md-block">
 					<label>URL</label>
-						<input required="required" name="url" ng-model="site.url" md-maxlength="200" />
+						<input name="url" ng-model="site.url" md-maxlength="200" />
 						<div ng-messages="frm.url.$error ">
 						<div ng-message="required">url을 입력하세요.</div>
 						<div ng-message="md-maxlength">200자 이상 입력하실 수 없습니다.</div>
