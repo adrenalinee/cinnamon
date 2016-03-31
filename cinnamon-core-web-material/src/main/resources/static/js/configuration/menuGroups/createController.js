@@ -1,6 +1,9 @@
 angular.module('cinnamon')
-.controller('configuration.menuGroups.create', function($scope, $http, $interval, $state, $mdToast, $mdDialog) {
+.controller('configuration.menuGroups.create', function($scope, $http, $interval, $state, $stateParams, $mdToast, $mdDialog) {
 	console.log('configuration.menuGroups.create');
+	
+	var siteId = $stateParams.siteId;
+	
 	
 	$scope.create = function(form, event) {
 		console.log('create');
@@ -14,6 +17,9 @@ angular.module('cinnamon')
 			return;
 		}
 		
+		
+		$scope.isProcess = true;
+		$scope.domain.siteId = siteId;
 		$http.post('/rest/configuration/menuGroups', $scope.domain)
 		.success(function(data, status, headers) {
 			console.log(status);
@@ -25,6 +31,8 @@ angular.module('cinnamon')
 				
 				$state.go('view', {menuGroupId: data.menuGroupId});
 			});
+		}).error(function() {
+			$scope.isProcess = false;
 		});
 		
 	}

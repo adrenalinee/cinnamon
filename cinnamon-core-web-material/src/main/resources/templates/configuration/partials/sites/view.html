@@ -20,9 +20,8 @@
 	
 	<md-card>
 		<md-card-header>
-			<md-card-header-text>
+			<md-card-header-text layout-align="center">
 				<span class="md-title">기본정보</span>
-				<span class="md-subhead">siteId: {{domain.siteId}}</span>
 			</md-card-header-text>
 			<md-button class="md-icon-button" ui-sref="modify({siteId: domain.siteId})">
 				<md-tooltip>기본 정보 수정</md-tooltip>
@@ -33,8 +32,12 @@
 		<md-content layout-padding="">
 			<table class="table table-hover">
 				<tr>
+					<th>siteId</th>
+					<td class="text-muted">{{domain.siteId}}</td>
+				</tr>
+				<tr>
 					<th>이름</th>
-					<td class="text-muted">{{domain.name}}</td>
+					<td>{{domain.name}}</td>
 				</tr>
 				<tr>
 					<th>URL</th>
@@ -44,7 +47,7 @@
 					<th>기본 메뉴 모음</th>
 					<td class="text-muted">
 						{{domain.defaultMenuGroup.name}}
-						<md-button class="md-raised md-primary" ng-click="popupDefaultSite()">메뉴 모음 선택</md-button>
+						<md-button class="md-raised md-primary" ng-click="popupDefaultSite($event)">메뉴 모음 선택</md-button>
 					</td>
 				</tr>
 				<tr>
@@ -56,7 +59,8 @@
 				<tr>
 					<th>설명</th>
 					<td class="text-muted">
-						<textarea rows="5" ng-bind-html="domain.description" style="width:95%;border:0px;" readonly="true"></textarea>
+						{{domain.description}}
+						<!-- <textarea rows="5" ng-bind-html="domain.description" style="width:95%;border:0px;" readonly="true"></textarea> -->
 					</td>
 				</tr>
 			</table>

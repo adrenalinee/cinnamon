@@ -22,27 +22,20 @@ angular.module('cinnamon')
 	}
 	
 	$scope.goCreateMenuGroup = function() {
-		location.href = '/configuration/menuGroups/create';
+		location.href = '/configuration/menuGroups/create' + '/sites/' + siteId;
 	}
 	
 	// 기본 메뉴 등록
-	$scope.popupDefaultSite = function() {
-		var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))&& $scope.customFullscreen;
-		
+	$scope.popupDefaultSite = function($event) {
+		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
 		$mdDialog.show({
-			templateUrl : '/configuration/partials/menuGroups/selectList',
-			parent : angular.element(document.body),
+			targetEvent: $event,
 			fullscreen: useFullScreen,
-			clickOutsideToClose:true,
-			controller : 
-				function defaultMenuGroupController($scope, $mdDialog, $http, $mdToast) {
+			templateUrl : '/configuration/partials/menuGroups/select',
+			controller : function defaultMenuGroupController($scope, $mdDialog, $http, $mdToast) {
 					$scope.siteInfo = siteInfo;
 					$scope.searchInfo = {};
 				
-					$scope.close = function() {
-						$mdDialog.hide();
-					}
-					
 					$scope.domains;
 					// 메뉴 그룹 불러오기
 					$scope.load = function() {

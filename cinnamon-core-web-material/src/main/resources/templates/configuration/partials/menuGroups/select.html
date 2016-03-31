@@ -1,17 +1,7 @@
-<md-dialog ng-clock="" flex="70">
-
-	<md-toolbar>
-		<div class="md-toolbar-tools">
-			<h2 class="md-title">메뉴 그룹</h2>
-			<span flex=""></span>
-			<md-button class="md-icon-button" ng-click="close()">
-				<md-icon>close</md-icon>
-			</md-button>
-		</div>
-	</md-toolbar>
-	
-	<md-card layout-padding="">
-	
+<md-dialog flex="70" cm-dialog-template="" toolbar-title="'메뉴 모음 선택'">
+	<cm-dialog-template-content>
+		
+		
 		<cm-search-list
 			resource-url="'/rest/configuration/menuGroups'"
 			domains="domains"
@@ -43,5 +33,7 @@
 			</cm-search-list-items>
 			
 		</cm-search-list>
-	</md-card>
+		
+		
+	</cm-dialog-template-content>
 </md-dialog>

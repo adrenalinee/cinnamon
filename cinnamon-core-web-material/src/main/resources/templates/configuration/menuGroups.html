@@ -7,10 +7,11 @@
 	layout:decorator="configuration/layout/default">
 
 <head>
-<title>사이트</title>
+<title>메뉴 모음</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 <script type="text/javascript" src="/js/configuration/directives/searchList.js"></script>
+<script type="text/javascript" src="/js/configuration/directives/dialogTemplate.js"></script>
 
 <script type="text/javascript" src="/js/configuration/menuGroups/viewController.js"></script>
 <script type="text/javascript" src="/js/configuration/menuGroups/createController.js"></script>
@@ -19,7 +20,7 @@
 angular.module('cinnamon')
 .config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider.state('create', {
-		url: '/configuration/menuGroups/create',
+		url: '/configuration/menuGroups/create/sites/:siteId',
 		templateUrl: '/configuration/partials/menuGroups/create',
 		controller: 'configuration.menuGroups.create'
 	}).state('view', {

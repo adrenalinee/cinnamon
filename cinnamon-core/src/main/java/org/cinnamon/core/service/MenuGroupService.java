@@ -8,9 +8,10 @@ import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.exception.InvalidEntityException;
 import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.MenuGroupRepository;
-import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.repository.SiteRepository;
+import org.cinnamon.core.vo.MenuGroupVo;
 import org.cinnamon.core.vo.search.MenuGroupSearch;
+import org.dozer.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class MenuGroupService {
 	@Autowired
 	MenuGroupRepository menuGroupRepository;
 	
+	@Autowired
+	Mapper beanMapper;
+	
 	
 	@Transactional(readOnly=true)
 	public Page<MenuGroup> getList(MenuGroupSearch menuGroupSearch, Pageable pageable) {
@@ -52,6 +56,21 @@ public class MenuGroupService {
 		
 		//return menuGroupRepository.getSiteScene(siteId);
 		return menuGroupRepository.find(siteId);
+	}
+	
+	@Transactional
+	public MenuGroup save(MenuGroupVo menuGroupVo) {
+		logger.info("start");
+		
+		Site site = siteRepository.findOne(menuGroupVo.getSiteId());
+		if (site == null) {
+			throw new InvalidEntityException("site가 없습니다. siteId: " + menuGroupVo.getSiteId());
+		}
+		
+		MenuGroup menuGroup = beanMapper.map(menuGroupVo, MenuGroup.class);
+		menuGroup.setSite(site);
+		
+		return menuGroupRepository.save(menuGroup);
 	}
 	
 	

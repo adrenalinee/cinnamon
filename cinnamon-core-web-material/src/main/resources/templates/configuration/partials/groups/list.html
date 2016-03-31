@@ -50,8 +50,8 @@
 				<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
 					<p class="text-muted">{{ domain.parent.name }} </p>
 					<p class="text-muted">{{ domain.parent.groupId }} </p>
-				    <p class="text-muted">{{ domain.name }}</p>
-				    <p class="text-muted">{{ domain.groupId }} </p>
+					<p><b>{{ domain.name }}</b></p>
+					<p class="text-muted">{{ domain.groupId }} </p>
 					<md-divider ng-if="!$last"></md-divider>
 				</md-list-item>
 			</cm-search-list-items>

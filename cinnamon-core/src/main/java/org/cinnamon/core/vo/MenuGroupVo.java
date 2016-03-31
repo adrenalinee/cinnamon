@@ -14,6 +14,9 @@ public class MenuGroupVo {
 	Long menuGroupId;
 	
 	@NotEmpty
+	String siteId;
+	
+	@NotEmpty
 	String name;
 	
 	@NotEmpty
@@ -51,6 +54,14 @@ public class MenuGroupVo {
 
 	public void setMenuGroupId(Long menuGroupId) {
 		this.menuGroupId = menuGroupId;
+	}
+
+	public String getSiteId() {
+		return siteId;
+	}
+
+	public void setSiteId(String siteId) {
+		this.siteId = siteId;
 	}
 	
 }

@@ -20,9 +20,8 @@
 	
 	<md-card>
 		<md-card-header>
-			<md-card-header-text>
+			<md-card-header-text layout-align="center">
 				<span class="md-title">기본정보</span>
-				<span class="md-subhead">menuGroupId: {{domain.menuGroupId}}</span>
 			</md-card-header-text>
 			<md-button class="md-icon-button" ui-sref="modify({menuGroupId: domain.menuGroupId})">
 				<md-tooltip>기본 정보 수정</md-tooltip>
@@ -33,12 +32,16 @@
 		<md-content layout-padding="">
 			<table class="table table-hover">
 				<tr>
+					<th>menuGroupId</th>
+					<td class="text-muted">{{domain.menuGroupId}}</td>
+				</tr>
+				<tr>
 					<th>이름</th>
 					<td class="text-muted">{{domain.name}}</td>
 				</tr>
 				<tr>
 					<th>dimension</th>
-					<td class="text-muted">{{domain.dimension}}</td>
+					<td><b>{{domain.dimension}}</b></td>
 				</tr>
 				<tr>
 					<th>기본 페이지</th>
