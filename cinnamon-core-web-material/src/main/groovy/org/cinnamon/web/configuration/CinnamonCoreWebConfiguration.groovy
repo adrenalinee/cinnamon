@@ -126,7 +126,10 @@ class CinnamonCoreWebConfiguration {
 //			http.authorizeRequests().antMatchers("/join").permitAll()
 			http.antMatcher("/**").authorizeRequests().anyRequest().denyAll()
 			http.formLogin().loginPage("/login").permitAll()
-			
+
+			// 이메일 인증 관련 추가
+			http.authorizeRequests().antMatchers("/platform/users/**/email/confirm").permitAll()
+
 			http.logout().permitAll()
 //			http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 			http.rememberMe().tokenRepository(new InMemoryTokenRepositoryImpl())
