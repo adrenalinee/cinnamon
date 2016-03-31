@@ -16,7 +16,7 @@ import java.util.Map.Entry;
  */
 public class MapObjectMerger {
 	
-	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+	static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 	
 	public static void copy(Map<String, ?> source,  Object target) throws Exception {
 //		DateTimeFormat.forPattern("yyyyMMdd")
