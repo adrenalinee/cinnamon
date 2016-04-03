@@ -9,7 +9,7 @@ angular.module('cinnamon')
 		scope: {
 			domains: '=',
 //			searchInfo: '=searchParams',
-			resourceUrl: '=',
+			resourceUrl: '@',
 			defaultSearchParams: '=?',
 			sortItems: '=?',
 			isPaging: '=?',
@@ -23,6 +23,8 @@ angular.module('cinnamon')
 	
 //	$scope.domains;
 	
+	console.log($scope.defaultSearchParams);
+
 	if (angular.isDefined($scope.defaultSearchParams)) {
 		$scope.searchInfo = $scope.defaultSearchParams;
 	}

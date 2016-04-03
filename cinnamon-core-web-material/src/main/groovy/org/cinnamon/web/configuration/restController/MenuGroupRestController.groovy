@@ -59,7 +59,13 @@ class MenuGroupRestController {
 	Page<MenuGroup> getMenuGroups(MenuGroupSearch menuGroupSearch, Pageable pageable) {
 		logger.info("start")
 		
-		return menuGroupService.getList(menuGroupSearch, pageable)
+		Page<MenuGroup> p = menuGroupService.getList(menuGroupSearch, pageable)
+		
+		p.content.forEach({mg ->
+			println mg
+		})
+		
+		return p
 	}
 	
 	
@@ -114,5 +120,20 @@ class MenuGroupRestController {
 		logger.info("start")
 		menuGroupService.putSiteOfMenuGroup(menuGroupId, siteId)
 	}
-
+	
+	
+	@RequestMapping(value="{menuGroupId}/deleteable", method=RequestMethod.GET)
+	def getDeleteable(@PathVariable Long menuGroupId) {
+		logger.info("start")
+		
+		menuGroupService.isDeleteable(menuGroupId);
+	}
+	
+	
+	@RequestMapping(value="{menuGroupId}", method=RequestMethod.DELETE)
+	def deleteSite(@PathVariable Long menuGroupId) {
+		logger.info("start")
+		
+		menuGroupService.delete(menuGroupId);
+	}
 }

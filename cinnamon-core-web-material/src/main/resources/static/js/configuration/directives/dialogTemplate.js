@@ -21,6 +21,6 @@ angular.module('cinnamon')
 	}
 	
 	$scope.isMobile = function() {
-		return !$mdMedia('gt-sm');
+		return $mdMedia('xs');
 	}
 });

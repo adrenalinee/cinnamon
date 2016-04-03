@@ -18,7 +18,7 @@
 	<!-- 상세 검색 시작 -->
 	<md-card md-whiteframe="3">
 		<cm-search-list
-			resource-url="'/rest/configuration/groups'"
+			resource-url="/rest/configuration/groups"
 			domains="domains"
 			sort-items="{
 				parentGroupId : '부모코드',
@@ -30,15 +30,15 @@
 			<!-- 상세검색 필드 -->
 			<cm-search-list-filters>
 				<md-card-content class="content" layout="column">
-					<md-input-container layout-fill="">
+					<md-input-container>
 						<label>부모코드명</label>
 						<input ng-model="searchInfo.parent.name"/>
 					</md-input-container>
-					<md-input-container layout-fill="">
+					<md-input-container>
 						<label>코드명</label>
 						<input ng-model="searchInfo.name"/>
 					</md-input-container>
-					<md-input-container layout-fill="">
+					<md-input-container>
 						<label>코드</label>
 						<input ng-model="searchInfo.groupId"/>
 					</md-input-container>

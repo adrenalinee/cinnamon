@@ -26,7 +26,7 @@
 				
 				<!-- 상세 검색 시작 -->
 					<cm-search-list
-						resource-url="'/rest/configuration/email/servers'"
+						resource-url="/rest/configuration/email/servers"
 						domains="domains"
 						sort-items="{
 							name: '이름',
@@ -37,11 +37,11 @@
 						<!-- 상세검색 필드 -->
 						<cm-search-list-filters>
 							<md-card-content class="content" layout="column">
-								<md-input-container layout-fill="">
+								<md-input-container>
 									<label>이름</label>
 									<input ng-model="searchInfo.name"/>
 								</md-input-container>
-								<md-input-container layout-fill="">
+								<md-input-container>
 									<label>호스트</label>
 									<input ng-model="searchInfo.address" />
 								</md-input-container>

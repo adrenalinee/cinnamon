@@ -8,6 +8,7 @@ import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.exception.InvalidEntityException;
 import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.MenuGroupRepository;
+import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.repository.SiteRepository;
 import org.cinnamon.core.vo.MenuGroupVo;
 import org.cinnamon.core.vo.search.MenuGroupSearch;
@@ -35,6 +36,9 @@ public class MenuGroupService {
 	
 	@Autowired
 	MenuGroupRepository menuGroupRepository;
+	
+	@Autowired
+	MenuRepository menuRepository;
 	
 	@Autowired
 	Mapper beanMapper;
@@ -113,31 +117,6 @@ public class MenuGroupService {
 		return menuGroupRepository.findByDimension(dimension);
 	}
 	
-	/**
-	 * 사이트 기본 메뉴 등록
-	 * @author 정명성
-	 * create date : 2016. 3. 17.
-	 * @param siteId
-	 * @param menuGroupVo
-	 */
-	@Transactional
-	public void putDefaultMenuGroup(String siteId, Long menuGroupId) {
-		logger.info("start");
-		
-		Site site = siteRepository.findOne(siteId);
-		if(site == null) {
-			throw new NotFoundException("존재하지 않는 사이트 입니다. siteId : " + siteId);
-		}
-		
-		MenuGroup menuGroup = menuGroupRepository.findOne(menuGroupId);
-		if(menuGroup == null) {
-			throw new NotFoundException("존재하지 않는 메뉴 그룹입니다. menuGroupId : " + menuGroupId);
-		}
-		
-		site.setDefaultMenuGroup(menuGroup);
-		
-		siteRepository.save(site);
-	}
 	
 	/**
 	 * 
@@ -191,5 +170,29 @@ public class MenuGroupService {
 		}
 		menuGroup.setSite(site);
 	}
-
+	
+	
+	/**
+	 * 지울수 있는지 확인
+	 * 하위에 메뉴가 만들어져 있으면 지울 수 없음
+	 * @param menuGroupId
+	 * @return
+	 */
+	@Transactional(readOnly=true)
+	public boolean isDeleteable(Long menuGroupId) {
+		logger.info("start");
+		
+		if (menuRepository.countByMenuGroupMenuGroupId(menuGroupId) > 0) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Transactional
+	public void delete(Long menuGroupId) {
+		logger.info("start");
+		
+		menuGroupRepository.delete(menuGroupId);
+	}
 }

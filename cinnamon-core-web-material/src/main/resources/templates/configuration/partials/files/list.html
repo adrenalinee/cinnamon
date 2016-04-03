@@ -19,7 +19,7 @@
 	<!-- 상세 검색 시작 -->
 	<md-card md-whiteframe="3">
 		<cm-search-list
-			resource-url="'/rest/configuration/files'"
+			resource-url="/rest/configuration/files"
 			domains="domains"
 			sort-items="{
 				fileId : 'fileId',
@@ -31,15 +31,15 @@
 			<!-- 상세검색 필드 -->
 			<cm-search-list-filters>
 				<md-card-content class="content" layout="column">
-					<md-input-container layout-fill="">
+					<md-input-container>
 						<label>fileId</label>
 						<input ng-model="searchInfo.fileId"/>
 					</md-input-container>
-					<md-input-container layout-fill="">
+					<md-input-container>
 						<label>파일명</label>
 						<input ng-model="searchInfo.name"/>
 					</md-input-container>
-					<md-input-container layout-fill="">
+					<md-input-container>
 						<label>확장자</label>
 						<input ng-model="searchInfo.ext"/>
 					</md-input-container>

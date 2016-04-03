@@ -109,6 +109,6 @@ public class MenuService {
 	public List<Menu> getMenus(Long menuGroupId) {
 		logger.info("start");
 		
-		return menuGroupRepository.findByMenuGroupId(menuGroupId).getMenus();
+		return menuGroupRepository.findOne(menuGroupId).getMenus();
 	}
 }

@@ -19,22 +19,42 @@
 	</h3>
 	
 	<md-card>
-		<md-card-header>
+		<md-card-header layout-align="none center">
 			<md-card-header-text>
 				<span class="md-title">기본정보</span>
-				<span class="md-subhead">menuId: {{domain.menuId}}</span>
 			</md-card-header-text>
 			<md-button class="md-icon-button" ui-sref="modify({menuId: domain.menuId})">
 				<md-tooltip>기본 정보 수정</md-tooltip>
 				<md-icon>edit</md-icon>
 			</md-button>
+			<md-menu>
+				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon>more_vert</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button ng-click="delete($event)">
+							<md-icon>remove_circle</md-icon>
+							삭제
+						</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
 		</md-card-header>
 		
-		<md-content layout-padding="">
+		<md-card-content>
 			<table class="table table-hover">
 				<tr>
+					<th>menuId</th>
+					<td class="text-muted">{{domain.menuId}}</td>
+				</tr>
+				<tr>
 					<th>이름</th>
-					<td class="text-muted">{{domain.name}}</td>
+					<td><b>{{domain.name}}</b></td>
+				</tr>
+				<tr>
+					<th>아이콘</th>
+					<td><md-icon>{{domain.iconClass}}</md-icon></td>
 				</tr>
 				<tr>
 					<th>위치</th>
@@ -53,10 +73,16 @@
 					<td class="text-muted">{{domain.type}}</td>
 				</tr>
 				<tr>
-					<th>사이트</th>
+					<th>부모 메뉴</th>
 					<td class="text-muted">
-						{{domain.menuGroup.name}}
-						<md-button class="md-raised md-primary" ng-click="selectMenuGroup($event)">메뉴 모음 선택</md-button>
+						<a ui-sref="view({menuId: domain.parent.menuId})">{{domain.parent.name}}</a>
+					</td>
+				</tr>
+				<tr>
+					<th>메뉴모음</th>
+					<td class="text-muted">
+						<a href="/configuration/menuGroups/{{domain.menuGroup.menuGroupId}}" target="_self">{{domain.menuGroup.name}}</a>
+						<!-- <md-button class="md-raised md-primary" ng-click="selectMenuGroup($event)">메뉴 모음 선택</md-button> -->
 					</td>
 				</tr>
 				<!-- <tr>
@@ -70,7 +96,7 @@
 					<td class="text-muted">{{domain.description}}</td>
 				</tr>
 			</table>
-		</md-content>
+		</md-card-content>
 		
 	</md-card>
 	
@@ -82,9 +108,9 @@
 		</md-card-header>
 			
 			<cm-search-list
-				resource-url="'/rest/configuration/menus'"
+				resource-url="/rest/configuration/menus"
 				domains="menus"
-				default-search-params="{parentMenuId: domain.parent.menuId}"
+				default-search-params="{parentMenuId: menuId}"
 				sort-items="{
 					order: '순서',
 					menuId: 'menuId',
@@ -93,26 +119,27 @@
 				
 				<cm-search-list-filters>
 					<md-card-content class="content" layout="column">
-						<md-input-container layout-fill="">
+						<md-input-container>
 							<label>이름</label>
 							<input />
 						</md-input-container>
-						<md-input-container layout-fill="">
+						<md-input-container>
 							<label>menuId</label>
 							<input />
 						</md-input-container>
-						<md-input-container layout-fill="">
+						<md-input-container>
 							<label>경로</label>
 							<input />
 						</md-input-container>
 					</md-card-content>
 				</cm-search-list-filters>
 				<cm-search-list-items>
-				<md-list-item ng-repeat="domain in menus.content" ng-click="goMenuView(domain)" layout="row">
-					<span flex="10" class="text-muted">{{domain.menuId}}</span>
-					<b flex="30">{{domain.name}}</b>
-					<span flex="30" class="text-muted">{{domain.uri}}</span>
-					<span flex="30" class="text-muted">{{domain.type}}</span>
+				<md-list-item ng-repeat="menu in menus.content" ui-sref="view({menuId: menu.menuId})" layout="row">
+					<span flex="10" class="text-muted">{{menu.menuId}}</span>
+					<b flex="30">
+						<md-icon>{{menu.iconClass}}</md-icon> {{menu.name}}</b>
+					<span flex="30" class="text-muted">{{menu.uri}}</span>
+					<span flex="30" class="text-muted" hide-xs="">{{menu.type}}</span>
 					<md-divider ng-if="!$last"></md-divider>
 				</md-list-item>
 				</cm-search-list-items>
