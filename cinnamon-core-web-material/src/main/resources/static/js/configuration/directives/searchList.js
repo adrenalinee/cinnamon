@@ -23,6 +23,8 @@ angular.module('cinnamon')
 	
 //	$scope.domains;
 	
+	console.log($scope.defaultSearchParams)
+	
 	if (angular.isDefined($scope.defaultSearchParams)) {
 		$scope.searchInfo = $scope.defaultSearchParams;
 	}
@@ -43,7 +45,7 @@ angular.module('cinnamon')
 	}
 	
 	$scope.load = function(params) {
-//		console.log(params);
+		console.log(params);
 		
 		$scope.showProgress = true;
 		$http.get($scope.resourceUrl, {params: params})
@@ -75,7 +77,7 @@ angular.module('cinnamon')
 			}
 		}
 		
-//		$location.search($scope.searchInfo);
+		$location.search($scope.searchInfo);
 		
 		$scope.load(params);
 	}
