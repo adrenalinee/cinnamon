@@ -14,5 +14,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long>, QueryDslPredi
 	
 	Menu findByUri(String uri);
 	
+	long countByMenuGroupMenuGroupId(Long menuGroupId);
+	
 //	Page<Menu> findBy(@Param(value="position") MenuPosition position, Pageable pageable);
 }

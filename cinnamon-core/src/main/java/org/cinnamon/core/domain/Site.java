@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  * @author 동성
  *
  */
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "siteId")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "siteId")
 @Entity
 public class Site {
 	
@@ -58,6 +58,7 @@ public class Site {
 	/**
 	 * 기본 메뉴 그룹
 	 */
+	@JsonIgnore
 	@ManyToOne
 	MenuGroup defaultMenuGroup;
 	

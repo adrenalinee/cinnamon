@@ -130,7 +130,10 @@ class CinnamonCoreWebConfiguration {
 			// 이메일 인증 관련 추가
 			http.authorizeRequests().antMatchers("/platform/users/**/email/confirm").permitAll()
 
-			http.logout().permitAll()
+			http.logout()
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/login")
+				
 //			http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 			http.rememberMe().tokenRepository(new InMemoryTokenRepositoryImpl())
 			

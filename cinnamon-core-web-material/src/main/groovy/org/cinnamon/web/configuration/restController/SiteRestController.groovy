@@ -1,6 +1,7 @@
 package org.cinnamon.web.configuration.restController
 
 import javax.validation.Valid
+import javax.validation.constraints.NotNull;
 
 import org.cinnamon.core.domain.Menu
 import org.cinnamon.core.domain.Site
@@ -141,16 +142,60 @@ class SiteRestController {
 		return separatedMenus
 	}
 	
+	
+	@RequestMapping(value="{siteId}/defaultMenuGroup", method=RequestMethod.GET)
+	def getDefaultMenuGroup(@PathVariable String siteId) {
+		logger.info("start")
+		
+		siteService.getDefaultMenuGroup(siteId)
+	}
+	
+	
 	/**
 	 * 메뉴 기본 그룹 설정
 	 */
-	@RequestMapping(value="{siteId}/defaultMenuGroup/{menuGroupId}", method=RequestMethod.PUT)
-	def putDefaultMenuGroup(@PathVariable String siteId, @PathVariable Long menuGroupId) {
+	@RequestMapping(value="{siteId}/defaultMenuGroup", method=RequestMethod.PUT)
+	def putDefaultMenuGroup(@PathVariable String siteId, @RequestBody @Valid MenuGroupInfo menuGroupInfo) {
 		logger.info("start")
-		menuGroupService.putDefaultMenuGroup(siteId, menuGroupId)
+		
+		siteService.setDefaultMenuGroup(siteId, menuGroupInfo.getMenuGroupId())
+	}
+	
+	
+	@RequestMapping(value="{siteId}/deleteable", method=RequestMethod.GET)
+	def getDeleteable(@PathVariable String siteId) {
+		logger.info("start")
+		
+		siteService.isDeleteable(siteId);
+	}
+	
+	
+	@RequestMapping(value="{siteId}", method=RequestMethod.DELETE)
+	def deleteSite(@PathVariable String siteId) {
+		logger.info("start")
+		
+		siteService.delete(siteId);
+	}
+}
+
+/**
+ * 
+ * @author shindongseong
+ * @since 2016. 4. 3.
+ */
+class MenuGroupInfo {
+	@NotNull
+	Long menuGroupId
+
+	public Long getMenuGroupId() {
+		return menuGroupId;
 	}
 
+	public void setMenuGroupId(Long menuGroupId) {
+		this.menuGroupId = menuGroupId;
+	}	
 }
+
 
 /**
  *

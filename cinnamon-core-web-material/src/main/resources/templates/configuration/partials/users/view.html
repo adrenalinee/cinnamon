@@ -13,14 +13,17 @@
 </md-fab-speed-dial>
 
 <div class="content-container">
-	<h3 layout-padding="" class="md-headline">사용자</h3>
+	<h3 layout-padding="" class="md-headline">
+		사용자
+		<span class="md-subhead text-muted">사용자 정보</span>
+	</h3>
 	
 	<md-card>
-		<md-card-title>
-			<md-card-title-text>
+		<md-card-header>
+			<md-card-header-text>
 				<span class="md-title">기본정보</span>
 				<!-- <span class="md-subhead">{{domain.nation}} {{domain.language}}</span> -->
-			</md-card-title-text>
+			</md-card-header-text>
 			<md-button class="md-icon-button" ui-sref="modify({userId: domain.userId})">
 				<md-tooltip>기본 정보 수정</md-tooltip>
 				<md-icon>edit</md-icon>
@@ -28,9 +31,9 @@
 			<md-button class="md-icon-button">
 				<md-icon>more_vert</md-icon>
 			</md-button>
-		</md-card-title>
+		</md-card-header>
 		
-		<!-- <md-card-content> -->
+		<md-card-content>
 			<table class="table table-hover">
 				<tr>
 					<th class="text-muted">userId</th>
@@ -71,7 +74,7 @@
 					</td>
 				</tr>
 			</table>
-		<!-- </md-card-content> -->
+		</md-card-content>
 		
 	</md-card>
 	
@@ -85,7 +88,7 @@
 		</md-card-header>
 		
 		<cm-search-list
-			resource-url="'/rest/configuration/userGroups'"
+			resource-url="/rest/configuration/userGroups"
 			search-params="searchInfo"
 			default-search-params="{userId: userId}"
 			domains="domains">

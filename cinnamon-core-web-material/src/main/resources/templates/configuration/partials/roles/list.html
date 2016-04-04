@@ -18,7 +18,7 @@
 	<!-- 상세 검색 시작 -->
 	<md-card md-whiteframe="3">
 		<cm-search-list
-			resource-url="'/rest/configuration/roles'"
+			resource-url="/rest/configuration/roles"
 			domains="domains"
 			sort-items="{
 				name: '이름',
@@ -28,11 +28,11 @@
 			<!-- 상세검색 필드 -->
 			<cm-search-list-filters>
 				<md-card-content class="content" layout="column">
-					<md-input-container layout-fill="">
+					<md-input-container>
 						<label>이름</label>
 						<input ng-model="searchInfo.name"/>
 					</md-input-container>
-					<md-input-container layout-fill="">
+					<md-input-container>
 						<label>Authority</label>
 						<input ng-model="searchInfo.authority" />
 					</md-input-container>
