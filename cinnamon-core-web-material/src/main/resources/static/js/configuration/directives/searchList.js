@@ -18,7 +18,7 @@ angular.module('cinnamon')
 		templateUrl: '/configuration/directives/searchList',
 		controller: 'searchListController'
 	}
-}).controller('searchListController', function($scope, $http, $mdMedia) {
+}).controller('searchListController', function($scope, $http, $location, $mdMedia) {
 	console.log('searchListController');
 	
 //	$scope.domains;
