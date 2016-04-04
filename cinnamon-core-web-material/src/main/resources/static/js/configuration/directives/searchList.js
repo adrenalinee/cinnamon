@@ -9,7 +9,7 @@ angular.module('cinnamon')
 		scope: {
 			domains: '=',
 //			searchInfo: '=searchParams',
-			resourceUrl: '=',
+			resourceUrl: '@',
 			defaultSearchParams: '=?',
 			sortItems: '=?',
 			isPaging: '=?',
