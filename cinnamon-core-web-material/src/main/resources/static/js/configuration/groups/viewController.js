@@ -1,6 +1,11 @@
 angular.module('cinnamon')
-.controller('configuration.group.view', function($scope, $http, $interval, $state, $stateParams, $log, $mdToast, $mdDialog, $mdMedia, $compile) {
+.controller('configuration.group.view', function($scope, $http, $interval, $state, $stateParams, $log, $mdToast, $mdDialog, $mdMedia, $compile, groupService) {
 	console.log('configuration.group.view');
+	
+	$scope.statusMap;
+	groupService.getGroupMap('useStatus', function(result) {
+		$scope.statusMap = result;
+	})
 	
 	// 스크린 조절을 위한 값
 	$scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');

@@ -15,6 +15,18 @@ angular.module('cinnamon', [
 	'mdPickers'
 	
 ])
+.factory('groupService', function($http) {
+	return {
+		getGroupMap : function(groupId, callback) {
+			$http.get('/rest/platform/groups/' + groupId + '/childs')
+				.success(function(result) {
+					console.log(result);
+					callback(result);
+				})
+		}
+	}
+})
+
 /*.factory('defaultErrorInterceptor', function($q) {
 	return {
 		'responseError': function(rejection) {

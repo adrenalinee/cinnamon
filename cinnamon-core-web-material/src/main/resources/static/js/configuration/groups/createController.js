@@ -35,7 +35,7 @@ angular.module('cinnamon')
 						.position('top right')
 						.hideDelay(3000)
 				);
-		})
+			})
 	}
 	
 	// 리스트로 돌아가기

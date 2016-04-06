@@ -1,10 +1,15 @@
 angular.module('cinnamon')
-.controller('configuration.users.view', function($scope, $http, $interval, $state, $stateParams, $mdDialog, $mdMedia) {
+.controller('configuration.users.view', function($scope, $http, $interval, $state, $stateParams, $mdDialog, $mdMedia, groupService) {
 	console.log('configuration.users.view');
 	
 	var userId = $stateParams.userId;
 	$scope.userId = userId;
 	
+	$scope.nationMap;
+	groupService.getGroupMap('nations',function(result) {
+		$scope.nationMap = result;
+		// console.log($scope.machineModelMap);
+	});
 	
 	$http.get('/rest/configuration/users/' + userId)
 	.success(function(data) {
