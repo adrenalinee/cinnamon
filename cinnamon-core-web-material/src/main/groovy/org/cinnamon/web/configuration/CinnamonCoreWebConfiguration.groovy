@@ -86,6 +86,7 @@ class CinnamonCoreWebConfiguration {
 		}
 	}
 	
+	
 	@Configuration
 	protected static class CinnamonWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		
@@ -106,6 +107,7 @@ class CinnamonCoreWebConfiguration {
 			return jdbcTokenRepositoryImpl
 		}
 		
+		
 		@Autowired
 		public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 			auth
@@ -113,17 +115,13 @@ class CinnamonCoreWebConfiguration {
 					.passwordEncoder(new BCryptPasswordEncoder())
 		}
 		
-//		@Override
-//		void configure(AuthenticationManagerBuilder auth) throws Exception {
-//			auth
-//				.userDetailsService(userDetailService)
-//					.passwordEncoder(new BCryptPasswordEncoder())
-//		}
 		
 		@Override
 		void configure(HttpSecurity http) throws Exception {
-			http.antMatcher("/rest/**").authorizeRequests().anyRequest().authenticated()
-//			http.authorizeRequests().antMatchers("/join").permitAll()
+//			http.antMatcher("/rest/**").authorizeRequests().anyRequest().authenticated()
+			
+			http.authorizeRequests().antMatchers("/rest/**").authenticated()
+			http.authorizeRequests().antMatchers("/join/**").anonymous()
 			http.antMatcher("/**").authorizeRequests().anyRequest().denyAll()
 			http.formLogin().loginPage("/login").permitAll()
 
@@ -134,7 +132,6 @@ class CinnamonCoreWebConfiguration {
 				.logoutUrl("/logout")
 				.logoutSuccessUrl("/login")
 				
-//			http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 			http.rememberMe().tokenRepository(new InMemoryTokenRepositoryImpl())
 			
 			WebExpressionVoter webExpressionVoter = new WebExpressionVoter()
@@ -142,7 +139,8 @@ class CinnamonCoreWebConfiguration {
 			
 			http.authorizeRequests().accessDecisionManager(accessDecisionManager)
 		}
-
+		
+		
 		@Override
 		void configure(WebSecurity web) throws Exception {
 			web.ignoring()

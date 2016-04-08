@@ -32,6 +32,7 @@
 			
 			{{me.name}}
 			
+			
 			<md-menu ng-show="!isMobile()" ng-clock="">
 				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
 					<md-icon>person</md-icon>
@@ -47,11 +48,13 @@
 							<md-icon></md-icon> 개인 설정
 						</md-button>
 					</md-menu-item>
-					<md-menu-item>
-						<md-button ng-href="/logout" target="_self">
-							<md-icon>power_settings_new</md-icon> 로그아웃
-						</md-button>
-					</md-menu-item>
+					<form name="toolbarLogoutForm" th:action="@{/logout}" method="post">
+						<md-menu-item>
+							<button md-button="" type="submit">
+								<md-icon>power_settings_new</md-icon> 로그아웃
+							</button>
+						</md-menu-item>
+					</form>
 				</md-menu-content>
 			</md-menu>
 			
@@ -100,7 +103,7 @@
 			<div class="md-toolbar-tools md-toolbar-tools-bottom" layout="column" layout-align="start">
 				<span><b>{{me.name}}</b></span>
 				<div layout="row">
-					<span flex="">{{me.email}}</span>
+					<span flex="" class="md-subhead">{{me.email}}</span>
 			<md-menu>
 				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
 					<md-icon>expand_more</md-icon>
