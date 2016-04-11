@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod;
 import org.springframework.http.converter.HttpMessageConverter
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter
 import org.springframework.security.access.vote.AffirmativeBased
@@ -120,8 +121,13 @@ class CinnamonCoreWebConfiguration {
 		void configure(HttpSecurity http) throws Exception {
 //			http.antMatcher("/rest/**").authorizeRequests().anyRequest().authenticated()
 			
+			http.authorizeRequests().antMatchers("/join/**", "/findPassword/**").anonymous()
+			http.authorizeRequests().antMatchers("/rest/accounts/**").anonymous()
 			http.authorizeRequests().antMatchers("/rest/**").authenticated()
-			http.authorizeRequests().antMatchers("/join/**").anonymous()
+//			http.authorizeRequests().regexMatchers(HttpMethod.HEAD, "/rest/accounts/*")
+//			http.authorizeRequests().regexMatchers(HttpMethod.POST, "/rest/accounts/*")
+			
+			
 			http.antMatcher("/**").authorizeRequests().anyRequest().denyAll()
 			http.formLogin().loginPage("/login").permitAll()
 

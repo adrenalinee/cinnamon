@@ -7,17 +7,28 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 /**
  * 
- *
- * created date: 2015. 9. 23.
  * @author 신동성
+ * @since 2016. 4. 11.
  */
-@Controller
-class LoginController {
+@Controller("cinnamon.accountController")
+class AccountController {
 	Logger logger = LoggerFactory.getLogger(getClass())
 	
 	@RequestMapping(value="/login")
 	def login() {
 		logger.info("start")
 		"configuration/login"
+	}
+	
+	@RequestMapping(value="/join")
+	def join() {
+		logger.info("start")
+		"configuration/join"
+	}
+	
+	@RequestMapping(value="/findPassword")
+	def findPassword() {
+		logger.info("start")
+		"configuration/findPassword"
 	}
 }

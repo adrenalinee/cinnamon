@@ -7,34 +7,143 @@
 	layout:decorator="configuration/layout/base">
 
 <head>
-<title>cinnamon 가입</title>
+<title>회원가입</title>
 <link href="/css/cinnamon.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="/js/cinnamon.js"></script>
 <script type="text/javascript">
-angular.module('cinnamon');
+angular.module('cinnamon')
+.controller('configuration.join', function($scope, $http, $interval, $state, $mdDialog, $mdToast) {
+	console.log('configuration.users.create');
+	
+	$scope.create = function(form, $event) {
+		console.log('create');
+		
+		if (form.$valid == false ||
+			$scope.domain.password != $scope.domain.password2) {
+			
+			$mdToast.show(
+				$mdToast.simple()
+					.textContent('입력값을 확인하시기 바랍니다.'));
+			return;
+		}
+		
+		$scope.isProcess = true;
+		$http.head('/rest/accounts/' + $scope.domain.userId)
+		.success(function(data, status) {
+			console.log(status);
+			$mdToast.show(
+					$mdToast.simple()
+					.position('top right')
+					.textContent('이미 사용중인 아이디 입니다. 다른 아이디를 입력하시기 바랍니다.'));
+			$scope.isProcess = false;
+		}).error(function(data, status) {
+			if (status == 404) {
+				$scope.isProcess = true;
+				$http.post('/rest/accounts', $scope.domain)
+				.success(function(data, status, config) {
+					console.log(status);
+					
+					$mdDialog.show(
+						$mdDialog.alert()
+							.targetEvent($event)
+							.title('회원가입 완료')
+							.textContent('회원가입이 완료되었습니다. 로그인해주시기 바랍니다')
+							.ok('로그인화면으로')
+					).then(function() {
+						$interval(function() {
+							location.href = '/login';
+						}, 150, 1);
+					});
+				});
+			}
+		});
+		
+	}
+	
+	$scope.goBack = function() {
+		history.go(-1);
+	}
+	
+});
 </script>
+<base href="/" />
 </head>
 <body layout:fragment="body" layout-gt-xs="row" layout-align-gt-xs="center start" class="content">
 
-	<md-content flex-gt-xs="30" class="content">
+	<md-content flex-gt-xs="30" class="content" ng-controller="configuration.join">
 		
-		<form>
-			<md-card layout-padding="">
-				<md-card-header>
-					<md-card-header-text>
-						<span class="md-title">welcom to Cinnamon</span>
-					</md-card-header-text>
-				</md-card-header>
+		<div layout-align="center center" layout="row">
+			<h2 class="md-headline">
+				<a href="/" target="_self">welcom to Cinnamon</a>
+			</h2>
+		</div>
+		
+							
+		<md-card layout-padding="">
+			<md-card-header>
+				<md-card-header-text>
+					<span class="md-title">회원가입</span>
+				</md-card-header-text>
+			</md-card-header>
+			
+			
+			<md-card-content>
+				<form name="form">
+						<md-input-container class="md-block">
+							<label>이름</label>
+							<input name="name" ng-model="domain.name" required="required" md-maxlength="50" maxlength="50" />
+							<div ng-messages="form.name.$error">
+								<div ng-message="required">필수 입력 항목입니다.</div>
+							</div>
+						</md-input-container>
+						
+						<md-input-container class="md-block">
+							<label>user ID</label>
+							<input name="userId" ng-model="domain.userId" required="required" md-maxlength="20" maxlength="20" minlength="6" />
+							<div ng-messages="form.userId.$error">
+								<div ng-message="required">필수 입력 항목입니다.</div>
+								<div ng-message="minlength">최소 6자리 이상 입력하시기 바랍니다.</div>
+							</div>
+						</md-input-container>
+						
+						<md-input-container class="md-block">
+							<label>이메일</label>
+							<input type="email" name="email" ng-model="domain.email" required="required" md-maxlength="200" maxlength="200" />
+							<div ng-messages="form.email.$error">
+								<div ng-message="required">필수 입력 항목입니다.</div>
+								<div ng-message="email">이메일 형식을 입력하시기 바랍니다.</div>
+							</div>
+						</md-input-container>
+						
+						<md-input-container class="md-block">
+							<label>비밀번호</label>
+							<input type="password" name="password" ng-model="domain.password" required="required" maxlength="30" minlength="6" />
+							<div ng-messages="form.password.$error">
+								<div ng-message="required">필수 입력 항목입니다.</div>
+								<div ng-message="minlength">최소 6자리 이상 입력하시기 바랍니다.</div>
+							</div>
+						</md-input-container>
+						
+						<md-input-container class="md-block">
+							<label>비밀번호 확인</label>
+							<input type="password" name="password2" ng-model="domain.password2" required="required" maxlength="30" />
+							<div ng-messages="form.password2.$dirty">
+								<div ng-message="required" ng-show="form.password2.$error.required">필수 입력 항목입니다.</div>
+								<div ng-show="domain.password != domain.password2">비밀번호가 일치하지 않습니다.</div>
+							</div>
+						</md-input-container>
+					</form>
+
 				
-				<md-card-content>
-				</md-card-content>
-				<md-card-actions>
-					<md-button type="submit" class="md-raised md-primary">가입</md-button>
-					<md-button >취소</md-button>
-				</md-card-actions>
-			</md-card>
-		</form>
+				
+			</md-card-content>
+			<md-card-actions layout="row" layout-align="end">
+				<md-progress-circular md-mode="indeterminate" ng-show="isProcess"></md-progress-circular>
+				<md-button class="md-raised md-primary" ng-click="create(form, $event)" ng-disabled="isProcess">생성</md-button>
+				<md-button ng-click="goBack()">취소</md-button>
+			</md-card-actions>
+		</md-card>
 		
 	</md-content>
 </body>

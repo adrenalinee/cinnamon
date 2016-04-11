@@ -44,7 +44,6 @@ angular.module('cinnamon')
 			$mdToast.show(
 					$mdToast.simple()
 					.position('top right')
-					.theme('md-warn')
 					.textContent('입력값을 확인하시기 바랍니다.'));
 			return;
 		}
@@ -130,7 +129,7 @@ angular.module('cinnamon')
 								<input name="userId" ng-model="domain.userId" required="required" md-maxlength="20" maxlength="20" minlength="6" />
 								<div ng-messages="firstUserform.userId.$submitted">
 									<div ng-message="required" ng-show="firstUserform.userId.$error.required">필수 입력 항목입니다.</div>
-									<div ng-message="required" ng-show="firstUserform.userId.$error.minlength">최소 6자리 이상 입력하시기 바랍니다.</div>
+									<div ng-message="minlength" ng-show="firstUserform.userId.$error.minlength">최소 6자리 이상 입력하시기 바랍니다.</div>
 								</div>
 							</md-input-container>
 							
@@ -148,7 +147,7 @@ angular.module('cinnamon')
 								<input type="password" name="password" ng-model="domain.password" required="required" md-maxlength="30" maxlength="30" minlength="6" />
 								<div ng-messages="firstUserform.password.$submitted">
 									<div ng-message="required" ng-show="firstUserform.password.$error.required">필수 입력 항목입니다.</div>
-									<div ng-message="required" ng-show="firstUserform.password.$error.minlength">최소 6자리 이상 입력하시기 바랍니다.</div>
+									<div ng-message="minlength" ng-show="firstUserform.password.$error.minlength">최소 6자리 이상 입력하시기 바랍니다.</div>
 								</div>
 							</md-input-container>
 							
