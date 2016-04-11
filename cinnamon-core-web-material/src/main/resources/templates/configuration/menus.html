@@ -13,6 +13,8 @@
 <script type="text/javascript" src="/js/configuration/directives/searchList.js"></script>
 
 <script type="text/javascript" src="/js/configuration/menus/viewController.js"></script>
+<script type="text/javascript" src="/js/configuration/menus/modifyController.js"></script>
+
 <script type="text/javascript">
 /*<![CDATA[*/
 angular.module('cinnamon')
@@ -21,7 +23,13 @@ angular.module('cinnamon')
 		url: '/configuration/menus/:menuId',
 		templateUrl: '/configuration/partials/menus/view',
 		controller: 'configuration.menus.view'
-	});
+	})
+	.state('modify', {
+		url : '/configuration/menus/:menuId/modify',
+		templateUrl : '/configuration/partials/menus/modify',
+		controller : 'configuration.menus.modify'
+	})
+	;
 	
 });
 /*]]>*/

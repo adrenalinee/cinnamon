@@ -87,13 +87,16 @@ public class MenuService {
 		Long menuGroupId = menuVo.getMenuGroupId();
 		Long parentMenuId = menuVo.getParentMenuId();
 		
-		MenuGroup menuGroup = menuGroupRepository.findOne(menuGroupId);
-		if (menuGroup == null) {
-			throw new InvalidEntityException("menuGroup이 없습니다. menuGroupId: " + menuGroupId);
-		}
 		Menu menu = beanMapper.map(menuVo, Menu.class);
-		menu.setMenuGroup(menuGroup);
 		
+		if(menuGroupId != null) {
+			MenuGroup menuGroup = menuGroupRepository.findOne(menuGroupId);
+			if (menuGroup == null) {
+				throw new InvalidEntityException("menuGroup이 없습니다. menuGroupId: " + menuGroupId);
+			}
+			menu.setMenuGroup(menuGroup);
+		}
+
 		if(parentMenuId != null) {
 			Menu parent = menuRepository.findOne(parentMenuId);
 			if (parent == null) {
@@ -102,6 +105,7 @@ public class MenuService {
 			menu.setParent(parent);
 		}
 		
+		logger.info(org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString(menu));
 		return menuRepository.save(menu);
 	}
 	

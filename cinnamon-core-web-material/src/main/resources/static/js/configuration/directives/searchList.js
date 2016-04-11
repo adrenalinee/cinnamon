@@ -25,8 +25,6 @@ angular.module('cinnamon')
 	
 	console.log($scope.defaultSearchParams)
 	
-	console.log($scope.defaultSearchParams);
-
 	if (angular.isDefined($scope.defaultSearchParams)) {
 		$scope.searchInfo = $scope.defaultSearchParams;
 	}
