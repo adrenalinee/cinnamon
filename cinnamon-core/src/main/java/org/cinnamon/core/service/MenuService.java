@@ -7,6 +7,7 @@ import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.MenuGroup;
 import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.exception.InvalidEntityException;
+import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.MenuGroupRepository;
 import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.vo.MenuVo;
@@ -114,5 +115,24 @@ public class MenuService {
 		logger.info("start");
 		
 		return menuGroupRepository.findOne(menuGroupId).getMenus();
+	}
+	
+	/**
+	 * 메뉴 정보 수정
+	 * @author 정명성
+	 * create date : 2016. 4. 12.
+	 * @param menuId
+	 * @param menuVo
+	 */
+	@Transactional
+	public void modify(Long menuId, MenuVo menuVo) {
+		logger.info("start");
+		
+		Menu menu = menuRepository.findOne(menuId);
+		if(menu == null) {
+			throw new NotFoundException("존재하지 않는 메뉴 입니다. menuId:" + menuId);
+		}
+		
+		beanMapper.map(menuVo, menu);
 	}
 }

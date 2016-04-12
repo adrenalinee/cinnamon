@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.menuGroups.create', function($scope, $http, $interval, $state, $location, $mdToast, $mdDialog) {
+.controller('configuration.menuGroups.create', function($scope, $http, $interval, $state, $location, $mdToast, $mdDialog, message) {
 	console.log('configuration.menuGroups.create');
 	
 	var siteId = $location.search().siteId;
@@ -8,11 +8,7 @@ angular.module('cinnamon')
 		console.log('create');
 		
 		if (form.$valid == false) {
-			
-			$mdToast.show(
-					$mdToast.simple()
-					.position('top right')
-					.textContent('입력값을 확인하시기 바랍니다.'));
+			message.alert('입력값을 확인하시기 바랍니다.');
 			return;
 		}
 		

@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.menuGroups.view', function($scope, $http, $stateParams, $mdDialog, $mdMedia, $mdToast, $interval) {
+.controller('configuration.menuGroups.view', function($scope, $http, $stateParams, $mdDialog, $mdMedia, $mdToast, $interval, message) {
 	console.log('configuration.menuGroups.view');
 	
 	var menuGroupId = $stateParams.menuGroupId;
@@ -60,13 +60,7 @@ angular.module('cinnamon')
 						$http.put('/rest/configuration/menuGroups/' + menuGroupId + '/site/' + siteId)
 							.success(function(result) {
 								console.log("사이트 정보 추가 됨");
-								$mdToast.show(
-									$mdToast.simple()
-										.textContent("등록되었습니다.")
-										.position("top right")
-										.hideDelay(3000)
-								)
-								
+								message.alert('등록되었습니다.');
 								$mdDialog.hide();
 							})
 					}

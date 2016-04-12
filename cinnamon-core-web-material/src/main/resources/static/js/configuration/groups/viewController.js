@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.group.view', function($scope, $http, $interval, $state, $stateParams, $log, $mdToast, $mdDialog, $mdMedia, $compile, groupService) {
+.controller('configuration.group.view', function($scope, $http, $interval, $state, $stateParams, $log, $mdToast, $mdDialog, $mdMedia, $compile, groupService, message, pageMove) {
 	console.log('configuration.group.view');
 	
 	$scope.statusMap;
@@ -58,31 +58,16 @@ angular.module('cinnamon')
 					// 등록 완료
 					$scope.createChild = function(group) {
 						if(!$scope.frm.$valid) {
-							$mdToast.show(
-									$mdToast.simple()
-									.textContent('입력값을 확인하세요.')
-									.position('top right')
-									.hideDelay(3000)
-								)
+							message.alert('입력값을 확인하세요.');
 							return;
 						}
 						var params = angular.copy(group);
 						$http.post('/rest/configuration/groups/' + groupId + '/childs', params)
 							.success(function(result) {
-								$mdToast.show(
-									$mdToast.simple()
-									.textContent('등록되었습니다.')
-									.position('top right')
-									.hideDelay(3000)
-								)
+								message.alert('등록되었습니다.');
 						})
 						.error(function(){
-							$mdToast.show(
-									$mdToast.simple()
-									.textContent('groupId가 중복입니다. 다시 확인해주세요.')
-									.position('top right')
-									.hideDelay(3000)
-								)
+							message.alert('groupId가 중복입니다. 다시 확인해주세요.');
 						})
 						$mdDialog.hide();
 					}
@@ -118,12 +103,7 @@ angular.module('cinnamon')
 					$scope.selectParent = function(domain) {
 						$http.put('/rest/configuration/groups/' + domain.groupId + "/parent", groupId)
 							.success(function(result) {
-								$mdToast.show(
-									$mdToast.simple()
-									.textContent('등록되었습니다.')
-									.position('top right')
-									.hideDelay(3000)
-								)
+								message.alert('등록되었습니다.');
 						})
 						$mdDialog.hide();
 					}
@@ -144,9 +124,7 @@ angular.module('cinnamon')
 	
 	// 목록으로 이동
 	$scope.goList = function() {
-		$interval(function() {
-			$state.go('list');
-		}, 200, 1);
+		pageMove.go('list');
 	}	
 
 });

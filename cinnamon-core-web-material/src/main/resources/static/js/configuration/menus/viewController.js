@@ -81,7 +81,7 @@ angular.module('cinnamon')
 							parentMenuId :''
 					}
 					// 메뉴 종류
-					$scope.menuTypes = [{ code : 'nomal' },{code : 'separater'} , {code : 'label'} , {code : 'component'}]
+					$scope.menuTypes = [{ code : 'normal' },{code : 'separater'} , {code : 'label'} , {code : 'component'}]
 					// 메뉴 위치
 					$scope.menuPositions = [{code : 'sidebar'} , {code : 'headerRight'} , {code : 'headerLeft'}]
 				
