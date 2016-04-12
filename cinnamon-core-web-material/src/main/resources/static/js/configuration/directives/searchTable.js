@@ -1,28 +1,32 @@
 angular.module('cinnamon')
-.directive('cmSearchList', function() {
+.directive('cmSearchTable', function() {
 	return {
 		restrict: 'E',
 		transclude: {
-			'items': 'cmSearchListItems',
-			'filters': 'cmSearchListFilters',
+			'items': 'cmSearchTableItems',
+			'filters': 'cmSearchTableFilters',
 		},
 		scope: {
 			domains: '=',
+//			searchInfo: '=searchParams',
 			resourceUrl: '@',
-			searchInfo: '=?',
 			defaultSearchParams: '=?',
 			sortItems: '=?',
-			defaultSorts: '=?', //'createdAt,desc' or ['createdAt,desc', 'name,asc']
-			isPaging: '=?'
+			isPaging: '=?',
+			searchInfo: '=?'
 		},
-		templateUrl: '/configuration/directives/searchList',
-		controller: 'searchListController'
+		templateUrl: '/configuration/directives/searchTable',
+		controller: 'searchTableController'
 	}
-}).controller('searchListController', function($scope, $http, $location, $mdMedia) {
-	console.log('searchListController');
+}).controller('searchTableController', function($scope, $http, $location, $mdMedia) {
+	console.log('searchTableController');
 	
-	if (!angular.isDefined($scope.searchInfo)) {
-		$scope.searchInfo = {};
+//	$scope.domains;
+	
+	console.log($scope.defaultSearchParams)
+	
+	if (angular.isDefined($scope.defaultSearchParams)) {
+		$scope.searchInfo = $scope.defaultSearchParams;
 	}
 	
 	if (angular.isDefined($scope.isPaging)) {
@@ -49,9 +53,11 @@ angular.module('cinnamon')
 			console.log(data);
 			
 			$scope.domains = data;
-		}).error(function(error) {
+		})
+		.error(function(error) {
 			console.log('no data');
-		}).finally(function() {
+		})
+		.finally(function() {
 			$scope.showProgress = false;
 		});
 	}
@@ -76,22 +82,6 @@ angular.module('cinnamon')
 		$scope.load(params);
 	}
 	
-	$scope.initSearch = function() {
-		$scope.searchInfo = {};
-		
-		if (angular.isDefined($scope.defaultSearchParams)) {
-			$scope.searchInfo = $scope.defaultSearchParams;
-		}
-		
-		if (angular.isDefined($scope.defaultSorts)) {
-			$scope.searchInfo.sort = $scope.defaultSorts;
-		}
-		
-		$scope.showDetailSearch = false;
-		$scope.load($scope.searchInfo);
-	}
-	
-	
 	$scope.isMobile = function() {
 		return !$mdMedia('gt-sm');
 	}
@@ -111,6 +101,5 @@ angular.module('cinnamon')
 		$scope.search();
 	}
 	
-	$scope.initSearch();
 	$scope.load($scope.searchInfo);
 });

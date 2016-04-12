@@ -1,8 +1,13 @@
-<md-content class="content-container content">
-	<h3 layout-padding="" class="md-headline">
-		사이트 및 메뉴
-		<span class="md-subhead text-muted">메뉴 수정</span>
-	</h3>
+<md-dialog flex="70">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2 class="md-title">메뉴 생성</h2>
+			<span flex=""></span>
+			<md-button class="md-icon-button" ng-click="close()">
+				<md-icon>close</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
 	
 	<form name="frm" novalidte="novalidte">
 		<md-card>
@@ -42,12 +47,12 @@
 					<label>
 						Type
 					</label>
-					<md-select ng-model="menu.type" name="menuType" required="required">
-						<md-option ng-value="menuType.groupId" ng-repeat="menuType in menuTypes">
-							{{menuType.name}}
+					<md-select ng-model="menu.menuType" name="menuType" required="required">
+						<md-option ng-repeat="menuType in menuTypes" value="{{menuType.code}}">
+							{{menuType.code}}
 						</md-option>
 					</md-select>
-					<div ng-messages="frm.menuType.$error">
+					<div ng-messages="frm.menuType.$error ">
 						<div ng-message="required">메뉴 타입을 선택하세요.</div>
 					</div>
 				</md-input-container>
@@ -83,10 +88,14 @@
 					</label>
 					<textarea name="description" ng-model="menu.description" rows="5"></textarea>
 				</md-input-container>
-			<md-card-actions layout="row" layout-align="end">
-				<md-button class="md-raised md-primary" type="sumbit" ng-click="update(form, $event)" ng-disabled="isProcess">수정</md-button>
-				<md-button ng-click="goBack()">취소</md-button>
+
+			</md-content>
+			
+			<md-card-actions layout="row">
+				<md-button ng-click="goList()">취소</md-button>
+				<md-button class="md-raised md-primary" type="sumbit" ng-click="create()" ng-disabled="!frm.$valid">생성</md-button>
 			</md-card-actions>
 		</md-card>
 	</form>
-</md-content>
+	
+</md-dialog>

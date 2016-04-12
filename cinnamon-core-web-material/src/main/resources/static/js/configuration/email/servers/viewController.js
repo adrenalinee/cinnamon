@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.email.server.view', function($scope, $http, $interval, $state, $stateParams, $log, $mdToast, $mdDialog, $mdMedia) {
+.controller('configuration.email.server.view', function($scope, $http, $interval, $state, $stateParams, $log, $mdToast, $mdDialog, $mdMedia, message, pageMove) {
 	console.log('configuration.email.server.view');
 	// 화면 도메인
 	$scope.domains;
@@ -21,12 +21,7 @@ angular.module('cinnamon')
 	$scope.setDefaultEmailServer = function(emailServerId) {
 		$http.patch('/rest/configuration/email/server/' + emailServerId)
 			.success(function (result) {
-				$mdToast.show(
-						$mdToast.simple()
-						.textContent('기본서버로 설정되었습니다.')
-						.position('top right')
-						.hideDelay(3000)
-					)
+				message.alert('기본서버로 설정되었습니다.');
 				$scope.load();
 			})
 	}
@@ -35,12 +30,7 @@ angular.module('cinnamon')
 	$scope.mailTest = function(emailServerId) {
 		
 		if($scope.frm.$valid == false){
-			$mdToast.show(
-				$mdToast.simple()
-					.textContent('입력값을 확인해 주세요.')
-					.position('top right')
-					.hideDelay(3000)
-			);
+			message.alert('입력값을 확인해 주세요.');
 			return ;
 		}
 		
@@ -48,12 +38,7 @@ angular.module('cinnamon')
 		$http.get('/rest/configuration/email/server/' + emailServerId + '/test?toAddress=' + $scope.toAddress)
 			.success(function (result) {
 				console.log(result);
-				$mdToast.show(
-					$mdToast.simple()
-					.textContent('테스트가 완료되었습니다.')
-					.position('top right')
-					.hideDelay(3000)
-				)
+				message.alert('테스트가 완료되었습니다.');
 				$scope.mailSendTestMsg = result.msg;
 				$scope.mailTestBtn = false;
 			})
@@ -61,13 +46,13 @@ angular.module('cinnamon')
 	
 	// 목록으로
 	$scope.goList = function() {
-		$interval(function() {
-			$state.go('list');
-		}, 200, 1);
+		pageMove.go('list');
 	}
 	
 	// 삭제
 	$scope.delete = function(emailServerId) {
+		
+
 		var confirm = $mdDialog.confirm()
 			.title('삭제')
 			.textContent('서버 정보를 삭제하시겠습니까?')
@@ -77,12 +62,7 @@ angular.module('cinnamon')
 			// 삭제
 			$http.delete('/rest/configuration/email/server/' + emailServerId)
 				.success(function(result) {
-					$mdToast.show(
-							$mdToast.simple()
-							.textContent("삭제되었습니다.")
-							.position("top right")
-							.hideDelay(3000)
-					)
+					message.alert('삭제되었습니다.');
 					// 목록으로
 					$scope.goList();
 				})
@@ -90,6 +70,7 @@ angular.module('cinnamon')
 			// 취소
 			
 		});
+
 	}
 });
 // 추후 템플리에트는 밑으로

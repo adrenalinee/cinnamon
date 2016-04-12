@@ -19,12 +19,6 @@ angular.module('cinnamon')
 	});
 	
 	$scope.selectUserGroup = function($event) {
-//		$mdDialog.show(
-//			$mdDialog.alert()
-//				.title('사용자 모임 선택')
-//				.targetEvent($event)
-//		);
-		
 		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
 		$mdDialog.show({
 			targetEvent: $event,
@@ -51,13 +45,45 @@ angular.module('cinnamon')
 		});
 	}
 	
-	$scope.modify = function($event) {
-		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
-		$mdDialog.show({
-			targetEvent: $event,
-			fullscreen: useFullScreen,
-			templateUrl: '/configuration/partials/users/modify2',
-			controller: 'configuration.users.modify'
-		});
+//	$scope.modify = function($event) {
+//		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+//		$mdDialog.show({
+//			targetEvent: $event,
+//			fullscreen: useFullScreen,
+//			templateUrl: '/configuration/partials/users/modify2',
+//			controller: 'configuration.users.modify'
+//		});
+//	}
+	
+	$scope.delete = function($event) {
+		$mdDialog.show(
+				$mdDialog.confirm()
+				.targetEvent($event)
+				.title('삭제확인')
+				.textContent('사용자를 삭제 하시겠습니까? 활동기록이 없는 사용자만 삭제 할 수 있습니다.')
+				.ok('삭제')
+				.cancel('취소')
+			).then(function() {
+				//지울 수 있는지 확인
+				$http.get('/rest/configuration/users/' + userId + '/deleteable')
+				.success(function(isDeleteable) {
+					if (isDeleteable) {
+						$http.delete('/rest/configuration/userId/' + userId)
+							.success(function(data) {
+								$mdToast.show(
+									$mdToast.simple()
+										.textContent('삭제되었습니다'));
+								
+								$state.go('list', {}, {location: 'replace'});
+							});
+					} else {
+						$mdDialog.show(
+							$mdDialog.alert()
+								.targetEvent($event)
+								.textContent('활동기록이 있는 사용자는 삭제 할 수 없습니다. 정식으로 탈퇴 처리를 하면 30일이후에 활동기록이 모두 지워집니다.')
+								.ok('확인'));
+					}
+				});
+			});
 	}
 });

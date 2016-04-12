@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.sites.modify', function($scope, $http, $state, $stateParams, $mdDialog, $mdToast, $interval) {
+.controller('configuration.sites.modify', function($scope, $http, $state, $stateParams, $mdDialog, $mdToast, $interval, message, pageMove) {
 	console.log('configuration.sites.modify');
 
 	$scope.site;
@@ -17,12 +17,7 @@ angular.module('cinnamon')
 	$scope.modify = function() {
 		
 		if(!$scope.frm.$valid) {
-			$mdToast.show(
-					$mdToast.simple()
-						.textContent('입력값을 확인해 주세요.')
-						.position('top right')
-						.hideDelay(3000)
-			);
+			message.alert('입력값을 확인해 주세요.');
 			return ;
 		}
 		
@@ -30,16 +25,8 @@ angular.module('cinnamon')
 		console.log(params);
 		$http.put('/rest/configuration/sites/' + $stateParams.siteId, params)
 		.success(function(result, status, headers) {
-			$mdToast.show(
-				$mdToast.simple()
-					.textContent("수정되었습니다.")
-					.position("top right")
-					.hideDelay(3000)
-			)
-			
-			$interval(function() {
-				$state.go('view',{siteId : $scope.site.siteId})
-			}, 200, 1);
+			message.alert('수정되었습니다.');
+			pageMove.go('view',{siteId : $scope.site.siteId});
 		})
 	}
 	

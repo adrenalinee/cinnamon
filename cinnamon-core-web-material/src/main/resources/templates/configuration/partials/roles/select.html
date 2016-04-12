@@ -1,17 +1,9 @@
-<md-dialog ng-clock="" flex="70">
-	<md-toolbar>
-		<div class="md-toolbar-tools">
-			<h2 class="md-title">역할 선택</h2>
-			<span flex=""></span>
-			<md-button class="md-icon-button" ng-click="close()">
-				<md-icon>close</md-icon>
-			</md-button>
-		</div>
-	</md-toolbar>
+<md-dialog flex="70" cm-dialog-template="" toolbar-title="'역할 선택'">
+	<cm-dialog-template-content>
 	
 	
 	<cm-search-list
-		resource-url="/rest/configuration/userGroups"
+		resource-url="/rest/configuration/roles"
 		domains="domains">
 		
 		<cm-search-list-filters>
@@ -44,7 +36,5 @@
 		</cm-search-list-items>
 	</cm-search-list>
 	
-	<md-dialog-actions>
-		<md-button class="md-primary md-ink-ripple" ng-click="close()">닫기</md-button>
-	</md-dialog-actions>
+	</cm-dialog-template-content>
 </md-dialog>
