@@ -8,12 +8,12 @@ angular.module('cinnamon')
 		},
 		scope: {
 			domains: '=',
-//			searchInfo: '=searchParams',
 			resourceUrl: '@',
+			searchInfo: '=?',
 			defaultSearchParams: '=?',
 			sortItems: '=?',
-			isPaging: '=?',
-			searchInfo: '=?'
+			defaultSorts: '=?', //'createdAt,desc' or ['createdAt,desc', 'name,asc']
+			isPaging: '=?'
 		},
 		templateUrl: '/configuration/directives/searchList',
 		controller: 'searchListController'
@@ -21,12 +21,8 @@ angular.module('cinnamon')
 }).controller('searchListController', function($scope, $http, $location, $mdMedia) {
 	console.log('searchListController');
 	
-//	$scope.domains;
-	
-	console.log($scope.defaultSearchParams)
-	
-	if (angular.isDefined($scope.defaultSearchParams)) {
-		$scope.searchInfo = $scope.defaultSearchParams;
+	if (!angular.isDefined($scope.searchInfo)) {
+		$scope.searchInfo = {};
 	}
 	
 	if (angular.isDefined($scope.isPaging)) {
@@ -53,11 +49,9 @@ angular.module('cinnamon')
 			console.log(data);
 			
 			$scope.domains = data;
-		})
-		.error(function(error) {
+		}).error(function(error) {
 			console.log('no data');
-		})
-		.finally(function() {
+		}).finally(function() {
 			$scope.showProgress = false;
 		});
 	}
@@ -82,6 +76,22 @@ angular.module('cinnamon')
 		$scope.load(params);
 	}
 	
+	$scope.initSearch = function() {
+		$scope.searchInfo = {};
+		
+		if (angular.isDefined($scope.defaultSearchParams)) {
+			$scope.searchInfo = $scope.defaultSearchParams;
+		}
+		
+		if (angular.isDefined($scope.defaultSorts)) {
+			$scope.searchInfo.sort = $scope.defaultSorts;
+		}
+		
+		$scope.showDetailSearch = false;
+		$scope.load($scope.searchInfo);
+	}
+	
+	
 	$scope.isMobile = function() {
 		return !$mdMedia('gt-sm');
 	}
@@ -101,5 +111,6 @@ angular.module('cinnamon')
 		$scope.search();
 	}
 	
+	$scope.initSearch();
 	$scope.load($scope.searchInfo);
 });

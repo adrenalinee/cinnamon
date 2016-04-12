@@ -44,6 +44,9 @@
 		<md-divider></md-divider>
 		<ng-transclude ng-transclude-slot="filters" />
 		<md-button class="md-primary md-raised" ng-click="search()">검색</md-button>
+		<md-button ng-click="initSearch()">
+			<span class="text-muted">검색초기화</span>
+		</md-button>
 		<md-divider></md-divider>
 	</div>
 	<!-- 상세 검색 필드 끝 -->
