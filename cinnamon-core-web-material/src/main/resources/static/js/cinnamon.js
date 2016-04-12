@@ -18,11 +18,18 @@ angular.module('cinnamon', [
 .factory('groupService', function($http) {
 	return {
 		getGroupMap : function(groupId, callback) {
-			$http.get('/rest/platform/groups/' + groupId + '/childs')
+			$http.get('/rest/configuration/groups/' + groupId + '/childsMap')
 				.success(function(result) {
 					console.log(result);
 					callback(result);
 				})
+		},
+		getGroups : function(groupId, callback) {
+			$http.get('/rest/configuration/groups/' + groupId + '/childs')
+			.success(function(result) {
+				console.log(result);
+				callback(result);
+			})
 		}
 	}
 })
