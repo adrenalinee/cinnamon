@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.converter.HttpMessageConverter
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter
@@ -88,6 +89,7 @@ class CinnamonCoreWebConfiguration {
 	}
 	
 	
+	@Order(10)
 	@Configuration
 	protected static class CinnamonWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		
@@ -156,6 +158,7 @@ class CinnamonCoreWebConfiguration {
 					"/webjars/**",
 					"/fonts/**",
 					"/configuration/partials/**",
+					"/settings/partials/**",
 					"/configuration/initWizard/**",
 					"/rest/configuration/initWizard/**");
 		}

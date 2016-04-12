@@ -1,5 +1,7 @@
 package org.cinnamon.core.vo;
 
+import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -10,18 +12,27 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class MenuGroupVo {
 	
-//	@Null
-	Long menuGroupId;
+////	@Null
+//	Long menuGroupId;
+//	
+//	@NotEmpty
+//	String siteId;
 	
 	@NotEmpty
-	String siteId;
-	
-	@NotEmpty
+	@Size(max=100)
 	String name;
 	
 	@NotEmpty
+	@Size(max=50)
 	String dimension;
 	
+	@Size(max=100)
+	String label;
+	
+	@Size(max=200)
+	String defaultPage;
+	
+	@Size(max=4000)
 	String description;
 
 	public String getName() {
@@ -48,20 +59,36 @@ public class MenuGroupVo {
 		this.description = description;
 	}
 
-	public Long getMenuGroupId() {
-		return menuGroupId;
+	public String getLabel() {
+		return label;
 	}
 
-	public void setMenuGroupId(Long menuGroupId) {
-		this.menuGroupId = menuGroupId;
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
-	public String getSiteId() {
-		return siteId;
+	public String getDefaultPage() {
+		return defaultPage;
 	}
 
-	public void setSiteId(String siteId) {
-		this.siteId = siteId;
+	public void setDefaultPage(String defaultPage) {
+		this.defaultPage = defaultPage;
 	}
+
+//	public Long getMenuGroupId() {
+//		return menuGroupId;
+//	}
+//
+//	public void setMenuGroupId(Long menuGroupId) {
+//		this.menuGroupId = menuGroupId;
+//	}
+//
+//	public String getSiteId() {
+//		return siteId;
+//	}
+//
+//	public void setSiteId(String siteId) {
+//		this.siteId = siteId;
+//	}
 	
 }
