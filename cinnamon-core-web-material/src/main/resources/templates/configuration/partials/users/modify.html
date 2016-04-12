@@ -6,20 +6,12 @@
 	
 	<form name="form" novalidate="novalidate">
 		<md-card>
-			<md-card-header>
+			<md-card-header layout-align="none center">
 				<md-card-header-text>
 					<span class="md-title">{{domain.userId}}</span>
 				</md-card-header-text>
 			</md-card-header>
 			<md-card-content>
-				<!-- <md-input-container class="md-block">
-					<label>userId</label>
-					<input name="userId" ng-model="domain.userId" required="required" md-maxlength="20" maxlength="20" ng-minlength="6" />
-					<div ng-messages="form.userId.$error">
-						<div ng-message="required">필수 입력 항목입니다.</div>
-						<div ng-message="minlength">최소 6자리 이상 입력하시기 바랍니다.</div>
-					</div>
-				</md-input-container> -->
 				<md-input-container class="md-block">
 					<label>이름</label>
 					<input name="name" ng-model="domain.name" required="required" md-maxlength="50" maxlength="50" />

@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.cinnamon.core.domain.MenuGroup;
 import org.cinnamon.core.domain.Site;
-import org.cinnamon.core.exception.InvalidEntityException;
+import org.cinnamon.core.exception.BadRequestException;
 import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.MenuGroupRepository;
 import org.cinnamon.core.repository.MenuRepository;
@@ -62,19 +62,34 @@ public class MenuGroupService {
 		return menuGroupRepository.find(siteId);
 	}
 	
+//	@Transactional
+//	public MenuGroup save(MenuGroupVo menuGroupVo) {
+//		logger.info("start");
+//		
+//		Site site = siteRepository.findOne(menuGroupVo.getSiteId());
+//		if (site == null) {
+//			throw new BadRequestException("등록되지 않은 사이트 입니다. siteId: " + siteId);
+//		}
+//		
+//		MenuGroup menuGroup = beanMapper.map(menuGroupVo, MenuGroup.class);
+//		menuGroup.setSite(site);
+//		
+//		return menuGroupRepository.save(menuGroup);
+//	}
+	
+	
 	@Transactional
-	public MenuGroup save(MenuGroupVo menuGroupVo) {
+	public MenuGroup merge(Long menuGroupId, MenuGroupVo menuGroupVo) {
 		logger.info("start");
 		
-		Site site = siteRepository.findOne(menuGroupVo.getSiteId());
-		if (site == null) {
-			throw new InvalidEntityException("site가 없습니다. siteId: " + menuGroupVo.getSiteId());
+		MenuGroup menuGroup = menuGroupRepository.findOne(menuGroupId);
+		if (menuGroup == null) {
+			throw new NotFoundException("존재하지 않는 메뉴 그룹 입니다. menuGroupId : " + menuGroupId);
 		}
 		
-		MenuGroup menuGroup = beanMapper.map(menuGroupVo, MenuGroup.class);
-		menuGroup.setSite(site);
+		beanMapper.map(menuGroupVo, menuGroup);
 		
-		return menuGroupRepository.save(menuGroup);
+		return menuGroup;
 	}
 	
 	
@@ -84,19 +99,20 @@ public class MenuGroupService {
 	 * @param menuGroup
 	 */
 	@Transactional
-	public void save(String siteId, MenuGroup menuGroup) {
+	public MenuGroup save(String siteId, MenuGroupVo menuGroupVo) {
 		logger.info("start");
 		
 		Site site = siteRepository.findOne(siteId);
 		if (site == null) {
-			throw new InvalidEntityException("site가 없습니다. siteId: " + siteId);
+			throw new BadRequestException("등록되지 않은 사이트 입니다. siteId: " + siteId);
 		}
-		menuGroup.setSite(site);
-//		menuGroup.setPosition(MenuGroupPosition.sidebar);
 		
-		menuGroupRepository.save(menuGroup);
+		MenuGroup menuGroup = beanMapper.map(menuGroupVo, MenuGroup.class);
+		menuGroup.setSite(site);
+		
+		return menuGroupRepository.save(menuGroup);
 	}
-
+	
 	
 	/**
 	 * 
@@ -135,6 +151,7 @@ public class MenuGroupService {
 		}
 		site = null;
 	}
+	
 	
 	/**
 	 * 메뉴 그룹 별 사이트 목록 가져오기

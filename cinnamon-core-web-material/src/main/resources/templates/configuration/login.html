@@ -14,6 +14,8 @@
 <script type="text/javascript">
 angular.module('cinnamon')
 .controller('loginController', function($scope, $interval, $mdToast) {
+	$scope.remomberMe = true;
+	
 	$scope.goJoin = function() {
 		$interval(function() {
 			location.href = '/join';
@@ -81,9 +83,9 @@ angular.module('cinnamon')
 						<input type="password" name="password" ng-model="domain.passowrd" required="required" maxlength="30" />
 					</md-input-container>
 					
-					<input type="hidden" name="remember-me" value="true" />
-					<!-- <input type="hidden" name="remember-me" value="{{remomberMe}}" />
-					<md-checkbox ng-model="remomberMe">로그인 상태 유지</md-checkbox> -->
+					<!-- <input type="hidden" name="remember-me" value="true" /> -->
+					<input type="hidden" name="remember-me" value="{{remomberMe}}" />
+					<md-checkbox ng-model="remomberMe">로그인 상태 유지</md-checkbox>
 				</md-card-content>
 				<!-- <md-card-actions> -->
 				<md-button type="submit" class="md-raised md-primary">로그인</md-button>
