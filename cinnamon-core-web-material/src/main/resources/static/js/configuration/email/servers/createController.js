@@ -1,17 +1,12 @@
 angular.module('cinnamon')
-.controller('configuration.email.server.create', function($scope, $http, $interval, $state, $log, $mdToast, $mdDialog, $mdMedia) {
+.controller('configuration.email.server.create', function($scope, $http, $interval, $state, $log, $mdToast, $mdDialog, $mdMedia, message, pageMove) {
 	console.log('configuration.email.server.create');
 	
 	// 등록
 	$scope.create = function() {
 		
 		if($scope.frm.$valid == false){
-			$mdToast.show(
-				$mdToast.simple()
-					.textContent('입력값을 확인해 주세요.')
-					.position('top right')
-					.hideDelay(3000)
-			);
+			message.alert('입력값을 확인해주세요.');
 			return ;
 		}
 		// 파라미터
@@ -19,12 +14,8 @@ angular.module('cinnamon')
 		console.log(params);
 		$http.post('/rest/configuration/email/servers', params)
 			.success(function(result, status, headers) {
-					$mdToast.show(
-							$mdToast.simple()
-								.textContent('등록되었습니다.')
-								.position('top right')
-								.hideDelay(3000)
-					);
+					message.alert('등록되었습니다.');
+					
 					$interval(function() {
 						var viewLink = headers("Location");
 						location.href = viewLink;
@@ -34,9 +25,7 @@ angular.module('cinnamon')
 	
 	// 리스트로 돌아가기
 	$scope.goList = function() {
-		$interval(function() {
-			$state.go('list');
-		}, 200, 1);
+		pageMove.go('list');
 	}
 	
 });

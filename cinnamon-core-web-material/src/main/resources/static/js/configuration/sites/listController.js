@@ -1,13 +1,11 @@
 angular.module('cinnamon')
-.controller('configuration.sites.list', function($scope, $http, $interval, $state) {
+.controller('configuration.sites.list', function($scope, $http, $interval, $state, pageMove) {
 	console.log('configuration.sites.list');
 	
 	$scope.domains;
 	$scope.searchInfo = {};
 	
 	$scope.goView = function(site) {
-		$interval(function() {
-			$state.go('view', {siteId: site.siteId});
-		}, 200, 1);
+		pageMove.go('view', {siteId: site.siteId});
 	}
 });

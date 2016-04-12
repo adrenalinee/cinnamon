@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.email.server.modify', function($scope, $http, $interval, $state, $stateParams, $log, $mdToast, $mdDialog, $mdMedia) {
+.controller('configuration.email.server.modify', function($scope, $http, $interval, $state, $stateParams, $log, $mdToast, $mdDialog, $mdMedia, message, pageMove) {
 	console.log('configuration.email.server.modify');
 	// 화면 도메인
 	$scope.emailServer = {};
@@ -18,9 +18,7 @@ angular.module('cinnamon')
 	
 	// 목록으로
 	$scope.goView = function() {
-		$interval(function() {
-			$state.go('view', {emailServerId : $stateParams.emailServerId});
-		}, 200, 1);
+		pageMove.go('view', {emailServerId : $stateParams.emailServerId});
 	}
 	//
 	$scope.modify = function() {
@@ -29,12 +27,7 @@ angular.module('cinnamon')
 		$http.put('/rest/configuration/email/server/' + $stateParams.emailServerId, params)
 			.success(function(result) {
 						console.log(result);
-						$mdToast.show(
-								$mdToast.simple()
-								.textContent('수정되었습니다.')
-								.position('top right')
-								.hideDelay(3000)
-						)
+						message.alert('수정되었습니다.');
 						$scope.goView();
 			})
 	}

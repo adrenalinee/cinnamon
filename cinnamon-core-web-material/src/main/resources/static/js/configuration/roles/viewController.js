@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.roles.view', function($scope, $http, $interval, $stateParams, $log, $mdDialog, $mdMedia, $state, $sce) {
+.controller('configuration.roles.view', function($scope, $http, $interval, $stateParams, $log, $mdDialog, $mdMedia, $state, $sce, pageMove) {
 	console.log('configuration.roles.view');
 	
 	// role 정보 가져오기
@@ -40,8 +40,6 @@ angular.module('cinnamon')
 	
 	// 메뉴권한 페이지 이동
 	$scope.goPermission = function(menuGroupId) {
-		$interval(function() {
-			$state.go('permissionView', {permissionId : $stateParams.permissionId, siteId : $scope.siteId, menuGroupId : menuGroupId});
-		}, 200, 1);
+		pageMove.go('permissionView', {permissionId : $stateParams.permissionId, siteId : $scope.siteId, menuGroupId : menuGroupId});
 	}
 });

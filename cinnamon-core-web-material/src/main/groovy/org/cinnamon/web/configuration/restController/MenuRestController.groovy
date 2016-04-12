@@ -77,6 +77,6 @@ class MenuRestController {
 	void putMenu(@PathVariable Long menuId, @RequestBody @Valid MenuVo menuVo) {
 		logger.info("start")
 		
-		menuService.save(menuId, menuVo)
+		menuService.modify(menuId, menuVo)
 	}
 }

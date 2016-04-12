@@ -26,7 +26,49 @@ angular.module('cinnamon', [
 		}
 	}
 })
-
+// 단순 얼럿 처리
+.factory('message', function($mdToast, $mdDialog) {
+	return {
+			alert: function(text) {
+				$mdToast.show(
+					$mdToast.simple()
+					.textContent(text)
+					.position('right top')
+					.hideDelay(3000)
+				)
+			}
+			/*
+			,confirm : function(message, fn) {
+				var confirm = $mdDialog.confirm()
+				.title('삭제')
+				.textContent(message)
+				.ok('삭제')
+				.cancel('취소');
+				$mdDialog.show(confirm)
+					.then(  fn() 
+							, function() {
+					// 취소
+					
+					});
+			}
+			*/
+	}
+})
+// 페이지 이동
+.factory('pageMove', function($interval, $state) {
+	return {
+		go : function() {
+			var arg = arguments;
+			$interval(function() {
+				if(arg.length == 1) {
+					$state.go(arg[0]);	
+				}else if(arg.length == 2){
+					$state.go(arg[0], arg[1]);
+				}
+			}, 150, 1);
+		}
+	}
+})
 /*.factory('defaultErrorInterceptor', function($q) {
 	return {
 		'responseError': function(rejection) {
