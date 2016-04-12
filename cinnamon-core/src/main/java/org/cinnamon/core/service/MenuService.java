@@ -90,13 +90,11 @@ public class MenuService {
 		
 		Menu menu = beanMapper.map(menuVo, Menu.class);
 		
-		if(menuGroupId != null) {
-			MenuGroup menuGroup = menuGroupRepository.findOne(menuGroupId);
-			if (menuGroup == null) {
-				throw new InvalidEntityException("menuGroup이 없습니다. menuGroupId: " + menuGroupId);
-			}
-			menu.setMenuGroup(menuGroup);
+		MenuGroup menuGroup = menuGroupRepository.findOne(menuGroupId);
+		if (menuGroup == null) {
+			throw new InvalidEntityException("menuGroup이 없습니다. menuGroupId: " + menuGroupId);
 		}
+		menu.setMenuGroup(menuGroup);
 
 		if(parentMenuId != null) {
 			Menu parent = menuRepository.findOne(parentMenuId);

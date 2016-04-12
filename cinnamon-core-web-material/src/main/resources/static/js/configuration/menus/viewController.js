@@ -99,7 +99,7 @@ angular.module('cinnamon')
 							return;
 						}
 						
-						//$scope.menu.menuGroupId = menuGroupId;
+						$scope.menu.menuGroupId = menuGroupId;
 						$scope.menu.parentMenuId = menuId;
 						var params = angular.copy($scope.menu);
 						console.log(params);
