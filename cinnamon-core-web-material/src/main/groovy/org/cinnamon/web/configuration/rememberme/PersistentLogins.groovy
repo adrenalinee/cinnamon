@@ -1,8 +1,8 @@
 package org.cinnamon.web.configuration.rememberme
 
-import javax.persistence.Column;
+import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.Id;;
+import javax.persistence.Id
 
 /**
  * 
@@ -17,7 +17,7 @@ class PersistentLogins {
 	String series
 	
 	@Column(nullable=false, length=64)
-	String userId
+	String username
 	
 	@Column(nullable=false, length=64)
 	String token
