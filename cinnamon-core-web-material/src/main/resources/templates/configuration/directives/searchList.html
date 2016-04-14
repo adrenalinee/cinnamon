@@ -28,9 +28,9 @@
 					<md-button layout="row" ng-click="sortItem(key, value)">
 						{{value}}
 						<!-- 내림차순 -->
-						<md-icon ng-if="searchInfo.sortKey == key &amp;&amp; searchInfo.direction == 'desc'">keyboard_arrow_down</md-icon>
+						<md-icon ng-if="sort.key == key &amp;&amp; sort.direction == 'desc'">keyboard_arrow_down</md-icon>
 						<!-- 오름차순 -->
-						<md-icon ng-if="searchInfo.sortKey == key &amp;&amp; searchInfo.direction == 'asc'">keyboard_arrow_up</md-icon>
+						<md-icon ng-if="sort.key == key &amp;&amp; sort.direction == 'asc'">keyboard_arrow_up</md-icon>
 						
 					</md-button>
 				</md-menu-item>
@@ -59,7 +59,7 @@
 			total-items="domains.totalElements"
 			items-per-page="domains.size"
 			boundary-links="true"
-			max-size="20"
+			max-size="10"
 			ng-model="searchInfo.page"
 			ng-change="onPageChange()" />
 		

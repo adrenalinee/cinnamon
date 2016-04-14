@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.menus.view', function($scope, $http, $stateParams, $mdDialog, $mdMedia) {
+.controller('configuration.menus.view', function($scope, $http, $stateParams, $mdDialog, $mdMedia, message, pageMove) {
 	console.log('configuration.menus.view');
 	
 	var menuId = $stateParams.menuId;
@@ -29,13 +29,12 @@ angular.module('cinnamon')
 			//지울 수 있는지 확인
 			$http.get('/rest/configuration/menus/' + menuId + '/deleteable')
 			.success(function(isDeleteable) {
+				console.log(isDeleteable);
+				
 				if (isDeleteable) {
 					$http.delete('/rest/configuration/menus/' + menuId)
 						.success(function(data) {
-							$mdToast.show(
-								$mdToast.simple()
-									.textContent('삭제되었습니다'));
-							
+							message.alert('삭제되었습니다.');
 							$state.go('list', {}, {location: 'replace'});
 						});
 				} else {

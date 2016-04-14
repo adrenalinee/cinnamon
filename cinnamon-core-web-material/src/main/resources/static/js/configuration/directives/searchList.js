@@ -9,7 +9,7 @@ angular.module('cinnamon')
 		scope: {
 			domains: '=',
 			resourceUrl: '@',
-			searchInfo: '=?',
+//			searchInfo: '=?',
 			defaultSearchParams: '=?',
 			sortItems: '=?',
 			defaultSorts: '=?', //'createdAt,desc' or ['createdAt,desc', 'name,asc']
@@ -21,9 +21,9 @@ angular.module('cinnamon')
 }).controller('searchListController', function($scope, $http, $location, $mdMedia) {
 	console.log('searchListController');
 	
-	if (!angular.isDefined($scope.searchInfo)) {
-		$scope.searchInfo = {};
-	}
+//	if (!angular.isDefined($scope.searchInfo)) {
+//		$scope.searchInfo = {};
+//	}
 	
 	if (angular.isDefined($scope.isPaging)) {
 		$scope.isPaging = $scope.isPaging;
@@ -42,6 +42,7 @@ angular.module('cinnamon')
 	
 	$scope.load = function(params) {
 		console.log(params);
+		console.log($scope.searchInfo);
 		
 		$scope.showProgress = true;
 		$http.get($scope.resourceUrl, {params: params})
@@ -96,18 +97,19 @@ angular.module('cinnamon')
 		return !$mdMedia('gt-sm');
 	}
 	
+	$scope.sort = {};
 	$scope.sortItem = function(key ,value) {
 		console.info('sortItem');
 		// 같으면 내림차순
-		if($scope.searchInfo.sortKey == key) {
-			$scope.searchInfo.direction == 'desc' ? $scope.searchInfo.direction = 'asc' : $scope.searchInfo.direction = 'desc';
+		if($scope.sort.key == key) {
+			$scope.sort.direction == 'desc' ? $scope.sort.direction = 'asc' : $scope.sort.direction = 'desc';
 		}else{
 		// 다르면 오름차순
-			$scope.searchInfo.sortKey = key;
-			$scope.searchInfo.direction = 'asc' ? $scope.searchInfo.direction = 'desc' : $scope.searchInfo.direction = 'asc';
+			$scope.sort.key = key;
+			$scope.sort.direction = 'asc' ? $scope.sort.direction = 'desc' : $scope.sort.direction = 'asc';
 		}
 		// 정렬값 셋팅
-		$scope.searchInfo.sort = $scope.searchInfo.sortKey + "," + $scope.searchInfo.direction;
+		$scope.searchInfo.sort = $scope.sort.key + "," + $scope.sort.direction;
 		$scope.search();
 	}
 	

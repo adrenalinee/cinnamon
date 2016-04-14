@@ -6,6 +6,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.MenuGroup;
 import org.cinnamon.core.domain.enumeration.MenuPosition;
+import org.cinnamon.core.domain.enumeration.UseStatus;
 import org.cinnamon.core.exception.InvalidEntityException;
 import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.MenuGroupRepository;
@@ -132,5 +133,22 @@ public class MenuService {
 		}
 		
 		beanMapper.map(menuVo, menu);
+	}
+	
+	/**
+	 * 메뉴 삭제
+	 * @author 정명성
+	 * create date : 2016. 4. 14.
+	 * @param menuId
+	 */
+	@Transactional
+	public void delete(Long menuId) {
+		logger.info("start");
+		
+		Menu menu = menuRepository.findOne(menuId);
+		if(menu == null) {
+			throw new NotFoundException("존재하지 않는 메뉴 입니다. menuId:" + menuId);
+		}
+		menu.setUseStatus(UseStatus.deleted);
 	}
 }

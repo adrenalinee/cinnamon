@@ -4,9 +4,9 @@
 		이메일
 		<span class="md-subhead text-muted">서버 상세내용</span>
 	</h3>
-	<md-card md-whiteframe="4" layout-padding="">
+	<md-card>
 	
-		<md-card-title>
+		<md-card-title layout-align="none center">
 			<md-card-title-text>
 				<span class="md-title">기본정보</span>
 			</md-card-title-text>
@@ -14,61 +14,71 @@
 				<md-tooltip>기본 정보 수정</md-tooltip>
 				<md-icon>edit</md-icon>
 			</md-button>
-			<md-button class="md-icon-button" ng-click="delete(domains.emailServerId)">
-				<md-tooltip>삭제</md-tooltip>
-				<md-icon>delete</md-icon>
-			</md-button>
+			<md-menu>
+				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon>more_vert</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button ng-click="delete(domains.emailServerId)">
+							<md-icon>remove_circle</md-icon>
+							삭제 ...
+						</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
 		</md-card-title>
 		
-		<div>
-			<md-content>
-				<md-list>
-					<md-list-item >
-						<p><strong>이름</strong></p>
-						<p>{{ domains.name }}</p>
-					</md-list-item>
-					<md-list-item >
-						<p><strong>서버주소</strong></p>
-						<p>{{ domains.address }}</p>
-					</md-list-item>
-					<md-list-item>
-						<p><strong>포트</strong></p>
-						<p>{{ domains.port }}</p>
-					</md-list-item>
-					<md-list-item>
-						<p><strong>보내는 주소</strong></p>
-						<p>{{ domains.fromAddress }}</p>
-					</md-list-item>
-					<md-list-item>
-						<p><strong>아이디</strong></p>
-						<p>{{ domains.username }}</p>
-					</md-list-item>
-					<md-list-item>
-						<p><strong>비밀번호</strong></p>
-						<p>****</p>
-					</md-list-item>
-					<md-list-item class="center">
-						<p>
-							<strong>기존서버여부</strong>
-						</p>
-						<p>
-							<md-button ng-show="!domains.defaultServer" ng-class="{'md-primary' : domains.defaultServer}" class="md-raised" ng-click="setDefaultEmailServer(domains.emailServerId)">
-								기본서버 등록	
-							</md-button>
-							<strong>{{domains.defaultServer == true ? '기본서버':''}}</strong>
-						</p>
-					</md-list-item>
-					<md-list-item>
-						<md-input-container class="md-block" flex-gt-xs="">
-							<p><strong>설명</strong></p>
-							<textarea readonly="readonly" ng-model="domains.description"></textarea>
-						</md-input-container>
-					</md-list-item>
-				</md-list>
-			</md-content>
-		</div>
-		
-		
+		<md-card-content>
+			<table class="table table-hover">
+				<tr >
+					<th>이름</th>
+					<td>{{ domains.name }}</td>
+				</tr>
+				<tr >
+					<th>서버주소</th>
+					<td>{{ domains.address }}</td>
+				</tr>
+				<tr>
+					<th>포트</th>
+					<td>{{ domains.tdort }}</td>
+				</tr>
+				<tr>
+					<th>보내는 주소</th>
+					<td>{{ domains.fromAddress }}</td>
+				</tr>
+				<tr>
+					<th>아이디</th>
+					<td>{{ domains.username }}</td>
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<td>****</td>
+				</tr>
+				<tr class="center">
+					<td>
+						<strong>기존서버여부</strong>
+					</td>
+					<td>
+						<md-button ng-show="!domains.defaultServer" ng-class="{'md-tdrimary' : domains.defaultServer}" class="md-raised" ng-click="setDefaultEmailServer(domains.emailServerId)">
+							기본서버 등록	
+						</md-button>
+						<strong>{{domains.defaultServer == true ? '기본서버':''}}</strong>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						설명
+					</th>
+					<td>
+						<textarea readonly="readonly" ng-model="domains.descritdtion" style="width:95%;border:0tdx;"></textarea>
+					</td>
+				</tr>
+			</table>
+		</md-card-content>
+		<md-card-actions layout="row" layout-align="end">
+			<md-button class="md-raised" ng-click="goList()">목록</md-button>
+		</md-card-actions>
 	</md-card>
 	
 	<form name="frm" novalidate="novalidate">
@@ -98,9 +108,6 @@
 				
 			</md-content>
 			
-			<md-card-actions layout="row">
-				<md-button class="md-raised" ng-click="goList()">목록</md-button>
-			</md-card-actions>
 		</md-card>
 	</form>
 	

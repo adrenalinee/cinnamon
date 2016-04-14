@@ -2,7 +2,9 @@ angular.module('cinnamon')
 .controller('configuration.users.list', function($scope, $http, $interval, $state, $location, $mdDialog, $mdMedia) {
 	console.log('configuration.users.list');
 	
-	$scope.searchInfo = {};
+	$scope.searchInfo = {
+		sort : 'createdAt,desc'
+	};
 	
 	$scope.onSearch = function(event) {
 		if (event.keyCode == 13) {

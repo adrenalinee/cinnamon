@@ -79,4 +79,29 @@ class MenuRestController {
 		
 		menuService.modify(menuId, menuVo)
 	}
+	
+	@RequestMapping(value="{menuId}/deleteable")
+	deleteable(@PathVariable Long menuId) {
+		logger.info("start")
+		
+		Menu menu = menuService.get(menuId)
+		
+		if(menu.childs.size() > 0) {
+			return false;
+		}
+		
+		return true;
+	}
+	/**
+	 * 메뉴 삭제
+	 * @author 정명성
+	 * create date : 2016. 4. 14.
+	 * @param menuId
+	 */
+	@RequestMapping(value="{menuId}" , method=RequestMethod.DELETE)
+	void deleteMenu(@PathVariable Long menuId) {
+		logger.info("start")
+		
+		menuService.delete(menuId);
+	}
 }

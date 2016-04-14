@@ -20,6 +20,7 @@ angular.module('cinnamon')
 		url: '/configuration/groups',
 		templateUrl: '/configuration/partials/groups/list',
 		controller: 'configuration.group.list'
+//		,reloadOnSearch: false
 	})
 	.state('create',{
 		url : '/configuration/groups/create',
@@ -27,7 +28,7 @@ angular.module('cinnamon')
 		controller : 'configuration.group.create'
 	})
 	.state('view', {
-		url: '/configuration/groups/:groupId',
+		url: '/configuration/groups/:groupId?page',
 		templateUrl: '/configuration/partials/groups/view',
 		controller: 'configuration.group.view'
 	})

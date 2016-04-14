@@ -124,7 +124,8 @@ angular.module('cinnamon')
 	
 	// 목록으로 이동
 	$scope.goList = function() {
-		pageMove.go('list');
+		var params = angular.copy($stateParams);
+		pageMove.go('list', params);
 	}	
 
 });

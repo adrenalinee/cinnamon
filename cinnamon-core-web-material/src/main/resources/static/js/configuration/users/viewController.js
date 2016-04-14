@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.users.view', function($scope, $http, $interval, $state, $stateParams, $mdDialog, $mdMedia, groupService) {
+.controller('configuration.users.view', function($scope, $http, $interval, $state, $stateParams, $mdDialog, $mdMedia, groupService, pageMove) {
 	console.log('configuration.users.view');
 	
 	var userId = $stateParams.userId;
@@ -17,6 +17,10 @@ angular.module('cinnamon')
 		
 		$scope.domain = data;
 	});
+	
+	$scope.goList = function() {
+		pageMove.go('list');
+	}
 	
 	$scope.selectUserGroup = function($event) {
 		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');

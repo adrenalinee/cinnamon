@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.group.list', function($scope, $http, $interval, $state, $log, $mdToast, $mdDialog, $mdMedia) {
+.controller('configuration.group.list', function($scope, $http, $interval, $state, $log, $mdToast, $mdDialog, $mdMedia, pageMove) {
 	console.log('configuration.group.list');
 	// 화면 도메인
 	$scope.domains;
@@ -13,9 +13,7 @@ angular.module('cinnamon')
 	
 	// 상세 페이지 이동
 	$scope.goView = function(domain) {
-		$interval(function() {
-			$state.go('view', {groupId: domain.groupId});
-		}, 200, 1);
+		pageMove.go('view', {groupId: domain.groupId, page : $scope.searchInfo.page})
 	}
 	
 	// 작성 페이지 이동

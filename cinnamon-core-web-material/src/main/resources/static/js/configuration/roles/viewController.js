@@ -42,4 +42,8 @@ angular.module('cinnamon')
 	$scope.goPermission = function(menuGroupId) {
 		pageMove.go('permissionView', {permissionId : $stateParams.permissionId, siteId : $scope.siteId, menuGroupId : menuGroupId});
 	}
+	
+	$scope.goList = function() {
+		pageMove.go('list');
+	}
 });

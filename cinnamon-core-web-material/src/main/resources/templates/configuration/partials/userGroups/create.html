@@ -25,7 +25,7 @@
 					<textarea name="description" ng-model="domain.description" md-maxlength="4000" maxlength="4000"></textarea>
 				</md-input-container>
 			</md-card-content>
-			<md-card-actions layout="row">
+			<md-card-actions layout="row" layout-align="end">
 				<md-button ng-click="goBack()">취소</md-button>
 				<md-button class="md-raised md-primary" type="sumbit" ng-click="create(form, $event)" ng-disabled="isProcess">생성</md-button>
 			</md-card-actions>

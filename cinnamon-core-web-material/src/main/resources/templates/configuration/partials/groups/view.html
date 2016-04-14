@@ -16,43 +16,56 @@
 			</md-button>
 		</md-card-header>
 		
-		<div ng-cloak="">
-			<md-content>
-				<md-list flax="">
-					<md-list-item>
-				 		<p style="padding-left:15px;"><strong>부모코드</strong></p>
-						<p>
-							<a href="/configuration/groups/{{domains.parent.groupId}}">{{ domains.parent.name }}</a>
-							<md-button class="md-primary md-raised" ng-click="popupParentList()">
-								부모코드 등록
-							</md-button>
-						</p>
-					</md-list-item>
-					<md-list-item >
-						<p><strong>groupId</strong></p>
-						<p>{{ domains.groupId }}</p>
-					</md-list-item>
-					<md-list-item >
-						<p><strong>이름</strong></p>
-						<p>
-							{{ domains.name }} 
-						</p>
-					</md-list-item>
-					<md-list-item>
-						<p><strong>설명</strong></p>
-						<p>{{ domains.description }}</p>
-					</md-list-item>
-					<md-list-item>
-						<p class="text-muted" >
-							<strong>사용상태</strong>
-						</p>
-						<p class="text-muted">
-							{{statusMap[domains.useStatus]}}
-						</p>
-					</md-list-item>
-				</md-list>
-			</md-content>
-		</div>
+		<md-card-content>
+			<table class="table table-hover">
+				<tr>
+			 		<th>
+						부모코드
+					</th>
+					<td>
+						<a href="/configuration/groups/{{domains.parent.groupId}}">{{ domains.parent.name }}</a>
+						<md-button class="md-primary md-raised" ng-click="popupParentList()">
+							부모코드 등록
+						</md-button>
+					</td>
+				</tr>
+				<tr >
+					<th>
+						groupId
+					</th>
+					<td>
+						{{ domains.groupId }}
+					</td>
+				</tr>
+				<tr >
+					<th><strong>이름</strong></th>
+					<td>
+						{{ domains.name }} 
+					</td>
+				</tr>
+				<tr>
+					<th>
+						설명
+					</th>
+					<td>
+						{{ domains.description }}
+					</td>
+				</tr>
+				<tr>
+					<th>
+						사용상태
+					</th>
+					<td>
+						{{statusMap[domains.useStatus]}}
+					</td>
+				</tr>
+			</table>
+		</md-card-content>
+		<md-card-action layout="row" layout-align="end">
+			<md-button class="md-raised" ng-click="goList()">
+				목록
+			</md-button>
+		</md-card-action>
 	</md-card>
 
 	<md-card layout-padding="">
@@ -61,28 +74,21 @@
 				<span class="md-title">하위코드</span>
 			</md-card-header-text>
 		</md-card-header>
-		
-		<div ng-cloak="">
-			<md-content>
-				<md-list>
-					<md-list-item ng-repeat="child in childs">
-						<p>
-							<a href="/configuration/groups/{{child.groupId}}">{{child.groupId}}</a>
-						</p>
-						<p>
-							{{child.name}}
-						</p>
-						<p>
-							{{child.useStatus}}
-						</p>
-					</md-list-item>
-				</md-list>
-			</md-content>
-			
-			<md-button class="md-raised" ng-click="goList()">
-				목록
-			</md-button>
-		</div>
+		<md-card-content>
+			<md-list>
+				<md-list-item ng-repeat="child in childs">
+					<p>
+						<a href="/configuration/groups/{{child.groupId}}">{{child.groupId}}</a>
+					</p>
+					<p>
+						{{child.name}}
+					</p>
+					<p>
+						{{statusMap[child.useStatus]}}
+					</p>
+				</md-list-item>
+			</md-list>
+		</md-card-content>
 	</md-card>
 
 	<md-fab-speed-dial md-open="fabOpen" class="md-fab-bottom-right md-scale" style="position: fixed" md-direction="up">
