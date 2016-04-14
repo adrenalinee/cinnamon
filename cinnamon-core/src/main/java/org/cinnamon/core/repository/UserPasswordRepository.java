@@ -1,5 +1,6 @@
 package org.cinnamon.core.repository;
 
+import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserPassword;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author 신동성
  *
  */
-public interface UserPasswordRepository extends JpaRepository<UserPassword, String> {
+public interface UserPasswordRepository<T extends UserBase> extends JpaRepository<UserPassword, String> {
 
 }

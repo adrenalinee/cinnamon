@@ -151,13 +151,17 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 				.defaultPage("/settings")
 				.addMenusAtSidebar(
 					menu("계정")
-						.uri("/settings/account"),
+						.uri("/settings/account")
+						.iconClass("person"),
 					menu("비밀번호")
-						.uri("/settings/password"),
+						.uri("/settings/password")
+						.iconClass("vpn_key"),
 					menu("이메일")
-						.uri("/settings/email"),
+						.uri("/settings/email")
+						.iconClass("email"),
 					menu("언어")
 						.uri("/settings/language")
+						.iconClass("language")
 				).addMenusAtHeaderRight(
 					menu("설정")
 						.iconClass("more_vert")

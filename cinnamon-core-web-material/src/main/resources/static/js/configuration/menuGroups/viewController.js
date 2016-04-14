@@ -34,17 +34,16 @@ angular.module('cinnamon')
 	$scope.sitesOfMenuGroup();
 	
 	// 사이트 리스트 열기
-	$scope.openSiteList = function() {
+	$scope.openSiteList = function($event) {
 		var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))&& $scope.customFullscreen;
 		
 		$mdDialog.show({
 			templateUrl : '/configuration/partials/sites/selectList',
-			parent : angular.element(document.body),
 			fullscreen: useFullScreen,
-			clickOutsideToClose:true,
-			fullscreen : useFullScreen,
-			controller : 
-				function controller($scope, $mdDialog, $http, $mdToast) {
+			targetEvent: $event,
+			clickOutsideToClose: true,
+			fullscreen: useFullScreen,
+			controller: function ($scope, $mdDialog, $http, $mdToast) {
 					$scope.siteId = sites.siteId;
 					console.log($scope.sites);
 
@@ -55,29 +54,43 @@ angular.module('cinnamon')
 						}
 					}
 					
-					// 메뉴 그룹의 사이트 정보 추가
-					$scope.putSiteOfMenuGroup = function(siteId) {
-						$http.put('/rest/configuration/menuGroups/' + menuGroupId + '/site/' + siteId)
-							.success(function(result) {
-								console.log("사이트 정보 추가 됨");
-								message.alert('등록되었습니다.');
-								$mdDialog.hide();
-							})
-					}
-					$scope.close = function() {
-						$mdDialog.hide();
+//					// 메뉴 그룹의 사이트 정보 추가
+//					$scope.putSiteOfMenuGroup = function(siteId) {
+//						$http.put('/rest/configuration/menuGroups/' + menuGroupId + '/site/' + siteId)
+//							.success(function(result) {
+//								console.log("사이트 정보 추가 됨");
+//								message.alert('등록되었습니다.');
+//								$mdDialog.hide();
+//							});
+//					}
+					
+					$scope.onSelect = function(site) {
+						$mdDialog.hide(site);
 					}
 				}
 		
-		}).then(function() {
-			$scope.sitesOfMenuGroup();
-		})
-		
-		$scope.$watch(function() {
-			return $mdMedia('xs') || $mdMedia('sm');
-		}, function(wantsFullScreen) {
-			$scope.customFullscreen = (wantsFullScreen === true);
+		}).then(function(site) {
+			if (site == null) {
+				return;
+			}
+			
+			// 메뉴 그룹의 사이트 정보 추가
+			$http.put('/rest/configuration/menuGroups/' + menuGroupId + '/site/' + site.siteId)
+			.success(function(result) {
+				console.log("사이트 정보 추가 됨");
+				message.alert('등록되었습니다.');
+				
+				$scope.domain.site = site;
+			});
+			
+//			$scope.sitesOfMenuGroup();
 		});
+		
+//		$scope.$watch(function() {
+//			return $mdMedia('xs') || $mdMedia('sm');
+//		}, function(wantsFullScreen) {
+//			$scope.customFullscreen = (wantsFullScreen === true);
+//		});
 	}
 	
 	// 메뉴 작성
