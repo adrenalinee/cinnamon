@@ -13,7 +13,6 @@ angular.module('cinnamon', [
 	'ui.bootstrap.pager',
 	'ngFileUpload',
 	'mdPickers'
-	
 ])
 .factory('groupService', function($http) {
 	return {
