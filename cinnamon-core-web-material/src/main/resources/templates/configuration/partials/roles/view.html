@@ -16,45 +16,45 @@
 				<md-icon>edit</md-icon>
 			</md-button>
 		</md-card-header>
-		
-		<div ng-cloak="">
-			<md-content>
-				<md-list>
-					<md-list-item >
-				 		<p>
-				 			<strong>PermissionId</strong>
-				 		</p>
-						<p>
-							{{ domains.permissionId }}
-						</p>
-					 </md-list-item>
-					 <md-list-item >
-				 		<p>
-				 			<strong>Authority</strong>
-				 		</p>
-						<p>
-							{{ domains.authority }}
-						</p>
-					 </md-list-item>
-					 <md-list-item>
-				 		<p>
-				 			<strong>이름</strong>
-				 		</p>
-						<p>
-							{{ domains.name }}
-						</p>
-					</md-list-item>
-					 <md-list-item>
-				 		<p>
-				 			<strong>설명</strong>
-				 		</p>
-						<p>
-							<textarea rows="5" ng-bind-html="domains.description" style="width:95%;border:0px;" readonly="true"></textarea>
-						</p>
-					</md-list-item>
-				</md-list>
-			</md-content>
-		</div>
+		<md-card-content>
+			<table class="table table-hover">
+				<tr >
+			 		<th>
+			 			permissionId
+			 		</th>
+					<td>
+						{{ domains.permissionId }}
+					</td>
+				 </tr>
+				 <tr >
+			 		<th>
+			 			Authority
+			 		</th>
+					<td>
+						{{ domains.authority }}
+					</td>
+				 </tr>
+				 <tr>
+			 		<th>
+			 			이름
+			 		</th>
+					<td>
+						{{ domains.name }}
+					</td>
+				</tr>
+				 <tr>
+			 		<th>
+			 			설명
+			 		</th>
+					<td>
+						<textarea rows="5" ng-bind-html="domains.descritdtion" style="width:95%;border:0tdx;" readonly="true"></textarea>
+					</td>
+				</tr>
+			</table>
+		</md-card-content>
+		<md-card-actions layout="row" layout-align="end">
+			<md-button ng-click="goList()" class="md-raised">목록</md-button>
+		</md-card-actions>
 	</md-card>
 	
 	<md-card md-whiteframe="4">

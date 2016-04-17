@@ -19,17 +19,17 @@
 /*<![CDATA[*/
 angular.module('cinnamon')
 .config(function($stateProvider, $urlRouterProvider) {
-	$stateProvider.state('view', {
-		url: '/configuration/menus/:menuId',
-		templateUrl: '/configuration/partials/menus/view',
-		controller: 'configuration.menus.view'
-	})
+	$stateProvider
 	.state('modify', {
 		url : '/configuration/menus/:menuId/modify',
 		templateUrl : '/configuration/partials/menus/modify',
 		controller : 'configuration.menus.modify'
-	})
-	;
+	})	
+	.state('view', {
+		url: '/configuration/menus/:menuId',
+		templateUrl: '/configuration/partials/menus/view',
+		controller: 'configuration.menus.view'
+	});
 	
 });
 /*]]>*/

@@ -13,20 +13,68 @@ angular.module('cinnamon', [
 	'ui.bootstrap.pager',
 	'ngFileUpload',
 	'mdPickers'
-	
 ])
 .factory('groupService', function($http) {
 	return {
 		getGroupMap : function(groupId, callback) {
-			$http.get('/rest/platform/groups/' + groupId + '/childs')
+			$http.get('/rest/configuration/groups/' + groupId + '/childsMap')
 				.success(function(result) {
 					console.log(result);
 					callback(result);
 				})
+		},
+		getGroups : function(groupId, callback) {
+			$http.get('/rest/configuration/groups/' + groupId + '/childs')
+			.success(function(result) {
+				console.log(result);
+				callback(result);
+			})
 		}
 	}
 })
-
+// 단순 얼럿 처리
+.factory('message', function($mdToast, $mdDialog) {
+	return {
+			alert: function(text) {
+				$mdToast.show(
+					$mdToast.simple()
+					.textContent(text)
+					.position('right top')
+					.hideDelay(3000)
+				)
+			}
+			/*
+			,confirm : function(message, fn) {
+				var confirm = $mdDialog.confirm()
+				.title('삭제')
+				.textContent(message)
+				.ok('삭제')
+				.cancel('취소');
+				$mdDialog.show(confirm)
+					.then(  fn() 
+							, function() {
+					// 취소
+					
+					});
+			}
+			*/
+	}
+})
+// 페이지 이동
+.factory('pageMove', function($interval, $state) {
+	return {
+		go : function() {
+			var arg = arguments;
+			$interval(function() {
+				if(arg.length == 1) {
+					$state.go(arg[0]);	
+				}else if(arg.length == 2){
+					$state.go(arg[0], arg[1]);
+				}
+			}, 150, 1);
+		}
+	}
+})
 /*.factory('defaultErrorInterceptor', function($q) {
 	return {
 		'responseError': function(rejection) {

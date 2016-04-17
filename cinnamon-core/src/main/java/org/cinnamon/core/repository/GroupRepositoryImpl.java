@@ -83,7 +83,7 @@ public class GroupRepositoryImpl extends QueryDslRepositorySupport implements Gr
 		}
 		
 		if (!StringUtils.isEmpty(groupSearch.getParent())) {
-			builder.and(group.parent.groupId.eq(groupSearch.getParent()));
+			builder.and(group.parent.name.eq(groupSearch.getParent()));
 		}
 		
 		

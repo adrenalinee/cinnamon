@@ -31,6 +31,14 @@ public class UserPassword implements Serializable {
 	@Column(nullable=false, length=500)
 	String password;
 	
+	/**
+	 * 비밀번호 초기화 이메일 발송시 생성되는 키.
+	 * 이 키가 맞아야 비밀번호를 바꿀 수 있다.
+	 * 부정하게 비밀번호가 바뀌는 것을 막기 위해 사용함.
+	 */
+	@Column(length=30)
+	String changeKey;
+	
 	@Column(updatable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	Date createdAt;
@@ -70,6 +78,14 @@ public class UserPassword implements Serializable {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getChangeKey() {
+		return changeKey;
+	}
+
+	public void setChangeKey(String changeKey) {
+		this.changeKey = changeKey;
 	}
 	
 }

@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.menus.view', function($scope, $http, $stateParams, $mdDialog, $mdMedia) {
+.controller('configuration.menus.view', function($scope, $http, $stateParams, $mdDialog, $mdMedia, message, pageMove) {
 	console.log('configuration.menus.view');
 	
 	var menuId = $stateParams.menuId;
@@ -29,13 +29,12 @@ angular.module('cinnamon')
 			//지울 수 있는지 확인
 			$http.get('/rest/configuration/menus/' + menuId + '/deleteable')
 			.success(function(isDeleteable) {
+				console.log(isDeleteable);
+				
 				if (isDeleteable) {
 					$http.delete('/rest/configuration/menus/' + menuId)
 						.success(function(data) {
-							$mdToast.show(
-								$mdToast.simple()
-									.textContent('삭제되었습니다'));
-							
+							message.alert('삭제되었습니다.');
 							$state.go('list', {}, {location: 'replace'});
 						});
 				} else {
@@ -81,7 +80,7 @@ angular.module('cinnamon')
 							parentMenuId :''
 					}
 					// 메뉴 종류
-					$scope.menuTypes = [{ code : 'nomal' },{code : 'separater'} , {code : 'label'} , {code : 'component'}]
+					$scope.menuTypes = [{ code : 'normal' },{code : 'separater'} , {code : 'label'} , {code : 'component'}]
 					// 메뉴 위치
 					$scope.menuPositions = [{code : 'sidebar'} , {code : 'headerRight'} , {code : 'headerLeft'}]
 				
@@ -99,7 +98,7 @@ angular.module('cinnamon')
 							return;
 						}
 						
-						//$scope.menu.menuGroupId = menuGroupId;
+						$scope.menu.menuGroupId = menuGroupId;
 						$scope.menu.parentMenuId = menuId;
 						var params = angular.copy($scope.menu);
 						console.log(params);

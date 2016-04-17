@@ -33,6 +33,12 @@ class AccountRestController {
 	UserBaseService<UserBase> userService
 	
 	
+	/**
+	 * 아이디 중복확인
+	 * 
+	 * @param userId
+	 * @return
+	 */
 	@RequestMapping(value="{userId}", method=RequestMethod.HEAD)
 	def headUser(@PathVariable String userId) {
 		logger.info("start")
@@ -44,6 +50,14 @@ class AccountRestController {
 		}
 	}
 	
+	
+	/**
+	 * 회원가입
+	 * 
+	 * @param userVo
+	 * @param builder
+	 * @return
+	 */
 	@RequestMapping(value="", method=RequestMethod.POST)
 	def postUsers(@RequestBody @Valid UserJoinVo userVo, UriComponentsBuilder builder) {
 		logger.info("start")
@@ -60,5 +74,18 @@ class AccountRestController {
 			.toUri()
 		
 		ResponseEntity.created(location).build()
+	}
+	
+	
+	/**
+	 * 비밀번호 변경
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value="password", method=RequestMethod.PUT)
+	def putPassword() {
+		logger.info("start")
+		
+		
 	}
 }

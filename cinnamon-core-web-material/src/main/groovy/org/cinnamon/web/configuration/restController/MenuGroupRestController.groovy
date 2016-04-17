@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder
 import org.springframework.web.util.UriComponentsBuilder
@@ -35,10 +36,13 @@ class MenuGroupRestController {
 	
 	
 	@RequestMapping(value="", method=RequestMethod.POST)
-	ResponseEntity<Void> postMenuGroups(@RequestBody @Valid MenuGroupVo menuGroupVo, UriComponentsBuilder builder) {
+	ResponseEntity<Void> postMenuGroups(
+		@RequestBody @Valid MenuGroupVo menuGroupVo,
+		@RequestParam String siteId,
+		UriComponentsBuilder builder) {
 		logger.info("start")
 		
-		MenuGroup menuGroup = menuGroupService.save(menuGroupVo)
+		MenuGroup menuGroup = menuGroupService.save(siteId, menuGroupVo)
 		
 		URI location = MvcUriComponentsBuilder
 			.fromMethodName(
@@ -81,7 +85,7 @@ class MenuGroupRestController {
 	void putMenuGroup(@PathVariable Long menuGroupId, @RequestBody @Valid MenuGroupVo menuGroupVo) {
 		logger.info("start")
 		
-		menuGroupService.save(menuGroupId, menuGroupVo)
+		menuGroupService.merge(menuGroupId, menuGroupVo)
 	}
 	
 	/**

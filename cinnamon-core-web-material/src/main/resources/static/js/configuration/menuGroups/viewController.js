@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.menuGroups.view', function($scope, $http, $stateParams, $mdDialog, $mdMedia, $mdToast, $interval) {
+.controller('configuration.menuGroups.view', function($scope, $http, $stateParams, $mdDialog, $mdMedia, $mdToast, $interval, message) {
 	console.log('configuration.menuGroups.view');
 	
 	var menuGroupId = $stateParams.menuGroupId;
@@ -34,17 +34,16 @@ angular.module('cinnamon')
 	$scope.sitesOfMenuGroup();
 	
 	// 사이트 리스트 열기
-	$scope.openSiteList = function() {
+	$scope.openSiteList = function($event) {
 		var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))&& $scope.customFullscreen;
 		
 		$mdDialog.show({
 			templateUrl : '/configuration/partials/sites/selectList',
-			parent : angular.element(document.body),
 			fullscreen: useFullScreen,
-			clickOutsideToClose:true,
-			fullscreen : useFullScreen,
-			controller : 
-				function controller($scope, $mdDialog, $http, $mdToast) {
+			targetEvent: $event,
+			clickOutsideToClose: true,
+			fullscreen: useFullScreen,
+			controller: function ($scope, $mdDialog, $http, $mdToast) {
 					$scope.siteId = sites.siteId;
 					console.log($scope.sites);
 
@@ -55,35 +54,43 @@ angular.module('cinnamon')
 						}
 					}
 					
-					// 메뉴 그룹의 사이트 정보 추가
-					$scope.putSiteOfMenuGroup = function(siteId) {
-						$http.put('/rest/configuration/menuGroups/' + menuGroupId + '/site/' + siteId)
-							.success(function(result) {
-								console.log("사이트 정보 추가 됨");
-								$mdToast.show(
-									$mdToast.simple()
-										.textContent("등록되었습니다.")
-										.position("top right")
-										.hideDelay(3000)
-								)
-								
-								$mdDialog.hide();
-							})
-					}
-					$scope.close = function() {
-						$mdDialog.hide();
+//					// 메뉴 그룹의 사이트 정보 추가
+//					$scope.putSiteOfMenuGroup = function(siteId) {
+//						$http.put('/rest/configuration/menuGroups/' + menuGroupId + '/site/' + siteId)
+//							.success(function(result) {
+//								console.log("사이트 정보 추가 됨");
+//								message.alert('등록되었습니다.');
+//								$mdDialog.hide();
+//							});
+//					}
+					
+					$scope.onSelect = function(site) {
+						$mdDialog.hide(site);
 					}
 				}
 		
-		}).then(function() {
-			$scope.sitesOfMenuGroup();
-		})
-		
-		$scope.$watch(function() {
-			return $mdMedia('xs') || $mdMedia('sm');
-		}, function(wantsFullScreen) {
-			$scope.customFullscreen = (wantsFullScreen === true);
+		}).then(function(site) {
+			if (site == null) {
+				return;
+			}
+			
+			// 메뉴 그룹의 사이트 정보 추가
+			$http.put('/rest/configuration/menuGroups/' + menuGroupId + '/site/' + site.siteId)
+			.success(function(result) {
+				console.log("사이트 정보 추가 됨");
+				message.alert('등록되었습니다.');
+				
+				$scope.domain.site = site;
+			});
+			
+//			$scope.sitesOfMenuGroup();
 		});
+		
+//		$scope.$watch(function() {
+//			return $mdMedia('xs') || $mdMedia('sm');
+//		}, function(wantsFullScreen) {
+//			$scope.customFullscreen = (wantsFullScreen === true);
+//		});
 	}
 	
 	// 메뉴 작성
@@ -100,11 +107,11 @@ angular.module('cinnamon')
 			controller : 
 				function controller($scope, $mdDialog, $http, $mdToast) {
 					$scope.menu = {
-							menuType : 'nomal',
+							type : 'normal',
 							position : 'sidebar'
 					}
 					// 메뉴 종류
-					$scope.menuTypes = [{ code : 'nomal' },{code : 'separater'} , {code : 'label'} , {code : 'component'}]
+					$scope.menuTypes = [{ code : 'normal' },{code : 'separater'} , {code : 'label'} , {code : 'component'}]
 					// 메뉴 위치
 					$scope.menuPositions = [{code : 'sidebar'} , {code : 'headerRight'} , {code : 'headerLeft'}]
 				

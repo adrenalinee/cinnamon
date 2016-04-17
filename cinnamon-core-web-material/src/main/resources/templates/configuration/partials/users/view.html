@@ -19,18 +19,27 @@
 	</h3>
 	
 	<md-card>
-		<md-card-header>
+		<md-card-header layout-align="none center">
 			<md-card-header-text>
 				<span class="md-title">기본정보</span>
-				<!-- <span class="md-subhead">{{domain.nation}} {{domain.language}}</span> -->
 			</md-card-header-text>
 			<md-button class="md-icon-button" ui-sref="modify({userId: domain.userId})">
 				<md-tooltip>기본 정보 수정</md-tooltip>
 				<md-icon>edit</md-icon>
 			</md-button>
-			<md-button class="md-icon-button">
-				<md-icon>more_vert</md-icon>
-			</md-button>
+			<md-menu>
+				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon>more_vert</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button ng-click="delete($event)">
+							<md-icon>remove_circle</md-icon>
+							삭제 ...
+						</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
 		</md-card-header>
 		
 		<md-card-content>
@@ -41,7 +50,7 @@
 				</tr>
 				<tr>
 					<th class="text-muted">이름</th>
-					<td>{{domain.name}}</td>
+					<td><b>{{domain.name}}</b></td>
 				</tr>
 				<tr>
 					<th class="text-muted">이메일</th>
@@ -75,15 +84,16 @@
 				</tr>
 			</table>
 		</md-card-content>
-		
+		<md-card-actions layout="row" layout-align="end">
+			<md-button ng-click="goList()" class="md-raised">목록</md-button>
+		</md-card-actions>
 	</md-card>
 	
 	
-	<!-- <h3 layout-padding="" class="md-subhead">모임</h3> -->
 	<md-card>
 		<md-card-header>
 			<md-card-header-text layout="row">
-				<span class="md-title">사용자 모임</span>
+				<span class="md-title">등록된 사용자 모임</span>
 			</md-card-header-text>
 		</md-card-header>
 		

@@ -8,11 +8,13 @@ import javax.sql.DataSource
 import org.cinnamon.core.security.DatabasePermissionVoter
 import org.cinnamon.core.security.UserDetailServiceImpl
 import org.cinnamon.web.configuration.interceptor.InitCheckInterceptor
+import org.cinnamon.web.configuration.rememberme.PersistentLogins
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.orm.jpa.EntityScan
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod;
+import org.springframework.core.annotation.Order
 import org.springframework.http.converter.HttpMessageConverter
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter
 import org.springframework.security.access.vote.AffirmativeBased
@@ -21,9 +23,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-import org.springframework.security.web.*
 import org.springframework.security.web.access.expression.WebExpressionVoter
-import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
@@ -39,6 +39,7 @@ import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module
  * created date: 2015. 9. 16.
  * @author 신동성
  */
+@EntityScan(basePackageClasses=PersistentLogins.class)
 @ComponentScan
 @Configuration
 class CinnamonCoreWebConfiguration {
@@ -88,6 +89,7 @@ class CinnamonCoreWebConfiguration {
 	}
 	
 	
+	@Order(10)
 	@Configuration
 	protected static class CinnamonWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		
@@ -138,7 +140,8 @@ class CinnamonCoreWebConfiguration {
 				.logoutUrl("/logout")
 				.logoutSuccessUrl("/login")
 				
-			http.rememberMe().tokenRepository(new InMemoryTokenRepositoryImpl())
+//			http.rememberMe().tokenRepository(new InMemoryTokenRepositoryImpl())
+			http.rememberMe().tokenRepository(persistentTokenRepository())
 			
 			WebExpressionVoter webExpressionVoter = new WebExpressionVoter()
 			AffirmativeBased accessDecisionManager = new AffirmativeBased(Arrays.asList(databaseRoleVoter, webExpressionVoter))
@@ -156,6 +159,7 @@ class CinnamonCoreWebConfiguration {
 					"/webjars/**",
 					"/fonts/**",
 					"/configuration/partials/**",
+					"/settings/partials/**",
 					"/configuration/initWizard/**",
 					"/rest/configuration/initWizard/**");
 		}

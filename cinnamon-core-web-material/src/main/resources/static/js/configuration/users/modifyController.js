@@ -42,15 +42,21 @@ angular.module('cinnamon')
 			return;
 		}
 		
-//		$scope.isProcess = true;
+		$scope.isProcess = true;
 		$http.put('/rest/configuration/users/' + userId, $scope.domain)
 		.success(function(data) {
+			console.log(status);
+			
+			$mdToast.show(
+				$mdToast.simple()
+					.position('top right')
+					.textContent('수정되었습니다.'));
 			
 			$state.go('view', {userId: userId}, {
 				location: 'replace'
 			});
-//		}).finally(function(data) {
-//			$scope.isProcess = false;
+		}).finally(function(data) {
+			$scope.isProcess = false;
 		});
 		
 		

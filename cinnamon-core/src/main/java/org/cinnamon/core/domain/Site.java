@@ -16,9 +16,7 @@ import javax.persistence.TemporalType;
 
 import org.cinnamon.core.domain.enumeration.UseStatus;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * 

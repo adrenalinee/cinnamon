@@ -1,29 +1,33 @@
 angular.module('cinnamon')
-.directive('cmSearchList', function() {
+.directive('cmSearchTable', function() {
 	return {
 		restrict: 'E',
 		transclude: {
-			'items': 'cmSearchListItems',
-			'filters': 'cmSearchListFilters',
+			'items': 'cmSearchTableItems',
+			'filters': 'cmSearchTableFilters',
 		},
 		scope: {
 			domains: '=',
+//			searchInfo: '=searchParams',
 			resourceUrl: '@',
-//			searchInfo: '=?',
 			defaultSearchParams: '=?',
 			sortItems: '=?',
-			defaultSorts: '=?', //'createdAt,desc' or ['createdAt,desc', 'name,asc']
-			isPaging: '=?'
+			isPaging: '=?',
+			searchInfo: '=?'
 		},
-		templateUrl: '/configuration/directives/searchList',
-		controller: 'searchListController'
+		templateUrl: '/configuration/directives/searchTable',
+		controller: 'searchTableController'
 	}
-}).controller('searchListController', function($scope, $http, $location, $mdMedia) {
-	console.log('searchListController');
+}).controller('searchTableController', function($scope, $http, $location, $mdMedia) {
+	console.log('searchTableController');
 	
-//	if (!angular.isDefined($scope.searchInfo)) {
-//		$scope.searchInfo = {};
-//	}
+//	$scope.domains;
+	
+	console.log($scope.defaultSearchParams)
+	
+	if (angular.isDefined($scope.defaultSearchParams)) {
+		$scope.searchInfo = $scope.defaultSearchParams;
+	}
 	
 	if (angular.isDefined($scope.isPaging)) {
 		$scope.isPaging = $scope.isPaging;
@@ -42,7 +46,6 @@ angular.module('cinnamon')
 	
 	$scope.load = function(params) {
 		console.log(params);
-		console.log($scope.searchInfo);
 		
 		$scope.showProgress = true;
 		$http.get($scope.resourceUrl, {params: params})
@@ -50,9 +53,11 @@ angular.module('cinnamon')
 			console.log(data);
 			
 			$scope.domains = data;
-		}).error(function(error) {
+		})
+		.error(function(error) {
 			console.log('no data');
-		}).finally(function() {
+		})
+		.finally(function() {
 			$scope.showProgress = false;
 		});
 	}
@@ -77,42 +82,24 @@ angular.module('cinnamon')
 		$scope.load(params);
 	}
 	
-	$scope.initSearch = function() {
-		$scope.searchInfo = {};
-		
-		if (angular.isDefined($scope.defaultSearchParams)) {
-			$scope.searchInfo = $scope.defaultSearchParams;
-		}
-		
-		if (angular.isDefined($scope.defaultSorts)) {
-			$scope.searchInfo.sort = $scope.defaultSorts;
-		}
-		
-		$scope.showDetailSearch = false;
-		$scope.load($scope.searchInfo);
-	}
-	
-	
 	$scope.isMobile = function() {
 		return !$mdMedia('gt-sm');
 	}
 	
-	$scope.sort = {};
 	$scope.sortItem = function(key ,value) {
 		console.info('sortItem');
 		// 같으면 내림차순
-		if($scope.sort.key == key) {
-			$scope.sort.direction == 'desc' ? $scope.sort.direction = 'asc' : $scope.sort.direction = 'desc';
+		if($scope.searchInfo.sortKey == key) {
+			$scope.searchInfo.direction == 'desc' ? $scope.searchInfo.direction = 'asc' : $scope.searchInfo.direction = 'desc';
 		}else{
 		// 다르면 오름차순
-			$scope.sort.key = key;
-			$scope.sort.direction = 'asc' ? $scope.sort.direction = 'desc' : $scope.sort.direction = 'asc';
+			$scope.searchInfo.sortKey = key;
+			$scope.searchInfo.direction = 'asc' ? $scope.searchInfo.direction = 'desc' : $scope.searchInfo.direction = 'asc';
 		}
 		// 정렬값 셋팅
-		$scope.searchInfo.sort = $scope.sort.key + "," + $scope.sort.direction;
+		$scope.searchInfo.sort = $scope.searchInfo.sortKey + "," + $scope.searchInfo.direction;
 		$scope.search();
 	}
 	
-	$scope.initSearch();
 	$scope.load($scope.searchInfo);
 });

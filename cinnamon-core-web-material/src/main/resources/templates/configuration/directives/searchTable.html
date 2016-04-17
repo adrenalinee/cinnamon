@@ -1,8 +1,3 @@
-<!-- 
-<div ng-if="domains.content.length == 0" layout-padding="" ng-clock="">
-	<span class="text-muted">비어 있습니다.</span>
-</div>
- -->
 <div ng-clock="">
 	
 	<!-- 상세검색 헤더 -->
@@ -28,9 +23,9 @@
 					<md-button layout="row" ng-click="sortItem(key, value)">
 						{{value}}
 						<!-- 내림차순 -->
-						<md-icon ng-if="sort.key == key &amp;&amp; sort.direction == 'desc'">keyboard_arrow_down</md-icon>
+						<md-icon ng-if="searchInfo.sortKey == key &amp;&amp; searchInfo.direction == 'desc'">keyboard_arrow_down</md-icon>
 						<!-- 오름차순 -->
-						<md-icon ng-if="sort.key == key &amp;&amp; sort.direction == 'asc'">keyboard_arrow_up</md-icon>
+						<md-icon ng-if="searchInfo.sortKey == key &amp;&amp; searchInfo.direction == 'asc'">keyboard_arrow_up</md-icon>
 						
 					</md-button>
 				</md-menu-item>
@@ -44,9 +39,6 @@
 		<md-divider></md-divider>
 		<ng-transclude ng-transclude-slot="filters" />
 		<md-button class="md-primary md-raised" ng-click="search()">검색</md-button>
-		<md-button ng-click="initSearch()">
-			<span class="text-muted">검색초기화</span>
-		</md-button>
 		<md-divider></md-divider>
 	</div>
 	<!-- 상세 검색 필드 끝 -->
@@ -59,7 +51,7 @@
 			total-items="domains.totalElements"
 			items-per-page="domains.size"
 			boundary-links="true"
-			max-size="10"
+			max-size="20"
 			ng-model="searchInfo.page"
 			ng-change="onPageChange()" />
 		
@@ -73,7 +65,11 @@
 	</div>
 	<!-- 페이징 끝-->
 	<!-- 리스트 -->
-	<md-list style="padding: 0 0 0 0">
+	
+	<ng-transclude ng-transclude-slot="items" />
+	
+	
+	<!-- <md-list style="padding: 0 0 0 0">
 		<md-divider></md-divider>
 		<ng-transclude ng-transclude-slot="items" />
 		
@@ -81,6 +77,6 @@
 			<p>검색 결과 없음.</p>
 			<md-divider ng-if="!$last"></md-divider>
 		</md-list-item>
-	</md-list>
+	</md-list> -->
 	<!-- 리스트 끝-->
 </div>

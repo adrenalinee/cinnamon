@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.roles.permission', function($scope, $http, $interval, $stateParams, $log, $mdDialog, $mdMedia, $state, $mdToast){
+.controller('configuration.roles.permission', function($scope, $http, $interval, $stateParams, $log, $mdDialog, $mdMedia, $state, $mdToast, message){
 	console.log('configuration.roles.permission');
 	
 	// 메뉴
@@ -86,18 +86,8 @@ angular.module('cinnamon')
 
 		$http.put("/rest/configuration/roles/" + $scope.domains.permissionId + "/menus/" + $scope.menuGroupId, changePermitMenu)
 			.success(function(data) {
-				$scope.showActionToast();
+				message.alert('수정되었습니다.');
 		})
 	}	
-	
-	// 수정완료
-	$scope.showActionToast = function() {
-		$mdToast.show(
-			$mdToast.simple()
-				.textContent('수정되었습니다')
-				.position('top right')
-				.hideDelay(3000)
-		);
-	}
-	
+
 })

@@ -70,21 +70,21 @@
 					</td>
 				</tr>
 				<tr>
-					<th>설명</th>
-					<td class="text-muted">
+					<td colspan="2" class="text-muted">
 						{{domain.description}}
-						<!-- <textarea rows="5" ng-bind-html="domain.description" style="width:95%;border:0px;" readonly="true"></textarea> -->
 					</td>
 				</tr>
 			</table>
 		</md-card-content>
-		
+		<md-card-actions layout="row" layout-align="end">
+			<md-button ng-click="goList()" class="md-raised">목록</md-button>
+		</md-card-actions>
 	</md-card>
 	
 	<md-card>
 		<md-card-header>
 			<md-card-header-text>
-				<span class="md-title">메뉴 모음</span>
+				<span class="md-title">등록된 메뉴 모음</span>
 			</md-card-header-text>
 		</md-card-header>
 		
@@ -96,7 +96,9 @@
 				menuGroupId: 'menuGroupId',
 				name: '이름'
 			}"
-			search-info="searchInfo">
+			
+			default-sorts="'createdAt,desc'"
+			>
 			
 			<cm-search-list-filters>
 				<md-card-content class="content" layout="column">

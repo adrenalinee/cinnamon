@@ -60,7 +60,7 @@ public class UserBaseService<T extends UserBase> {
 	PropertyRepository propertyRepository;
 	
 	@Autowired
-	UserPasswordRepository userPasswordRepository;
+	UserPasswordRepository<T> userPasswordRepository;
 	
 //	@Autowired
 //	EmailService emailService;
@@ -193,25 +193,25 @@ public class UserBaseService<T extends UserBase> {
 	
 	
 	
-	/**
-	 * 비밀번호가 일치하는지 확인
-	 * 
-	 * @param userId
-	 * @param password
-	 * @return
-	 */
-	@Transactional(readOnly=true)
-	public boolean isPasswordCorrect(String userId, String password) {
-		logger.info("start");
-		
-		UserPassword userPassword = userPasswordRepository.findOne(userId);
-		if (userPassword == null) {
-			new RuntimeException("사용자 password가 생성되지 않았습니다. userId: " + userId);
-		}
-		
-		BCryptPasswordEncoder e = new BCryptPasswordEncoder();
-		return e.matches(password, userPassword.getPassword());
-	}
+//	/**
+//	 * 비밀번호가 일치하는지 확인
+//	 * 
+//	 * @param userId
+//	 * @param password
+//	 * @return
+//	 */
+//	@Transactional(readOnly=true)
+//	public boolean isPasswordCorrect(String userId, String password) {
+//		logger.info("start");
+//		
+//		UserPassword userPassword = userPasswordRepository.findOne(userId);
+//		if (userPassword == null) {
+//			new RuntimeException("사용자 password가 생성되지 않았습니다. userId: " + userId);
+//		}
+//		
+//		BCryptPasswordEncoder e = new BCryptPasswordEncoder();
+//		return e.matches(password, userPassword.getPassword());
+//	}
 	
 	
 	/**

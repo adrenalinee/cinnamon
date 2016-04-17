@@ -62,7 +62,7 @@ public class UserBase implements UserEntity, Serializable {
 //	String password;
 	
 	@JsonIgnore
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY, optional=false)
 	@PrimaryKeyJoinColumn
 	UserPassword userPassword;
 	

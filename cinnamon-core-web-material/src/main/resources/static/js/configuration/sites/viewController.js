@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.sites.view', function($scope, $http, $stateParams, $state, $mdDialog, $mdMedia, $mdToast) {
+.controller('configuration.sites.view', function($scope, $http, $stateParams, $state, $mdDialog, $mdMedia, $mdToast, pageMove) {
 	console.log('configuration.sites.view');
 	
 	var siteId = $stateParams.siteId;
@@ -25,6 +25,10 @@ angular.module('cinnamon')
 	// 사이트 정보 불러오기
 	$scope.load();
 
+	$scope.goList = function() {
+		pageMove.go('list');
+	}
+	
 	$scope.goMenuGroupView = function(domain) {
 		location.href = '/configuration/menuGroups/' + domain.menuGroupId;
 	}

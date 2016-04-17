@@ -9,7 +9,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -25,6 +24,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 public class UserGroup implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7724334587701873529L;
 
 	@Id
 	@GeneratedValue

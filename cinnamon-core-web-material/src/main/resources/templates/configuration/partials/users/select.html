@@ -1,14 +1,16 @@
-<md-dialog flex="70" cm-dialog-template="" toolbar-title="'사이트 선택'">
+<md-dialog flex="70" cm-dialog-template="" toolbar-title="'사용자 선택'">
 	<cm-dialog-template-content>
 		
 		<cm-search-list
-			resource-url="/rest/configuration/sites"
+			resource-url="/rest/configuration/users"
 			domains="domains"
-			sort-items="{
-				siteId: 'siteId',
-				name: '이름'
-			}"
 			
+			sort-items="{
+				userId: 'userId',
+				name: '이름',
+				email: '이메일',
+				createdAt : '생성일'
+			}"
 			default-sorts="'createdAt,desc'"
 			>
 			
@@ -16,30 +18,32 @@
 				<md-card-content class="content" layout="column">
 					<md-input-container>
 						<label>이름</label>
-						<input />
+						<input ng-model="searchInfo.name" />
 					</md-input-container>
 					<md-input-container>
 						<label>userId</label>
-						<input />
+						<input ng-model="searchInfo.userId" />
 					</md-input-container>
 					<md-input-container>
 						<label>이메일</label>
-						<input />
+						<input ng-model="searchInfo.email" />
 					</md-input-container>
 				</md-card-content>
 			</cm-search-list-filters>
 			<cm-search-list-items>
-				<md-list-item ng-repeat="domain in domains.content" ng-click="onSelect(domain)">
-					
-					<div flex="15" class="text-muted">
-						{{domain.siteId}}
+				<md-list-item ng-repeat="domain in domains.content" ng-click="goSelect(domain)" layout="row">
+					<div flex="5">
+						<md-icon>account_circle</md-icon>
 					</div>
-					<b flex="85">{{domain.name}}</b>
-					
+					<b flex="30">{{domain.userId}}</b>
+					<b flex="20">{{domain.name}}</b>
+					<span flex="20" class="text-muted">{{domain.email}}</span>
+					<span class="text-muted">{{domain.tel}}</span>
 					<md-divider ng-if="!$last"></md-divider>
 				</md-list-item>
 			</cm-search-list-items>
 		</cm-search-list>
+		
 		
 	</cm-dialog-template-content>
 </md-dialog>

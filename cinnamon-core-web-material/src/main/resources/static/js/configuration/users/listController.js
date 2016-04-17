@@ -2,29 +2,9 @@ angular.module('cinnamon')
 .controller('configuration.users.list', function($scope, $http, $interval, $state, $location, $mdDialog, $mdMedia) {
 	console.log('configuration.users.list');
 	
-//	$http.get('/rest/configuration/users')
-//	.success(function(data) {
-//		console.log(data);
-//		
-//		$scope.domains = data;
-//	});
-	
-	
-//	$scope.create = function($event) {
-//		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
-//		$mdDialog.show({
-//			targetEvent: $event,
-//			fullscreen: useFullScreen,
-//			templateUrl: '/configuration/partials/users/create',
-//			controller: 'configuration.users.create'
-//		});
-//	}
-	
-	
-	
-	
-	
-	$scope.searchInfo = {};
+	$scope.searchInfo = {
+		sort : 'createdAt,desc'
+	};
 	
 	$scope.onSearch = function(event) {
 		if (event.keyCode == 13) {
@@ -68,8 +48,6 @@ angular.module('cinnamon')
 				params[param]--;
 			}
 		}
-		
-//		$location.search($scope.searchInfo);
 		
 		$scope.load(params);
 	}

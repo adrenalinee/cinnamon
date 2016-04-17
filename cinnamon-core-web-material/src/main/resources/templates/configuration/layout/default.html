@@ -7,10 +7,8 @@
 <head>
 <link href="/css/cinnamon.css" rel="stylesheet" type="text/css" />
 
-
 <script type="text/javascript" src="/js/cinnamon.js"></script>
 <script type="text/javascript" src="/js/configuration/layout/layout.js"></script>
-
 
 </head>
 <body layout:fragment="body" class="content" layout="column" ng-controller="layoutController">
@@ -35,17 +33,17 @@
 			
 			<md-menu ng-show="!isMobile()" ng-clock="">
 				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
-					<md-icon>person</md-icon>
+					<md-icon>account_circle</md-icon>
 				</md-button>
 				<md-menu-content>
 					<md-menu-item>
 						<md-button ng-href="/" target="_self">
-							<md-icon>account_circle</md-icon> 프로필
+							<md-icon>person</md-icon> 프로필
 						</md-button>
 					</md-menu-item>
 					<md-menu-item>
 						<md-button ng-href="/settings" target="_self">
-							<md-icon></md-icon> 개인 설정
+							<md-icon>build</md-icon> 개인 설정
 						</md-button>
 					</md-menu-item>
 					<form name="toolbarLogoutForm" th:action="@{/logout}" method="post">
@@ -70,19 +68,9 @@
 				</md-menu-content>
 			</md-menu>
 			
-			
-			<!-- <md-menu>
-				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
-					<md-icon>more_vert</md-icon>
-				</md-button>
-				<md-menu-content>
-					<md-menu-item>
-						<md-button ng-href="/configuration" target="_self">설정</md-button>
-					</md-menu-item>
-				</md-menu-content>
-			</md-menu> -->
 		</div>
 		
+		<!-- 2depth menus -->
 		<div class="md-primary md-hue-1" layout-fill="" ng-if="childMenus != null">
 			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md-selected="selectedChildMenuIndex">
 				<md-tab label="{{menu.name}}" md-on-select="selectChildMenu(menu)" ng-repeat="menu in childMenus" />
@@ -116,14 +104,16 @@
 					</md-menu-item>
 					<md-menu-item>
 						<md-button ng-href="/settings" target="_self">
-							<md-icon></md-icon> 개인 설정
+							<md-icon>build</md-icon> 개인 설정
 						</md-button>
 					</md-menu-item>
-					<md-menu-item>
-						<md-button ng-href="/logout" target="_self">
-							<md-icon>power_settings_new</md-icon> 로그아웃
-						</md-button>
-					</md-menu-item>
+					<form name="sidebarLogoutForm" th:action="@{/logout}" method="post">
+						<md-menu-item>
+							<button md-button="" type="submit">
+								<md-icon>power_settings_new</md-icon> 로그아웃
+							</button>
+						</md-menu-item>
+					</form>
 				</md-menu-content>
 			</md-menu>
 				</div>

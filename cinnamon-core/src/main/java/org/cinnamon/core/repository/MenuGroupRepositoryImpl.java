@@ -9,7 +9,6 @@ import org.cinnamon.core.domain.MenuGroup;
 import org.cinnamon.core.domain.QMenu;
 import org.cinnamon.core.domain.QMenuGroup;
 import org.cinnamon.core.domain.QSite;
-import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.vo.search.MenuGroupSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

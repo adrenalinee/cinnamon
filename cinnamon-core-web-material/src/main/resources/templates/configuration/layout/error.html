@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/base">
+
+<head>
+<link href="/css/cinnamon.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="/js/cinnamon.js"></script>
+<script type="text/javascript">
+
+ angular.module('cinnamon')
+	.controller('errorPage', function($scope, $interval) {
+		$scope.progvar = 10;
+		$scope.progbuff = 10;
+		
+		$interval(function() {
+			$scope.progvar +=1;
+			$scope.progbuff +=1.1;
+			
+			if($scope.progvar > 100) $scope.progvar = 10;
+			if($scope.progbuff > 100) $scope.progbuff = 15;
+			
+			
+		}, 100, 0 , true)
+		
+	})
+
+</script>
+</head>
+<body layout:fragment="body" class="content" layout="column" ng-controller="errorPage">
+	<md-toolbar md-scroll-shrink="">
+		<div class="md-toolbar-tools">Error</div>
+		<md-progress-linear class="md-warn" md-mode="buffer" value="{{progvar}}" md-buffer-value="{{progbuff}}" ></md-progress-linear>
+	</md-toolbar>
+	
+	<md-card>
+		<md-card-title >
+			<md-card-title-text >
+				<span class="md-headline" style="text-align:center;">
+					페이지를 찾을 수 없습니다.
+				</span>
+			</md-card-title-text>
+		</md-card-title>
+		<md-card-content>
+			<p style="text-align:center">
+				<md-button class="md-fab" aria-label="Comment" style="font-size:72px;height:250px;width:250px;">
+					404
+				</md-button>
+			</p>
+		</md-card-content>
+		<md-card-actions layout="row" layout-align="center">
+			<md-button onclick="javascript:history.back(-1);">이전으로 돌아가기</md-button>
+		</md-card-actions>
+	</md-card>
+</body>
+</html>

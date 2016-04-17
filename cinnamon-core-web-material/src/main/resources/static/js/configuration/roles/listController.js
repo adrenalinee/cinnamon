@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.roles.list', function($scope, $http, $interval, $state) {
+.controller('configuration.roles.list', function($scope, $http, $interval, $state, pageMove) {
 	console.log('configuration.roles.list');
 	// 화면 도메인
 	$scope.domains;
@@ -15,9 +15,7 @@ angular.module('cinnamon')
 	
 	// 작성 페이지 이동
 	$scope.goWrite = function() {
-		$interval(function() {
-			$state.go('create');
-		}, 200, 1);
+		pageMove.go('create');
 	}
 	
 	// 초기 리스트 가져오기
