@@ -12,7 +12,7 @@ angular.module('cinnamon')
 //			searchInfo: '=?',
 			defaultSearchParams: '=?',
 			sortItems: '=?',
-			defaultSorts: '=?', //'createdAt,desc' or ['createdAt,desc', 'name,asc']
+			defaultSorts: '=?', //ex: 'createdAt,desc' or ['createdAt,desc', 'name,asc']
 			isPaging: '=?'
 		},
 		templateUrl: '/configuration/directives/searchList',
@@ -20,10 +20,6 @@ angular.module('cinnamon')
 	}
 }).controller('searchListController', function($scope, $http, $location, $mdMedia) {
 	console.log('searchListController');
-	
-//	if (!angular.isDefined($scope.searchInfo)) {
-//		$scope.searchInfo = {};
-//	}
 	
 	if (angular.isDefined($scope.isPaging)) {
 		$scope.isPaging = $scope.isPaging;
@@ -40,18 +36,20 @@ angular.module('cinnamon')
 		}
 	}
 	
-	$scope.load = function(params) {
-		console.log(params);
-		console.log($scope.searchInfo);
+	$scope.load = function() {
+		var params = angular.copy($scope.searchInfo);
+		if (params.page != undefined) {
+			params.page--;
+		}
 		
+//		console.log(1);
 		$scope.showProgress = true;
 		$http.get($scope.resourceUrl, {params: params})
 		.success(function(data) {
-			console.log(data);
+//			console.log(data);
+//			console.log(2);
 			
 			$scope.domains = data;
-		}).error(function(error) {
-			console.log('no data');
 		}).finally(function() {
 			$scope.showProgress = false;
 		});
@@ -59,37 +57,26 @@ angular.module('cinnamon')
 	
 	$scope.onPageChange = function() {
 		console.log('onPageChange');
+		
+		$scope.searchInfo.page = $scope.current.page;
 		$scope.search();
 	}
 	
 	$scope.search = function() {
 		console.info('search');
-		
-		var params = angular.copy($scope.searchInfo);
-		for(param in params) {
-			if (param == 'page') {
-				params[param]--;
-			}
-		}
+		console.log($scope.searchInfo);
 		
 		$location.search($scope.searchInfo);
-		
-		$scope.load(params);
+		$scope.load();
 	}
 	
-	$scope.initSearch = function() {
-		$scope.searchInfo = {};
-		
-		if (angular.isDefined($scope.defaultSearchParams)) {
-			$scope.searchInfo = $scope.defaultSearchParams;
-		}
-		
-		if (angular.isDefined($scope.defaultSorts)) {
-			$scope.searchInfo.sort = $scope.defaultSorts;
-		}
+	$scope.clearSearch = function() {
+		$scope.init();
 		
 		$scope.showDetailSearch = false;
-		$scope.load($scope.searchInfo);
+		$location.search({});
+		
+		$scope.load();
 	}
 	
 	
@@ -97,7 +84,7 @@ angular.module('cinnamon')
 		return !$mdMedia('gt-sm');
 	}
 	
-	$scope.sort = {};
+	
 	$scope.sortItem = function(key ,value) {
 		console.info('sortItem');
 		// 같으면 내림차순
@@ -113,6 +100,47 @@ angular.module('cinnamon')
 		$scope.search();
 	}
 	
-	$scope.initSearch();
-	$scope.load($scope.searchInfo);
+	console.log($scope.current);
+	
+	$scope.init = function() {
+		console.log('init');
+		$scope.searchInfo = {};
+		$scope.sort = {};
+		
+		var queryString = $location.search();
+		if (Object.keys(queryString).length <= 0) {
+			if (angular.isDefined($scope.defaultSearchParams)) {
+				$scope.searchInfo = $scope.defaultSearchParams;
+			}
+			
+			if (angular.isDefined($scope.defaultSorts)) {
+				$scope.searchInfo.sort = $scope.defaultSorts;
+				
+				var defaultSortInfo = $scope.defaultSorts.split(',');
+				
+				$scope.sort.key = defaultSortInfo[0];
+				$scope.sort.direction = defaultSortInfo[1];
+			}
+		} else {
+			$scope.searchInfo = queryString;
+			if (queryString.sort != undefined) {
+				var sortInfo = queryString.sort.split(',');
+				
+				$scope.sort.key = sortInfo[0];
+				$scope.sort.direction = sortInfo[1];
+			}
+			
+			if ($scope.searchInfo.page != undefined) {
+				$scope.current = {
+					page :$scope.searchInfo.page
+				};
+			}
+		}
+	}
+	
+	console.log($scope.current);
+	$scope.init();
+	console.log($scope.current);
+	$scope.load();
+	console.log($scope.current);
 });

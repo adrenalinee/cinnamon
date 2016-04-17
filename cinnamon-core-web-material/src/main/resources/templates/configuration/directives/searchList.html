@@ -17,7 +17,7 @@
 			<md-tooltip md-direction="top">상세 검색</md-tooltip>
 			<md-icon>expand_more</md-icon>
 		</md-button>
-			
+		
 		<md-menu ng-if="sortItems != null">
 			<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)" >
 				<md-tooltip md-direction="top">정렬</md-tooltip>
@@ -44,12 +44,13 @@
 		<md-divider></md-divider>
 		<ng-transclude ng-transclude-slot="filters" />
 		<md-button class="md-primary md-raised" ng-click="search()">검색</md-button>
-		<md-button ng-click="initSearch()">
+		<md-button ng-click="clearSearch()">
 			<span class="text-muted">검색초기화</span>
 		</md-button>
 		<md-divider></md-divider>
 	</div>
 	<!-- 상세 검색 필드 끝 -->
+	{{current.page}}
 	<!-- 페이징 -->
 	<div ng-if="isPaging != false">
 		<uib-pagination
@@ -60,7 +61,7 @@
 			items-per-page="domains.size"
 			boundary-links="true"
 			max-size="10"
-			ng-model="searchInfo.page"
+			ng-model="current.page"
 			ng-change="onPageChange()" />
 		
 		<uib-pager
@@ -68,7 +69,7 @@
 			layout-margin=""
 			template-url="/configuration/partials/directive/pager"
 			total-items="domains.totalElements"
-			ng-model="searchInfo.page"
+			ng-model="current.page"
 			ng-change="onPageChange()" />
 	</div>
 	<!-- 페이징 끝-->
