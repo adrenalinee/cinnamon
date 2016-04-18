@@ -42,7 +42,7 @@ angular.module('cinnamon')
 			params.page--;
 		}
 		
-//		console.log(1);
+		console.log('get');
 		$scope.showProgress = true;
 		$http.get($scope.resourceUrl, {params: params})
 		.success(function(data) {
@@ -57,9 +57,10 @@ angular.module('cinnamon')
 	
 	$scope.onPageChange = function() {
 		console.log('onPageChange');
+		console.log($scope.current.page);
 		
-		$scope.searchInfo.page = $scope.current.page;
-		$scope.search();
+//		$scope.searchInfo.page = $scope.current.page;
+//		$scope.search();
 	}
 	
 	$scope.search = function() {
@@ -100,7 +101,7 @@ angular.module('cinnamon')
 		$scope.search();
 	}
 	
-	console.log($scope.current);
+//	console.log($scope.current);
 	
 	$scope.init = function() {
 		console.log('init');
@@ -109,6 +110,7 @@ angular.module('cinnamon')
 		
 		var queryString = $location.search();
 		if (Object.keys(queryString).length <= 0) {
+			$scope.current = {};
 			if (angular.isDefined($scope.defaultSearchParams)) {
 				$scope.searchInfo = $scope.defaultSearchParams;
 			}
@@ -134,13 +136,20 @@ angular.module('cinnamon')
 				$scope.current = {
 					page :$scope.searchInfo.page
 				};
+				console.log($scope.current);
 			}
+			
+//			if ($scope.searchInfo.page != undefined) {
+//				$scope.current = {
+//					page :$scope.searchInfo.page
+//				};
+//			}
 		}
 	}
 	
-	console.log($scope.current);
+//	console.log($scope.current);
 	$scope.init();
-	console.log($scope.current);
+//	console.log($scope.current);
 	$scope.load();
-	console.log($scope.current);
+//	console.log($scope.current);
 });
