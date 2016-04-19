@@ -29,6 +29,13 @@ angular.module('cinnamon')
 	
 	$scope.showDetailSearch = false;
 	
+	$scope.aa = function() {
+		$scope.current = {
+			page: 3
+		}
+	}
+	
+	
 	$scope.onSearch = function(event) {
 		if (event.keyCode == 13) {
 			$scope.searchInfo.page = 1;
@@ -46,8 +53,7 @@ angular.module('cinnamon')
 		$scope.showProgress = true;
 		$http.get($scope.resourceUrl, {params: params})
 		.success(function(data) {
-//			console.log(data);
-//			console.log(2);
+			console.log(data);
 			
 			$scope.domains = data;
 		}).finally(function() {
@@ -57,7 +63,7 @@ angular.module('cinnamon')
 	
 	$scope.onPageChange = function() {
 		console.log('onPageChange');
-		console.log($scope.current.page);
+		console.log($scope.current);
 		
 		$scope.searchInfo.page = $scope.current.page;
 		$scope.search();
@@ -134,7 +140,7 @@ angular.module('cinnamon')
 			
 			if ($scope.searchInfo.page != undefined) {
 				$scope.current = {
-					page :$scope.searchInfo.page
+					page: Number($scope.searchInfo.page)
 				};
 				console.log($scope.current);
 			}
@@ -147,9 +153,6 @@ angular.module('cinnamon')
 		}
 	}
 	
-//	console.log($scope.current);
 	$scope.init();
-//	console.log($scope.current);
 	$scope.load();
-//	console.log($scope.current);
 });

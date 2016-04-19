@@ -50,7 +50,6 @@
 		<md-divider></md-divider>
 	</div>
 	<!-- 상세 검색 필드 끝 -->
-	{{current.page}}
 	<!-- 페이징 -->
 	<div ng-if="isPaging != false">
 		<uib-pagination
@@ -64,13 +63,13 @@
 			ng-model="current.page"
 			ng-change="onPageChange()" />
 		
-		<uib-pager
+		<!-- <uib-pager
 			ng-if="isMobile()"
 			layout-margin=""
 			template-url="/configuration/partials/directive/pager"
 			total-items="domains.totalElements"
 			ng-model="current.page"
-			ng-change="onPageChange()" />
+			ng-change="onPageChange()" /> -->
 	</div>
 	<!-- 페이징 끝-->
 	<!-- 리스트 -->
