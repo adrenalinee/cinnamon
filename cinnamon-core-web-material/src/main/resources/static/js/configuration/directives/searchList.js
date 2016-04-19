@@ -59,8 +59,8 @@ angular.module('cinnamon')
 		console.log('onPageChange');
 		console.log($scope.current.page);
 		
-//		$scope.searchInfo.page = $scope.current.page;
-//		$scope.search();
+		$scope.searchInfo.page = $scope.current.page;
+		$scope.search();
 	}
 	
 	$scope.search = function() {
