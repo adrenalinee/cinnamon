@@ -6,11 +6,13 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.cinnamon.core.domain.Menu;
+import org.cinnamon.core.domain.MenuGroup;
 import org.cinnamon.core.domain.Permission;
 import org.cinnamon.core.domain.PermissionMenu;
 import org.cinnamon.core.domain.PermissionMenuDetail;
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
 import org.cinnamon.core.repository.MenuAuthorityRepository;
+import org.cinnamon.core.repository.MenuGroupRepository;
 import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.UserGroupRepository;
@@ -41,6 +43,9 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 	
 	@Autowired
 	MenuRepository menuRepository;
+	
+	@Autowired
+	MenuGroupRepository menuGroupRepository;
 	
 	@Autowired
 	UserGroupRepository adminGroupRepository;
@@ -104,6 +109,8 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 					return ACCESS_GRANTED;
 				}
 				
+				
+				
 				List<Menu> menus = menuRepository.findByAuthority(authority); //TODO cache에 넣어놓고 읽어야 함. 모든 요청에 db접속하면 서버부담이 커짐
 				for (Menu menu: menus) {
 					if (StringUtils.isEmpty(menu.getUri())) {
@@ -117,6 +124,21 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 //						return ACCESS_GRANTED;
 //					}
 					
+					
+					System.out.println(requestUrl);
+					
+					String dimension = requestUrl;
+					if (requestUrl.startsWith("/")) {
+						dimension = requestUrl.substring(1);
+					}
+					if (dimension.endsWith("/")) {
+						dimension = dimension.substring(0, dimension.length() - 1);
+					}
+					
+					MenuGroup menuGroup = menuGroupRepository.findByDimension(dimension);
+					if (menuGroup != null) {
+						return ACCESS_GRANTED;
+					}
 					
 //					System.out.println(menu.getUri());
 					if (requestUrl.startsWith(menu.getUri())) {

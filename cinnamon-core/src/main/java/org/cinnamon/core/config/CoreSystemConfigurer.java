@@ -152,16 +152,20 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 				.addMenusAtSidebar(
 					menu("계정")
 						.uri("/settings/account")
-						.iconClass("person"),
+						.iconClass("person")
+						.addGrantedAuthorities(DefinedUserAuthority.user),
 					menu("비밀번호")
 						.uri("/settings/password")
-						.iconClass("vpn_key"),
+						.iconClass("vpn_key")
+						.addGrantedAuthorities(DefinedUserAuthority.user),
 					menu("이메일")
 						.uri("/settings/email")
-						.iconClass("email"),
+						.iconClass("email")
+						.addGrantedAuthorities(DefinedUserAuthority.user),
 					menu("언어")
 						.uri("/settings/language")
 						.iconClass("language")
+						.addGrantedAuthorities(DefinedUserAuthority.user)
 				).addMenusAtHeaderRight(
 					menu("설정")
 						.iconClass("more_vert")
