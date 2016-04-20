@@ -8,6 +8,7 @@ import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.Permission;
 import org.cinnamon.core.domain.PermissionMenu;
 import org.cinnamon.core.exception.NotFoundException;
+import org.cinnamon.core.repository.MenuAuthorityRepository;
 import org.cinnamon.core.repository.MenuGroupRepository;
 import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.repository.UserAuthorityRepository;
@@ -37,6 +38,9 @@ public class RoleService {
 	
 	@Autowired
 	UserAuthorityRepository permissionRepository;
+	
+	@Autowired
+	MenuAuthorityRepository menuAuthorityRepository;
 
 	@Autowired
 	MenuGroupRepository menuGroupRepository;
@@ -173,7 +177,8 @@ public class RoleService {
 		// 기존 메뉴 정보 불러오기
 		List<PermissionMenu> permissionMenus = permissionRepository.find(permissionId, menuGroupId);
 		// 기존 메뉴 정보 삭제
-		permissionMenus = null;
+		menuAuthorityRepository.delete(permissionMenus);
+//		permissionMenus = null;
 		
 		// 변경 메뉴 정보 입력
 		for(PermissionMenuVo pm : permissionMenuVo){

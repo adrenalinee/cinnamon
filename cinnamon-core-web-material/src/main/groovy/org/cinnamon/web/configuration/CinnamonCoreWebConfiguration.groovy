@@ -126,6 +126,7 @@ class CinnamonCoreWebConfiguration {
 			http.authorizeRequests().antMatchers("/join/**", "/findPassword/**").anonymous()
 			http.authorizeRequests().antMatchers("/rest/accounts/**").anonymous()
 			http.authorizeRequests().antMatchers("/rest/**").authenticated()
+//			http.authorizeRequests().antMatchers("/coniguration/directives/**").authenticated()
 //			http.authorizeRequests().regexMatchers(HttpMethod.HEAD, "/rest/accounts/*")
 //			http.authorizeRequests().regexMatchers(HttpMethod.POST, "/rest/accounts/*")
 			
@@ -159,6 +160,7 @@ class CinnamonCoreWebConfiguration {
 					"/webjars/**",
 					"/fonts/**",
 					"/configuration/partials/**",
+					"/configuration/directives/**",
 					"/settings/partials/**",
 					"/configuration/initWizard/**",
 					"/rest/configuration/initWizard/**");

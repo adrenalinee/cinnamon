@@ -125,6 +125,7 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 						GrantedAuthority grantedAuthority = (GrantedAuthority) ga;
 						//TODO 최적화 필요
 						Permission userAauthority = permissionRepository.findByAuthority(grantedAuthority.getAuthority());
+						
 						PermissionMenu permissionMenu = permissionMenuRepository.findByPermissionAndMenu(userAauthority, menu);
 						if (requestUrl.equals(menu.getUri())) {
 							if (permissionMenu.isPermitRoot()) {

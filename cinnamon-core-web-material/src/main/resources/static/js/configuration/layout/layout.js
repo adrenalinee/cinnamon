@@ -15,34 +15,34 @@ angular.module('cinnamon')
 		$scope.selectedChildMenuIndex = -1;
 		
 		
-		for (var i = 0; i < data.sidebar.length; i++) {
-			var menu = data.sidebar[i];
-			$scope.selectedMenu = menu;
-			
-			if (nowPath.startsWith(menu.uri)) {
-				$scope.selectedMenuIndex = i;
-				
-				if (menu.childs == undefined) {
-					continue;
-				}
-				
-				if (menu.childs.length <= 0) {
-					continue;
-				}
-				
-				$scope.childMenus = menu.childs;
-				for (var j = 0; j < menu.childs.length; j++) {
-					var childMenu = menu.childs[j];
-					
-					if (nowPath.startsWith(childMenu.uri)) {
-						$scope.selectedChildMenuIndex = j;
-						
-						break;
-					}
-				}
-				break;
-			}
-		}
+//		for (var i = 0; i < data.sidebar.length; i++) {
+//			var menu = data.sidebar[i];
+//			$scope.selectedMenu = menu;
+//			
+//			if (nowPath.startsWith(menu.uri)) {
+//				$scope.selectedMenuIndex = i;
+//				
+//				if (menu.childs == undefined) {
+//					continue;
+//				}
+//				
+//				if (menu.childs.length <= 0) {
+//					continue;
+//				}
+//				
+//				$scope.childMenus = menu.childs;
+//				for (var j = 0; j < menu.childs.length; j++) {
+//					var childMenu = menu.childs[j];
+//					
+//					if (nowPath.startsWith(childMenu.uri)) {
+//						$scope.selectedChildMenuIndex = j;
+//						
+//						break;
+//					}
+//				}
+//				break;
+//			}
+//		}
 		
 		
 		
