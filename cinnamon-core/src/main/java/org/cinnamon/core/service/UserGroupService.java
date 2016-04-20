@@ -84,7 +84,7 @@ public class UserGroupService<T extends UserBase> {
 	public Page<UserGroup> getList(UserGroupSearch userGroupSearch, Pageable pageable) {
 		logger.info("start");
 		
-		return userGroupRepository.find(userGroupSearch, pageable);
+		return userGroupRepository.search(userGroupSearch, pageable);
 	}
 	
 	

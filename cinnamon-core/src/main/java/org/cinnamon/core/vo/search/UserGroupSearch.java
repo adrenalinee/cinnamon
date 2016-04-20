@@ -18,8 +18,6 @@ public class UserGroupSearch {
 	
 	String name;
 	
-//	Long permissionId;
-	
 	String authority;
 	
 	UseStatus useStatus = UseStatus.enable;

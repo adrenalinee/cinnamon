@@ -15,7 +15,7 @@ import com.mysema.query.types.Predicate;
 public class UserBasePredicate {
 	
 	public static Predicate search(UserBaseSearch userSearch) {
-		QUserBase user = new QUserBase("user");
+		QUserBase user = QUserBase.userBase;
 		
 		BooleanBuilder builder = new BooleanBuilder();
 		if (!StringUtils.isEmpty(userSearch.getKeyword())) {
@@ -30,9 +30,14 @@ public class UserBasePredicate {
 		if (userSearch.getUserId() != null) {
 			builder.and(user.userId.eq(userSearch.getUserId()));
 		}
-		
 		if (!StringUtils.isEmpty(userSearch.getName())) {
 			builder.and(user.name.like("%" + userSearch.getName() + "%"));
+		}
+		if (!StringUtils.isEmpty(userSearch.getEmail())) {
+			builder.and(user.email.like("%" + userSearch.getEmail() + "%"));
+		}
+		if (!StringUtils.isEmpty(userSearch.getNation())) {
+			builder.and(user.nation.eq(userSearch.getNation()));
 		}
 		
 		if (userSearch.getUserGroupId() != null) {

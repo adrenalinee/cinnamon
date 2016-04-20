@@ -9,7 +9,7 @@ angular.module('cinnamon')
 		scope: {
 			domains: '=',
 			resourceUrl: '@',
-//			searchInfo: '=?',
+			searchInfo: '=?',
 			defaultSearchParams: '=?',
 			sortItems: '=?',
 			defaultSorts: '=?', //ex: 'createdAt,desc' or ['createdAt,desc', 'name,asc']
@@ -111,7 +111,6 @@ angular.module('cinnamon')
 	
 	$scope.init = function() {
 		console.log('init');
-		$scope.searchInfo = {};
 		$scope.sort = {};
 		
 		var queryString = $location.search();
@@ -119,6 +118,8 @@ angular.module('cinnamon')
 			$scope.current = {};
 			if (angular.isDefined($scope.defaultSearchParams)) {
 				$scope.searchInfo = $scope.defaultSearchParams;
+			} else {
+				$scope.searchInfo = {};
 			}
 			
 			if (angular.isDefined($scope.defaultSorts)) {

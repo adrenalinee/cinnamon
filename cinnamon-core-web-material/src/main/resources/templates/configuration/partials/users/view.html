@@ -91,10 +91,29 @@
 	
 	
 	<md-card>
-		<md-card-header>
+		<md-card-header layout-align="none center">
 			<md-card-header-text layout="row">
 				<span class="md-title">등록된 사용자 모임</span>
 			</md-card-header-text>
+			
+			<md-button class="md-icon-button" ng-click="openCreateMenu()">
+				<md-tooltip>사용자 모임에 등록</md-tooltip>
+				<md-icon>add</md-icon>
+			</md-button>
+			
+			<md-menu>
+				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+					<md-icon>more_vert</md-icon>
+				</md-button>
+				<md-menu-content>
+					<md-menu-item>
+						<md-button ng-click="editUserGroup()">
+							<md-icon>edit</md-icon>
+							편집
+						</md-button>
+					</md-menu-item>
+				</md-menu-content>
+			</md-menu>
 		</md-card-header>
 		
 		<cm-search-list
@@ -121,12 +140,14 @@
 			</cm-search-list-filters>
 			<cm-search-list-items>
 				<md-list-item ng-repeat="domain in domains.content" ng-click="goUserGroupView(domain)">
-					<div flex="5">
+					<div flex="10">
 						<md-icon>group</md-icon>
 					</div>
+					<div flex="10" class="text-muted">
+						{{domain.userGroupId}}
+					</div>
 					<b flex="50">{{domain.name}}</b>
-					<span flex="45" class="text-muted">{{domain.authority.name}}</span>
-					
+					<span flex="30" class="text-muted">{{domain.permission.name}}</span>					
 					<md-divider ng-if="!$last"></md-divider>
 				</md-list-item>
 			</cm-search-list-items>

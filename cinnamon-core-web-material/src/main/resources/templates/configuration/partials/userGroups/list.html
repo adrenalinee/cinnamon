@@ -15,40 +15,43 @@
 		<cm-search-list
 			resource-url="/rest/configuration/userGroups"
 			domains="domains"
+			search-info="searchInfo"
 			sort-items="{
 				userGroupId: 'userGroupId',
-				name: '이름',
-				authority: '권한'
+				name: '이름'
 			}"
-			
-			default-sorts="'createdAt,desc'"
-			>
+			default-sorts="'userGroupId,desc'">
 			
 			<cm-search-list-filters>
 				<md-card-content class="content" layout="column">
 					<md-input-container>
+						<label>userGroupId</label>
+						<input ng-model="searchInfo.userGroupId" />
+					</md-input-container>
+					<md-input-container>
 						<label>이름</label>
-						<input />
+						<input ng-model="searchInfo.name" />
 					</md-input-container>
 					<md-input-container>
-						<label>userId</label>
-						<input />
+						<label>속한 사용자</label>
+						<input ng-model="searchInfo.userId" />
 					</md-input-container>
 					<md-input-container>
-						<label>이메일</label>
-						<input />
+						<label>권한</label>
+						<input ng-model="searchInfo.authority" />
 					</md-input-container>
 				</md-card-content>
 			</cm-search-list-filters>
 			<cm-search-list-items>
 				<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
-					
+					<div flex="10">
+						<md-icon>group</md-icon>
+					</div>
 					<div flex="10" class="text-muted">
 						{{domain.userGroupId}}
 					</div>
 					<b flex="50">{{domain.name}}</b>
-					<span flex="45" class="text-muted">{{domain.permission.name}}</span>
-					
+					<span flex="30" class="text-muted">{{domain.permission.name}}</span>					
 					<md-divider ng-if="!$last"></md-divider>
 				</md-list-item>
 			</cm-search-list-items>

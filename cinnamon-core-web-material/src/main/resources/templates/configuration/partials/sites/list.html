@@ -18,11 +18,11 @@
 		<cm-search-list
 			resource-url="/rest/configuration/sites"
 			domains="domains"
+			search-info="searchInfo"
 			sort-items="{
 				siteId: 'siteId',
 				name: '이름'
 			}"
-			
 			default-sorts="'createdAt,desc'"
 			>
 			
@@ -45,10 +45,10 @@
 			<cm-search-list-items>
 				<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
 					
-					<div flex="15" class="text-muted">
+					<div flex="30" class="text-muted">
 						{{domain.siteId}}
 					</div>
-					<b flex="85">{{domain.name}}</b>
+					<b flex="70">{{domain.name}}</b>
 					
 					<md-divider ng-if="!$last"></md-divider>
 				</md-list-item>

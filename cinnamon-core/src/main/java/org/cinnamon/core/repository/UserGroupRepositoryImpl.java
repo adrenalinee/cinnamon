@@ -13,83 +13,59 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.jpa.JPQLQuery;
 
 /**
  * 
  * @author 동성
  * @since 2015. 2. 5.
  */
-public class UserGroupRepositoryImpl implements UserGroupRepositoryCustom {
+public class UserGroupRepositoryImpl extends QueryDslRepositorySupport implements UserGroupRepositoryCustom {
 	
 	@Autowired
 	EntityManager em;
 	
+	public UserGroupRepositoryImpl() {
+		super(UserGroup.class);
+	}
+	
 	
 	@Override
-	public Page<UserGroup> find(UserGroupSearch userGroupSearch, Pageable pageable) {
+	public Page<UserGroup> search(UserGroupSearch userGroupSearch, Pageable pageable) {
 		QUserGroup userGroup = QUserGroup.userGroup;
 		
-		BooleanBuilder builder = new BooleanBuilder();
+		JPQLQuery query = from(userGroup);
 		if (!StringUtils.isEmpty(userGroupSearch.getKeyword())) {
 			String keyword = userGroupSearch.getKeyword();
-//			Long longValue = null;
-//			BooleanBuilder builder2 = new BooleanBuilder();
-//			try {
-//				longValue = Long.parseLong(keyword);
-//			} catch (NumberFormatException e) {
-//				
-//			}
-//			if (longValue != null) {
-//				builder2.or(userGroup.userGroupId.eq(longValue));
-//			}
-//			
-//			builder2.or(userGroup.name.like("%" + keyword + "%"))
-//					.or(userGroup.authority.authority.eq(keyword));
-//			
-//			builder.or(builder2);
-			
-			builder.or(userGroup.name.like("%" + keyword + "%"))
-					.or(userGroup.permission.authority.eq(keyword));
+			query.where(userGroup.name.like("%" + keyword + "%"));
 		}
 		
-		JPAQuery query = new JPAQuery(em).from(userGroup);
 		
 		if (!StringUtils.isEmpty(userGroupSearch.getUserId())) {
 			QUserBase user = QUserBase.userBase;
 			
 			query.innerJoin(userGroup.users, user);
-			builder.and(user.userId.eq(userGroupSearch.getUserId()));
+			query.where(user.userId.eq(userGroupSearch.getUserId()));
 		}
 		
 		
 		if (userGroupSearch.getUserGroupId() != null) {
-			builder.and(userGroup.userGroupId.eq(userGroupSearch.getUserGroupId()));
+			query.where(userGroup.userGroupId.eq(userGroupSearch.getUserGroupId()));
 		}
 		if (!StringUtils.isEmpty(userGroupSearch.getName())) {
-			builder.and(userGroup.name.like("%" + userGroupSearch.getName() + "%"));
+			query.where(userGroup.name.like("%" + userGroupSearch.getName() + "%"));
 		}
 		if (!StringUtils.isEmpty(userGroupSearch.getAuthority())) {
-			builder.and(userGroup.permission.authority.eq(userGroupSearch.getAuthority()));
+			query.where(userGroup.permission.authority.eq(userGroupSearch.getAuthority()));
 		}
 		if (userGroupSearch.getUseStatus() != null) {
-			builder.and(userGroup.useStatus.eq(userGroupSearch.getUseStatus()));
+			query.where(userGroup.useStatus.eq(userGroupSearch.getUseStatus()));
 		}
 		
 		
-		long offset = pageable.getOffset();
-		long limit = pageable.getPageSize();
-		
-		query
-			.where(builder)
-			.offset(offset)
-			.limit(limit)
-			.orderBy(userGroup.userGroupId.desc(), userGroup.name.desc());
-		
-		
-		List<UserGroup> domains = query.list(userGroup);
+		List<UserGroup> domains = getQuerydsl().applyPagination(pageable, query).list(userGroup);
 		long totalCount = query.count();
 		
 		Page<UserGroup> page = new PageImpl<UserGroup>(domains, pageable, totalCount);
