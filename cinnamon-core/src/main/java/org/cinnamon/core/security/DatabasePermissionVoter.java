@@ -140,9 +140,13 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 						return ACCESS_GRANTED;
 					}
 					
+//					System.out.println();
+//					System.out.println(requestUrl);
 //					System.out.println(menu.getUri());
 					if (requestUrl.startsWith(menu.getUri())) {
 						//TODO 하위 권한 체크
+						
+//						System.out.println("!!");
 						
 						GrantedAuthority grantedAuthority = (GrantedAuthority) ga;
 						//TODO 최적화 필요

@@ -80,7 +80,11 @@ angular.module('cinnamon')
 		var changePermitMenu = [];
 		
 		for(var obj in permitMenus){
-			changePermitMenu.push({menuId : obj, permitRoot : permitMenus[obj].permitRoot}); 
+			changePermitMenu.push({
+				menuId : obj,
+				permitRoot : permitMenus[obj].permitRoot,
+				permitElse: true
+			}); 
 		}
 		console.log(changePermitMenu);
 
