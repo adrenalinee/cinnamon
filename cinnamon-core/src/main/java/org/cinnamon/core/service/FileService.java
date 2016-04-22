@@ -275,16 +275,8 @@ public class FileService {
 		}
 		
 		
-//		String extention = "";
-//		int extIndex = originFileName.lastIndexOf(".");
-//		if (extIndex > -1) {
-//			extention = originFileName.substring(extIndex);
-//		}
-		
 		String extention = FilenameUtils.getExtension(originFileName);
 		
-		
-//		String webPath = PathUtil.create("/uploaded/icons", iconId.toString());
 		String fullPath = PathUtil.create(prePath, sufPath);
 		
 		String savePath = internalFileRoot + fullPath;
@@ -299,13 +291,6 @@ public class FileService {
 		String md5String = MD5Creator.makeMD5String(destination.getAbsolutePath());
 		FileUtils.writeStringToFile(destinationMd5, md5String);
 		
-		
-//		String base64EncodedThumbnail = ThumbnailCreator.create(64, 64, destination.getAbsolutePath());
-//		logger.info("base64EncodedThumbnail: {}", base64EncodedThumbnail);
-		
-		
-//		String uri = fullPath + "/" + saveFileName;
-		
 		FileInformation fileInformation = new FileInformation();
 		fileInformation.setSize(destination.length());
 		fileInformation.setName(saveFileName);
@@ -314,10 +299,10 @@ public class FileService {
 		fileInformation.setPath(savePath);
 		fileInformation.setExt(extention);
 		fileInformation.setMd5(md5String);
-//		fileInformation.setUri(uri);
 		
 		fileInfoRepository.save(fileInformation);
 		
 		return fileInformation;
 	}
+	
 }
