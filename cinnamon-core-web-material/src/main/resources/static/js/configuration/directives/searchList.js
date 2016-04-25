@@ -31,7 +31,7 @@ angular.module('cinnamon')
 	
 	$scope.aa = function() {
 		$scope.current = {
-			page: 3
+			page: 2
 		}
 	}
 	

@@ -54,9 +54,9 @@
 	
 	<md-button ng-click="aa()">test</md-button>
 	<!-- 페이징 -->
-	<div ng-if="isPaging != false">
+	<div ng-show="isPaging != false">
 		<uib-pagination
-			ng-if="!isMobile()"
+			ng-show="!isMobile()"
 			layout-margin=""
 			template-url="/configuration/partials/directive/pagination"
 			total-items="domains.totalElements"
