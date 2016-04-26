@@ -1,5 +1,7 @@
 package org.cinnamon.apps.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,7 +19,7 @@ import org.cinnamon.apps.domain.enumeration.AuthorizationGrantType;
  * @author 신동성
  */
 @Entity
-public class ClientAuthorizedGrantType {
+public class ClientAuthorizedGrantType implements Serializable {
 	
 	@Id
 	@GeneratedValue

@@ -1,5 +1,7 @@
 package org.cinnamon.apps.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,7 +14,7 @@ import javax.persistence.ManyToOne;
  * @author 신동성
  */
 @Entity
-public class ClientResource {
+public class ClientResource implements Serializable {
 	
 	@Id
 	@GeneratedValue

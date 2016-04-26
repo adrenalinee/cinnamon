@@ -1,5 +1,7 @@
 package org.cinnamon.apps.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +13,7 @@ import javax.persistence.Id;
  * @author 신동성
  */
 @Entity
-public class Resource {
+public class Resource implements Serializable {
 	
 	@Id
 	@Column(length=100)

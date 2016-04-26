@@ -1,5 +1,7 @@
 package org.cinnamon.apps.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,7 +14,7 @@ import javax.persistence.OneToOne;
  * @since 2016. 3. 30.
  */
 @Entity
-public class ApplicationGcm {
+public class ApplicationGcm implements Serializable {
 	
 	@Id
 	Long appId;

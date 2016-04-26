@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 @Entity
-public class UserApplication {
+public class UserApplication implements Serializable {
 	
 	@EmbeddedId
 	UserApplicationId id;

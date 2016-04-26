@@ -1,5 +1,7 @@
 package org.cinnamon.apps.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,7 +17,7 @@ import org.cinnamon.core.domain.enumeration.UseStatus;
  * @author 신동성
  */
 @Entity
-public class ApplicationAuthority {
+public class ApplicationAuthority implements Serializable {
 	
 	@Id
 	String authority;

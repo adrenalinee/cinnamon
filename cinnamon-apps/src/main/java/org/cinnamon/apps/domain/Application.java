@@ -1,5 +1,6 @@
 package org.cinnamon.apps.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 @Entity
-public class Application {
+public class Application implements Serializable {
 	
 	@Id
 	@GeneratedValue

@@ -1,5 +1,7 @@
 package org.cinnamon.apps.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,7 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
-public class ApiGroup {
+public class ApiGroup implements Serializable {
 	
 	@Id
 	@GeneratedValue

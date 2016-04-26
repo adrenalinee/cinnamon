@@ -1,5 +1,6 @@
 package org.cinnamon.apps.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 @Entity
-public class Client {
+public class Client implements Serializable {
 	
 	@Id
 	@Column(length=100)
