@@ -214,7 +214,12 @@ public class ApiClientDomainBuilder {
 			}
 		}
 		
-		throw new RuntimeException("resource가 정의 되어 있지 않습니다. resourceId: " + resourceId);
+		Resource resource = em.find(Resource.class, resourceId);
+		if (resource != null) {
+			return resource;
+		} else {
+			throw new RuntimeException("resource가 정의 되어 있지 않습니다. resourceId: " + resourceId);
+		}
 	}
 	
 	
@@ -226,7 +231,12 @@ public class ApiClientDomainBuilder {
 			}
 		}
 		
-		throw new RuntimeException("authority가 정의 되어 있지 않습니다. authority: " + authorityString);
+		ApplicationAuthority authority = em.find(ApplicationAuthority.class, authorityString);
+		if (authority != null) {
+			return authority;
+		} else {
+			throw new RuntimeException("authority가 정의 되어 있지 않습니다. authority: " + authorityString);
+		}
 	}
 	
 	
@@ -238,7 +248,12 @@ public class ApiClientDomainBuilder {
 			}
 		}
 		
-		throw new RuntimeException("scope가 정의 되어 있지 않습니다. scope: " + scopeString);
+		Scope scope = em.find(Scope.class, scopeString);
+		if (scope != null) {
+			return scope;
+		} else {
+			throw new RuntimeException("scope가 정의 되어 있지 않습니다. scope: " + scopeString);
+		}
 	}
 	
 	private List<ClientRedirectUri> createClientRedirectUris(ClientWrapper clientWrapper) {
