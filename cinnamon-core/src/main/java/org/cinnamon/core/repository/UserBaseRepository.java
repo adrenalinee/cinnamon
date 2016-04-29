@@ -10,7 +10,8 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
  * 
  * @param <T> UserBase를 확장한 객체
  */
-public interface UserBaseRepository<T extends UserBase> extends JpaRepository<T, String>, QueryDslPredicateExecutor<T> {
+public interface UserBaseRepository<T extends UserBase>
+	extends JpaRepository<T, String>, QueryDslPredicateExecutor<T> {
 	
 	T findByEmail(String email);
 	

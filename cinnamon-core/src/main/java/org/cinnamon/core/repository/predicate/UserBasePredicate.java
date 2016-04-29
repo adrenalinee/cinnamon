@@ -15,7 +15,7 @@ import com.mysema.query.types.Predicate;
 public class UserBasePredicate {
 	
 	public static Predicate search(UserBaseSearch userSearch) {
-		QUserBase user = QUserBase.userBase;
+		QUserBase user = new QUserBase("user");
 		
 		BooleanBuilder builder = new BooleanBuilder();
 		if (!StringUtils.isEmpty(userSearch.getKeyword())) {
