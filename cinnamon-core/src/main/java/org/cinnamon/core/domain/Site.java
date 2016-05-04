@@ -38,6 +38,9 @@ public class Site {
 	@Column(length=200)
 	String url;
 	
+	@Column(length=50)
+	String label;
+	
 //	/**
 //	 * 기본 사이트인지 여부
 //	 */
@@ -146,6 +149,14 @@ public class Site {
 
 	public void setDefaultMenuGroup(MenuGroup defaultMenuGroup) {
 		this.defaultMenuGroup = defaultMenuGroup;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 //	public Boolean getIsDefault() {

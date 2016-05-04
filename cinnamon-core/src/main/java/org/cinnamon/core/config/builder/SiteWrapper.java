@@ -39,6 +39,11 @@ public class SiteWrapper {
 		return this;
 	}
 	
+	public SiteWrapper label(String label) {
+		site.setLabel(label);
+		return this;
+	}
+	
 	public SiteWrapper indexPage(String indexPage) {
 		site.setIndexPage(indexPage);
 		return this;

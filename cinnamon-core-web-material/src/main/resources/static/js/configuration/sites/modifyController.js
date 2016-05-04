@@ -25,7 +25,7 @@ angular.module('cinnamon')
 		console.log(params);
 		$http.put('/rest/configuration/sites/' + $stateParams.siteId, params)
 		.success(function(result, status, headers) {
-			message.alert('수정되었습니다.');
+			message.alert('수정되었습니다. 라벨 변경은 페이지 새로고침(F5)해야 적용됩니다.');
 			pageMove.go('view',{siteId : $scope.site.siteId});
 		})
 	}

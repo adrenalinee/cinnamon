@@ -24,6 +24,9 @@ public class SiteVo {
 	@Size(max=200)
 	String url;
 	
+	@Size(max=50)
+	String label;
+	
 	@Size(max=4000)
 	String description;
 	
@@ -69,6 +72,14 @@ public class SiteVo {
 
 	public void setSiteId(String siteId) {
 		this.siteId = siteId;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 //	public Date getCreatedAt() {

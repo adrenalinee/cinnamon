@@ -18,7 +18,7 @@
 				<md-icon>menu</md-icon>
 			</md-button>
 			<h2>
-				<a href="/" target="_self">Cinnamon</a>
+				<a href="/" target="_self" th:text="${site.label}">Cinnamon</a>
 			</h2>
 			
 			<md-button class="md-raised" ng-repeat="menu in currentMenus.headerLeft" ng-href="{{menu.uri}}" target="_self">
@@ -71,7 +71,7 @@
 		</div>
 		
 		<!-- 2depth menus -->
-		<div class="md-primary md-hue-1" layout-fill="" ng-if="childMenus != null">
+		<div class="md-primary md-hue-1" ng-if="childMenus != null">
 			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md-selected="selectedChildMenuIndex">
 				<md-tab label="{{menu.name}}" md-on-select="selectChildMenu(menu)" ng-repeat="menu in childMenus" />
 			</md-tabs>

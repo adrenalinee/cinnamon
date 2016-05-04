@@ -22,4 +22,8 @@ angular.module('cinnamon')
 			
 		});
 	}
+	
+	$scope.goBack = function() {
+		history.go(-1);
+	}
 });

@@ -1,5 +1,5 @@
 angular.module('cinnamon')
-.controller('configuration.users.view', function($scope, $http, $interval, $state, $stateParams, $mdDialog, $mdMedia, groupService, pageMove) {
+.controller('configuration.users.view', function($scope, $http, $interval, $state, $stateParams, $mdDialog, $mdToast, $mdMedia, groupService, pageMove) {
 	console.log('configuration.users.view');
 	
 	var userId = $stateParams.userId;
@@ -32,20 +32,22 @@ angular.module('cinnamon')
 				$scope.onSelect = function(userGroup) {
 					console.log('onSelect');
 					
-					$http.put('/rest/configuration/users/' + userId + '/userGroups', {
-						userGroupId: userGroup.userGroupId
-					}).success(function(data) {
-						$mdToast.show(
-								$mdToast.simple()
-								.position('top right')
-								.textContent('등록되었습니다.'));
-						
-						//TODO 사용자 목록을 새로 불러와야 함 
-					});
-					
-					$mdDialog.hide();
+					$mdDialog.hide(userGroup);
 				}
 			}
+		}).then(function(userGroup) {
+			$http.put('/rest/configuration/users/' + userId + '/userGroups', {
+				userGroupId: userGroup.userGroupId
+			}).success(function(data) {
+				$mdToast.show(
+					$mdToast.simple()
+						.position('top right')
+						.textContent('등록되었습니다.'));
+				
+				$state.reload();
+				
+				//TODO 사용자 목록을 새로 불러와야 함 
+			});
 		});
 	}
 	

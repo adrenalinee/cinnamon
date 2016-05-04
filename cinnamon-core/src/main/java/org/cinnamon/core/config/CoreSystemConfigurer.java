@@ -101,6 +101,7 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 	private void addSites(BaseDataBuilder baseData) {
 		baseData.addSite(
 			site(true, "콘솔", "console")
+			.label("Cinnamon")
 //			.indexPage("/configuration")
 			.addMenuGroup(
 				true,
