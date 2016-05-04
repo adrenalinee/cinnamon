@@ -84,4 +84,10 @@ class UserGroupRestController {
 		
 		userGroupService.modify(userGroupId, userGroupVo)
 	}
+	
+	@RequestMapping(value="{userGroupId}/permission/{permissionId}")
+	void submitUserPermission(@PathVariable Long userGroupId, @PathVariable Long permissionId) {
+		logger.info("start")
+		userGroupService.submitUserGroupToPermission(userGroupId, permissionId)
+	}
 }

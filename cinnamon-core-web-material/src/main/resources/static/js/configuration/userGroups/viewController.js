@@ -5,12 +5,15 @@ angular.module('cinnamon')
 	var userGroupId = $stateParams.userGroupId;
 	$scope.userGroupId = userGroupId;
 	
-	$http.get('/rest/configuration/userGroups/' + userGroupId)
-	.success(function(data) {
-		console.log(data);
-		
-		$scope.domain = data;
-	});
+	$scope.load = function() {
+		$http.get('/rest/configuration/userGroups/' + userGroupId)
+		.success(function(data) {
+			console.log(data);
+			
+			$scope.domain = data;
+		});
+	}
+	$scope.load();
 	
 	$scope.selectPermission = function($event) {
 		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
@@ -27,15 +30,14 @@ angular.module('cinnamon')
 				$scope.onSelect = function(permission) {
 					console.log('onSelect');
 					
-					$http.put('/rest/configuration/userGroups/' + userGroupId + '/permission', {
-						permissionId: permission.permissionId
-					}).success(function(data) {
-						$mdToast.show(
-								$mdToast.simple()
-								.position('top right')
-								.textContent('변경되었습니다.'));
-						
-						//TODO 사용자 목록을 새로 불러와야 함 
+					$http.put('/rest/configuration/userGroups/' + userGroupId + '/permission/' + permission.permissionId)
+						.success(function(data) {
+							$mdToast.show(
+									$mdToast.simple()
+									.position('top right')
+									.textContent('변경되었습니다.'));
+							
+							//TODO 사용자 목록을 새로 불러와야 함 
 					})
 					
 					$mdDialog.hide();
@@ -45,6 +47,9 @@ angular.module('cinnamon')
 					$mdDialog.hide();
 				}
 			}
+		})
+		.then(function() {
+			$scope.load();
 		});
 	}
 	
