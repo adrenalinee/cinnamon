@@ -6,44 +6,44 @@
 		<md-subheader class="md-no-sticky">기본정보</md-subheader>
 		<div ng-cloak="">
 		  	<md-content>
-			    <md-list>
-			    	<md-list-item >
-			       		<p><strong>PermissionId</strong></p>
-			          	<p>{{ domains.permissionId }}</p>
-				     </md-list-item>
-				     <md-list-item >
-			       		<p><strong>Authority</strong></p>
-			          	<p>{{ domains.authority }}</p>
-				     </md-list-item>
-				     <md-list-item>
-			       		<p><strong>이름</strong></p>
-			          	<p>{{ domains.name }}</p>
-			    	</md-list-item>
-			    </md-list>
+				<md-list>
+					<md-list-item >
+						<p><strong>PermissionId</strong></p>
+						<p>{{ domains.permissionId }}</p>+-*
+					</md-list-item>
+					<md-list-item >
+						<p><strong>Authority</strong></p>
+						<p>{{ domains.authority }}</p>
+					</md-list-item>
+					<md-list-item>
+						<p><strong>이름</strong></p>
+						<p>{{ domains.name }}</p>
+					</md-list-item>
+				</md-list>
 			</md-content>
 		</div>
 	</md-card>
 	
 	<md-card md-whiteframe="4" layout-padding="">
-	
+		{{permissionMenus}}
 		<md-content>
 		<h3 layout-padding="" class="md-headline"> {{sites.name}} 사이트 메뉴 권한</h3>
 			<mg-list >
 				<md-list-item>
 					<!-- 메뉴 권한 시작 -->
 					<md-tabs md-dynamic-height="" md-border-bottom="" style="width:100%;" ng-if="allMenus.length &gt; 0">
-					   <md-tab label="{{menus.position}}" ng-repeat="menus in allMenus">
-					      	<md-content class="md-padding" layout="row" >
-								<mg-list style="width:100%;">
-									<md-list-item ng-repeat="menu in menus.menus">
-										<p>{{menu.name}} </p>
-										<md-checkbox class="md-secondary" ng-model="permissionMenus[menu.menuId].permitRoot" ng-change="updateMenu()"  ></md-checkbox>
-										<md-divider ng-if="!$last"></md-divider>
-									</md-list-item>
-								</mg-list>
-					      	</md-content>
-						</md-tab>
-					</md-tabs>
+						<md-tab label="{{menus.position}}" ng-repeat="menus in allMenus">
+								<md-content class="md-padding" layout="row" >
+									<mg-list style="width:100%;">
+										<md-list-item ng-repeat="menu in menus.menus">
+											<p>{{menu.name}} </p>
+											<md-checkbox class="md-secondary" ng-model="permissionMenus[menu.menuId].permitRoot" ng-change="updateMenu()"  ></md-checkbox>
+											<md-divider ng-if="!$last"></md-divider>
+										</md-list-item>
+									</mg-list>
+								</md-content>
+							</md-tab>
+						</md-tabs>
 					<!-- 메뉴 권한 끝 -->
 				</md-list-item>
 			</mg-list>

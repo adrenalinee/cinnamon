@@ -178,7 +178,7 @@ public class RoleService {
 		List<PermissionMenu> permissionMenus = permissionRepository.find(permissionId, menuGroupId);
 		// 기존 메뉴 정보 삭제
 		menuAuthorityRepository.delete(permissionMenus);
-//		permissionMenus = null;
+		//permissionMenus = null;
 		
 		// 변경 메뉴 정보 입력
 		for(PermissionMenuVo pm : permissionMenuVo){

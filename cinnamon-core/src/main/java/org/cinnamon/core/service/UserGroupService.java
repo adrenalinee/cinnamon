@@ -3,6 +3,7 @@ package org.cinnamon.core.service;
 import org.cinnamon.core.domain.Permission;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserGroup;
+import org.cinnamon.core.exception.BadRequestException;
 import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.UserBaseRepository;
 import org.cinnamon.core.repository.UserGroupRepository;
@@ -39,6 +40,8 @@ public class UserGroupService<T extends UserBase> {
 	@Autowired
 	Mapper beanMapper;
 	
+	@Autowired
+	UserAuthorityRepository permissionRepository;
 	
 	@Transactional
 	public UserGroup save(UserGroupVo userGroupVo) {
@@ -149,5 +152,27 @@ public class UserGroupService<T extends UserBase> {
 		}
 		
 		user.getUserGroups().remove(userGroup);
+	}
+	
+	/**
+	 * 사용자 그룹 권한 등록
+	 * @author 정명성
+	 * @create date : 2016. 4. 29.
+	 * @param userGroupId
+	 * @param permissionId
+	 */
+	@Transactional
+	public void submitUserGroupToPermission(Long userGroupId, Long permissionId) {
+		logger.info("start");
+		UserGroup userGroup = userGroupRepository.findOne(userGroupId);
+		if (userGroup == null) {
+			throw new BadRequestException("userGroup이 존재하지 않습니다. userGroupId:" + userGroupId);
+		}
+		Permission permission = permissionRepository.findOne(permissionId);
+		if (permission == null) {
+			throw new BadRequestException("permission이 존재하지 않습니다. permissionId:" + permissionId);
+		}
+		
+		userGroup.setPermission(permission);
 	}
 }

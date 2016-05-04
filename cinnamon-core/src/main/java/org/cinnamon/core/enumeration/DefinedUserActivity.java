@@ -31,5 +31,10 @@ public enum DefinedUserActivity {
 	/**
 	 * 비밀번호 변경
 	 */
-	changePassword
+	changePassword,
+	
+	/**
+	 * 사용자 삭제 처리
+	 */
+	deletedAccount
 }
