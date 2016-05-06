@@ -110,7 +110,7 @@ public class UserGroupService<T extends UserBase> {
 	
 	
 	@Transactional
-	public void addMemberByAuthority(String authority, String userId) {
+	public void addMemberByAuthority(Object authority, String userId) {
 		logger.info("start");
 		
 		T user = userRepository.findOne(userId);
