@@ -14,6 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -55,6 +57,13 @@ public class UserBase implements UserEntity, Serializable {
 	@JsonIgnore
 	@ManyToMany
 	Set<Permission> permissions = new HashSet<Permission>();
+	
+	/**
+	 * 사용자가 가진 권한중에 대표 권한을 지정한다.
+	 * 웹에서 로그인후 첫 페이지를 지정하기 위한 용도로 사용
+	 */
+	@ManyToOne(fetch=FetchType.LAZY)
+	Permission defaultPermission;
 	
 	@Column(length=100)
 	String name;
@@ -392,6 +401,14 @@ public class UserBase implements UserEntity, Serializable {
 
 	public void setCreator(String creator) {
 		this.creator = creator;
+	}
+
+	public Permission getDefaultPermission() {
+		return defaultPermission;
+	}
+
+	public void setDefaultPermission(Permission defaultPermission) {
+		this.defaultPermission = defaultPermission;
 	}
 
 }

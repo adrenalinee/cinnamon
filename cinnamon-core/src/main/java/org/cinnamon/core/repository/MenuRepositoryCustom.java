@@ -16,7 +16,7 @@ import org.springframework.data.domain.Pageable;
  */
 public interface MenuRepositoryCustom {
 	
-	Page<Menu> find(MenuSearch menuSearch, Pageable pageable);
+	Page<Menu> search(MenuSearch menuSearch, Pageable pageable);
 	
 	List<Menu> find(String dimension, MenuPosition position, List<String> grantedAuthorities);
 	

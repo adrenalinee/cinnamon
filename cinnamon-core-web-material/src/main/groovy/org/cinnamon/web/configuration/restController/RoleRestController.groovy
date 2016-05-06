@@ -1,8 +1,8 @@
 package org.cinnamon.web.configuration.restController
 
 import javax.validation.Valid
+import javax.validation.constraints.NotNull
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.cinnamon.core.domain.Permission
 import org.cinnamon.core.domain.PermissionMenu
 import org.cinnamon.core.service.RoleService
@@ -115,9 +115,29 @@ class RoleRestController {
 	 */
 	@RequestMapping(value="{permissionId}/menus/{menuGroupId}", method=RequestMethod.PUT)
 	public void put(@PathVariable Long permissionId,
-							@Valid @RequestBody List<PermissionMenuVo> permissionMenuVo,
-							@PathVariable Long menuGroupId) throws Exception {
+					@Valid @RequestBody List<PermissionMenuVo> permissionMenuVo,
+					@PathVariable Long menuGroupId) throws Exception {
 		logger.info("start")
-		roleService.modifyMenu(permissionId, permissionMenuVo, menuGroupId);
+		roleService.modifyMenu(permissionId, permissionMenuVo, menuGroupId);\
 	}
+	
+	@RequestMapping(value="{permissionId}/defaultMenu", method=RequestMethod.PUT)
+	public void putDefaultMenu(@PathVariable Long permissionId, @Valid @RequestBody MenuInfo menuInfo) {
+		logger.info("start")
+		
+		roleService.setDefaultMenu(permissionId, menuInfo.getMenuId())
+	}
+	
+}
+
+
+/**
+ * 
+ * @author 신동성
+ * @since 2016. 5. 6.
+ */
+class MenuInfo {
+	
+	@NotNull
+	Long menuId
 }

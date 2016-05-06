@@ -34,6 +34,7 @@ class MenuRestController {
 	@Autowired
 	MenuService menuService
 	
+	
 	@RequestMapping(value="", method=RequestMethod.POST)
 	ResponseEntity<Void> postMenus(
 		//@PathVariable Long menuGroupId,

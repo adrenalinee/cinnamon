@@ -7,8 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -23,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @SuppressWarnings("serial")
 @Entity
-public class Permission implements Serializable{
+public class Permission implements Serializable {
 	
 	@Id
 	@GeneratedValue
@@ -55,6 +57,12 @@ public class Permission implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy="permission")
 	List<PermissionMenu> permissionMenus;
+	
+	/**
+	 * 기본 메뉴
+	 */
+	@ManyToOne //(fetch=FetchType.LAZY)
+	Menu defaultMenu;
 	
 	public String getName() {
 		return name;
@@ -110,6 +118,14 @@ public class Permission implements Serializable{
 
 	public void setPermissionMenus(List<PermissionMenu> permissionMenus) {
 		this.permissionMenus = permissionMenus;
+	}
+
+	public Menu getDefaultMenu() {
+		return defaultMenu;
+	}
+
+	public void setDefaultMenu(Menu defaultMenu) {
+		this.defaultMenu = defaultMenu;
 	}
 
 }

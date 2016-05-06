@@ -88,7 +88,7 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 
 
 	@Override
-	public Page<Menu> find(MenuSearch menuSearch, Pageable pageable) {
+	public Page<Menu> search(MenuSearch menuSearch, Pageable pageable) {
 		QMenu menu = QMenu.menu;
 		
 		JPQLQuery query = from(menu);
@@ -113,6 +113,12 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 		}
 		if (menuSearch.getPosition() != null) {
 			query.where(menu.position.eq(menuSearch.getPosition()));
+		}
+		if (!StringUtils.isEmpty(menuSearch.getAuthority())) {
+			QPermissionMenu permissionMenu = QPermissionMenu.permissionMenu; 
+			
+			query.innerJoin(menu.grantedAuthorities, permissionMenu)
+				.where(permissionMenu.permission.authority.eq(menuSearch.getAuthority()));
 		}
 		
 		

@@ -130,6 +130,8 @@ class CinnamonCoreWebConfiguration {
 //			http.authorizeRequests().regexMatchers(HttpMethod.HEAD, "/rest/accounts/*")
 //			http.authorizeRequests().regexMatchers(HttpMethod.POST, "/rest/accounts/*")
 			
+			http.authorizeRequests().antMatchers("/").permitAll()
+			
 			
 			http.antMatcher("/**").authorizeRequests().anyRequest().denyAll()
 			http.formLogin().loginPage("/login").permitAll()
@@ -155,7 +157,7 @@ class CinnamonCoreWebConfiguration {
 		void configure(WebSecurity web) throws Exception {
 			web.ignoring()
 					.antMatchers(
-					"/",
+//					"/",
 //					"/join",
 					"/webjars/**",
 					"/fonts/**",

@@ -20,6 +20,8 @@ public class MenuSearch {
 	
 	Long parentMenuId;
 	
+	String authority;
+	
 	MenuPosition position;
 	
 	public MenuPosition getPosition() {
@@ -68,6 +70,14 @@ public class MenuSearch {
 
 	public void setMenuGroupId(Long menuGroupId) {
 		this.menuGroupId = menuGroupId;
+	}
+
+	public String getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 	
 	

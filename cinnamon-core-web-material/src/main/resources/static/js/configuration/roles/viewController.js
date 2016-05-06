@@ -2,11 +2,14 @@ angular.module('cinnamon')
 .controller('configuration.roles.view', function($scope, $http, $interval, $stateParams, $log, $mdDialog, $mdMedia, $state, $sce, pageMove) {
 	console.log('configuration.roles.view');
 	
+	var permissionId = $stateParams.permissionId;
+	$scope.permissionId = permissionId;
+	
 	// role 정보 가져오기
 	$scope.load = function() {
-		$http.get('/rest/configuration/roles/' + $stateParams.permissionId)
+		$http.get('/rest/configuration/roles/' + permissionId)
 		.success(function(result) {
-			$scope.domains = result;
+			$scope.domain = result;
 		})
 	}
 	
@@ -37,6 +40,48 @@ angular.module('cinnamon')
 				$scope.siteId = siteId;
 			})
 	}
+	
+	$scope.selectDefaultMenu = function($event) {
+		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+		$mdDialog.show({
+			targetEvent: $event,
+			fullscreen: useFullScreen,
+			clickOutsideToClose: true,
+			templateUrl: '/configuration/partials/menus/select',
+			locals: {
+				defaultSearchParams: {
+					authority: $scope.domain.authority
+				}
+			},
+			controller: function($scope, $http, $mdDialog, $mdToast, defaultSearchParams) {
+				$scope.defaultSearchParams = defaultSearchParams;
+				
+				$scope.onSelect = function(menu) {
+					console.log('onSelect');
+					
+					$http.put('/rest/configuration/roles/' + permissionId + '/defaultMenu', {
+						menuId: menu.menuId
+					}).success(function(data) {
+						$mdToast.show(
+							$mdToast.simple()
+								.position('top right')
+								.textContent('변경되었습니다.'));
+						
+						//TODO 사용자 목록을 새로 불러와야 함 
+					});
+					
+					$mdDialog.hide();
+				}
+				
+//				$scope.close = function() {
+//					$mdDialog.hide();
+//				}
+			}
+		}).then(function() {
+			$scope.load();
+		});
+	}
+	
 	
 	// 메뉴권한 페이지 이동
 	$scope.goPermission = function(menuGroupId) {

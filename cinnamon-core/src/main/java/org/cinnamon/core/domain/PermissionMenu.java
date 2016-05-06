@@ -52,6 +52,12 @@ public class PermissionMenu {
 	 */
 	boolean permitElse;
 	
+//	/**
+//	 * 특정 권한(permission)에 대해서 기본 메뉴인지를 알려준다.
+//	 * Permission당 하나의 PermissionMenu만 defaultMenu가 true 여야 한다.
+//	 */
+//	boolean defaultMenu;
+	
 //	boolean readOnly;
 	
 	@MapKey(name="name")
@@ -279,6 +285,14 @@ public class PermissionMenu {
 	public void setPermission(Permission permission) {
 		this.permission = permission;
 	}
+
+//	public boolean isDefaultMenu() {
+//		return defaultMenu;
+//	}
+//
+//	public void setDefaultMenu(boolean defaultMenu) {
+//		this.defaultMenu = defaultMenu;
+//	}
 
 //	public Permission getAuthority() {
 //		return authority;

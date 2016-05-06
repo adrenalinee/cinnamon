@@ -1,13 +1,15 @@
 package org.cinnamon.web.configuration.controller
 
-import org.cinnamon.core.domain.MenuGroup
-import org.cinnamon.core.domain.Site
-import org.cinnamon.core.service.SiteService
+import org.cinnamon.core.service.SessionService
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Controller
-import org.springframework.util.StringUtils;
+import org.springframework.util.StringUtils
 import org.springframework.web.bind.annotation.RequestMapping
 
 /**
@@ -20,40 +22,42 @@ import org.springframework.web.bind.annotation.RequestMapping
 class MainController {
 	Logger logger = LoggerFactory.getLogger(getClass())
 	
-	@Autowired
-	SiteService siteService
+//	@Autowired
+//	SiteService siteService
 	
+	@Autowired
+	SessionService sessionService
+	
+//	@Autowired
+//	SecurityContextHolder securityContextHolder
 	
 	String defaultPage;
 	
 	
 	@RequestMapping("/")
-	String index() {
+	String index(@AuthenticationPrincipal Authentication authentication) {
 		logger.info("start")
 //		"redirect:/configuration"
 		
-		if (!StringUtils.isEmpty(defaultPage)) {
-			return defaultPage
+//		if (!StringUtils.isEmpty(defaultPage)) {
+//			return defaultPage
+//		}
+		
+		String defaultPage
+		
+		if (authentication != null) {
+			defaultPage = sessionService.getFirstPage(authentication);
 		}
 		
-		
-		Site site = siteService.getDefault();
-		println site.getName()
-		if (site != null) {
-			MenuGroup menuGroup = site.getDefaultMenuGroup()
-			println menuGroup
-			if (menuGroup != null) {
-				println menuGroup.getDefaultPage()
-				defaultPage = "redirect:" + menuGroup.getDefaultPage()
-				return defaultPage
-			} else {
-				logger.warn("기본 메뉴 모음이 설정되어 있지 않습니다. siteId: {}", site.getSiteId())
-			}
+		if (defaultPage == null) {
+			defaultPage = sessionService.getFirstPage();
 		}
 		
-		//초기 페이지가 등록되어 있지 않음
-		defaultPage = ""
-		return defaultPage
+		if (StringUtils.isEmpty(defaultPage)) {
+			logger.warn("초기 페이지가 지정되지 않았습니다.");
+		}
+		
+		return "redirect:${defaultPage}"
 	}
 	
 	@RequestMapping(value="/partials/**")

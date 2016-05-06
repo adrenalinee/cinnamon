@@ -49,7 +49,7 @@ public class MenuService {
 		
 		System.out.println(ToStringBuilder.reflectionToString(menuSearch));
 		
-		return menuRepository.find(menuSearch, pageable);
+		return menuRepository.search(menuSearch, pageable);
 	}
 	
 	

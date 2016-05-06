@@ -7,6 +7,7 @@ import java.util.Map;
 import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.Permission;
 import org.cinnamon.core.domain.PermissionMenu;
+import org.cinnamon.core.exception.BadRequestException;
 import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.MenuAuthorityRepository;
 import org.cinnamon.core.repository.MenuGroupRepository;
@@ -49,7 +50,37 @@ public class RoleService {
 	MenuRepository menuRepository;
 	
 	@Autowired
+	MenuAuthorityRepository permissionMenuRepository;
+	
+	@Autowired
 	Mapper beanMapper;
+	
+	
+	@Transactional
+	public void setDefaultMenu(Long permissionId, Long menuId) {
+		logger.info("start");
+		
+		Permission permission = permissionRepository.findOne(permissionId);
+		if (permission == null) {
+			throw new NotFoundException("권한 정보가 존재하지 않습니다. permissionId :" + permissionId);
+		}
+		
+		Menu menu = menuRepository.findOne(menuId);
+		if (menu == null) {
+			throw new BadRequestException("등록되지 않은 메뉴 입니다. menuId: " + menuId);
+		}
+		
+		//권한을 가지고 있는 메뉴인지 확인
+		PermissionMenu permissionMenu = permissionMenuRepository.findByPermissionAndMenu(permission, menu);
+		if (permissionMenu == null) {
+			throw new BadRequestException(
+					"권한을 가지고 있지 않은 메뉴를 기본메뉴로 지정할 수 없습니다. authority: " + permission.getAuthority() +
+					", menuId: " + menuId);
+		}
+		
+		permission.setDefaultMenu(menu);
+	}
+	
 	
 	@Transactional(readOnly=true)
 	public Page<Permission> search(AuthoritySearch permissionSearch, Pageable pageable) {
@@ -65,9 +96,6 @@ public class RoleService {
 		domainPage.setContent(domains.getContent());
 		domainPage.setPaging(paging);
 		
-		/*
-		return domainPage;
-		*/
 		return domains;
 	}
 	
@@ -190,8 +218,16 @@ public class RoleService {
 			permissionMenu.setPermitElse(pm.isPermitElse());
 			permissionMenu.setPermission(permission);
 			
-			permissionRepository.savePermissionMenu(permissionMenu);
+//			permissionRepository.savePermissionMenu(permissionMenu);
+			permissionMenuRepository.save(permissionMenu);
 		}
 		
+		permissionMenuRepository.flush();
+		
+		//해당 권한의 기본메뉴에 대해서 권한이 없어졌다면 기본 메뉴를 미지정으로 변경한다.
+		PermissionMenu permissionMenu = permissionMenuRepository.findByPermissionAndMenu(permission, permission.getDefaultMenu());
+		if (permissionMenu == null) {
+			permission.setDefaultMenu(null);
+		}
 	}
 }
