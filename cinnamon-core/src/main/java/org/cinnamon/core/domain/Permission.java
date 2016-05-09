@@ -23,10 +23,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author 동성
  *
  */
-@SuppressWarnings("serial")
+//@SuppressWarnings("serial")
 @Entity
 public class Permission implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7873817100182300172L;
+
 	@Id
 	@GeneratedValue
 	Long permissionId;

@@ -1,5 +1,6 @@
 package org.cinnamon.core.domain;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -28,8 +29,13 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  */
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="menuId")
-public class Menu {
+public class Menu implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7485820146855184146L;
+
 	@Id
 	@GeneratedValue
 	Long menuId;

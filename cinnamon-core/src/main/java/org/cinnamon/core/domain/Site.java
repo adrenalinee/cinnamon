@@ -1,5 +1,6 @@
 package org.cinnamon.core.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -26,8 +27,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "siteId")
 @Entity
-public class Site {
+public class Site implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3721513814221184981L;
+
 	@Id
 	@Column(length=200)
 	String siteId;
