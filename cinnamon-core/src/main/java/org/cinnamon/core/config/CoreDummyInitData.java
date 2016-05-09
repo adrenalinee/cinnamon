@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * @author 신동성
  * @since 2016. 2. 2.
  */
-@Component
+//@Component
 public class CoreDummyInitData implements InitData {
 	
 	@Autowired
