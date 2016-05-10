@@ -50,12 +50,12 @@
 			<!-- 상세검색 필드 끝-->
 			<!-- 리스트  -->
 			<cm-search-list-items>
-				<md-list-item ng-repeat="domain in domains.content" ng-click="view(domain.fileId)">
-					<p class="text-muted">{{ domain.fileId }} </p>
-					<p class="text-muted">{{ domain.name }} </p>
-				    <p class="text-muted">{{ domain.ext }}</p>
-				    <p class="text-muted">{{ domain.orignFileName }}</p>
-				    <p class="text-muted">{{ domain.size }} </p>
+				<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
+					<p >{{ domain.fileId }} </p>
+					<p >{{ domain.name }} </p>
+					<p >{{ domain.ext }}</p>
+					<p >{{ domain.orignFileName }}</p>
+					<p >{{ domain.size }} </p>
 					<md-divider ng-if="!$last"></md-divider>
 				</md-list-item>
 			</cm-search-list-items>

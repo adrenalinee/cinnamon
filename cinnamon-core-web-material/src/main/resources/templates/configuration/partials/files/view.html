@@ -20,94 +20,95 @@
 		
 		<div ng-cloak="">
 			<md-content>
-				<md-list flax="">
-					<md-list-item>
-				 		<p>
-				 			<strong>fileId</strong>
-				 		</p>
-						<p>
+				<table class="table" >
+					<tr>
+						<th>
+							fileId
+						</th>
+						<td>
 							<a href="/configuration/groups/{{domains.fileId}}">{{ domains.fileId }}</a>
-						</p>
-					</md-list-item>
-					<md-list-item >
-						<p>
-							<strong>이름</strong>
-						</p>
-						<p>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							이름
+						</th>
+						<td>
 							{{ domains.name }}
-						</p>
-					</md-list-item>
-					<md-list-item >
-						<p>
-							<strong>경로</strong>
-						</p>
-						<p>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							경로
+						</th>
+						<td>
 							{{ domains.path }} 
-						</p>
-					</md-list-item>
-					<md-list-item>
-						<p>
-							<strong>확장자</strong>
-						</p>
-						<p>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							확장자
+						</th>
+						<td>
 							{{ domains.ext }}
-						</p>
-					</md-list-item>
-					<md-list-item>
-						<p>
-							<strong>크기</strong>
-						</p>
-						<p>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							크기
+						</th>
+						<td>
 							{{ domains.size }}
-						</p>
-					</md-list-item>
-					<md-list-item>
-						<p>
-							<strong>원본파일이름</strong>
-						</p>
-						<p>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							원본파일이름
+						</th>
+						<td>
 							{{ domains.originFileName }}
-						</p>
-					</md-list-item>
-					<md-list-item>
-						<p>
-							<strong>종류</strong>
-						</p>
-						<p>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							종류
+						</th>
+						<td>
 							{{ domains.type }}
-						</p>
-					</md-list-item>
-					<md-list-item>
-						<p>
-							<strong>md5FileName</strong>
-						</p>
-						<p>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							md5FileName
+						</th>
+						<td>
 							{{ domains.md5FileName }}
-						</p>
-					</md-list-item>
-					<md-list-item>
-						<p>
-							<strong>md5</strong>
-						</p>
-						<p>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							md5
+						</th>
+						<td>
 							{{ domains.md5 }}
-						</p>
-					</md-list-item>
-					<md-list-item>
-						<p class="text-muted" >
-							<strong>사용상태</strong>
-						</p>
-						<p class="text-muted">
+						</td>
+					</tr>
+					<tr>
+						<th>
+							사용상태
+						</th>
+						<td>
 							{{domains.useStatus}}
-						</p>
-					</md-list-item>
-				</md-list>
-				<md-button class="md-raised" ng-click="goList()">
-					목록
-				</md-button>
+						</td>
+					</tr>
+				</table>
+				
 			</md-content>
 		</div>
-	
+		
+		<md-card-actions layout="row" layout-align="end">
+			<md-button ng-click="goList()" class="md-raised">목록</md-button>
+		</md-card-actions>
 		
 	</md-card>
 
