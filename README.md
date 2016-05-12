@@ -8,13 +8,11 @@
 # Used technologies:
 
 ## back-end
-- jdk8
+- java8
 - springframework
  - spring -boot
  - spring-security
  - spring-data-jpa
-
-- JPA
 - queryDsl
 - thymeleaf
 
