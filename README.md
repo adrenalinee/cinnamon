@@ -7,18 +7,18 @@
 
 # Used technologies:
 
-back-end
-jdk8
-springframework
-spring -boot
-spring-security
-spring-data-jpa
+## back-end
+- jdk8
+- springframework
+ - spring -boot
+ - spring-security
+ - spring-data-jpa
 
-JPA
-queryDsl
-thymeleaf
+- JPA
+- queryDsl
+- thymeleaf
 
 
-front-end
-angularjs
-angular-material
+## front-end
+- angularjs
+- angular-material
