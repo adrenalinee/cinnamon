@@ -5,7 +5,6 @@ import javax.mail.internet.MimeMessage;
 
 import org.cinnamon.core.domain.EmailServer;
 import org.cinnamon.core.domain.enumeration.UseStatus;
-import org.cinnamon.core.exception.BadRequestException;
 import org.cinnamon.core.exception.InternalServerErrorException;
 import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.EmailServerRepository;
@@ -36,34 +35,46 @@ public class EmailService {
 	private JavaMailSenderImpl mailSender;
 	
 	@Transactional
-	public void send(String toAddress, String subject, String message) throws MessagingException {
+	public void send(String toAddress, String subject, String content) throws MessagingException {
 		logger.info("start");
 		
-		EmailServer emailServer = emailServerRepository.getDefault();
+		sendMail(toAddress, subject, content);
+		
+	}
+
+
+
+	private void sendMail(String toAddress, String subject, String content) {
+		mailSender = new JavaMailSenderImpl();
+
+		// 기본 smtp 서버 가져오기
+		EmailServer emailServer = emailServerRepository.findByUseStatusAndDefaultServer(UseStatus.enable, true);
+
 		if (emailServer == null) {
-			throw new BadRequestException("기본 이메일 서버가 지정되지 않았습니다.");
+			throw new NotFoundException("기본 메일 서버를 찾을 수 없습니다 ");
 		}
-		
-		
-		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		mailSender.setHost(emailServer.getAddress());
-		mailSender.setUsername(emailServer.getUsername());
-		mailSender.setPassword(emailServer.getPassword());
-		mailSender.setPort(emailServer.getPort());
-		
-		
-		
-		MimeMessage mimeMessage = mailSender.createMimeMessage();
-		MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
-		
-		mimeMessageHelper.setSubject(subject);
-		mimeMessageHelper.setFrom(emailServer.getFromAddress());
-		mimeMessageHelper.setTo(toAddress);
-		mimeMessageHelper.setText(message);
-		
-		//mimeMessageHelper.addInline(contentId, inputStreamSource, contentType);
-		
-		mailSender.send(mimeMessage);
+
+		// 호스트 셋팅
+		this.mailSender.setHost(emailServer.getAddress());
+		// 포트 셋팅
+		this.mailSender.setPort(emailServer.getPort());
+
+		MimeMessagePreparator preparator = new MimeMessagePreparator() {
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+
+				try {
+					MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+					message.setTo(toAddress);
+					message.setFrom("no-reply@daihan-biomedical.com"); // TODO 발신자정보 추후 변경
+					message.setSubject(subject);
+					message.setText(content, true);
+
+				} catch (Exception e) {
+					throw new InternalServerErrorException("인증메일 발송시 Error 발생! email address: " + toAddress);
+				}
+			}
+		};
+		this.mailSender.send(preparator);
 	}
 	
 	
@@ -137,35 +148,8 @@ public class EmailService {
 	 * @param domainName
 	 */
 	public void sendAuthorityMail(String userId, String userName, String email, String htmlContent, String domainName) {
-		mailSender = new JavaMailSenderImpl();
-
-		// 기본 smtp 서버 가져오기
-		EmailServer emailServer = emailServerRepository.findByUseStatusAndDefaultServer(UseStatus.enable, true);
-
-		if (emailServer == null) {
-			throw new NotFoundException("기본 메일 서버를 찾을 수 없습니다 ");
-		}
-
-		// 호스트 셋팅
-		this.mailSender.setHost(emailServer.getAddress());
-		// 포트 셋팅
-		this.mailSender.setPort(emailServer.getPort());
-
-		MimeMessagePreparator preparator = new MimeMessagePreparator() {
-			public void prepare(MimeMessage mimeMessage) throws Exception {
-
-				try {
-					MimeMessageHelper message = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-					message.setTo(email);
-					message.setFrom("no-reply@daihan-biomedical.com"); // TODO 발신자정보 추후 변경
-					message.setSubject("인증 확인 요청 메일 입니다.");
-					message.setText(htmlContent, true);
-
-				} catch (Exception e) {
-					throw new InternalServerErrorException("인증메일 발송시 Error 발생! email address: " + email);
-				}
-			}
-		};
-		this.mailSender.send(preparator);
+		
+		sendMail(email, "인증 확인 요청 메일 입니다." , htmlContent );
+		
 	}
 }

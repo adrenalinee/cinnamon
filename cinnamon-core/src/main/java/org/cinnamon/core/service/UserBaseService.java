@@ -3,6 +3,7 @@ package org.cinnamon.core.service;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import org.cinnamon.core.domain.Permission;
 import org.cinnamon.core.domain.UserBase;
@@ -354,11 +355,9 @@ public class UserBaseService<T extends UserBase> {
 		}
 		
 		
-		//비번
-		BCryptPasswordEncoder e = new BCryptPasswordEncoder();
 		
 		UserPassword userPassword = new UserPassword();
-		userPassword.setPassword(e.encode(userVo.getPassword()));
+		userPassword.setPassword(changeBcryptPassword(userVo.getPassword()));
 		userPassword.setUserId(userId);
 //		userPasswordRepository.save(userPassword);
 		
@@ -499,7 +498,72 @@ public class UserBaseService<T extends UserBase> {
 		}
 	}
 	
+	@Autowired
+	private EmailService emailService;
 	
+	/**
+	 * 비밀번호 초기화
+	 * @author 정명성
+	 * @create date : 2016. 5. 18.
+	 * @param email
+	 * @return
+	 */
+	@Transactional
+	public int initPassword(UserJoinVo userJoinVo) throws Exception {
+		
+		T user = userRepository.findByUserIdAndEmailAndUseStatus(userJoinVo.getUserId(), userJoinVo.getEmail(), UseStatus.enable);
+		
+		if(user == null) {
+			//throw new BadRequestException("존재하지 않는 회원 입니다.");
+			logger.info("존재하지 않는 회원 입니다. userId:" + userJoinVo.getUserId() +", email:" + userJoinVo.getEmail());
+			return 0;
+		}
+		
+		UserPassword userPassword = userPasswordRepository.findOne(userJoinVo.getUserId());
+		if(userPassword == null) {
+			logger.info("존재하지 않는 회원 입니다. userId:" + userJoinVo.getUserId());
+			return 0;
+		}
+		
+		String password = getRandomPassword(7);
+		userPassword.setPassword(changeBcryptPassword(password));
+		emailService.send(user.getEmail(), "[console] 사이트 비밀번호 초기화 요청 처리되었습니다.", "초기화 된 비밀번호는 [ " + password + " ] 입니다.");
+		
+		
+		return 1;
+	}
+	
+	/**
+	 * 난수 구하기
+	 * @author 정명성
+	 * @create date : 2016. 5. 18.
+	 * @param length
+	 * @return
+	 */
+	public String getRandomPassword(int length) {
+		String data="";
+		String charset ="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		Random random = new Random();
+		
+		for(int i =0; i<length; i++){
+			int index = random.nextInt(charset.length());
+			data += charset.substring(index, index+1);
+		}
+		return data;
+	}
+	
+	/**
+	 * 패스워드 암호화
+	 * @author 정명성
+	 * @create date : 2016. 5. 18.
+	 * @param password
+	 * @return
+	 */
+	public String changeBcryptPassword(String password) {
+		//비번
+		BCryptPasswordEncoder e = new BCryptPasswordEncoder();
+		return e.encode(password);
+	}
 //	public static void main(String[] args) {
 //		
 //		
