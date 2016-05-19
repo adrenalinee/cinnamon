@@ -29,6 +29,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.util.StringUtils;
 
+
 /**
  * 
  * @author 동성
@@ -108,15 +109,16 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 				if (DefinedUserAuthority.systemMaster.name().equals(authority)) {
 					return ACCESS_GRANTED;
 				}
-				
-				
+				// 로그인 후 프로필 페이지는 들어갈 수 있게
+				if(requestUrl.equals("/profile") && !authority.equals("ROLE_ANONYMOUS")) return ACCESS_GRANTED;
 				
 				List<Menu> menus = menuRepository.findByAuthority(authority); //TODO cache에 넣어놓고 읽어야 함. 모든 요청에 db접속하면 서버부담이 커짐
+				
 				for (Menu menu: menus) {
 					if (StringUtils.isEmpty(menu.getUri())) {
 						continue;
 					}
-					
+
 //					System.out.println("menu uri: " + menu.getUri());
 					
 	//				System.out.println("requestUrl: " + requestUrl);
