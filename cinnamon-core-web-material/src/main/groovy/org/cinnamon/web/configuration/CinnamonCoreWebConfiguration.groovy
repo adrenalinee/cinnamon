@@ -152,7 +152,9 @@ class CinnamonCoreWebConfiguration {
 			http.formLogin().loginPage("/login").permitAll()
 
 			// 이메일 인증 관련 추가
-			http.authorizeRequests().antMatchers("/platform/users/**/email/confirm").permitAll()
+			http.authorizeRequests()
+				.antMatchers("/platform/users/**/email/confirm", "/rest/accounts/initPassword")
+				.permitAll()
 
 			http.logout()
 				.logoutUrl("/logout")
