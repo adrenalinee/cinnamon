@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 
 @Controller
 @RequestMapping(value="/configuration/email")
-class EmailController {
+class EmailController extends BasePageController {
 	
 	Logger logger = LoggerFactory.getLogger(getClass())
 	

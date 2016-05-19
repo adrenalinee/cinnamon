@@ -9,12 +9,12 @@ angular.module(
 		'ngAria', 
 		'ngSanitize', 
 		'ui.router',
-				'ngMaterial', 
-				'ui.bootstrap.paging', 
-				'ui.bootstrap.pagination',
-				'ui.bootstrap.pager', 
-				'ngFileUpload', 
-				'mdPickers' ])
+		'ngMaterial', 
+		'ui.bootstrap.paging', 
+		'ui.bootstrap.pagination',
+		'ui.bootstrap.pager', 
+		'ngFileUpload', 
+		'mdPickers' ])
 
 /*
  * .factory('defaultErrorInterceptor', function($q) { return { 'responseError':

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod
  */
 @Controller
 @RequestMapping(value="/configuration/files")
-class FileController {
+class FileController extends BasePageController {
 	
 	/**
 	 * file index 페이지

@@ -13,6 +13,6 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 public interface UserBaseRepository<T extends UserBase>
 	extends JpaRepository<T, String>, QueryDslPredicateExecutor<T> {
 	
-	T findByEmail(String email);
+	T findFirst1ByEmail(String email);
 	
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
  */
 @Controller
 @RequestMapping("/configuration/userGroups")
-class UserGroupController {
+class UserGroupController extends BasePageController {
 	
 	@RequestMapping("**")
 	def main() {

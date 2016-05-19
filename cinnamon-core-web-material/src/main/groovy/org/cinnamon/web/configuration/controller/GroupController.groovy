@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping
  */
 @Controller
 @RequestMapping("/configuration/groups")
-class GroupController {
+class GroupController extends BasePageController {
 	
 	@RequestMapping("**")
 	def main() {

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
  * @since 2016. 4. 11.
  */
 @Controller("cinnamon.accountController")
-class AccountController {
+class AccountController extends BasePageController {
 	Logger logger = LoggerFactory.getLogger(getClass())
 	
 	@RequestMapping(value="/login")

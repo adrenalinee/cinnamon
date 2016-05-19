@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping
  */
 @Controller
 @RequestMapping("/configuration/sites")
-class SiteController {
+class SiteController extends BasePageController {
 	
 	@RequestMapping("**")
 	def main() {

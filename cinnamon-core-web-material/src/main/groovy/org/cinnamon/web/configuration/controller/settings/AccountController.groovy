@@ -1,5 +1,6 @@
 package org.cinnamon.web.configuration.controller.settings
 
+import org.cinnamon.web.configuration.controller.BasePageController;
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
  */
 @Controller
 @RequestMapping("/settings/account")
-class AccountController {
+class AccountController extends BasePageController {
 	
 	@RequestMapping("**")
 	def users() {

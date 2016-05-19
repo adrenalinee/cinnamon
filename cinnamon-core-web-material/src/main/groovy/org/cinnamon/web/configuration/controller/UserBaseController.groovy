@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping
  */
 @Controller
 @RequestMapping("/configuration/users")
-class UserBaseController {
+class UserBaseController extends BasePageController {
 	
 	@RequestMapping("**")
 	def main() {

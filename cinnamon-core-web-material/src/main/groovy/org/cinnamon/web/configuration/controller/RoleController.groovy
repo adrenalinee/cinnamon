@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
 @RequestMapping(value="/configuration/roles")
-class RoleController {
+class RoleController extends BasePageController {
 	
 	@RequestMapping(value="**")
 	def index() {

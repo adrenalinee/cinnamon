@@ -175,6 +175,17 @@ public class UserBaseService<T extends UserBase> {
 			throw new NotFoundException("존재하지 않는 회원입니다. userId: " + userId);
 		}
 		
+		if (!StringUtils.isEmpty(user.getEmail())) {
+			T duplicateEmailUser = userRepository.findFirst1ByEmail(user.getEmail());
+			//TODO 이메일 주소에 유니크키가 없어서 중복이 된 경우가 있다. 그래서 검색한 첫 사용자 하고만 비교한다.
+			//모든 사용자와 다 비교해야 확실하다.
+			if (duplicateEmailUser != null) {
+				if (!duplicateEmailUser.getUserId().equals(user.getEmail())) {
+					throw new BadRequestException("이미 사용중인 이메일 입니다. userId: " + userId);
+				}
+			}
+		}
+		
 		beanMapper.map(user, existUser);
 	}
 	
@@ -186,6 +197,17 @@ public class UserBaseService<T extends UserBase> {
 		T existUser = userRepository.findOne(userId);
 		if (existUser == null) {
 			throw new NotFoundException("존재하지 않는 회원입니다. userId: " + userId);
+		}
+		
+		if (!StringUtils.isEmpty(userBaseVo.getEmail())) {
+			T duplicateEmailUser = userRepository.findFirst1ByEmail(userBaseVo.getEmail());
+			//TODO 이메일 주소에 유니크키가 없어서 중복이 된 경우가 있다. 그래서 검색한 첫 사용자 하고만 비교한다.
+			//모든 사용자와 다 비교해야 확실하다.
+			if (duplicateEmailUser != null) {
+				if (!duplicateEmailUser.getUserId().equals(userBaseVo.getEmail())) {
+					throw new BadRequestException("이미 사용중인 이메일 입니다. userId: " + userId);
+				}
+			}
 		}
 		
 		beanMapper.map(userBaseVo, existUser);
@@ -241,6 +263,13 @@ public class UserBaseService<T extends UserBase> {
 			throw new BadRequestException("이미 사용중인 아이디 입니다. userId: " + userId);
 		}
 		
+		if (!StringUtils.isEmpty(user.getEmail())) {
+			T duplicateEmailUser = userRepository.findFirst1ByEmail(user.getEmail());
+			if (duplicateEmailUser != null) {
+				throw new BadRequestException("이미 사용중인 이메일 입니다. userId: " + userId);
+			}
+		}
+		
 		
 		Permission permission = permissionRepository.findByAuthority(DefinedUserAuthority.user.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
@@ -284,6 +313,13 @@ public class UserBaseService<T extends UserBase> {
 		T existUser = userRepository.findOne(userId);
 		if (existUser != null) {
 			throw new BadRequestException("이미 사용중인 아이디 입니다. userId: " + userVo.getUserId());
+		}
+		
+		if (!StringUtils.isEmpty(userVo.getEmail())) {
+			T duplicateEmailUser = userRepository.findFirst1ByEmail(userVo.getEmail());
+			if (duplicateEmailUser != null) {
+				throw new BadRequestException("이미 사용중인 이메일 입니다. userId: " + userId);
+			}
 		}
 		
 		
@@ -333,6 +369,13 @@ public class UserBaseService<T extends UserBase> {
 		T existUser = userRepository.findOne(userId);
 		if (existUser != null) {
 			throw new BadRequestException("이미 사용중인 사용자 아이디 입니다. userId: " + userVo.getUserId());
+		}
+		
+		if (!StringUtils.isEmpty(userVo.getEmail())) {
+			T duplicateEmailUser = userRepository.findFirst1ByEmail(userVo.getEmail());
+			if (duplicateEmailUser != null) {
+				throw new BadRequestException("이미 사용중인 이메일 입니다. userId: " + userId);
+			}
 		}
 		
 		
