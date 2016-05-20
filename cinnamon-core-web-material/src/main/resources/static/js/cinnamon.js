@@ -58,7 +58,7 @@ angular.module(
 			});
 
 			$mdThemingProvider.theme('default');
-
+			/*
 			// 공통 Error 처리 추가
 			$httpProvider.interceptors.push(function($q) {
 				return {
@@ -67,7 +67,7 @@ angular.module(
 					}
 				}
 			})
-
+			*/
 			// $mdThemingProvider.definePalette('amazingPaletteName', {
 			// '50': 'ffebee',
 			// '100': 'ffcdd2',

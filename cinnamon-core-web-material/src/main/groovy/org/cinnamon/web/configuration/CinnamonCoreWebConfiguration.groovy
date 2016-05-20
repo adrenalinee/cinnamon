@@ -46,28 +46,28 @@ import com.fasterxml.jackson.datatype.hibernate4.Hibernate4Module
 @ComponentScan
 @Configuration
 class CinnamonCoreWebConfiguration {
-	
-//	@Autowired
-//	SpringTemplateEngine springTemplateEngine
-//	
-//	@Autowired
-//	AngularDialect angularDialect
-//	
-//	@PostConstruct
-//	void init() {
-//		springTemplateEngine.addDialect(angularDialect)
-//	}
-	
-	
+
+	//	@Autowired
+	//	SpringTemplateEngine springTemplateEngine
+	//
+	//	@Autowired
+	//	AngularDialect angularDialect
+	//
+	//	@PostConstruct
+	//	void init() {
+	//		springTemplateEngine.addDialect(angularDialect)
+	//	}
+
+
 	@Configuration
-//	@EnableWebMvc
+	//	@EnableWebMvc
 	protected static class WebMvcConfigurer extends WebMvcConfigurerAdapter {
-		
+
 		@Override
 		public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
 			DateFormat defaultDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 			defaultDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"))
-			
+
 			for (HttpMessageConverter<?> conterter: converters) {
 				if (conterter instanceof AbstractJackson2HttpMessageConverter) {
 					AbstractJackson2HttpMessageConverter jacksonConverter =
@@ -80,21 +80,21 @@ class CinnamonCoreWebConfiguration {
 			}
 		}
 	}
-	
-	
+
+
 	@Configuration
 	protected static class CinnamonWebWebMvcConfigurer extends WebMvcConfigurerAdapter {
-		
+
 		@Autowired
 		InitCheckInterceptor initCheckInterceptor
-		
+
 		@Override
 		void addInterceptors(InterceptorRegistry registry) {
 			registry.addInterceptor(initCheckInterceptor)
-				.addPathPatterns(
+					.addPathPatterns(
 					"/**",
 					"/rest/configuration/initWizard/**")
-				.excludePathPatterns(
+					.excludePathPatterns(
 					"/template/**",
 					"/configuration/partials/**",
 					"/configuration/initWizard",
@@ -102,87 +102,89 @@ class CinnamonCoreWebConfiguration {
 					"/error/**")
 		}
 	}
-	
-	
+
+
 	@Order(10)
 	@Configuration
 	protected static class CinnamonWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
-		
+
 		@Autowired
 		UserDetailServiceImpl userDetailService
-		
+
 		@Autowired
 		DatabasePermissionVoter databaseRoleVoter
-		
+
 		@Autowired
 		DataSource datasource
-		
-		
+
+
 		@Bean
 		PersistentTokenRepository persistentTokenRepository() {
 			JdbcTokenRepositoryImpl jdbcTokenRepositoryImpl = new JdbcTokenRepositoryImpl()
 			jdbcTokenRepositoryImpl.setDataSource(datasource)
 			return jdbcTokenRepositoryImpl
 		}
-		
-		
+
+
 		@Autowired
 		public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 			auth
-				.userDetailsService(userDetailService)
+					.userDetailsService(userDetailService)
 					.passwordEncoder(new BCryptPasswordEncoder())
 		}
-		
-		
+
+
 		@Override
 		void configure(HttpSecurity http) throws Exception {
-//			http.antMatcher("/rest/**").authorizeRequests().anyRequest().authenticated()
-			
-			http.authorizeRequests().antMatchers("/join/**", "/findPassword/**").anonymous()
+			//			http.antMatcher("/rest/**").authorizeRequests().anyRequest().authenticated()
+
+			http.authorizeRequests().antMatchers("/join/**", "/findPassword/**", "/captcha/**").anonymous()
 			http.authorizeRequests().antMatchers("/rest/accounts/**").anonymous()
 			http.authorizeRequests().antMatchers("/rest/**").authenticated()
-//			http.authorizeRequests().antMatchers("/coniguration/directives/**").authenticated()
-//			http.authorizeRequests().regexMatchers(HttpMethod.HEAD, "/rest/accounts/*")
-//			http.authorizeRequests().regexMatchers(HttpMethod.POST, "/rest/accounts/*")
-			
+			//			http.authorizeRequests().antMatchers("/coniguration/directives/**").authenticated()
+			//			http.authorizeRequests().regexMatchers(HttpMethod.HEAD, "/rest/accounts/*")
+			//			http.authorizeRequests().regexMatchers(HttpMethod.POST, "/rest/accounts/*")
+
 			http.authorizeRequests().antMatchers("/").permitAll()
-			
-			
+
+
 			http.antMatcher("/**").authorizeRequests().anyRequest().denyAll()
 			http.formLogin().loginPage("/login").permitAll()
 
 			// 이메일 인증 관련 추가
 			http.authorizeRequests()
-				.antMatchers("/platform/users/**/email/confirm", "/rest/accounts/initPassword")
-				.permitAll()
+					.antMatchers("/platform/users/**/email/confirm", "/rest/accounts/initPassword")
+					.permitAll()
 
 			http.logout()
-				.logoutUrl("/logout")
-				.logoutSuccessUrl("/login")
-				
-//			http.rememberMe().tokenRepository(new InMemoryTokenRepositoryImpl())
+					.logoutUrl("/logout")
+					.logoutSuccessUrl("/login")
+
+			//			http.rememberMe().tokenRepository(new InMemoryTokenRepositoryImpl())
 			http.rememberMe().tokenRepository(persistentTokenRepository())
-			
+
 			WebExpressionVoter webExpressionVoter = new WebExpressionVoter()
 			AffirmativeBased accessDecisionManager = new AffirmativeBased(Arrays.asList(databaseRoleVoter, webExpressionVoter))
-			
+
 			http.authorizeRequests().accessDecisionManager(accessDecisionManager)
 		}
-		
-		
+
+
 		@Override
 		void configure(WebSecurity web) throws Exception {
 			web.ignoring()
 					.antMatchers(
-//					"/",
-//					"/join",
+					//					"/",
+					//					"/join",
 					"/webjars/**",
 					"/fonts/**",
 					"/configuration/partials/**",
 					"/configuration/directives/**",
 					"/settings/partials/**",
 					"/configuration/initWizard/**",
-					"/rest/configuration/initWizard/**");
+					"/rest/configuration/initWizard/**",
+					"/rest/captcha/check"
+					);
 		}
 	}
 }

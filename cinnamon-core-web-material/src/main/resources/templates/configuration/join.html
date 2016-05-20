@@ -11,9 +11,10 @@
 <link href="/css/cinnamon.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="/js/cinnamon.js"></script>
+<script type="text/javascript" src="/js/configuration/factory/factory.js"></script>
 <script type="text/javascript">
 angular.module('cinnamon')
-.controller('configuration.join', function($scope, $http, $interval, $state, $mdDialog, $mdToast) {
+.controller('configuration.join', function($scope, $http, $interval, $state, $mdDialog, $mdToast, message) {
 	console.log('configuration.users.create');
 	
 	$scope.create = function(form, $event) {
@@ -65,11 +66,28 @@ angular.module('cinnamon')
 		history.go(-1);
 	}
 	
+	$scope.captchCheck = function(form, $event) {
+		var param = angular.copy($scope.domain.answer);
+		
+		$http.get('/rest/captcha/check',{params: {answer : param} })
+			.success(function(result, status) {
+				$scope.create(form, $event);
+		}).error(function(data, status) {
+				message.alert("자동 입력 방지 문자를 정상적으로 입력해주세요")
+		})
+	}
+	
 });
+
+// 오디오 captcha 생성
+function loadAudio() {
+	document.getElementById("audioCaptcha").src = "/captcha/audio?bogus="+ new Date().getTime();
+}
+
 </script>
 <base href="/" />
 </head>
-<body layout:fragment="body" layout-gt-xs="row" layout-align-gt-xs="center start" class="content">
+<body layout:fragment="body" layout-gt-xs="row" layout-align-gt-xs="center start" class="content" onload="loadAudio()">
 
 	<md-content flex-xs="100" flex-sm="70" flex-md="50" flex="30" class="content" ng-controller="configuration.join">
 		
@@ -133,6 +151,26 @@ angular.module('cinnamon')
 								<div ng-show="domain.password != domain.password2">비밀번호가 일치하지 않습니다.</div>
 							</div>
 						</md-input-container>
+						
+						
+						<div layout="column">
+							<p>
+								<img src="/captcha" />
+							</p>
+							<p>
+								<audio controls="" id="audioCaptcha"></audio>
+							</p>
+						</div>
+						
+						<md-input-container class="md-block">
+							<label>
+								자동 입력 방지 문자
+							</label>
+							<input type="text" name="answer" ng-model="domain.answer" required="required" maxlength="5" />
+							<div ng-messages="form.answer.$dirty">
+								<div ng-message="required" ng-show="form.answer.$error.required">필수 입력 항목입니다.</div>
+							</div>
+						</md-input-container>
 					</form>
 
 				
@@ -140,7 +178,7 @@ angular.module('cinnamon')
 			</md-card-content>
 			<md-card-actions layout="row" layout-align="end">
 				<md-progress-circular md-mode="indeterminate" ng-show="isProcess"></md-progress-circular>
-				<md-button class="md-raised md-primary" ng-click="create(form, $event)" ng-disabled="isProcess">생성</md-button>
+				<md-button class="md-raised md-primary" ng-click="captchCheck(form, $event)" ng-disabled="isProcess">생성</md-button>
 				<md-button ng-click="goBack()">취소</md-button>
 			</md-card-actions>
 		</md-card>

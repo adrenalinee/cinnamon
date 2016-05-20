@@ -24,7 +24,11 @@ class AccountController extends BasePageController {
 	def join() {
 		logger.info("start")
 		"configuration/join"
+		
+		
 	}
+	
+	
 	
 	@RequestMapping(value="/findPassword")
 	def findPassword() {
