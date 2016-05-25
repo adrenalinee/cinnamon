@@ -201,12 +201,15 @@ public class UserBaseService<T extends UserBase> {
 		}
 		
 		if (!StringUtils.isEmpty(userBaseVo.getEmail())) {
-			T duplicateEmailUser = userRepository.findFirst1ByEmail(userBaseVo.getEmail());
-			//TODO 이메일 주소에 유니크키가 없어서 중복이 된 경우가 있다. 그래서 검색한 첫 사용자 하고만 비교한다.
-			//모든 사용자와 다 비교해야 확실하다.
-			if (duplicateEmailUser != null) {
-				if (!duplicateEmailUser.getUserId().equals(userBaseVo.getEmail())) {
-					throw new BadRequestException("이미 사용중인 이메일 입니다. userId: " + userId);
+			//TODO 기존 사용자가 자기 정보 수정시 이메일을 동일하게 입력할때 validation에 걸리게 됨. 따라서 기존 이메일과 같으면 넘어가도록 설정 
+			if(existUser.getEmail() == userBaseVo.getEmail()) {
+				T duplicateEmailUser = userRepository.findFirst1ByEmail(userBaseVo.getEmail());
+				//TODO 이메일 주소에 유니크키가 없어서 중복이 된 경우가 있다. 그래서 검색한 첫 사용자 하고만 비교한다.
+				//모든 사용자와 다 비교해야 확실하다.
+				if (duplicateEmailUser != null) {
+					if (!duplicateEmailUser.getUserId().equals(userBaseVo.getEmail())) {
+						throw new BadRequestException("이미 사용중인 이메일 입니다. userId: " + userId);
+					}
 				}
 			}
 		}

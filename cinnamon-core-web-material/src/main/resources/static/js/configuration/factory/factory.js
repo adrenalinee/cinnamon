@@ -30,22 +30,18 @@ angular.module('cinnamon')
 					.position('right top')
 					.hideDelay(3000)
 				)
-			}
-			/*
-			,confirm : function(message, fn) {
+			},
+			confirm : function(title, cotents, callback) {
 				var confirm = $mdDialog.confirm()
-				.title('삭제')
-				.textContent(message)
-				.ok('삭제')
-				.cancel('취소');
-				$mdDialog.show(confirm)
-					.then(  fn() 
-							, function() {
-					// 취소
-					
-					});
+				.title(title)
+				.textContent(cotents)
+				.ok('예')
+				.cancel('아니오');
+				$mdDialog.show(confirm).then(function() {
+					callback();
+				} ,function() {
+				})
 			}
-			*/
 	}
 })
 // 페이지 이동
@@ -60,6 +56,11 @@ angular.module('cinnamon')
 					$state.go(arg[0], arg[1]);
 				}
 			}, 150, 1);
+		},
+		location : function(url) {
+			$interval(function() {
+				location.href = url;
+			}, 150, 1)
 		}
 	}
 })

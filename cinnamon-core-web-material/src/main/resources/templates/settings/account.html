@@ -10,10 +10,39 @@
 <title>개인설정 - 계정</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<script type="text/javascript">
+<script th:inline="javascript">
 /*<![CDATA[*/
 angular.module('cinnamon')
 .config(function($stateProvider, $urlRouterProvider) {
+})
+.controller('accountController', function($http, $scope, groupService, message) {
+	
+	groupService.getGroups('nations', function(result){
+		$scope.nations = result;
+	});
+	
+	var userId = /*[[${me.userId}]]*/
+	
+	$scope.load = function() {
+		$http.get('/rest/configuration/users/' + userId)
+		.success(function(result) {
+			console.log(result);
+			$scope.domain = result;
+			if($scope.domain.nation == null) $scope.domain.nation = "KR";
+		})
+	}
+	
+	$scope.load();
+	
+	$scope.create = function(form, $event) {
+		var params = angular.copy($scope.domain);
+		
+		$http.put('/rest/configuration/users/' + userId, params)
+			.success(function(result) {
+				message.alert('수정되었습니다.');
+				$scope.load();
+			})
+	}
 });
 /*]]>*/
 </script>
@@ -21,7 +50,7 @@ angular.module('cinnamon')
 <base href="/" />
 </head>
 
-<body layout:fragment="content">
+<body layout:fragment="content" ng-controller="accountController">
 	<md-content class="content-container content">
 		<h3 layout-padding="" class="md-headline">
 			개인설정
@@ -32,14 +61,6 @@ angular.module('cinnamon')
 			<md-card>
 				
 				<md-card-content>
-					<!-- <md-input-container class="md-block">
-						<label>userId</label>
-						<input name="userId" ng-model="domain.userId" required="required" md-maxlength="20" maxlength="20" ng-minlength="6" />
-						<div ng-messages="form.userId.$error">
-							<div ng-message="required">필수 입력 항목입니다.</div>
-							<div ng-message="minlength">최소 6자리 이상 입력하시기 바랍니다.</div>
-						</div>
-					</md-input-container> -->
 					<md-input-container class="md-block">
 						<label>이름</label>
 						<input name="name" ng-model="domain.name" required="required" md-maxlength="50" maxlength="50" />
@@ -80,7 +101,7 @@ angular.module('cinnamon')
 					</md-input-container>
 				</md-card-content>
 				<md-card-actions layout-align="end" layout="row">
-					<md-button class="md-raised md-primary" type="sumbit">수정</md-button>
+					<md-button class="md-raised md-primary" type="sumbit" ng-disabled="!form.$valid">수정</md-button>
 				</md-card-actions>
 				
 			</md-card>
