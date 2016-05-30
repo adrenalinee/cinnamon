@@ -114,7 +114,6 @@
 			<artifactId>simplecaptcha</artifactId>
 			<version>1.2.1-mvn</version>
 		</dependency>
-		
 	</dependencies>
 
 
