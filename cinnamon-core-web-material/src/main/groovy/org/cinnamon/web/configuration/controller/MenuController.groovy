@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping
  */
 @Controller
 @RequestMapping("/configuration/menus")
-class MenuController {
+class MenuController extends BasePageController {
 	
 	@RequestMapping("**")
 	def main() {
