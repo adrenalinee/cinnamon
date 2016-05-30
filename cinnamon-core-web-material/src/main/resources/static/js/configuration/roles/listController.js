@@ -18,13 +18,4 @@ angular.module('cinnamon')
 		pageMove.go('create');
 	}
 	
-	// 초기 리스트 가져오기
-	$scope.load = function(params) {
-		$http.get('/rest/configuration/roles', {params : params})
-		.success(function(result) {
-			$scope.domains = result.data;
-		})
-	}
-	
-	$scope.load($scope.searchInfo);
 });
