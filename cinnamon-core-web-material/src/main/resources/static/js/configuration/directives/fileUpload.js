@@ -3,7 +3,8 @@ angular.module('cinnamon')
 	return {
 		restrict: 'E',
 		scope: {
-			fileModel: '='
+			fileModel: '=',
+			upload: '&'
 		},
 		templateUrl: '/configuration/directives/fileUpload',
 		controller: 'fileUploadontroller'
