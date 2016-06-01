@@ -29,11 +29,11 @@ angular.module('cinnamon')
 	
 	$scope.showDetailSearch = false;
 	
-	$scope.aa = function() {
-		$scope.current = {
-			page: 2
-		}
-	}
+//	$scope.aa = function() {
+//		$scope.current = {
+//			page: 2
+//		}
+//	}
 	
 	
 	$scope.onSearch = function(event) {
@@ -63,7 +63,7 @@ angular.module('cinnamon')
 	
 	$scope.onPageChange = function() {
 		console.log('onPageChange');
-		console.log($scope.current);
+//		console.log($scope.current);
 		
 		$scope.searchInfo.page = $scope.current.page;
 		$scope.search();
@@ -78,7 +78,21 @@ angular.module('cinnamon')
 	}
 	
 	$scope.clearSearch = function() {
-		$scope.init();
+		$scope.current = {};
+		if (angular.isDefined($scope.defaultSearchParams)) {
+			$scope.searchInfo = $scope.defaultSearchParams;
+		} else {
+			$scope.searchInfo = {};
+		}
+		
+		if (angular.isDefined($scope.defaultSorts)) {
+			$scope.searchInfo.sort = $scope.defaultSorts;
+			
+			var defaultSortInfo = $scope.defaultSorts.split(',');
+			
+			$scope.sort.key = defaultSortInfo[0];
+			$scope.sort.direction = defaultSortInfo[1];
+		}
 		
 		$scope.showDetailSearch = false;
 		$location.search({});
@@ -114,6 +128,10 @@ angular.module('cinnamon')
 		$scope.sort = {};
 		
 		var queryString = $location.search();
+		
+		console.log('queryString');
+		console.log(queryString);
+		
 		if (Object.keys(queryString).length <= 0) {
 			$scope.current = {};
 			if (angular.isDefined($scope.defaultSearchParams)) {
