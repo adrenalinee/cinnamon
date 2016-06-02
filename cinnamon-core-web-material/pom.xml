@@ -108,7 +108,11 @@
 			<artifactId>momentjs</artifactId>
 			<version>2.12.0</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>angular-moment</artifactId>
+			<version>0.10.3</version>
+		</dependency>
 		<dependency>
 			<groupId>nl.captcha</groupId>
 			<artifactId>simplecaptcha</artifactId>

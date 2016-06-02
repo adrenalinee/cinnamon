@@ -14,7 +14,9 @@ angular.module(
 		'ui.bootstrap.pagination',
 		'ui.bootstrap.pager', 
 		'ngFileUpload', 
-		'mdPickers' ])
+		'mdPickers',
+		'angularMoment'
+		])
 
 /*
  * .factory('defaultErrorInterceptor', function($q) { return { 'responseError':
