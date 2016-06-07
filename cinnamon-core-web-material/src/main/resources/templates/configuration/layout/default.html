@@ -7,6 +7,15 @@
 <head>
 <link href="/css/cinnamon.css" rel="stylesheet" type="text/css" />
 
+<script th:inline="javascript">
+/*<![CDATA[ */
+		var userInfo = {
+			userId : /*[[${me.userId}]]*/
+			,name : /*[[${me.name}]]*/
+		}
+/*]]> */
+</script>
+
 <script type="text/javascript" src="/js/cinnamon.js"></script>
 <script type="text/javascript" src="/js/configuration/factory/factory.js"></script>
 <script type="text/javascript" src="/js/configuration/layout/layout.js"></script>

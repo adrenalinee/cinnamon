@@ -96,4 +96,17 @@ angular.module(
 			// });
 			// $mdThemingProvider.theme('default')
 			// .primaryPalette('amazingPaletteName')
-		});
+		})
+		// 사용자 정보 세션
+		.service('session', ['$rootScope', function($rootScope) {
+			$rootScope.userInfo = userInfo;
+			
+			this.getSession = function() {
+				return $rootScope.userInfo;
+			}
+			this.reset = function() {
+				$rootScope.userInfo = {};
+			}
+		}])
+		;
+	
