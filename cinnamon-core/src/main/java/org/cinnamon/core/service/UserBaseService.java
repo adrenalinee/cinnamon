@@ -20,7 +20,6 @@ import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.UserBaseRepository;
 import org.cinnamon.core.repository.UserGroupRepository;
 import org.cinnamon.core.repository.UserPasswordRepository;
-import org.cinnamon.core.repository.predicate.UserBasePredicate;
 import org.cinnamon.core.service.userListener.AfterUserJoinListener;
 import org.cinnamon.core.vo.UserBaseVo;
 import org.cinnamon.core.vo.UserJoinVo;
@@ -78,6 +77,7 @@ public class UserBaseService<T extends UserBase> {
 	@Autowired
 	Mapper beanMapper;
 	
+	
 	List<AfterUserJoinListener<T>> afterUserJoinListeners = new LinkedList<AfterUserJoinListener<T>>();
 	
 	
@@ -101,7 +101,8 @@ public class UserBaseService<T extends UserBase> {
 	public Page<T> getList(UserBaseSearch userSearch, Pageable pageable) {
 		logger.info("start");
 		
-		return userRepository.findAll(UserBasePredicate.search(userSearch), pageable);
+//		return userRepository.findAll(UserBasePredicate.search(userSearch), pageable);
+		return userRepository.find(userSearch, pageable);
 	}
 	
 	

@@ -10,6 +10,8 @@ import org.cinnamon.core.domain.enumeration.MenuPosition;
  */
 public class MenuSearch {
 	
+	String keyword;
+	
 	Long menuId;
 	
 	String name;
@@ -78,6 +80,14 @@ public class MenuSearch {
 
 	public void setAuthority(String authority) {
 		this.authority = authority;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	
 	

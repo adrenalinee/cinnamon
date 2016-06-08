@@ -8,6 +8,8 @@ package org.cinnamon.core.vo.search;
  */
 public class EmailServerSearch {
 	
+	String keyword;
+	
 	Long emailServerId;
 	
 	String name;
@@ -36,6 +38,14 @@ public class EmailServerSearch {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	
 }

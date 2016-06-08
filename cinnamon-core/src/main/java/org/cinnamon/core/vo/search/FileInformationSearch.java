@@ -2,6 +2,8 @@ package org.cinnamon.core.vo.search;
 
 public class FileInformationSearch {
 	
+	String keyword;
+	
 	Long fileId;
 	
 	String name;
@@ -50,6 +52,14 @@ public class FileInformationSearch {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	
 }

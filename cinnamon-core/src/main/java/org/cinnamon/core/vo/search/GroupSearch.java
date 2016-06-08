@@ -7,6 +7,8 @@ package org.cinnamon.core.vo.search;
  */
 public class GroupSearch {
 	
+	String keyword;
+	
 	String name;
 	
 	String groupId;
@@ -37,6 +39,14 @@ public class GroupSearch {
 
 	public void setParent(String parent) {
 		this.parent = parent;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 //	public String getChild() {

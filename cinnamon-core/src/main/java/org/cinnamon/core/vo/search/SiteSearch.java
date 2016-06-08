@@ -8,6 +8,8 @@ package org.cinnamon.core.vo.search;
  */
 public class SiteSearch {
 	
+	String keyword;
+	
 	String siteId;
 	
 	String name;
@@ -36,6 +38,14 @@ public class SiteSearch {
 
 	public void setMenuGroupId(Long menuGroupId) {
 		this.menuGroupId = menuGroupId;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	
 }

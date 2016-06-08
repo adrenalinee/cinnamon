@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import org.apache.commons.lang3.StringUtils;
 import org.cinnamon.core.domain.QUserBase;
 import org.cinnamon.core.domain.QUserGroup;
+import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.vo.search.UserGroupSearch;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import com.mysema.query.jpa.JPQLQuery;
  * @author 동성
  * @since 2015. 2. 5.
  */
-public class UserGroupRepositoryImpl extends QueryDslRepositorySupport implements UserGroupRepositoryCustom {
+public class UserGroupRepositoryImpl extends QueryDslRepositorySupport implements UserGroupRepositoryCustom<UserBase> {
 	
 	@Autowired
 	EntityManager em;

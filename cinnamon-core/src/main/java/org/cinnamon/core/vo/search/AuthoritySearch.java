@@ -7,6 +7,9 @@ package org.cinnamon.core.vo.search;
  *
  */
 public class AuthoritySearch {
+	
+	String keyword;
+	
 	String name;
 	
 	String autority;
@@ -35,6 +38,14 @@ public class AuthoritySearch {
 
 	public void setUseStatus(String useStatus) {
 		this.useStatus = useStatus;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	
 }
