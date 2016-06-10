@@ -83,14 +83,8 @@ angular.module('cinnamon')
 				$scope.domain.site = site;
 			});
 			
-//			$scope.sitesOfMenuGroup();
 		});
 		
-//		$scope.$watch(function() {
-//			return $mdMedia('xs') || $mdMedia('sm');
-//		}, function(wantsFullScreen) {
-//			$scope.customFullscreen = (wantsFullScreen === true);
-//		});
 	}
 	
 	// 메뉴 작성

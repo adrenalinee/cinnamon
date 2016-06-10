@@ -7,14 +7,14 @@ angular.module('cinnamon')
 		getGroupMap : function(groupId, callback) {
 			$http.get('/rest/configuration/groups/' + groupId + '/childsMap')
 				.success(function(result) {
-					console.log(result);
+					//console.log(result);
 					callback(result);
 				})
 		},
 		getGroups : function(groupId, callback) {
 			$http.get('/rest/configuration/groups/' + groupId + '/childs')
 			.success(function(result) {
-				console.log(result);
+				//console.log(result);
 				callback(result);
 			})
 		}
@@ -33,6 +33,7 @@ angular.module('cinnamon')
 			},
 			confirm : function(title, cotents, callback) {
 				var confirm = $mdDialog.confirm()
+				//.parent(target)
 				.title(title)
 				.textContent(cotents)
 				.ok('예')

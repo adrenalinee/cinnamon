@@ -18,7 +18,7 @@ angular.module('cinnamon')
 		templateUrl: '/configuration/directives/searchList',
 		controller: 'searchListController'
 	}
-}).controller('searchListController', function($scope, $http, $location, $mdMedia) {
+}).controller('searchListController', function($scope, $http, $location, $mdMedia, $log) {
 	console.log('searchListController');
 	
 	if (angular.isDefined($scope.isPaging)) {
@@ -28,13 +28,6 @@ angular.module('cinnamon')
 	}
 	
 	$scope.showDetailSearch = false;
-	
-//	$scope.aa = function() {
-//		$scope.current = {
-//			page: 2
-//		}
-//	}
-	
 	
 	$scope.onSearch = function(event) {
 		if (event.keyCode == 13) {
@@ -48,13 +41,10 @@ angular.module('cinnamon')
 		if (params.page != undefined) {
 			params.page--;
 		}
-		
-		console.log('get');
+		$log.info(params);
 		$scope.showProgress = true;
 		$http.get($scope.resourceUrl, {params: params})
 		.success(function(data) {
-			console.log(data);
-			
 			$scope.domains = data;
 		}).finally(function() {
 			$scope.showProgress = false;
@@ -62,17 +52,12 @@ angular.module('cinnamon')
 	}
 	
 	$scope.onPageChange = function() {
-		console.log('onPageChange');
-//		console.log($scope.current);
 		
 		$scope.searchInfo.page = $scope.current.page;
 		$scope.search();
 	}
 	
 	$scope.search = function() {
-		console.info('search');
-		console.log($scope.searchInfo);
-		
 		$location.search($scope.searchInfo);
 		$scope.load();
 	}
@@ -121,16 +106,11 @@ angular.module('cinnamon')
 		$scope.search();
 	}
 	
-//	console.log($scope.current);
 	
 	$scope.init = function() {
-		console.log('init');
 		$scope.sort = {};
 		
 		var queryString = $location.search();
-		
-		console.log('queryString');
-		console.log(queryString);
 		
 		if (Object.keys(queryString).length <= 0) {
 			$scope.current = {};
@@ -161,14 +141,7 @@ angular.module('cinnamon')
 				$scope.current = {
 					page: Number($scope.searchInfo.page)
 				};
-				console.log($scope.current);
 			}
-			
-//			if ($scope.searchInfo.page != undefined) {
-//				$scope.current = {
-//					page :$scope.searchInfo.page
-//				};
-//			}
 		}
 	}
 	

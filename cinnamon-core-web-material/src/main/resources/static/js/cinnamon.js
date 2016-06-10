@@ -29,6 +29,12 @@ angular.module(
  * return $q.reject(rejection); } }; })
  */.config(
 		function($locationProvider, $httpProvider, $mdThemingProvider) {
+			/*
+			$mdThemingProvider
+				.theme('default')
+				.primaryPalette('pink')
+				.accentPalette('orange');
+			*/
 			var token;
 			var header;
 
@@ -108,5 +114,10 @@ angular.module(
 				$rootScope.userInfo = {};
 			}
 		}])
+		.filter('newlines', function() {
+			return function(text) {
+				return text.replace(/\n/g, '<br />');
+			}
+		})
 		;
 	

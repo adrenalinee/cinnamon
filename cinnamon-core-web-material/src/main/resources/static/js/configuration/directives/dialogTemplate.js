@@ -14,8 +14,6 @@ angular.module('cinnamon')
 }).controller('dialogTemplateController', function($scope, $http, $mdDialog, $mdMedia) {
 	console.log('dialogTemplateController');
 	
-	
-	
 	$scope.close = function() {
 		$mdDialog.hide();
 	}

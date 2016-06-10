@@ -86,17 +86,11 @@ angular.module('cinnamon')
 							});
 					}
 					
-//					$scope.$watch(function() {
-//						return $mdMedia('xs') || $mdMedia('sm');
-//					}, function(wantsFullScreen) {
-//						$scope.customFullscreen = (wantsFullScreen === true);
-//					});
 			}
 		}).then(function(menuGroup) {
 			if (menuGroup != null) {
 				$scope.domain.defaultMenuGroup = menuGroup;
 			}
-//			$scope.load();
 		});
 	}
 	
