@@ -10,25 +10,23 @@
 <title>개인설정 - 계정</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-<script th:inline="javascript">
+<script type="text/javascript" src="/js/configuration/directives/dialogTemplate.js"></script>
+
+<script type="text/javascript">
 /*<![CDATA[*/
 angular.module('cinnamon')
 .config(function($stateProvider, $urlRouterProvider) {
-})
-.controller('accountController', function($http, $scope, groupService, message) {
 	
+}).controller('settings.accountController', function($http, $scope, $mdDialog, $mdMedia, groupService, message) {
 	groupService.getGroups('nations', function(result){
 		$scope.nations = result;
 	});
 	
-	var userId = /*[[${me.userId}]]*/
-	
 	$scope.load = function() {
-		$http.get('/rest/configuration/users/' + userId)
+		$http.get('/rest/settings/account/me')
 		.success(function(result) {
 			console.log(result);
 			$scope.domain = result;
-			if($scope.domain.nation == null) $scope.domain.nation = "KR";
 		})
 	}
 	
@@ -37,11 +35,40 @@ angular.module('cinnamon')
 	$scope.create = function(form, $event) {
 		var params = angular.copy($scope.domain);
 		
-		$http.put('/rest/configuration/users/' + userId, params)
+		$http.put('/rest/settings/account/update', params)
 			.success(function(result) {
 				message.alert('수정되었습니다.');
 				$scope.load();
-			})
+			});
+	}
+	
+	$scope.changePassword = function($event) {
+		console.log('changePassword');
+		
+		var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+		$mdDialog.show({
+			targetEvent: $event,
+			fullscreen: useFullScreen,
+			templateUrl: '/settings/partials/account/changePassword',
+			controller: function($scope, $http, $mdDialog, $mdToast) {
+				$scope.change = function(form, $event, domain) {
+					console.log('change');
+					if (form.$valid == false) {
+						message.alert('입력값을 확인하시기 바랍니다.');
+						return;
+					}
+					
+					$http.put('/rest/settings/password/change', domain)
+					.success(function(data) {
+						$scope.domain = {};
+						message.alert('변경되었습니다.');
+						$mdDialog.hide();
+					}).error(function() {
+						
+					});
+				}
+			}
+		});
 	}
 });
 /*]]>*/
@@ -50,8 +77,8 @@ angular.module('cinnamon')
 <base href="/" />
 </head>
 
-<body layout:fragment="content" ng-controller="accountController">
-	<md-content class="content-container content">
+<body layout:fragment="content">
+	<md-content class="content-container content" ng-controller="settings.accountController">
 		<h3 layout-padding="" class="md-headline">
 			개인설정
 			<span class="md-subhead text-muted">계정</span>
@@ -101,6 +128,7 @@ angular.module('cinnamon')
 					</md-input-container>
 				</md-card-content>
 				<md-card-actions layout-align="end" layout="row">
+					<md-button class="md-raised md-accent" ng-click="changePassword($event)">비밀번호 변경</md-button>
 					<md-button class="md-raised md-primary" type="sumbit" ng-disabled="!form.$valid">수정</md-button>
 				</md-card-actions>
 				

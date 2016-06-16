@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 
-@RestController("cinnamon.sessionRestController")
-@RequestMapping("/rest/cinnamon/session")
+//@RestController("cinnamon.sessionRestController")
+//@RequestMapping("/rest/cinnamon/session")
 class SessionRestController {
 	Logger logger = LoggerFactory.getLogger(getClass())
 	

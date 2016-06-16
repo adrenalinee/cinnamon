@@ -23,7 +23,7 @@
 			ng-if="onAction != null"
 			class="md-raised md-primary"
 			ng-disabled="isProcess"
-			ng-click="onAction({target: $event})">{{actionName}}</md-button>
+			ng-click="onAction()">{{actionName}}</md-button>
 		<md-button ng-click="close()">취소</md-button>
 	</md-dialog-actions>
 	

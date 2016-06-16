@@ -9,20 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping
  * @since 2016. 2. 14.
  */
 @Controller
-@RequestMapping("/settings")
 class SettingController {
 	
-	@RequestMapping("**")
+	@RequestMapping("/settings")
 	def settings() {
 		"redirect:/settings/account"
 	}
 	
-	@RequestMapping(value="/configuration/partials/**")
+	@RequestMapping(value="/settings/partials/**")
 	void partials() {
 		
 	}
 	
-	@RequestMapping(value="/configuration/directives/**")
+	@RequestMapping(value="/settings/directives/**")
 	void directives() {
 		
 	}

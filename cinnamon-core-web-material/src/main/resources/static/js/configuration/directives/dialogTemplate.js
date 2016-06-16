@@ -6,7 +6,8 @@ angular.module('cinnamon')
 		scope: {
 			toolbarTitle: '=',
 			actionName: '=?',
-			onAction: '&?'
+			onAction: '&?',
+			form: '@'
 		},
 		templateUrl: '/configuration/directives/dialogTemplate',
 		controller: 'dialogTemplateController'
@@ -14,11 +15,21 @@ angular.module('cinnamon')
 }).controller('dialogTemplateController', function($scope, $http, $mdDialog, $mdMedia) {
 	console.log('dialogTemplateController');
 	
+	console.log($scope.form);
+	
+	
 	$scope.close = function() {
 		$mdDialog.hide();
 	}
 	
 	$scope.isMobile = function() {
 		return $mdMedia('xs');
+	}
+	
+	$scope.action = function(params) {
+		console.log('action');
+		console.log(params);
+		
+		$scope.onAction();
 	}
 });

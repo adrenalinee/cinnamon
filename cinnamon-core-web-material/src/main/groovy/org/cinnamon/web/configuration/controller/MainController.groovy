@@ -50,7 +50,7 @@ class MainController {
 		}
 		
 		if (defaultPage == null) {
-			defaultPage = sessionService.getFirstPage();
+			defaultPage = sessionService.getDefaultFirstPage();
 		}
 		
 		if (StringUtils.isEmpty(defaultPage)) {

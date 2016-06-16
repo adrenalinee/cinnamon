@@ -35,8 +35,12 @@ public class SessionService {
 	@Autowired
 	UserAuthorityRepository permissionRepository;
 	
+	/**
+	 * 기본 첫 페이지 경로를 전달한다.
+	 * @return
+	 */
 	@Transactional
-	public String getFirstPage() {
+	public String getDefaultFirstPage() {
 		logger.info("start");
 		Site site = siteService.getDefault();
 		
