@@ -1,5 +1,6 @@
 package org.cinnamon.core.vo;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -12,6 +13,7 @@ public class UserBaseVo {
 	@NotEmpty
 	String name;
 	
+	@Email
 	String email;
 	
 	String location;

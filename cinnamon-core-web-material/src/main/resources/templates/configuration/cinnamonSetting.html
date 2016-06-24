@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/default">
+
+<head>
+<title>시나몬 설정</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script type="text/javascript" src="/js/configuration/directives/searchList.js"></script>
+<script type="text/javascript" src="/js/configuration/directives/dialogTemplate.js"></script>
+
+<script type="text/javascript" src="/js/configuration/cinnamonSetting/viewController.js"></script>
+<script type="text/javascript" src="/js/configuration/cinnamonSetting/listController.js"></script>
+<script type="text/javascript" src="/js/configuration/cinnamonSetting/createController.js"></script>
+<script type="text/javascript" src="/js/configuration/cinnamonSetting/modifyController.js"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+angular.module('cinnamon')
+.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider.state('list', {
+		url: '/configuration/users',
+		templateUrl: '/configuration/partials/cinnamonSetting/list',
+		controller: 'configuration.cinnamonSetting.list'
+	}).state('create', {
+		url: '/configuration/cinnamonSetting/create',
+		templateUrl: '/configuration/partials/cinnamonSetting/create',
+		controller: 'configuration.cinnamonSetting.create'
+	}).state('view', {
+		url: '/configuration/cinnamonSetting/:userId',
+		templateUrl: '/configuration/partials/cinnamonSetting/view',
+		controller: 'configuration.cinnamonSetting.view'
+	}).state('modify', {
+		url: '/configuration/cinnamonSetting/:userId/modify',
+		templateUrl: '/configuration/partials/cinnamonSetting/modify',
+		controller: 'configuration.cinnamonSetting.modify'
+	});
+	
+});
+/*]]>*/
+</script>
+
+<base href="/" />
+</head>
+
+<body layout:fragment="content">
+	<ui-view layout-fill=""/>
+</body>
+</html>

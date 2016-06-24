@@ -13,6 +13,9 @@ import org.cinnamon.core.domain.enumeration.UseStatus;
 import org.cinnamon.core.enumeration.DefinedUserActivity;
 import org.cinnamon.core.enumeration.DefinedUserAuthority;
 import org.cinnamon.core.exception.BadRequestException;
+import org.cinnamon.core.exception.DuplateEmailException;
+import org.cinnamon.core.exception.DuplateUserIdException;
+import org.cinnamon.core.exception.InternalServerErrorException;
 import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.GroupRepository;
 import org.cinnamon.core.repository.PropertyRepository;
@@ -317,13 +320,13 @@ public class UserBaseService<T extends UserBase> {
 		final String userId = userVo.getUserId();
 		T existUser = userRepository.findOne(userId);
 		if (existUser != null) {
-			throw new BadRequestException("이미 사용중인 아이디 입니다. userId: " + userVo.getUserId());
+			throw new DuplateUserIdException("이미 사용중인 아이디 입니다. userId: " + userVo.getUserId());
 		}
 		
 		if (!StringUtils.isEmpty(userVo.getEmail())) {
 			T duplicateEmailUser = userRepository.findFirst1ByEmail(userVo.getEmail());
 			if (duplicateEmailUser != null) {
-				throw new BadRequestException("이미 사용중인 이메일 입니다. userId: " + userId);
+				throw new DuplateEmailException("이미 사용중인 이메일 입니다. email: " + userVo.getEmail());
 			}
 		}
 		
@@ -331,7 +334,7 @@ public class UserBaseService<T extends UserBase> {
 		Permission permission = permissionRepository.findByAuthority(DefinedUserAuthority.user.name());
 		UserGroup userGroup = permission.getDefaultUserGroup();
 		if (userGroup == null) {
-			new RuntimeException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");
+			new InternalServerErrorException("systemMaster권한의 defaultUserGroup 이 존재하지 않습니다.");
 		}
 		
 		

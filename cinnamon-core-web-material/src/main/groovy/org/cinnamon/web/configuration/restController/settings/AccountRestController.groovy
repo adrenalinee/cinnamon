@@ -37,8 +37,10 @@ class AccountRestController {
 	
 	
 	@RequestMapping(value="/update", method=RequestMethod.PUT)
-	def putMe(@PathVariable String userId, @RequestBody UserBaseVo userVo) {
+	def putMe(@AuthenticationPrincipal UserDetails userDetails, @RequestBody UserBaseVo userVo) {
 		logger.info("start")
+		
+		String userId = userDetails.getUsername()
 		
 		userService.save(userId, userVo)
 	}

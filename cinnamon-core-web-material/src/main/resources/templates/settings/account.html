@@ -51,6 +51,14 @@ angular.module('cinnamon')
 			fullscreen: useFullScreen,
 			templateUrl: '/settings/partials/account/changePassword',
 			controller: function($scope, $http, $mdDialog, $mdToast) {
+				$scope.close = function() {
+					$mdDialog.hide();
+				}
+				
+				$scope.isMobile = function() {
+					return $mdMedia('xs');
+				}
+				
 				$scope.change = function(form, $event, domain) {
 					console.log('change');
 					if (form.$valid == false) {
@@ -128,7 +136,7 @@ angular.module('cinnamon')
 					</md-input-container>
 				</md-card-content>
 				<md-card-actions layout-align="end" layout="row">
-					<md-button class="md-raised md-accent" ng-click="changePassword($event)">비밀번호 변경</md-button>
+					<!-- <md-button class="md-raised md-accent" ng-click="changePassword($event)">비밀번호 변경</md-button> -->
 					<md-button class="md-raised md-primary" type="sumbit" ng-disabled="!form.$valid">수정</md-button>
 				</md-card-actions>
 				

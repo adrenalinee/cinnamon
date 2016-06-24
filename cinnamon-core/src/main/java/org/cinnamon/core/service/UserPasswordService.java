@@ -3,6 +3,7 @@ package org.cinnamon.core.service;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserPassword;
 import org.cinnamon.core.exception.BadRequestException;
+import org.cinnamon.core.exception.IncorrectPasswordException;
 import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.UserBaseRepository;
 import org.cinnamon.core.repository.UserPasswordRepository;
@@ -77,7 +78,7 @@ public class UserPasswordService<T extends UserBase> {
 		UserPassword userPassword = user.getUserPassword();
 		BCryptPasswordEncoder e = new BCryptPasswordEncoder();
 		if (!e.matches(userPasswordVo.getCurrentPassword(), userPassword.getPassword())) {
-			throw new BadRequestException("현재 비밀번호가 잘못되었습니다. userId: " + userId);
+			throw new IncorrectPasswordException("현재 비밀번호가 잘못되었습니다. userId: " + userId);
 		}
 		
 		if (!userPasswordVo.getNewPassword().equals(userPasswordVo.getNewPasswordConfirm())) {

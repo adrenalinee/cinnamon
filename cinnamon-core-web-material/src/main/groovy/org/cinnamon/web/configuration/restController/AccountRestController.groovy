@@ -3,6 +3,8 @@ package org.cinnamon.web.configuration.restController
 import javax.validation.Valid
 
 import org.cinnamon.core.domain.UserBase
+import org.cinnamon.core.exception.DuplateEmailException
+import org.cinnamon.core.exception.DuplateUserIdException
 import org.cinnamon.core.service.UserBaseService
 import org.cinnamon.core.vo.UserJoinVo
 import org.slf4j.Logger
@@ -60,7 +62,18 @@ class AccountRestController {
 	def postUsers(@RequestBody @Valid UserJoinVo userVo, UriComponentsBuilder builder) {
 		logger.info("start")
 		
-		UserBase user = userService.join(null, userVo)
+		UserBase user = null
+		try {
+			user = userService.join(null, userVo)
+		} catch (DuplateUserIdException e) {
+			return ResponseEntity.badRequest().body([
+				"cause": "duplicateUserId"
+			])
+		} catch (DuplateEmailException e) {
+			return ResponseEntity.badRequest().body([
+				"cause": "duplicateEmail"
+			])
+		}
 		
 		URI location = MvcUriComponentsBuilder
 			.fromMethodName(

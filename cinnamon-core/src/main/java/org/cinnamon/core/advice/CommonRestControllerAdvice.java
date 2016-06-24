@@ -164,7 +164,6 @@ public class CommonRestControllerAdvice {
 		
 		ResponseEntity<InvalidParameterInfo> response = new ResponseEntity<InvalidParameterInfo>(invalidParameterInfo, HttpStatus.BAD_REQUEST);
 		return response;
-		
 	}
 	
 	

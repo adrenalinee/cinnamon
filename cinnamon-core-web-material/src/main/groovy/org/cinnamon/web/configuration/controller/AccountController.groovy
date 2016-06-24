@@ -24,8 +24,7 @@ class AccountController extends BasePageController {
 	def join() {
 		logger.info("start")
 		"configuration/join"
-		
-		
+//		"join"
 	}
 	
 	

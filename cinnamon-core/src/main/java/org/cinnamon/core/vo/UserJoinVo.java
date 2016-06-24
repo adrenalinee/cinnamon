@@ -1,5 +1,6 @@
 package org.cinnamon.core.vo;
 
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -14,10 +15,12 @@ public class UserJoinVo {
 	
 	@NotEmpty
 	@Size(min=6, max=20)
+	@Pattern(regexp="^[a-z0-9]*$")
 	String userId;
 	
 	@NotEmpty
 	@Size(max=100)
+	@Pattern(regexp="^[a-zA-Z0-9가-힣\\s]*$")
 	String name;
 	
 	@Email
@@ -26,6 +29,7 @@ public class UserJoinVo {
 	
 	@NotEmpty
 	@Size(min=6, max=30)
+	@Pattern(regexp="^[a-zA-Z0-9`~!@#$%^&*()-=_+\\[\\]{}:;',./<>?\\\\|]*$")
 	String password;
 	
 	@NotEmpty

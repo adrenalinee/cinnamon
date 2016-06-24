@@ -1,0 +1,38 @@
+<form name="form" novalidate="novalidate" ng-submit="change(form, $event)">
+	<md-card>
+		<md-card-title>
+			<md-card-title-text>
+				<span class="md-title">비밀번호 변경</span>
+			</md-card-title-text>
+		</md-card-title>
+		<md-card-content>
+			<md-input-container class="md-block">
+				<label>현재 비밀번호</label>
+				<input type="password" name="currentPassword" ng-model="domain.currentPassword" required="required" md-maxlength="50" maxlength="50" />
+				<div ng-messages="form.currentPassword.$error">
+					<div ng-message="required">필수 입력 항목입니다.</div>
+				</div>
+			</md-input-container>
+			<md-input-container class="md-block">
+				<label>새 비밀번호</label>
+				<input type="password" name="newPassword" ng-model="domain.newPassword" required="required" md-maxlength="50" maxlength="50" />
+				<div ng-messages="form.newPassword.$error">
+					<div ng-message="required">필수 입력 항목입니다.</div>
+				</div>
+			</md-input-container>
+			<md-input-container class="md-block">
+				<label>새 비밀번호 확인</label>
+				<input type="password" name="newPasswordConfirm" ng-model="domain.newPasswordConfirm" required="required" md-maxlength="50" maxlength="50" />
+				<div ng-messages="form.newPasswordConfirm.$error">
+					<div ng-message="required">필수 입력 항목입니다.</div>
+				</div>
+			</md-input-container>
+		</md-card-content>
+		<md-card-actions layout-align="end" layout="row">
+			<md-progress-circular md-mode="indeterminate" ng-show="isProcess"></md-progress-circular>
+			<md-button class="md-raised md-primary" type="submit" ng-disabled="isProcess">변경</md-button>
+			<!-- <md-button ng-click="">비밀번호를 분실했습니다.</md-button> -->
+		</md-card-actions>
+		
+	</md-card>
+</form>

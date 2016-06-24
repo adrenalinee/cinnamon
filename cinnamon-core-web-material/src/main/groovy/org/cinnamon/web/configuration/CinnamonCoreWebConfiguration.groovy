@@ -136,14 +136,9 @@ class CinnamonCoreWebConfiguration {
 
 		@Override
 		void configure(HttpSecurity http) throws Exception {
-			//			http.antMatcher("/rest/**").authorizeRequests().anyRequest().authenticated()
-
-			http.authorizeRequests().antMatchers("/join/**", "/findPassword/**", "/captcha/**").anonymous()
+			http.authorizeRequests().antMatchers("/join/**", "/findPassword/**"/*, "/captcha/**"*/).anonymous()
 			http.authorizeRequests().antMatchers("/rest/accounts/**").anonymous()
 			http.authorizeRequests().antMatchers("/rest/**").authenticated()
-			//			http.authorizeRequests().antMatchers("/coniguration/directives/**").authenticated()
-			//			http.authorizeRequests().regexMatchers(HttpMethod.HEAD, "/rest/accounts/*")
-			//			http.authorizeRequests().regexMatchers(HttpMethod.POST, "/rest/accounts/*")
 
 			http.authorizeRequests().antMatchers("/").permitAll()
 
@@ -183,7 +178,7 @@ class CinnamonCoreWebConfiguration {
 					"/settings/partials/**",
 					"/configuration/initWizard/**",
 					"/rest/configuration/initWizard/**",
-					"/rest/captcha/check"
+//					"/rest/captcha/check"
 					);
 		}
 	}

@@ -137,7 +137,10 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 						.iconClass("view_list"),
 					menu("첨부파일")
 						.uri("/configuration/files")
-						.iconClass("attachment")
+						.iconClass("attachment"),
+					menu("Cinnamon 설정")
+						.uri("/configuration/cinnamon")
+						.iconClass("traffic")
 				).addMenusAtHeaderRight(
 					menu("설정")
 						.iconClass("more_vert")
