@@ -45,6 +45,7 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 		addSites(baseData);
 	}
 	
+	
 	private void addGroups(BaseDataBuilder baseData) {
 		baseData.addGroups(
 			group("사용 상태", DefinedGroups.useStatus).addChildGroup(

@@ -25,19 +25,11 @@ import org.cinnamon.core.enumeration.DefinedUserAuthority;
  * created date: 2015. 9. 14.
  * @author 신동성
  */
-//@Component
 public class BaseDataBuilder {
 	
-//	@Autowired
 	EntityManager em;
 	
-//	@Autowired
-//	UserAuthorityRepository userAuthorityRepository;
-	
-//	static List<SiteWrapper> siteWrappers = new LinkedList<>();
-	
 	static Map<String, SiteWrapper> siteWrappers = new LinkedHashMap<>();
-	
 	
 	static List<RoleWrapper> roleWrappers = new LinkedList<>();
 	
@@ -51,10 +43,7 @@ public class BaseDataBuilder {
 	
 	
 	public BaseDataBuilder addSite(SiteWrapper siteWrapper) {
-//		siteWrappers.add(siteWrapper);
-		
 		siteWrappers.put(siteWrapper.site.getSiteId(), siteWrapper);
-		
 		return this;
 	}
 	

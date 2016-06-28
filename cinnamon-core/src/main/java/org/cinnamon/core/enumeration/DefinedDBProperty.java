@@ -22,6 +22,7 @@ public enum DefinedDBProperty {
 	 */
 	initialize_complate,
 	
+	
 	/**
 	 * 사이트 공개 범위
 	 */
@@ -56,5 +57,5 @@ public enum DefinedDBProperty {
 	/**
 	 * 특별한 설정이 없을시 열릴 기본 사이트 
 	 */
-	defaultSiteId,
+	defaultSiteId
 }
