@@ -12,15 +12,15 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
  */
 public interface SiteRepository extends JpaRepository<Site, String>, QueryDslPredicateExecutor<Site>, SiteRepositoryCustom {
 	
-	/**
-	 * 기본 메뉴 그룹 삭제 부분 추가
-	 * @author 정명성
-	 * create date : 2016. 3. 17.
-	 * @param siteId
-	 * @param defaultMenuGroupId
-	 * @return
-	 */
-	Site findBySiteIdAndDefaultMenuGroupMenuGroupId(String siteId, Long defaultMenuGroupId);
+//	/**
+//	 * 기본 메뉴 그룹 삭제 부분 추가
+//	 * @author 정명성
+//	 * create date : 2016. 3. 17.
+//	 * @param siteId
+//	 * @param defaultMenuGroupId
+//	 * @return
+//	 */
+//	Site findBySiteIdAndDefaultMenuGroupMenuGroupId(String siteId, Long defaultMenuGroupId);
 	
 	/**
 	 * 메뉴 그룹 별 사이트 가져오기

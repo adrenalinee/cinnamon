@@ -45,7 +45,7 @@
 						기본 메뉴
 					</th>
 					<td>
-						{{domain.defaultMenu.name}}
+						<a ng-href="/configuration/menus/{{domain.defaultMenu.menuId}}" target="_self">{{domain.defaultMenu.name}}</a>
 						<md-button class="md-raised md-primary" ng-click="selectDefaultMenu($event)">기본메뉴 선택</md-button>
 					</td>
 				</tr>

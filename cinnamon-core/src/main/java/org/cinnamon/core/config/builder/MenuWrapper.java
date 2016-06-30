@@ -21,11 +21,8 @@ public class MenuWrapper {
 	
 	List<String> grantedAuthorities = new LinkedList<>();
 	
-//	MenuWrapper(String name, MenuPosition position) {
-//		menu = new Menu();
-//		menu.setName(name);
-//		menu.setPosition(position);
-//	}
+	List<String> defultMenuForAuthorities = new LinkedList<>();
+	
 	
 	MenuWrapper(String name) {
 		menu = new Menu();
@@ -52,10 +49,29 @@ public class MenuWrapper {
 		return this;
 	}
 	
-	public MenuWrapper addGrantedAuthorities(Object... authorities) {
-		Arrays.asList(authorities).forEach(authority -> {
-			grantedAuthorities.add(authority.toString());
-		});
+	/**
+	 * 해당 메뉴에 접근허용할 권한 지정
+	 * @param authority
+	 * @return
+	 */
+	public MenuWrapper addGrantedAuthority(Object authority) {
+		grantedAuthorities.add(authority.toString());
+		return this;
+	}
+	
+	/**
+	 * 해당 메뉴에 접근허용할 권한 지정
+	 * 기본 메뉴와 같이 지정
+	 * @param authority
+	 * @param isDefault
+	 * @return
+	 */
+	public MenuWrapper addGrantedAuthority(Object authority, boolean isDefault) {
+		grantedAuthorities.add(authority.toString());
+		if (isDefault) {
+			defultMenuForAuthorities.add(authority.toString());
+		}
+		
 		return this;
 	}
 	

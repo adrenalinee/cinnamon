@@ -18,7 +18,7 @@ class EmailServerController extends BasePageController {
 	
 	@RequestMapping(value="**")
 	def index() {
-		logger.info("start");
+		logger.info("start")
 		"configuration/email/servers"
 	}
 }

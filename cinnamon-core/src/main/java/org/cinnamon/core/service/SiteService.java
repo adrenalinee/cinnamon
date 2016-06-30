@@ -1,6 +1,5 @@
 package org.cinnamon.core.service;
 
-import org.cinnamon.core.domain.MenuGroup;
 import org.cinnamon.core.domain.Property;
 import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.enumeration.DefinedDBProperty;
@@ -82,17 +81,17 @@ public class SiteService {
 	 * @param siteId
 	 * @return
 	 */
-	@Transactional(readOnly=true)
-	public MenuGroup getDefaultMenuGroup(String siteId) {
-		logger.info("start");
-		
-		Site site = siteRepository.findOne(siteId);
-		if(site == null) {
-			throw new NotFoundException("존재하지 않는 사이트 입니다. siteId : " + siteId);
-		}
-		
-		return site.getDefaultMenuGroup();
-	}
+//	@Transactional(readOnly=true)
+//	public MenuGroup getDefaultMenuGroup(String siteId) {
+//		logger.info("start");
+//		
+//		Site site = siteRepository.findOne(siteId);
+//		if(site == null) {
+//			throw new NotFoundException("존재하지 않는 사이트 입니다. siteId : " + siteId);
+//		}
+//		
+//		return site.getDefaultMenuGroup();
+//	}
 	
 	
 	/**
@@ -102,22 +101,22 @@ public class SiteService {
 	 * @param siteId
 	 * @param menuGroupVo
 	 */
-	@Transactional
-	public void setDefaultMenuGroup(String siteId, Long menuGroupId) {
-		logger.info("start");
-		
-		Site site = siteRepository.findOne(siteId);
-		if(site == null) {
-			throw new NotFoundException("존재하지 않는 사이트 입니다. siteId : " + siteId);
-		}
-		
-		MenuGroup menuGroup = menuGroupRepository.findByMenuGroupIdAndSiteSiteId(menuGroupId, siteId);
-		if(menuGroup == null) {
-			throw new NotFoundException("존재하지 않는 메뉴 그룹입니다. menuGroupId : " + menuGroupId);
-		}
-		
-		site.setDefaultMenuGroup(menuGroup);
-	}
+//	@Transactional
+//	public void setDefaultMenuGroup(String siteId, Long menuGroupId) {
+//		logger.info("start");
+//		
+//		Site site = siteRepository.findOne(siteId);
+//		if(site == null) {
+//			throw new NotFoundException("존재하지 않는 사이트 입니다. siteId : " + siteId);
+//		}
+//		
+//		MenuGroup menuGroup = menuGroupRepository.findByMenuGroupIdAndSiteSiteId(menuGroupId, siteId);
+//		if(menuGroup == null) {
+//			throw new NotFoundException("존재하지 않는 메뉴 그룹입니다. menuGroupId : " + menuGroupId);
+//		}
+//		
+//		site.setDefaultMenuGroup(menuGroup);
+//	}
 	
 	
 	/**

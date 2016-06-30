@@ -59,14 +59,6 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 	
 	private TransactionTemplate transactionTemplate;
 	
-//	Map<String, Menu> menuMap;
-//	
-//	
-//	
-//	@PostConstruct
-//	public void initMenuMap() {
-//		
-//	}
 	
 	@PostConstruct
 	public void postConstruct() {
@@ -91,7 +83,6 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 	public int vote(Authentication authentication, FilterInvocation object, Collection<ConfigAttribute> attributes) {
 		logger.info("start");
 		
-		
 		return transactionTemplate.execute(status -> {
 			String requestUrl = object.getRequestUrl();
 			System.out.println(requestUrl);
@@ -109,8 +100,9 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 				if (DefinedUserAuthority.systemMaster.name().equals(authority)) {
 					return ACCESS_GRANTED;
 				}
-				// 로그인 후 프로필 페이지는 들어갈 수 있게
-				if(requestUrl.equals("/profile") && !authority.equals("ROLE_ANONYMOUS")) return ACCESS_GRANTED;
+				
+//				// 로그인 후 프로필 페이지는 들어갈 수 있게
+//				if(requestUrl.equals("/profile") && !authority.equals("ROLE_ANONYMOUS")) return ACCESS_GRANTED;
 				
 				List<Menu> menus = menuRepository.findByAuthority(authority); //TODO cache에 넣어놓고 읽어야 함. 모든 요청에 db접속하면 서버부담이 커짐
 				
@@ -127,7 +119,7 @@ public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvoca
 //					}
 					
 					
-					System.out.println(requestUrl);
+//					System.out.println(requestUrl);
 					
 					String dimension = requestUrl;
 					if (requestUrl.startsWith("/")) {

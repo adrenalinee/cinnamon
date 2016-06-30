@@ -44,10 +44,10 @@ public class SiteWrapper {
 		return this;
 	}
 	
-	public SiteWrapper indexPage(String indexPage) {
-		site.setIndexPage(indexPage);
-		return this;
-	}
+//	public SiteWrapper indexPage(String indexPage) {
+//		site.setIndexPage(indexPage);
+//		return this;
+//	}
 	
 	public SiteWrapper addMenuGroup(MenuGroupWrapper menuGroupWrapper) {
 //		menuGroupWrappers.add(menuGroupWrapper);

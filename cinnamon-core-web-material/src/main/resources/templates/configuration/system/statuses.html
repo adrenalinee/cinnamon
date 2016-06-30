@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/default">
+
+<head>
+<title>시스템 상태</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script type="text/javascript" src="/js/configuration/directives/dialogTemplate.js"></script>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+angular.module('cinnamon')
+.controller('configuration.system.statusesController', function($scope, $http) {
+	console.log('configuration.system.statusesController');
+	
+	$scope.load = function() {
+		$http.get('/metrics')
+		.success(function(result) {
+			console.log(result);
+			$scope.domain = result;
+		})
+	}
+	
+	$scope.load();
+});
+/*]]>*/
+</script>
+
+<base href="/" />
+</head>
+
+<body layout:fragment="content">
+	<md-content class="content-container content" ng-controller="configuration.system.statusesController">
+		<h3 layout-padding="" class="md-headline">
+			시스템 상태
+			<span class="md-subhead text-muted">시스템</span>
+		</h3>
+		
+		<md-card>
+			<md-card-content>
+				<md-subheader>시스템 상태 정보</md-subheader>
+				<table class="table table-hover">
+					<tr>
+						<th class="text-muted">전체 메모리 용량</th>
+						<td>{{domain.mem | number}} KB</td>
+					</tr>
+					<tr>
+						<th class="text-muted">사용가능 메모리 용량</th>
+						<td>{{domain['mem.free'] | number}} KB</td>
+					</tr>
+					<tr>
+						<th class="text-muted">프로세서 갯수</th>
+						<td>{{domain.processors | number}} 개</td>
+					</tr>
+					<tr>
+						<th class="text-muted">시스템 작동 시간</th>
+						<td>{{domain.uptime | number}} ms</td>
+					</tr>
+					<tr>
+						<th class="text-muted">어플리케이션 작동 시간</th>
+						<td>{{domain['instance.uptime'] | number}} ms</td>
+					</tr>
+					<tr>
+						<th class="text-muted">평균 시스템 부하</th>
+						<td>{{domain['systemload.average'] | number}} ms</td>
+					</tr>
+				</table>
+				
+				<md-subheader>힙 메모리 정보</md-subheader>
+				<table class="table table-hover">
+					<tr>
+						<th class="text-muted">힙 메모리 정보</th>
+						<td>{{domain.heap | number}} KB</td>
+					</tr>
+					<tr>
+						<th class="text-muted">heap.committed</th>
+						<td>{{domain['heap.committed'] | number}} KB</td>
+					</tr>
+					<tr>
+						<th class="text-muted">heap.init</th>
+						<td>{{domain['heap.init'] | number}} KB</td>
+					</tr>
+					<tr>
+						<th class="text-muted">힙 메모리 사용량</th>
+						<td>{{domain['heap.used'] | number}} KB</td>
+					</tr>
+				</table>
+				
+				<md-subheader>nonheap 정보</md-subheader>
+				<table class="table table-hover">
+					<tr>
+						<th class="text-muted">nonheap 정보</th>
+						<td>{{domain.nonheap | number}} KB</td>
+					</tr>
+					<tr>
+						<th class="text-muted">nonheap.committed</th>
+						<td>{{domain['nonheap.committed'] | number}} KB</td>
+					</tr>
+					<tr>
+						<th class="text-muted">nonheap.init</th>
+						<td>{{domain['nonheap.init'] | number}} KB</td>
+					</tr>
+					<tr>
+						<th class="text-muted">nonheap 사용량</th>
+						<td>{{domain['nonheap.used'] | number}} KB</td>
+					</tr>
+				</table>
+				
+				<md-subheader>쓰레드 정보</md-subheader>
+				<table class="table table-hover">
+					<tr>
+						<th class="text-muted">쓰레드 갯수</th>
+						<td>{{domain.threads | number}} 개</td>
+					</tr>
+					<tr>
+						<th class="text-muted">threads.peak</th>
+						<td>{{domain['threads.peak'] | number}} 개</td>
+					</tr>
+					<tr>
+						<th class="text-muted">threads.daemon</th>
+						<td>{{domain['threads.daemon'] | number}} 개</td>
+					</tr>
+					<tr>
+						<th class="text-muted">threads.totalStarted</th>
+						<td>{{domain['threads.totalStarted'] | number}} 개</td>
+					</tr>
+				</table>
+				
+				<md-subheader>Gabege collection 정보</md-subheader>
+				<table class="table table-hover">
+					<tr>
+						<th class="text-muted">gc.ps_scavenge.count</th>
+						<td>{{domain['gc.ps_scavenge.count'] | number}}</td>
+					</tr>
+					<tr>
+						<th class="text-muted">gc.ps_scavenge.time</th>
+						<td>{{domain['gc.ps_scavenge.time'] | number}}</td>
+					</tr>
+					<tr>
+						<th class="text-muted">gc.ps_marksweep.count</th>
+						<td>{{domain['gc.ps_marksweep.count'] | number}}</td>
+					</tr>
+					<tr>
+						<th class="text-muted">gc.ps_marksweep.time</th>
+						<td>{{domain['gc.ps_marksweep.time'] | number}}</td>
+					</tr>
+				</table>
+				
+				<md-subheader>객체 정보</md-subheader>
+				<table class="table table-hover">
+					<tr>
+						<th class="text-muted">객체수</th>
+						<td>{{domain.classes | number}} 개</td>
+					</tr>
+					<tr>
+						<th class="text-muted">classes.loaded</th>
+						<td>{{domain['classes.loaded'] | number}}</td>
+					</tr>
+					<tr>
+						<th class="text-muted">classes.unloaded</th>
+						<td>{{domain['classes.unloaded'] | number}}</td>
+					</tr>
+				</table>
+				
+				<md-subheader>datasource 정보</md-subheader>
+				<table class="table table-hover">
+					<tr>
+						<th class="text-muted">datasource.primary.active</th>
+						<td>{{domain['datasource.primary.active'] | number}}</td>
+					</tr>
+					<tr>
+						<th class="text-muted">datasource.primary.usage</th>
+						<td>{{domain['datasource.primary.usage'] | number}}</td>
+					</tr>
+				</table>
+			</md-card-content>
+		</md-card>
+		
+	</md-content>
+</body>
+</html>

@@ -31,30 +31,21 @@ class MainController {
 //	@Autowired
 //	SecurityContextHolder securityContextHolder
 	
-	String defaultPage;
+	String defaultPage
 	
 	
 	@RequestMapping("/")
 	String index(@AuthenticationPrincipal Authentication authentication) {
 		logger.info("start")
-//		"redirect:/configuration"
 		
-//		if (!StringUtils.isEmpty(defaultPage)) {
-//			return defaultPage
-//		}
-		
-		String defaultPage
-		
-		if (authentication != null) {
-			defaultPage = sessionService.getFirstPage(authentication);
+		if (authentication == null) {
+			return "redirect:login"
 		}
 		
-		if (defaultPage == null) {
-			defaultPage = sessionService.getDefaultFirstPage();
-		}
+		String defaultPage = sessionService.getFirstPage(authentication)
 		
 		if (StringUtils.isEmpty(defaultPage)) {
-			logger.warn("초기 페이지가 지정되지 않았습니다.");
+			logger.warn("초기 페이지가 지정되지 않았습니다.")
 		}
 		
 		return "redirect:${defaultPage}"

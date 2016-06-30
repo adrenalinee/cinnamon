@@ -129,8 +129,8 @@ class CinnamonCoreWebConfiguration {
 		@Autowired
 		public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 			auth
-					.userDetailsService(userDetailService)
-					.passwordEncoder(new BCryptPasswordEncoder())
+				.userDetailsService(userDetailService)
+				.passwordEncoder(new BCryptPasswordEncoder())
 		}
 
 
@@ -144,7 +144,8 @@ class CinnamonCoreWebConfiguration {
 
 
 			http.antMatcher("/**").authorizeRequests().anyRequest().denyAll()
-			http.formLogin().loginPage("/login").permitAll()
+			http.formLogin()
+				.loginPage("/login").permitAll()
 
 			// 이메일 인증 관련 추가
 			http.authorizeRequests()
@@ -152,7 +153,7 @@ class CinnamonCoreWebConfiguration {
 					.permitAll()
 
 			http.logout()
-					.logoutUrl("/logout")
+					.logoutUrl("/logout").permitAll()
 					.logoutSuccessUrl("/login")
 
 			//			http.rememberMe().tokenRepository(new InMemoryTokenRepositoryImpl())

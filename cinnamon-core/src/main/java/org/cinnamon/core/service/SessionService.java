@@ -4,9 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.cinnamon.core.domain.Menu;
-import org.cinnamon.core.domain.MenuGroup;
 import org.cinnamon.core.domain.Permission;
-import org.cinnamon.core.domain.Site;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.repository.UserAuthorityRepository;
 import org.cinnamon.core.repository.UserBaseRepository;
@@ -39,23 +37,23 @@ public class SessionService {
 	 * 기본 첫 페이지 경로를 전달한다.
 	 * @return
 	 */
-	@Transactional
-	public String getDefaultFirstPage() {
-		logger.info("start");
-		Site site = siteService.getDefault();
-		
-		if (site != null) {
-			MenuGroup menuGroup = site.getDefaultMenuGroup();
-			if (menuGroup != null) {
-				return menuGroup.getDefaultPage();
-			} else {
-				logger.warn("기본 메뉴 모음이 설정되어 있지 않습니다. siteId: {}", site.getSiteId());
-			}
-		}
-		
-		//초기 페이지가 등록되어 있지 않음
-		return null;
-	}
+//	@Transactional
+//	public String getDefaultFirstPage() {
+//		logger.info("start");
+//		Site site = siteService.getDefault();
+//		
+//		if (site != null) {
+//			MenuGroup menuGroup = site.getDefaultMenuGroup();
+//			if (menuGroup != null) {
+//				return menuGroup.getDefaultPage();
+//			} else {
+//				logger.warn("기본 메뉴 모음이 설정되어 있지 않습니다. siteId: {}", site.getSiteId());
+//			}
+//		}
+//		
+//		//초기 페이지가 등록되어 있지 않음
+//		return null;
+//	}
 	
 	
 	@Transactional

@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 
-@Controller
-@RequestMapping(value="/configuration/email")
-class EmailController extends BasePageController {
+//@Controller
+//@RequestMapping(value="/configuration/system")
+class SystemController extends BasePageController {
 	Logger logger = LoggerFactory.getLogger(getClass())
 	
-	@RequestMapping(value="**")
+//	@RequestMapping(value="**")
 	def index() {
 		logger.info("start");
-		"redirect:email/servers"
+		"redirect:system/statuses"
 	}
 }

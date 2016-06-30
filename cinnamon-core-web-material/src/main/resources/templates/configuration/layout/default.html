@@ -105,19 +105,15 @@
 			
 		</div>
 		
+		<!-- md:md-on-select="selectMenu('${menu.uri}')" -->
 		<!-- 2depth menus -->
 		<div class="md-primary md-hue-1" th:if="${#arrays.isEmpty(currentMenus.actives) == false and #arrays.isEmpty(currentMenus.actives[0].childs) == false}">
 			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md-selected="selectedChildMenuIndex">
-				<md-tab md:md-on-select="selectMenu('${menu.uri}')" th:each="menu: ${currentMenus.actives[0].childs}">
+				<md-tab ng:ng-click="selectMenu('${menu.uri}')" th:each="menu: ${currentMenus.actives[0].childs}">
 					<md-tab-label th:text="${menu.name}" />
 				</md-tab>
 			</md-tabs>
 		</div>
-		<!-- <div class="md-primary md-hue-1" ng-if="childMenus != null">
-			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md-selected="selectedChildMenuIndex">
-				<md-tab label="{{menu.name}}" md-on-select="selectChildMenu(menu)" ng-repeat="menu in childMenus" />
-			</md-tabs>
-		</div> -->
 	</md-toolbar>
 	
 	
@@ -171,13 +167,6 @@
 					</div>
 					<span th:text="${menu.name}">menu.name</span>
 				</md-list-item>
-				
-				<!-- <md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
-					<div flex="15">
-						<md-icon>{{menu.iconClass}}</md-icon>
-					</div>
-					{{menu.name}}
-				</md-list-item> -->
 			</md-list>
 		</md-content>
 		
@@ -193,14 +182,6 @@
 					</div>
 					<span th:text="${menu.name}">menu.name</span>
 				</md-list-item>
-				
-				<!-- <md-subheader class="content md-no-sticky">{{currentMenus.name}}</md-subheader>
-				<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu)">
-					<div flex="15">
-						<md-icon>{{menu.iconClass}}</md-icon>
-					</div>
-					{{menu.name}}
-				</md-list-item> -->
 			</md-list>
 		</md-sidenav>
 		<div flex="">

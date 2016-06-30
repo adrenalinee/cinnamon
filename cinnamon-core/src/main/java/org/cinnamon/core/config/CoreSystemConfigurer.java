@@ -95,7 +95,8 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 			),
 			role("기본 권한", DefinedUserAuthority.user).addUserGroup(
 				userGroup("기본 사용자 모임").setDefault()
-			)
+			),
+			role("익명 권한", DefinedUserAuthority.ROLE_ANONYMOUS)
 		);
 	}
 	
@@ -111,7 +112,8 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 				.addMenusAtSidebar(
 					menu("사용자")
 						.uri("/configuration/users")
-						.iconClass("account_circle"),
+						.iconClass("account_circle")
+						.addGrantedAuthority(DefinedUserAuthority.systemMaster, true),
 					menu("사용자 모임")
 						.uri("/configuration/userGroups")
 						.iconClass("group"),
@@ -139,9 +141,18 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 					menu("첨부파일")
 						.uri("/configuration/files")
 						.iconClass("attachment"),
-					menu("Cinnamon 설정")
-						.uri("/configuration/cinnamon")
-						.iconClass("traffic")
+					menu("시스템")
+						.uri("/configuration/system")
+						.iconClass("storage")
+						.addChilds(
+							menu("시스템 상태")
+								.uri("/configuration/system/statuses")
+								.iconClass("memory")
+							).addChilds(
+								menu("시스템 정보")
+									.uri("/configuration/system/infos")
+									.iconClass("info")
+							)
 				).addMenusAtHeaderRight(
 					menu("설정")
 						.iconClass("more_vert")
@@ -158,19 +169,19 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 					menu("계정")
 						.uri("/settings/account")
 						.iconClass("person")
-						.addGrantedAuthorities(DefinedUserAuthority.user),
+						.addGrantedAuthority(DefinedUserAuthority.user, true),
 					menu("비밀번호")
 						.uri("/settings/password")
 						.iconClass("vpn_key")
-						.addGrantedAuthorities(DefinedUserAuthority.user),
+						.addGrantedAuthority(DefinedUserAuthority.user),
 					menu("이메일")
 						.uri("/settings/email")
 						.iconClass("email")
-						.addGrantedAuthorities(DefinedUserAuthority.user),
+						.addGrantedAuthority(DefinedUserAuthority.user),
 					menu("언어")
 						.uri("/settings/language")
 						.iconClass("language")
-						.addGrantedAuthorities(DefinedUserAuthority.user)
+						.addGrantedAuthority(DefinedUserAuthority.user)
 				).addMenusAtHeaderRight(
 					menu("설정")
 						.iconClass("more_vert")

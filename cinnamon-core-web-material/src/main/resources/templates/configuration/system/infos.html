@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/default">
+
+<head>
+<title>시스템 정보</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script type="text/javascript" src="/js/configuration/directives/dialogTemplate.js"></script>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+angular.module('cinnamon')
+.controller('configuration.system.infoController', function($scope, $http) {
+	console.log('configuration.system.infoController');
+	
+	$scope.load = function() {
+		$http.get('/env')
+		.success(function(result) {
+			console.log(result);
+			$scope.domain = result;
+		})
+	}
+	
+	$scope.load();
+});
+/*]]>*/
+</script>
+
+<base href="/" />
+</head>
+
+<body layout:fragment="content">
+	<md-content class="content-container content" ng-controller="configuration.system.infoController">
+		<h3 layout-padding="" class="md-headline">
+			시스템 정보
+			<span class="md-subhead text-muted">시스템</span>
+		</h3>
+		
+		<md-card>
+			<md-card-content>
+				<md-subheader>시스템 상태 정보</md-subheader>
+				<table class="table table-hover">
+					<tr>
+						<th class="text-muted">전체 메모리 용량</th>
+						<td>{{domain.mem | number}} KB</td>
+					</tr>
+				</table>
+				
+			</md-card-content>
+		</md-card>
+		
+	</md-content>
+</body>
+</html>

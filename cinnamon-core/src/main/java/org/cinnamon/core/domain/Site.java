@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
@@ -60,14 +59,14 @@ public class Site implements Serializable {
 	 * 로그인후 첫 화면에서 보여줄 페이지 경로
 	 * 컨텍스트 루트에서 indexPage로 forward 된다.
 	 */
-	String indexPage;
+//	String indexPage;
 	
 	/**
 	 * 기본 메뉴 그룹
 	 */
-	@JsonIgnore
-	@ManyToOne
-	MenuGroup defaultMenuGroup;
+//	@JsonIgnore
+//	@ManyToOne
+//	MenuGroup defaultMenuGroup;
 	
 	@Column(length=4000)
 	String description;
@@ -141,21 +140,21 @@ public class Site implements Serializable {
 		this.url = url;
 	}
 
-	public String getIndexPage() {
-		return indexPage;
-	}
+//	public String getIndexPage() {
+//		return indexPage;
+//	}
+//
+//	public void setIndexPage(String indexPage) {
+//		this.indexPage = indexPage;
+//	}
 
-	public void setIndexPage(String indexPage) {
-		this.indexPage = indexPage;
-	}
-
-	public MenuGroup getDefaultMenuGroup() {
-		return defaultMenuGroup;
-	}
-
-	public void setDefaultMenuGroup(MenuGroup defaultMenuGroup) {
-		this.defaultMenuGroup = defaultMenuGroup;
-	}
+//	public MenuGroup getDefaultMenuGroup() {
+//		return defaultMenuGroup;
+//	}
+//
+//	public void setDefaultMenuGroup(MenuGroup defaultMenuGroup) {
+//		this.defaultMenuGroup = defaultMenuGroup;
+//	}
 
 	public String getLabel() {
 		return label;

@@ -134,23 +134,23 @@ public class MenuGroupService {
 	}
 	
 	
-	/**
-	 * 
-	 * @author 정명성
-	 * create date : 2016. 3. 17.
-	 * @param siteId
-	 * @param menuGroupId
-	 */
-	@Transactional
-	public void deleteDefaultMenuGroup(String siteId, Long menuGroupId) {
-		logger.info("start");
-		
-		Site site = siteRepository.findBySiteIdAndDefaultMenuGroupMenuGroupId(siteId, menuGroupId);
-		if(site == null) {
-			throw new NotFoundException("존재하지 않는 사이트 입니다. siteId : " + siteId);
-		}
-		site = null;
-	}
+//	/**
+//	 * 
+//	 * @author 정명성
+//	 * create date : 2016. 3. 17.
+//	 * @param siteId
+//	 * @param menuGroupId
+//	 */
+//	@Transactional
+//	public void deleteDefaultMenuGroup(String siteId, Long menuGroupId) {
+//		logger.info("start");
+//		
+//		Site site = siteRepository.findBySiteIdAndDefaultMenuGroupMenuGroupId(siteId, menuGroupId);
+//		if(site == null) {
+//			throw new NotFoundException("존재하지 않는 사이트 입니다. siteId : " + siteId);
+//		}
+//		site = null;
+//	}
 	
 	
 	/**

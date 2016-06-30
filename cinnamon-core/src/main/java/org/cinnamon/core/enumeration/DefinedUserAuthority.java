@@ -9,6 +9,11 @@ package org.cinnamon.core.enumeration;
 public enum DefinedUserAuthority {
 	
 	/**
+	 * 익명 권한 (비로그인)
+	 */
+	ROLE_ANONYMOUS,
+	
+	/**
 	 * 일반
 	 */
 	user,

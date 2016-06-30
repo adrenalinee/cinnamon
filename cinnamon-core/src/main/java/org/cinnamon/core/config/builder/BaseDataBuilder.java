@@ -117,7 +117,9 @@ public class BaseDataBuilder {
 	}
 	
 	
-	
+	/**
+	 * 등록한 설정 정보를 계층적으로 출력
+	 */
 	public void print() {
 		groupWrappers.forEach(gw -> {
 			Group group = gw.group;
@@ -164,6 +166,9 @@ public class BaseDataBuilder {
 		});
 	}
 	
+	/**
+	 * 설정한 값대로 데이터 생성
+	 */
 	public void build() {
 		buildGroups();
 		buildRoles();
@@ -228,11 +233,11 @@ public class BaseDataBuilder {
 				em.persist(menuGroup);
 				em.flush();
 				
-				if (mgw.menuGroup.getName().equals(
-						siteWrapper.defaultMenuGroupWrapper.menuGroup.getName())) {
-					
-					site.setDefaultMenuGroup(menuGroup);
-				}
+//				if (mgw.menuGroup.getName().equals(
+//						siteWrapper.defaultMenuGroupWrapper.menuGroup.getName())) {
+//					
+//					site.setDefaultMenuGroup(menuGroup);
+//				}
 				
 				Orders orders = new Orders();
 				mgw.menuWrappers.forEach((name, menuWrapper) -> {
@@ -268,28 +273,31 @@ public class BaseDataBuilder {
 		List<String> fixedGrantedAuthorities = new LinkedList<>();
 		fixedGrantedAuthorities.add(DefinedUserAuthority.systemMaster.name());
 		menuWrapper.grantedAuthorities.stream()
-		.filter(authority -> {
-			return authority.equals(DefinedUserAuthority.systemMaster.name()) ? false : true;
-		})
-		.forEach(authority -> {
-			fixedGrantedAuthorities.add(authority);
-		});
+			.filter(authority -> {
+				return authority.equals(DefinedUserAuthority.systemMaster.name()) ? false : true;
+			}).forEach(authority -> {
+				fixedGrantedAuthorities.add(authority);
+			});
 		
 		
 		fixedGrantedAuthorities.forEach(authority -> {
-//			UserAuthority userAuthority = userAuthorityRepository.findByAuthority(authority);
-			
-			Permission userAuthority =
+			Permission role =
 					em.createQuery("from Permission p where p.authority = :authority", Permission.class)
 						.setParameter("authority", authority).getSingleResult();
-			if (userAuthority == null) {
+			if (role == null) {
 				//정의 되지 않은 역할임
 				throw new RuntimeException("정의 되지 않은 권한입니다. authority: " + authority);
 			}
 			
+			//TODO 해당 역할의 기본 메뉴인지 확인후 설정
+			if (menuWrapper.defultMenuForAuthorities.contains(authority)) {
+				role.setDefaultMenu(menu);
+			}
+			
+			
 			PermissionMenu menuAuthority = new PermissionMenu();
 			menuAuthority.setMenu(menu);
-			menuAuthority.setPermission(userAuthority);
+			menuAuthority.setPermission(role);
 			em.persist(menuAuthority);
 		});
 	}
