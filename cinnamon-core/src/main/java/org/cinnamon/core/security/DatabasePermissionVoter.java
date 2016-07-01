@@ -31,6 +31,7 @@ import org.springframework.util.StringUtils;
 
 
 /**
+ * 데이터베이스에 저장된 역할 & 권한 정보를 보고 접속허용할지를 결정한다.
  * 
  * @author 동성
  * @since 2014. 12. 24.
