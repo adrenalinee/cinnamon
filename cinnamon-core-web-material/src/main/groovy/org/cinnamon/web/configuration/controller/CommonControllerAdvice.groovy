@@ -3,7 +3,7 @@ package org.cinnamon.web.configuration.controller
 import javax.servlet.http.HttpServletRequest
 
 import org.cinnamon.core.config.SystemConfigureService
-import org.cinnamon.core.domain.Menu;
+import org.cinnamon.core.domain.Menu
 import org.cinnamon.core.domain.MenuGroup
 import org.cinnamon.core.domain.Site
 import org.cinnamon.core.domain.UserBase
@@ -155,13 +155,17 @@ class CommonControllerAdvice {
 		logger.info("start")
 		
 		if (userDetails == null) {
-			return null;
+			return null
 		}
 		
 		return userBaseService.get(userDetails.getUsername())
 	}
 	
-	
+	/**
+	 * 1depth path를 해당 경로의 dimension으로 봄
+	 * @param uri
+	 * @return
+	 */
 	private String getDimension(String uri) {
 		String dimension = uri
 		int index = dimension.indexOf("/")

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -33,6 +34,7 @@ public class MenuGroup implements Serializable {
 	
 //	String site;
 	
+	@JsonBackReference
 	@ManyToOne(optional=false)
 	Site site;
 	

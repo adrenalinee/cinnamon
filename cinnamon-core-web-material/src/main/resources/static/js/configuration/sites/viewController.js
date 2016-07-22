@@ -13,12 +13,12 @@ angular.module('cinnamon')
 			
 			$scope.domain = data;
 			
-			$http.get('/rest/configuration/sites/' + siteId + '/defaultMenuGroup')
-			.success(function(data) {
-				console.log(data);
-				
-				$scope.domain.defaultMenuGroup = data;
-			});
+//			$http.get('/rest/configuration/sites/' + siteId + '/defaultMenuGroup')
+//			.success(function(data) {
+//				console.log(data);
+//				
+//				$scope.domain.defaultMenuGroup = data;
+//			});
 		});
 	}
 

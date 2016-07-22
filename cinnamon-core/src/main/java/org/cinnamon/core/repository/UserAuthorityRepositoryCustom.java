@@ -29,12 +29,12 @@ public interface UserAuthorityRepositoryCustom {
 	// 2016.03.07 메뉴 권한 수정 정보 저장
 	public void savePermissionMenu(PermissionMenu permissionMenu);
 	
-	/**
-	 * 권한 메뉴 가져오기
-	 * @author 정명성
-	 * @create date : 2016. 7. 22.
-	 * @param authorities
-	 * @return
-	 */
-	Permission findFirst1ByAuthorityIn(List<String> authorities);
+//	/**
+//	 * 권한 메뉴 가져오기
+//	 * @author 정명성
+//	 * @create date : 2016. 7. 22.
+//	 * @param authorities
+//	 * @return
+//	 */
+//	Permission findFirst1ByAuthorityIn(List<String> authorities);
 }

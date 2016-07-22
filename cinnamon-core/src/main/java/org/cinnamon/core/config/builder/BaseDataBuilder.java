@@ -233,11 +233,11 @@ public class BaseDataBuilder {
 				em.persist(menuGroup);
 				em.flush();
 				
-//				if (mgw.menuGroup.getName().equals(
-//						siteWrapper.defaultMenuGroupWrapper.menuGroup.getName())) {
-//					
-//					site.setDefaultMenuGroup(menuGroup);
-//				}
+				if (mgw.menuGroup.getName().equals(
+						siteWrapper.defaultMenuGroupWrapper.menuGroup.getName())) {
+					
+					site.setDefaultMenuGroup(menuGroup);
+				}
 				
 				Orders orders = new Orders();
 				mgw.menuWrappers.forEach((name, menuWrapper) -> {

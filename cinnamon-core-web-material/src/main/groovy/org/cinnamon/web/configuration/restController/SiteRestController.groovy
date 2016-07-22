@@ -154,12 +154,12 @@ class SiteRestController {
 	/**
 	 * 메뉴 기본 그룹 설정
 	 */
-//	@RequestMapping(value="{siteId}/defaultMenuGroup", method=RequestMethod.PUT)
-//	def putDefaultMenuGroup(@PathVariable String siteId, @RequestBody @Valid MenuGroupInfo menuGroupInfo) {
-//		logger.info("start")
-//		
-//		siteService.setDefaultMenuGroup(siteId, menuGroupInfo.getMenuGroupId())
-//	}
+	@RequestMapping(value="{siteId}/defaultMenuGroup", method=RequestMethod.PUT)
+	def putDefaultMenuGroup(@PathVariable String siteId, @RequestBody @Valid MenuGroupInfo menuGroupInfo) {
+		logger.info("start")
+		
+		siteService.setDefaultMenuGroup(siteId, menuGroupInfo.getMenuGroupId())
+	}
 	
 	
 	@RequestMapping(value="{siteId}/deleteable", method=RequestMethod.GET)

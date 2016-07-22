@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
@@ -17,6 +18,7 @@ import javax.persistence.TemporalType;
 import org.cinnamon.core.domain.enumeration.UseStatus;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * 
@@ -65,8 +67,9 @@ public class Site implements Serializable {
 	 * 기본 메뉴 그룹
 	 */
 //	@JsonIgnore
-//	@ManyToOne
-//	MenuGroup defaultMenuGroup;
+	@JsonManagedReference
+	@ManyToOne
+	MenuGroup defaultMenuGroup;
 	
 	@Column(length=4000)
 	String description;
@@ -148,13 +151,13 @@ public class Site implements Serializable {
 //		this.indexPage = indexPage;
 //	}
 
-//	public MenuGroup getDefaultMenuGroup() {
-//		return defaultMenuGroup;
-//	}
-//
-//	public void setDefaultMenuGroup(MenuGroup defaultMenuGroup) {
-//		this.defaultMenuGroup = defaultMenuGroup;
-//	}
+	public MenuGroup getDefaultMenuGroup() {
+		return defaultMenuGroup;
+	}
+
+	public void setDefaultMenuGroup(MenuGroup defaultMenuGroup) {
+		this.defaultMenuGroup = defaultMenuGroup;
+	}
 
 	public String getLabel() {
 		return label;
