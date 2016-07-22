@@ -3,6 +3,7 @@ package org.cinnamon.core.service;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.Permission;
 import org.cinnamon.core.domain.UserBase;
@@ -61,10 +62,11 @@ public class SessionService {
 		logger.info("start");
 		UserBase user = userRepository.findOne(authentication.getName());
 		Permission defaultPermission = user.getDefaultPermission();
+		logger.info(ToStringBuilder.reflectionToString(defaultPermission));
 		if (defaultPermission == null) {
 			List<String> authorities = new LinkedList<>();
 			authentication.getAuthorities().forEach(ga -> {
-				System.out.println(ga.getAuthority());
+				logger.info(ga.getAuthority());
 				authorities.add(ga.getAuthority());
 			});
 			

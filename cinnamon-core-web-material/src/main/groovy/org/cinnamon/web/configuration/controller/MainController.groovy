@@ -41,7 +41,7 @@ class MainController {
 		if (authentication == null) {
 			return "redirect:login"
 		}
-		
+		logger.info(authentication.getName());
 		String defaultPage = sessionService.getFirstPage(authentication)
 		
 		if (StringUtils.isEmpty(defaultPage)) {

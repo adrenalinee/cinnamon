@@ -26,6 +26,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class UserApplication implements Serializable {
 	
+	private static final long serialVersionUID = 154125586918630542L;
+
 	@EmbeddedId
 	UserApplicationId id;
 	

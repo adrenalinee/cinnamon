@@ -171,4 +171,14 @@ public class UserAuthorityRepositoryImpl extends QueryDslRepositorySupport imple
 	public void savePermissionMenu(PermissionMenu permissionMenu) {
 		em.persist(permissionMenu);
 	}
+
+
+	@Override
+	public Permission findFirst1ByAuthorityIn(List<String> authorities) {
+		QPermission permission = QPermission.permission;
+		JPAQuery query = new JPAQuery(em).from(permission);
+		Permission result = query.where(permission.authority.in(authorities), permission.defaultMenu.isNotNull())
+				.limit(1L).singleResult(permission);
+		return result;
+	}
 }

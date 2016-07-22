@@ -15,5 +15,5 @@ public interface UserAuthorityRepository extends JpaRepository<Permission, Long>
 	
 	Permission findByAuthority(String authority);
 	
-	Permission findFirst1ByAuthorityIn(List<String> authorities);
+	//Permission findFirst1ByAuthorityIn(List<String> authorities);
 }

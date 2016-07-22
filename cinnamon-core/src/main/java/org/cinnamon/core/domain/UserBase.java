@@ -141,7 +141,7 @@ public class UserBase implements UserEntity, Serializable {
 	/**
 	 * 국적
 	 */
-	@Column(length=10)
+	@Column(length=50)
 	String nation;
 	
 	/**
