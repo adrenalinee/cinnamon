@@ -104,10 +104,10 @@ class MenuGroupRestController {
 	 * @param menuGroupId
 	 * @return
 	 */
-	@RequestMapping(value="{menuGroupId}/sites", method=RequestMethod.GET)
-	def getSitesOfMenuGroup(@PathVariable Long menuGroupId) {
+	@RequestMapping(value="{menuGroupId}/site", method=RequestMethod.GET)
+	def getSiteOfMenuGroup(@PathVariable Long menuGroupId) {
 		logger.info("start")
-		return menuGroupService.getSitesOfMenuGroup(menuGroupId)
+		return menuGroupService.getSiteOfMenuGroup(menuGroupId)
 	}
 	
 	

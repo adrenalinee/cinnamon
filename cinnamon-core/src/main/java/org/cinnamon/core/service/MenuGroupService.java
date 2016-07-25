@@ -161,7 +161,7 @@ public class MenuGroupService {
 	 * @return
 	 */
 	@Transactional(readOnly=true)
-	public Site getSitesOfMenuGroup (Long menuGroupId) {
+	public Site getSiteOfMenuGroup (Long menuGroupId) {
 		logger.info("start");
 		return siteRepository.findByMenuGroupMenuGroupId(menuGroupId);
 	}

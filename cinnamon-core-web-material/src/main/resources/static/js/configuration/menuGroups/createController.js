@@ -14,8 +14,8 @@ angular.module('cinnamon')
 		
 		
 		$scope.isProcess = true;
-		$scope.domain.siteId = siteId;
-		$http.post('/rest/configuration/menuGroups', $scope.domain)
+//		$scope.domain.siteId = siteId;
+		$http.post('/rest/configuration/menuGroups?siteId=' + siteId, $scope.domain)
 		.success(function(data, status, headers) {
 			console.log(status);
 			

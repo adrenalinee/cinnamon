@@ -20,18 +20,18 @@ angular.module('cinnamon')
 		location.href = '/configuration/menus/' + menu.menuId;
 	}
 	
-	$scope.sites;
-	var sites;
+	$scope.site;
+	var site;
 	// 메뉴그룹 별 사이트 목록 가져오기
-	$scope.sitesOfMenuGroup = function() {
-		$http.get('/rest/configuration/menuGroups/' + menuGroupId + '/sites')
+	$scope.siteOfMenuGroup = function() {
+		$http.get('/rest/configuration/menuGroups/' + menuGroupId + '/site')
 		.success(function(data) {
 			console.log(data);
-			sites = $scope.sites = data;
+			site = $scope.site = data;
 		});
 	}
 	
-	$scope.sitesOfMenuGroup();
+	$scope.siteOfMenuGroup();
 	
 	// 사이트 리스트 열기
 	$scope.openSiteList = function($event) {
@@ -44,8 +44,8 @@ angular.module('cinnamon')
 			clickOutsideToClose: true,
 			fullscreen: useFullScreen,
 			controller: function ($scope, $mdDialog, $http, $mdToast) {
-					$scope.siteId = sites.siteId;
-					console.log($scope.sites);
+					$scope.siteId = site.siteId;
+					console.log($scope.site);
 
 					// 선택된 메뉴 그룹 체크
 					$scope.checkMenuGroup = function(siteId) {
