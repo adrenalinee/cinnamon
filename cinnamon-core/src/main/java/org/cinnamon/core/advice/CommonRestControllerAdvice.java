@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 동성
  * @since 2014. 12. 15.
  */
-@ControllerAdvice(annotations=RestController.class)
+//@ControllerAdvice(annotations=RestController.class)
 public class CommonRestControllerAdvice {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
