@@ -3,6 +3,15 @@
 # Solution
 
 
+# Quick start
+
+`
+$ git clone https://github.com/adrenalinee/cinnamon.git
+$ cd cinnamon
+$ mvn install
+$ cd cinnamin-core-stater
+$ mvn spring-boot:run
+`
 
 
 # Used technologies:
