@@ -72,30 +72,33 @@ public class GroupRepositoryImpl extends QueryDslRepositorySupport implements Gr
 	@Override
 	public Page<Group> search(GroupSearch groupSearch, Pageable pageable) {
 		QGroup group = QGroup.group;
+		JPAQuery query = new JPAQuery(em).from(group);
 		
-		BooleanBuilder builder = new BooleanBuilder();
+		if (!StringUtils.isEmpty(groupSearch.getKeyword())) {
+			query.where(group.groupId.like("%" + groupSearch.getKeyword() + "%")
+					.or(group.name.like("%" + groupSearch.getKeyword() + "%")));
+		}
+		
 		if (groupSearch.getGroupId() != null) {
-			builder.and(group.groupId.eq(groupSearch.getGroupId()));
+			query.where(group.groupId.eq(groupSearch.getGroupId()));
 		}
 		
 		if (!StringUtils.isEmpty(groupSearch.getName())) {
-			builder.and(group.name.like("%" + groupSearch.getName() + "%"));
+			query.where(group.name.like("%" + groupSearch.getName() + "%"));
 		}
 		
 		if (!StringUtils.isEmpty(groupSearch.getParent())) {
-			builder.and(group.parent.name.eq(groupSearch.getParent()));
+			query.where(group.parent.name.eq(groupSearch.getParent()));
 		}
 		
-		
+		//group 이라는 이름이 문제가 있어서 getQuerydsl().applyPagination()..이 정상 적용 안된다..
 		long offset = pageable.getOffset();
 		long limit = pageable.getPageSize();
 		
-		JPAQuery query = new JPAQuery(em).from(group);
 		query
-			.where(builder)
+//			.where(builder)
 			.offset(offset)
 			.limit(limit);
-			//.orderBy(group.parent.groupId.asc(), group.orders.asc());
 		
 		if(pageable.getSort() != null) {
 			pageable.getSort().forEach(sort -> {
@@ -112,6 +115,8 @@ public class GroupRepositoryImpl extends QueryDslRepositorySupport implements Gr
 		}
 		
 		List<Group> domains = query.list(group);
+		
+//		List<Group> domains = getQuerydsl().applyPagination(pageable, query).list(group);
 		long totalCount = query.count();
 		
 		Page<Group> page = new PageImpl<Group>(domains, pageable, totalCount);

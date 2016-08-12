@@ -115,7 +115,7 @@ public class GroupService {
 			throw new NotFoundException("코드를 찾을 수 없습니다. groupId : " + groupVo.getGroupId());
 		}
 		
-		group = mapper.map(groupVo, Group.class);
+		mapper.map(groupVo, group);
 	}
 	
 	/**
