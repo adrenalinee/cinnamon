@@ -19,9 +19,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 import org.springframework.util.StringUtils;
 
-import com.mysema.query.jpa.JPQLQuery;
-import com.mysema.query.jpa.impl.JPAQuery;
-
 /**
  * 
  * @author shindongseong
@@ -56,18 +53,7 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 			.and(userAuthority.authority.in(grantedAuthorities)))
 		.orderBy(menu.orders.asc())
 		.limit(100)
-		.list(menu);
-		
-//		return from(menu).distinct()
-//				.where(
-//						menu.position.eq(position)
-//						.and(menu.parent.isNull())
-//						.and(menu.useStatus.eq(UseStatus.enable))
-//						.and(menu.menuGroup.dimension.eq(dimension))
-//						.and(menu.grantedAuthorities.any().authority.authority.in(grantedAuthorities))
-//				).orderBy(menu.orders.asc())
-//				.limit(100)
-//				.list(menu);
+		.fetch();
 	}
 	
 	
@@ -77,13 +63,13 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 		QPermissionMenu roleMenu = QPermissionMenu.permissionMenu;
 		QPermission role = QPermission.permission;
 		
-		return new JPAQuery(em).from(menu)
+		return from(menu)
 				.join(menu.grantedAuthorities, roleMenu)
 				.join(roleMenu.permission, role)
 				.where(role.authority.eq(authority))
 				.orderBy(menu.orders.asc())
 				.limit(100)
-				.listResults(menu).getResults();
+				.fetch();
 	}
 
 
@@ -91,7 +77,7 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 	public Page<Menu> search(MenuSearch menuSearch, Pageable pageable) {
 		QMenu menu = QMenu.menu;
 		
-		JPQLQuery query = from(menu);
+		com.querydsl.jpa.JPQLQuery<Menu> query = from(menu);
 		if (menuSearch.getMenuId() != null) {
 			query.where(menu.menuId.eq(menuSearch.getMenuId()));
 		}
@@ -122,11 +108,9 @@ public class MenuRepositoryImpl extends QueryDslRepositorySupport implements Men
 		}
 		
 		
-		List<Menu> domains = getQuerydsl().applyPagination(pageable, query).list(menu);
-		long totalCount = query.count();
+		List<Menu> domains = getQuerydsl().applyPagination(pageable, query).fetch();
+		long totalCount = query.fetchCount();
 		
-		Page<Menu> page = new PageImpl<Menu>(domains, pageable, totalCount);
-		
-		return page;
+		return new PageImpl<Menu>(domains, pageable, totalCount);
 	}
 }

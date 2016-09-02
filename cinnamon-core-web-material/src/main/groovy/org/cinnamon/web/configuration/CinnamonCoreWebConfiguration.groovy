@@ -3,16 +3,14 @@ package org.cinnamon.web.configuration
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 
-import javax.annotation.PostConstruct
 import javax.sql.DataSource
 
 import org.cinnamon.core.security.DatabasePermissionVoter
 import org.cinnamon.core.security.UserDetailServiceImpl
 import org.cinnamon.web.configuration.interceptor.InitCheckInterceptor
 import org.cinnamon.web.configuration.rememberme.PersistentLogins
-import org.cinnamon.web.configuration.thymeleaf.AngularDialect
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.orm.jpa.EntityScan
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
@@ -30,7 +28,6 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
-import org.thymeleaf.spring4.SpringTemplateEngine
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include
 import com.fasterxml.jackson.databind.ObjectMapper

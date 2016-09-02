@@ -17,8 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 import org.springframework.util.StringUtils;
 
-import com.mysema.query.jpa.JPQLQuery;
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.querydsl.jpa.JPQLQuery;
 
 /**
  * 
@@ -39,10 +38,10 @@ public class MenuGroupRepositoryImpl extends QueryDslRepositorySupport implement
 	@Override
 	public MenuGroup getSiteMenuPosition(String siteId, String dimension) {
 		QMenuGroup menuGroup = QMenuGroup.menuGroup;
-		JPAQuery query = new JPAQuery(em).from(menuGroup);
-		query.where(menuGroup.site.siteId.eq(siteId).and(menuGroup.dimension.eq(dimension)));
 		
-		return query.singleResult(menuGroup);
+		return from(menuGroup)
+			.where(menuGroup.site.siteId.eq(siteId).and(menuGroup.dimension.eq(dimension)))
+			.fetchOne();
 	}
 	
 	
@@ -50,15 +49,14 @@ public class MenuGroupRepositoryImpl extends QueryDslRepositorySupport implement
 	public List<MenuGroup> getSiteScene(String siteId) {
 		QMenuGroup menuGroup = QMenuGroup.menuGroup;
 		
-		JPAQuery query = new JPAQuery(em).from(menuGroup);
-		query
+		JPQLQuery<MenuGroup> query = from(menuGroup)
 			.where(menuGroup.site.siteId.eq(siteId))
-//			.limit(100)
-//			.orderBy(menuGroup.menuGroupId.desc())
 			.groupBy(menuGroup.dimension);
 		
 		List<MenuGroup> menuGroups = new LinkedList<MenuGroup>();
-		query.list(menuGroup.dimension).forEach(dimension -> {
+		query
+		.select(menuGroup.dimension)
+		.fetch().forEach(dimension -> {
 			System.out.println(dimension);
 			MenuGroup mg = new MenuGroup();
 			mg.setDimension(dimension);
@@ -80,7 +78,7 @@ public class MenuGroupRepositoryImpl extends QueryDslRepositorySupport implement
 	public Page<MenuGroup> find(MenuGroupSearch menuGroupSearch, Pageable pageable) {
 		QMenuGroup menuGroup = QMenuGroup.menuGroup;
 		
-		JPQLQuery query = from(menuGroup);
+		JPQLQuery<MenuGroup> query = from(menuGroup);
 		if (menuGroupSearch.getMenuGroupId() != null) {
 			query.where(menuGroup.menuGroupId.eq(menuGroupSearch.getMenuGroupId()));
 		}
@@ -88,8 +86,8 @@ public class MenuGroupRepositoryImpl extends QueryDslRepositorySupport implement
 			QSite site = QSite.site;
 			
 			query
-				.innerJoin(menuGroup.site, site)
-				.where(site.siteId.eq(menuGroupSearch.getSiteId()));
+			.innerJoin(menuGroup.site, site)
+			.where(site.siteId.eq(menuGroupSearch.getSiteId()));
 		}
 		if (!StringUtils.isEmpty(menuGroupSearch.getDimension())) {
 			query.where(menuGroup.dimension.eq(menuGroupSearch.getDimension()));
@@ -98,13 +96,13 @@ public class MenuGroupRepositoryImpl extends QueryDslRepositorySupport implement
 			QMenu menu = QMenu.menu;
 			
 			query
-				.innerJoin(menuGroup.menus, menu)
-				.where(menu.menuId.eq(menuGroupSearch.getHasdMenuId()));
+			.innerJoin(menuGroup.menus, menu)
+			.where(menu.menuId.eq(menuGroupSearch.getHasdMenuId()));
 		}
 		
 		
-		List<MenuGroup> domains = getQuerydsl().applyPagination(pageable, query).list(menuGroup);
-		long totalCount = query.count();
+		List<MenuGroup> domains = getQuerydsl().applyPagination(pageable, query).fetch();
+		long totalCount = query.fetchCount();
 		
 		Page<MenuGroup> page = new PageImpl<MenuGroup>(domains, pageable, totalCount);
 		

@@ -16,9 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.path.StringPath;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.StringPath;
+import com.querydsl.jpa.JPQLQuery;
 
 /**
  * 
@@ -52,14 +52,7 @@ public class GroupRepositoryImpl extends QueryDslRepositorySupport implements Gr
 			builder.and(group.useStatus.eq(useStatus));
 		}
 		
-		
-		JPAQuery query = new JPAQuery(em).from(group);
-		query
-			.where(builder)
-			.orderBy(group.orders.asc());
-		
-		
-		return query.list(group);
+		return from(group).where(builder).fetch();
 	}
 	
 	
@@ -72,7 +65,7 @@ public class GroupRepositoryImpl extends QueryDslRepositorySupport implements Gr
 	@Override
 	public Page<Group> search(GroupSearch groupSearch, Pageable pageable) {
 		QGroup group = QGroup.group;
-		JPAQuery query = new JPAQuery(em).from(group);
+		JPQLQuery<Group> query = from(group);
 		
 		if (!StringUtils.isEmpty(groupSearch.getKeyword())) {
 			query.where(group.groupId.like("%" + groupSearch.getKeyword() + "%")
@@ -96,11 +89,10 @@ public class GroupRepositoryImpl extends QueryDslRepositorySupport implements Gr
 		long limit = pageable.getPageSize();
 		
 		query
-//			.where(builder)
 			.offset(offset)
 			.limit(limit);
 		
-		if(pageable.getSort() != null) {
+		if (pageable.getSort() != null) {
 			pageable.getSort().forEach(sort -> {
 				if(sort.getProperty().equals("groupId")) {
 					setDirection(query, group.groupId, sort.getDirection());
@@ -114,10 +106,8 @@ public class GroupRepositoryImpl extends QueryDslRepositorySupport implements Gr
 			});
 		}
 		
-		List<Group> domains = query.list(group);
-		
-//		List<Group> domains = getQuerydsl().applyPagination(pageable, query).list(group);
-		long totalCount = query.count();
+		List<Group> domains = query.fetch();
+		long totalCount = query.fetchCount();
 		
 		Page<Group> page = new PageImpl<Group>(domains, pageable, totalCount);
 		
@@ -132,8 +122,8 @@ public class GroupRepositoryImpl extends QueryDslRepositorySupport implements Gr
 	 * @param property
 	 * @param direction
 	 */
-	public void setDirection(JPAQuery query, StringPath property, Direction direction) {
-		if(direction.equals(Direction.ASC)) {
+	public void setDirection(JPQLQuery<Group> query, StringPath property, Direction direction) {
+		if (direction.equals(Direction.ASC)) {
 			query.orderBy(property.asc());
 		} else {
 			query.orderBy(property.desc());

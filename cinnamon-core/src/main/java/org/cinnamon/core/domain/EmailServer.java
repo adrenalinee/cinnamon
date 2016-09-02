@@ -22,7 +22,7 @@ import org.cinnamon.core.domain.enumeration.UseStatus;
  */
 @SuppressWarnings("serial")
 @Entity
-public class EmailServer implements Serializable{
+public class EmailServer implements Serializable {
 	
 	@Id
 	@GeneratedValue

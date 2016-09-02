@@ -12,9 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.JPQLQuery;
 
 /**
  * 
@@ -22,22 +23,24 @@ import com.mysema.query.jpa.impl.JPAQuery;
  * @author 동성
  *
  */
-public class SiteRepositoryImpl implements SiteRepositoryCustom {
+public class SiteRepositoryImpl extends QueryDslRepositorySupport implements SiteRepositoryCustom {
 	
 	@Autowired
 	EntityManager em;
+	
+	public SiteRepositoryImpl() {
+		super(Site.class);
+	}
 	
 	
 	@Override
 	public List<Site> findAll() {
 		QSite site = QSite.site;
 		
-		JPAQuery query = new JPAQuery(em).from(site);
-		query
-			.limit(100)
-			.orderBy(site.createdAt.asc());
-		
-		return query.list(site);
+		return from(site)
+				.limit(100)
+				.orderBy(site.createdAt.asc())
+				.fetch();
 	}
 	
 	@Override
@@ -52,23 +55,14 @@ public class SiteRepositoryImpl implements SiteRepositoryCustom {
 			builder.and(site.name.like("%" + siteSearch.getName() + "%"));
 		}
 		
-		
-		long offset = pageable.getOffset();
-		long limit = pageable.getPageSize();
-		
-		JPAQuery query = new JPAQuery(em).from(site);
-		query
+		JPQLQuery<Site> query = from(site)
 			.where(builder)
-			.offset(offset)
-			.limit(limit)
 			.orderBy(site.createdAt.desc());
 		
 		
-		List<Site> domains = query.list(site);
-		long totalCount = query.count();
+		List<Site> domains = getQuerydsl().applyPagination(pageable, query).fetch();
+		long totalCount = query.fetchCount();
 		
-		Page<Site> page = new PageImpl<Site>(domains, pageable, totalCount);
-		
-		return page;
+		return new PageImpl<Site>(domains, pageable, totalCount);
 	}
 }

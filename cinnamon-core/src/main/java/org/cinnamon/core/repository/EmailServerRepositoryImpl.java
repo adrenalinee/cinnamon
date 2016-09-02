@@ -13,9 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.JPQLQuery;
 
 /**
  * 
@@ -23,18 +24,22 @@ import com.mysema.query.jpa.impl.JPAQuery;
  * @author 동성
  *
  */
-public class EmailServerRepositoryImpl implements EmailServerRepositoryCustom {
+public class EmailServerRepositoryImpl extends QueryDslRepositorySupport implements EmailServerRepositoryCustom {
 	
 	@Autowired
 	EntityManager em;
 	
+	public EmailServerRepositoryImpl() {
+		super(EmailServer.class);
+	}
 	
 	@Override
 	public EmailServer getDefault() {
 		QEmailServer emailServer = QEmailServer.emailServer;
 		
-		JPAQuery query = new JPAQuery(em).from(emailServer);
-		return query.where(emailServer.defaultServer.eq(true)).singleResult(emailServer);
+		return from(emailServer)
+			.where(emailServer.defaultServer.eq(true))
+			.fetchOne();
 	}
 	
 	
@@ -61,19 +66,10 @@ public class EmailServerRepositoryImpl implements EmailServerRepositoryCustom {
 		// 2016.03.09 추가
 		builder.and(emailServer.useStatus.eq(UseStatus.enable));
 		
-		long offset = pageable.getOffset();
-		long limit = pageable.getPageSize();
+		JPQLQuery<EmailServer> query = from(emailServer).where(builder);
 		
-		JPAQuery query = new JPAQuery(em).from(emailServer);
-		query
-			.where(builder)
-			.offset(offset)
-			.limit(limit)
-			.orderBy(emailServer.createdAt.desc());
-		
-		
-		List<EmailServer> domains = query.list(emailServer);
-		long totalCount = query.count();
+		List<EmailServer> domains = getQuerydsl().applyPagination(pageable, query).fetch();
+		long totalCount = query.fetchCount();
 		
 		Page<EmailServer> page = new PageImpl<EmailServer>(domains, pageable, totalCount);
 		

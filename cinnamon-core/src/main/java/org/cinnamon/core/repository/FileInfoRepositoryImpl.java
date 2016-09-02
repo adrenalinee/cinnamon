@@ -14,8 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 import org.springframework.util.StringUtils;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.JPQLQuery;
 
 
 /**
@@ -41,7 +41,6 @@ public class FileInfoRepositoryImpl extends QueryDslRepositorySupport implements
 	 * @return
 	 */
 	public Page<FileInformation> search(FileInformationSearch fileInformationSearch, Pageable pageable) {
-		
 		QFileInformation fileInformation = QFileInformation.fileInformation;
 		
 		BooleanBuilder builder = new BooleanBuilder();
@@ -58,12 +57,10 @@ public class FileInfoRepositoryImpl extends QueryDslRepositorySupport implements
 			builder.and(fileInformation.type.eq(fileInformationSearch.getType()));
 		}
 		
-		JPAQuery query = new JPAQuery(em);
-		query.from(fileInformation);
-		query.where(builder);
+		JPQLQuery<FileInformation> query = from(fileInformation).where(builder);
 		
-		List<FileInformation> domains = getQuerydsl().applyPagination(pageable, query).list(fileInformation);
-		long totalCount = query.count();
+		List<FileInformation> domains = getQuerydsl().applyPagination(pageable, query).fetch();
+		long totalCount = query.fetchCount();
 		
 		Page<FileInformation> page = new PageImpl<FileInformation>(domains, pageable, totalCount);
 		

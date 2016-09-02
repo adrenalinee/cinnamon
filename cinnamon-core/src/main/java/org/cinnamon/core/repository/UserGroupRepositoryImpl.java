@@ -16,7 +16,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
-import com.mysema.query.jpa.JPQLQuery;
+import com.querydsl.jpa.JPQLQuery;
 
 /**
  * 
@@ -37,12 +37,11 @@ public class UserGroupRepositoryImpl extends QueryDslRepositorySupport implement
 	public Page<UserGroup> search(UserGroupSearch userGroupSearch, Pageable pageable) {
 		QUserGroup userGroup = QUserGroup.userGroup;
 		
-		JPQLQuery query = from(userGroup);
+		JPQLQuery<UserGroup> query = from(userGroup);
 		if (!StringUtils.isEmpty(userGroupSearch.getKeyword())) {
 			String keyword = userGroupSearch.getKeyword();
 			query.where(userGroup.name.like("%" + keyword + "%"));
 		}
-		
 		
 		if (!StringUtils.isEmpty(userGroupSearch.getUserId())) {
 			QUserBase user = QUserBase.userBase;
@@ -50,7 +49,6 @@ public class UserGroupRepositoryImpl extends QueryDslRepositorySupport implement
 			query.innerJoin(userGroup.users, user);
 			query.where(user.userId.eq(userGroupSearch.getUserId()));
 		}
-		
 		
 		if (userGroupSearch.getUserGroupId() != null) {
 			query.where(userGroup.userGroupId.eq(userGroupSearch.getUserGroupId()));
@@ -66,12 +64,10 @@ public class UserGroupRepositoryImpl extends QueryDslRepositorySupport implement
 		}
 		
 		
-		List<UserGroup> domains = getQuerydsl().applyPagination(pageable, query).list(userGroup);
-		long totalCount = query.count();
+		List<UserGroup> domains = getQuerydsl().applyPagination(pageable, query).fetch();
+		long totalCount = query.fetchCount();
 		
-		Page<UserGroup> page = new PageImpl<UserGroup>(domains, pageable, totalCount);
-		
-		return page;
+		return new PageImpl<UserGroup>(domains, pageable, totalCount);
 	}
 
 }

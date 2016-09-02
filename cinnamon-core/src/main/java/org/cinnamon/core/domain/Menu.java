@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  */
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="menuId")
-public class Menu implements Serializable {
+public class Menu implements Serializable { 
 	
 	/**
 	 * 

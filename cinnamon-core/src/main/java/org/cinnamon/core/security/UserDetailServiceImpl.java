@@ -29,7 +29,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	UserBaseRepository<UserBase> userRepository;
 	
 	@Autowired
-	UserPasswordRepository userPasswordRepository;
+	UserPasswordRepository<UserBase> userPasswordRepository;
 	
 	@Autowired
 	private PlatformTransactionManager transactionManager;

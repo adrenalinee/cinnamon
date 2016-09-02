@@ -6,7 +6,7 @@ import org.cinnamon.core.domain.QMenu;
 import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.domain.enumeration.UseStatus;
 
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.Predicate;
 
 /**
  * 

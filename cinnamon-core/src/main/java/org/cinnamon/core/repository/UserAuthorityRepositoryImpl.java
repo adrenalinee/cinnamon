@@ -20,8 +20,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 
-import com.mysema.query.BooleanBuilder;
-import com.mysema.query.jpa.impl.JPAQuery;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.JPQLQuery;
 
 /**
  * 
@@ -29,14 +29,13 @@ import com.mysema.query.jpa.impl.JPAQuery;
  * @since 2015. 2. 3.
  */
 public class UserAuthorityRepositoryImpl extends QueryDslRepositorySupport implements UserAuthorityRepositoryCustom {
-	
-	public UserAuthorityRepositoryImpl() {
-		super(Permission.class);
-	}
 
 	@Autowired
 	EntityManager em;
 	
+	public UserAuthorityRepositoryImpl() {
+		super(Permission.class);
+	}
 	
 	/**
 	 * 
@@ -51,16 +50,13 @@ public class UserAuthorityRepositoryImpl extends QueryDslRepositorySupport imple
 		QPermissionMenu roleMenu = QPermissionMenu.permissionMenu;
 		QUserGroup userGroup = QUserGroup.userGroup;
 		
-		
-		JPAQuery query = new JPAQuery(em);
-		query.from(role, roleMenu, menu, userGroup)
-//			.innerJoin(permission.permissionId, permissionMenu.permissionId)
-			.innerJoin(roleMenu)
-			.innerJoin(menu)
-			.innerJoin(userGroup)
-			.where(menu.uri.eq(uri).and(userGroup.userGroupId.eq(userGroupId)));
-		
-		return query.list(role);
+		return from(role, roleMenu, menu, userGroup)
+				.innerJoin(roleMenu)
+				.innerJoin(menu)
+				.innerJoin(userGroup)
+				.where(menu.uri.eq(uri).and(userGroup.userGroupId.eq(userGroupId)))
+				.select(role)
+				.fetch();
 	}
 	
 	
@@ -74,12 +70,10 @@ public class UserAuthorityRepositoryImpl extends QueryDslRepositorySupport imple
 	public List<PermissionMenu> getMenuAuthoritues(String authority, String uri) {
 		QPermissionMenu roleMenu = QPermissionMenu.permissionMenu;
 		
-		JPAQuery query = new JPAQuery(em);
-		query.from(roleMenu)
-			.where(roleMenu.menu.uri.eq(uri).and(roleMenu.permission.authority.eq(authority)))
-			.limit(100);
-		
-		return query.list(roleMenu);
+		return from(roleMenu)
+				.where(roleMenu.menu.uri.eq(uri).and(roleMenu.permission.authority.eq(authority)))
+				.limit(100)
+				.fetch();
 	}
 	
 	
@@ -104,17 +98,12 @@ public class UserAuthorityRepositoryImpl extends QueryDslRepositorySupport imple
 			builder.and(role.useStatus.eq(UseStatus.valueOf(permissionSearch.getUseStatus())));
 		}
 		
-		JPAQuery query = new JPAQuery(em).from(role);
-		query
-			.where(builder);
-
+		JPQLQuery<Permission> query = from(role).where(builder);
 		
-		List<Permission> domains = getQuerydsl().applyPagination(pageable, query).list(role);
-		long totalCount = query.count();
+		List<Permission> domains = getQuerydsl().applyPagination(pageable, query).fetch();
+		long totalCount = query.fetchCount();
 		
-		Page<Permission> page = new PageImpl<Permission>(domains, pageable, totalCount);
-		
-		return page;
+		return new PageImpl<Permission>(domains, pageable, totalCount);
 	}
 
 
@@ -125,16 +114,14 @@ public class UserAuthorityRepositoryImpl extends QueryDslRepositorySupport imple
 		QMenu menu = QMenu.menu;
 		QMenuGroup menuGroup = QMenuGroup.menuGroup;
 		
-		JPAQuery query = new JPAQuery(em).from(roleMenu);
-		
-		return query
+		return from(roleMenu)
 				.join(roleMenu.permission, role)
 				.join(roleMenu.menu, menu)
 				.join(menu.menuGroup, menuGroup)
 				.where(
 					role.authority.eq(authoritiy)
 					.and(menuGroup.menuGroupId.eq(menuGroupId)))
-				.list(roleMenu);
+				.fetch();
 	}
 	
 	/**
@@ -151,15 +138,14 @@ public class UserAuthorityRepositoryImpl extends QueryDslRepositorySupport imple
 		QMenu menu = QMenu.menu;
 		QMenuGroup menuGroup = QMenuGroup.menuGroup;
 		
-		JPAQuery query = new JPAQuery(em).from(permissionMenu);
-		
-		return query.join(permissionMenu.permission, permission)
+		return from(permissionMenu)
+				.join(permissionMenu.permission, permission)
 				.join(permissionMenu.menu, menu)
 				.join(menu.menuGroup, menuGroup)
 				.where(
 					permission.permissionId.eq(permissionId)
 					.and(menuGroup.menuGroupId.eq(menuGroupId)))
-				.list(permissionMenu);
+				.fetch();
 	}
 	
 	/**
