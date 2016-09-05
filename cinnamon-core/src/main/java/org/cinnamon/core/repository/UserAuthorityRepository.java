@@ -1,7 +1,5 @@
 package org.cinnamon.core.repository;
 
-import java.util.List;
-
 import org.cinnamon.core.domain.Permission;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,5 +13,5 @@ public interface UserAuthorityRepository extends JpaRepository<Permission, Long>
 	
 	Permission findByAuthority(String authority);
 	
-	Permission findFirst1ByAuthorityIn(List<String> authorities);
+	//Permission findFirst1ByAuthorityIn(List<String> authorities);
 }

@@ -22,6 +22,7 @@ import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQuery;
+import com.querydsl.jpa.impl.JPAQuery;
 
 /**
  * 
@@ -159,12 +160,10 @@ public class UserAuthorityRepositoryImpl extends QueryDslRepositorySupport imple
 	}
 
 
-//	@Override
-//	public Permission findFirst1ByAuthorityIn(List<String> authorities) {
-//		QPermission permission = QPermission.permission;
-//		JPAQuery query = new JPAQuery(em).from(permission);
-//		Permission result = query.where(permission.authority.in(authorities), permission.defaultMenu.isNotNull())
-//				.limit(1L).singleResult(permission);
-//		return result;
-//	}
+	@Override
+	public Permission findFirst1ByAuthorityIn(List<String> authorities) {
+		QPermission permission = QPermission.permission;
+		return from(permission).where(permission.authority.in(authorities), permission.defaultMenu.isNotNull())
+				.limit(1L).fetchOne();
+	}
 }
