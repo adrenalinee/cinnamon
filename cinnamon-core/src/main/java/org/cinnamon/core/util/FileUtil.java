@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartRequest;
 @Component
 public class FileUtil {
 	
-	@Value("${internalFile.root}")
+	@Value("${internalFile.root:~/fileroot}")
 	String internalFileRoot;
 	
 	public List<FileInformation> getFileInfomationList(String prePath, String sufPath, MultipartRequest multiRequest) throws IOException {

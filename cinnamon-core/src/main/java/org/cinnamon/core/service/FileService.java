@@ -37,10 +37,10 @@ import org.springframework.util.StringUtils;
 public class FileService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@Value("${web.webroot}")
+	@Value("${web.webroot:~/webroot}")
 	String webroot;
 	
-	@Value("${internalFile.root}")
+	@Value("${internalFile.root:~/fileroot}")
 	String internalFileRoot;
 	
 	@Autowired

@@ -34,7 +34,7 @@
 	<properties>
 		<main.basedir>${basedir}/../..</main.basedir>
 		<hibernate.version>4.3.11.Final</hibernate.version>
-	</properties>	
+	</properties>
 	
 	<dependencyManagement>
 		<dependencies>
