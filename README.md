@@ -17,6 +17,19 @@
 ## feature
 작성예정
 
+## screenshot
+<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/initWizard.jpg" />
+
+<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/login.jpg" />
+
+<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/sites.jpg" />
+
+<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/mobileRole.jpg" />
+
+<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/mobileNav.jpg" />
+
+
+
 # Quick start
 
 ```shell
