@@ -15,7 +15,8 @@
 이 되는 것이 이 프로젝트의 중요한 달성과제입니다.
 
 ## feature
-작성예정
+- [google material design](https://material.google.com) 적용
+- TODO
 
 ## screenshot
 <img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/initWizard.jpg" />
