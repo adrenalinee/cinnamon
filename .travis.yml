@@ -6,4 +6,8 @@ branches:
   only:
   - master
 
+jdk:
+  - oraclejdk8
+  - openjdk8
+
 script: mvn test

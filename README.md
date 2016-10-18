@@ -1,4 +1,7 @@
 # cinnamon
+
+[![Build Status](https://travis-ci.org/adrenalinee/cinnamon.svg?branch=master)](https://travis-ci.org/adrenalinee/cinnamon)
+
 콘솔 스타일의 웹 어플리케이션 개발을 위한 플러그인기반 웹 플랫폼 개발을 목표로 하고 있습니다.
 
 향후 플러그인방식으로 기능을 추가할 수 있고 외부 서비스와 연동을 통해 웹 어플리케이션 개발자에게 필요한 다양한 기능을
