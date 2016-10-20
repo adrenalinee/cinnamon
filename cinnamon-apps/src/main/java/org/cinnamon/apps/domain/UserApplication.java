@@ -13,11 +13,10 @@ import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.cinnamon.core.domain.UserBase;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.base.Objects;
 
 /**
  * 
@@ -130,12 +129,14 @@ public class UserApplication implements Serializable {
 		
 		@Override
 		public boolean equals(Object obj) {
-			return EqualsBuilder.reflectionEquals(this, obj);
+			return Objects.equal(this, obj);
+//			return EqualsBuilder.reflectionEquals(this, obj);
 		}
 		
 		@Override
 		public int hashCode() {
-			return HashCodeBuilder.reflectionHashCode(this);
+			return Objects.hashCode(userId, appId);
+//			return HashCodeBuilder.reflectionHashCode(this);
 		}
 	}
 
