@@ -12,19 +12,25 @@ public class InvalidEntityException extends BadRequestException {
 	
 	private String entityClass;
 	
-	
 	public InvalidEntityException(String message) {
 		super(message);
 	}
-
 
 	public String getEntityClass() {
 		return entityClass;
 	}
 
-
 	public void setEntityClass(String entityClass) {
 		this.entityClass = entityClass;
 	}
 	
+	@Override
+	public String getErrorCode() {
+		return "ER0001";
+	}
+
+	@Override
+	public String getDescription() {
+		return "유효하지 않습니다.";
+	}
 }

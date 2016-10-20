@@ -140,7 +140,7 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 						.iconClass("view_list"),
 					menu("첨부파일")
 						.uri("/configuration/files")
-						.iconClass("attachment"),
+						.iconClass("attachment")/*,
 					menu("시스템")
 						.uri("/configuration/system")
 						.iconClass("storage")
@@ -152,7 +152,7 @@ public class CoreSystemConfigurer implements SystemConfigurer {
 								menu("시스템 정보")
 									.uri("/configuration/system/infos")
 									.iconClass("info")
-							)
+							)*/
 				).addMenusAtHeaderRight(
 					menu("설정")
 						.iconClass("more_vert")

@@ -3,13 +3,17 @@ package org.cinnamon.core.exception;
 import java.util.List;
 
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 
 /**
- *  
+ * 
+ * @deprecated spring 버전업되면서 파라미터 유효성 에러를 체크하지 않으면 {@link MethodArgumentNotValidException} 가 자동 throw된다.
+ * 이 exception을 이용해서 유효성 에러 치리를 한다.
  * @author dsshin
  * created date: 2014. 4. 11.
  */
+@Deprecated
 public class InvalidParameterException extends BadRequestException {
 	
 	List<ObjectError> objectErrors;

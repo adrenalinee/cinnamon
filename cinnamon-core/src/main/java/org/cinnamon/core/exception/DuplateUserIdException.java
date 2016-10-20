@@ -16,13 +16,11 @@ public class DuplateUserIdException extends BadRequestException {
 	
 	@Override
 	public String getErrorCode() {
-		// TODO Auto-generated method stub
-		return null;
+		return "ER0102";
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return "이미 사용중인 사용자 아이디 입니다.";
 	}
 }

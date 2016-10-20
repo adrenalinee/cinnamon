@@ -10,7 +10,7 @@ import java.util.List;
  * @author 동성
  * @since 2015. 1. 19.
  */
-public class InvalidParameterInfo extends ExceptionBaseInfo {
+public class InvalidParameterInfo extends BadRequestInfo {
 	
 	List<Violation> violations;
 

@@ -25,9 +25,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * rest api 들에 대해서
@@ -51,7 +49,6 @@ public class CommonRestControllerAdvice {
 	@ExceptionHandler(UnauthorizedException.class)
 	public ResponseEntity<UnauthorizedInfo> handleUnauthorizedException(UnauthorizedException ex, HttpServletRequest request) {
 		logger.info("start");
-		
 		logger.error("요청 처리중 에러 발생", ex);
 		
 		UnauthorizedInfo unauthorizedInfo = new UnauthorizedInfo();
@@ -62,7 +59,6 @@ public class CommonRestControllerAdvice {
 		unauthorizedInfo.setMessage(ex.getMessage());
 		unauthorizedInfo.setPath(request.getRequestURI());
 		unauthorizedInfo.setMethod(request.getMethod());
-		
 		
 		ResponseEntity<UnauthorizedInfo> response = new ResponseEntity<UnauthorizedInfo>(unauthorizedInfo, HttpStatus.UNAUTHORIZED);
 		return response;
@@ -78,7 +74,6 @@ public class CommonRestControllerAdvice {
 	@ExceptionHandler(BadRequestException.class)
 	public ResponseEntity<BadRequestInfo> handler(BadRequestException ex, HttpServletRequest request) {
 		logger.info("start");
-		
 		logger.error("요청 처리중 에러 발생", ex);
 		
 		BadRequestInfo badRequestInfo = new BadRequestInfo();
@@ -89,7 +84,7 @@ public class CommonRestControllerAdvice {
 		badRequestInfo.setMessage(ex.getMessage());
 		badRequestInfo.setPath(request.getRequestURI());
 		badRequestInfo.setMethod(request.getMethod());
-		
+		badRequestInfo.setErrorCode(ex.getErrorCode());
 		
 		ResponseEntity<BadRequestInfo> response = new ResponseEntity<BadRequestInfo>(badRequestInfo, HttpStatus.BAD_REQUEST);
 		return response;
@@ -98,7 +93,6 @@ public class CommonRestControllerAdvice {
 	@ExceptionHandler(BindException.class)
 	public ResponseEntity<List<ObjectError>> exceptionHandler(BindException ex, HttpServletRequest request) {
 		logger.info("start");
-		
 		logger.error("요청 처리중 에러 발생", ex);
 		
 		
@@ -121,7 +115,6 @@ public class CommonRestControllerAdvice {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<InvalidParameterInfo> handler(MethodArgumentNotValidException ex, HttpServletRequest request) {
 		logger.info("start");
-		
 		logger.error("요청 처리중 에러 발생", ex);
 		
 		InvalidParameterInfo invalidParameterInfo = new InvalidParameterInfo();
@@ -129,7 +122,7 @@ public class CommonRestControllerAdvice {
 		invalidParameterInfo.setError(HttpStatus.BAD_REQUEST.getReasonPhrase());
 		invalidParameterInfo.setTimestamp(System.currentTimeMillis());
 		invalidParameterInfo.setException(ex.getClass().getName());
-		invalidParameterInfo.setMessage(ex.getMessage());
+//		invalidParameterInfo.setMessage(ex.getMessage());
 		invalidParameterInfo.setPath(request.getRequestURI());
 		invalidParameterInfo.setMethod(request.getMethod());
 		
@@ -177,7 +170,6 @@ public class CommonRestControllerAdvice {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<InternalServerErrorInfo> handler(Exception ex, HttpServletRequest request) {
 		logger.info("start");
-		
 		logger.error("요청 처리중 에러 발생", ex);
 		
 		InternalServerErrorInfo internalServerErrorInfo = new InternalServerErrorInfo();
@@ -210,7 +202,6 @@ public class CommonRestControllerAdvice {
 	@ExceptionHandler(NotFoundException.class)
 	public ResponseEntity<NotFoundInfo> handler(NotFoundException ex, HttpServletRequest request) {
 		logger.info("start");
-		
 		logger.error("요청 처리중 에러 발생", ex);
 		
 		NotFoundInfo notFoundInfo = new NotFoundInfo();

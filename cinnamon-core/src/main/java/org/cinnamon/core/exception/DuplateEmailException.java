@@ -16,13 +16,11 @@ public class DuplateEmailException extends BadRequestException {
 	
 	@Override
 	public String getErrorCode() {
-		// TODO Auto-generated method stub
-		return null;
+		return "ER0103";
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return "이미 사용중인 이메일주소 입니다.";
 	}
 }

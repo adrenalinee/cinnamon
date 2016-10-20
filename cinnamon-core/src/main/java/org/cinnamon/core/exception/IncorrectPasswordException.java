@@ -16,14 +16,12 @@ public class IncorrectPasswordException extends BadRequestException {
 	
 	@Override
 	public String getErrorCode() {
-		// TODO Auto-generated method stub
-		return null;
+		return "ER0104";
 	}
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return "비밀번호가 정확하지 않습니다.";
 	}
 
 }
