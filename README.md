@@ -21,18 +21,6 @@
 - [google material design](https://material.google.com) 적용
 - TODO
 
-## screenshot
-<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/initWizard.jpg" />
-
-<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/login.jpg" />
-
-<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/sites.jpg" />
-
-<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/mobileRole.jpg" />
-
-<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/mobileNav.jpg" />
-
-
 
 # Quick start
 
@@ -45,6 +33,23 @@ $ mvn spring-boot:run
 ```
 
 웹 브라우저에서 http://localhost:8080 접속
+
+
+## screenshot
+
+desktop
+<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/initWizard.jpg" />
+
+<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/login.jpg" />
+
+<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/sites.jpg" />
+
+
+mobile
+<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/mobileRole.jpg" />
+
+<img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/mobileNav.jpg" />
+
 
 # 0.3version roadmap
 ## 플러그인 형태로 기능을 추가해나갈 수 있는 구조로 개선
