@@ -49,7 +49,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		
 		return transactionTemplate.execute(status -> {
 			UserBase user = userRepository.findOne(username);
-			System.out.println(ToStringBuilder.reflectionToString(user));
+//			System.out.println(ToStringBuilder.reflectionToString(user));
 			
 			if (user == null) {
 				throw new UsernameNotFoundException("사용자가  존재 하지 않습니다. username = " + username);

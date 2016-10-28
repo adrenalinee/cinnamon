@@ -3,7 +3,6 @@ package org.cinnamon.core.security;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.UserGroup;
 import org.cinnamon.core.domain.enumeration.UseStatus;
@@ -33,7 +32,7 @@ public class UserDetailImpl implements UserDetails {
 		this.userBase = user;
 		password = user.getUserPassword().getPassword();
 		
-		logger.info(ToStringBuilder.reflectionToString(user.getUserGroups()));
+//		logger.info(ToStringBuilder.reflectionToString(user.getUserGroups()));
 		
 		for (UserGroup userGroup: user.getUserGroups()) {
 			String authority = userGroup.getPermission().getAuthority();
