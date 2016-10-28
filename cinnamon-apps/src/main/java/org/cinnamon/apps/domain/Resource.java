@@ -25,6 +25,14 @@ public class Resource implements Serializable {
 	@Column(length=4000)
 	String description;
 	
+	public Resource() {
+		
+	}
+	
+	public Resource(String resourceId) {
+		this.resourceId = resourceId;
+	}
+	
 	public String getResourceId() {
 		return resourceId;
 	}
