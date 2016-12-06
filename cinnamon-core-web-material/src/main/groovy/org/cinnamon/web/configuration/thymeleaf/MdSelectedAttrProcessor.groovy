@@ -12,23 +12,19 @@ import org.thymeleaf.standard.expression.IStandardExpressionParser;
 import org.thymeleaf.standard.expression.StandardExpressions;
 import org.thymeleaf.standard.processor.attr.AbstractStandardSingleAttributeModifierAttrProcessor
 
+
+
 /**
  * 
- * thyemleaf 에서 넘어간 el값과 anguar의 attribute directive를 같이 사용하기 위해 만듬
- * 예를 들어서
- * <div ng:ng-click="selectMenu('${menu.uri}')"> </div>
- * 위코드를 변환하면 아래와 같이 출력된다.
- * <div ng-click="selectMenu('/configuration/userGroups')"> </div>
- * 
- * 
  * @author 신동성
- * @since 2016. 5. 19.
+ * @since 2016. 12. 5.
  */
-class MdOnSelectAttrProcessor extends AbstractStandardSingleAttributeModifierAttrProcessor {
-
-	MdOnSelectAttrProcessor() {
-		super("md-on-select")
+class MdSelectedAttrProcessor extends AbstractStandardSingleAttributeModifierAttrProcessor {
+	
+	MdSelectedAttrProcessor() {
+		super("md-selected")
 	}
+	
 
 	@Override
 	public int getPrecedence() {
@@ -39,7 +35,7 @@ class MdOnSelectAttrProcessor extends AbstractStandardSingleAttributeModifierAtt
 		final Arguments arguments, final Element element,
 		final String attributeName) {
 		
-		return "md-on-select"
+		return "md-selected"
 	}
 	
 	@Override
@@ -85,4 +81,5 @@ class MdOnSelectAttrProcessor extends AbstractStandardSingleAttributeModifierAtt
 			final Arguments arguments, final Element element, final String attributeName, final String newAttributeName) {
 		return false;
 	}
+
 }

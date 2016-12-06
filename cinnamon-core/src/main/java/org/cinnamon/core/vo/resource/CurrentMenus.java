@@ -16,6 +16,10 @@ public class CurrentMenus {
 	
 	String name;
 	
+	Integer current1depthIndex;
+	
+	Integer current2depthIndex;
+	
 	List<Menu> actives = new LinkedList<>();
 	
 	List<Menu> sidebar = new LinkedList<>();
@@ -83,6 +87,22 @@ public class CurrentMenus {
 
 	public void setHeaderLeft(List<Menu> headerLeft) {
 		this.headerLeft = headerLeft;
+	}
+
+	public Integer getCurrent1depthIndex() {
+		return current1depthIndex;
+	}
+
+	public void setCurrent1depthIndex(Integer current1depthIndex) {
+		this.current1depthIndex = current1depthIndex;
+	}
+
+	public Integer getCurrent2depthIndex() {
+		return current2depthIndex;
+	}
+
+	public void setCurrent2depthIndex(Integer current2depthIndex) {
+		this.current2depthIndex = current2depthIndex;
 	}
 	
 }

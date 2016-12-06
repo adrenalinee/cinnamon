@@ -111,6 +111,10 @@ class CommonControllerAdvice {
 		
 		List<Menu> actives = new LinkedList<>()
 		List<Menu> menus = new LinkedList<>()
+		
+		int firstDepthIndex = 0
+		int secondDepthIndex = 0
+		
 		menuService.getList(dimension, MenuPosition.sidebar, authorities).each({menu ->
 			menus.add(menu)
 			
@@ -119,18 +123,24 @@ class CommonControllerAdvice {
 //				println menu.getUri()
 				if (uri.indexOf(menu.getUri()) > -1) {
 					actives.add(menu)
+					currentMenus.setCurrent1depthIndex(firstDepthIndex)
 					
 					//1뎁스가 활성화 되어 있을 경우 2뎁스에서 활성화된 메뉴도 
 					menu.getChilds().forEach({child ->
-						println child.getUri()
+//						println child.getUri()
 						if (child.getUri() != null) {
 							if (uri.indexOf(child.getUri()) > -1) {
 								actives.add(child)
+								currentMenus.setCurrent2depthIndex(secondDepthIndex)
 							}
 						}
+						
+						secondDepthIndex++
 					})
 				}
 			}
+			
+			firstDepthIndex++
 		})
 		currentMenus.setActives(actives)
 		currentMenus.setSidebar(menus)

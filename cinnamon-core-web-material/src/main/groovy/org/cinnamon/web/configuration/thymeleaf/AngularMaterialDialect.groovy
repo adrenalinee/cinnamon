@@ -25,6 +25,7 @@ class AngularMaterialDialect extends AbstractDialect {
 	Set<IProcessor> getProcessors() {
 		final Set<IProcessor> processors = new HashSet<IProcessor>()
 		processors.add(new MdOnSelectAttrProcessor())
+		processors.add(new MdSelectedAttrProcessor())
 		
 		return processors
 	}

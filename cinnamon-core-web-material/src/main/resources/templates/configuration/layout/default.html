@@ -108,7 +108,7 @@
 		<!-- md:md-on-select="selectMenu('${menu.uri}')" -->
 		<!-- 2depth menus -->
 		<div class="md-primary md-hue-1" th:if="${#arrays.isEmpty(currentMenus.actives) == false and #arrays.isEmpty(currentMenus.actives[0].childs) == false}">
-			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md-selected="selectedChildMenuIndex">
+			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md:md-selected="${currentMenus.current2depthIndex}">
 				<md-tab ng:ng-click="selectMenu('${menu.uri}')" th:each="menu: ${currentMenus.actives[0].childs}">
 					<md-tab-label th:text="${menu.name}" />
 				</md-tab>
