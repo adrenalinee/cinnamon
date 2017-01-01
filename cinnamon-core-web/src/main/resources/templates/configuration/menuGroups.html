@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/default">
+
+<head>
+<title>메뉴 모음</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script type="text/javascript" src="/js/configuration/directives/searchList.js"></script>
+<script type="text/javascript" src="/js/configuration/directives/dialogTemplate.js"></script>
+
+<script type="text/javascript" src="/js/configuration/menuGroups/viewController.js"></script>
+<script type="text/javascript" src="/js/configuration/menuGroups/createController.js"></script>
+<script type="text/javascript" src="/js/configuration/menuGroups/modifyController.js"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+angular.module('cinnamon')
+.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider.state('create', {
+		url: '/configuration/menuGroups/create',
+		templateUrl: '/configuration/partials/menuGroups/create',
+		controller: 'configuration.menuGroups.create'
+	}).state('view', {
+		url: '/configuration/menuGroups/:menuGroupId',
+		templateUrl: '/configuration/partials/menuGroups/view',
+		controller: 'configuration.menuGroups.view'
+	}).state('modify', {
+		url: '/configuration/menuGroups/:menuGroupId/modify',
+		templateUrl: '/configuration/partials/menuGroups/modify',
+		controller: 'configuration.menuGroups.modify'
+	});
+	
+});
+/*]]>*/
+</script>
+
+<base href="/" />
+</head>
+
+<body layout:fragment="content">
+	<ui-view layout-fill=""/>
+</body>
+</html>

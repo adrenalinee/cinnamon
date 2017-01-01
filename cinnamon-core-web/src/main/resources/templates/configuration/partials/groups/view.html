@@ -1,0 +1,109 @@
+<div class="content-container" ng-controller="configuration.group.view" ng-cloak="">
+
+	<h3 layout-padding="" class="md-headline">
+		코드
+		<span class="md-subhead text-muted">정보</span>
+	</h3>
+	
+	<md-card layout-padding="">
+		<md-card-header>
+			<md-card-header-text>
+				<span class="md-title">기본정보</span>
+			</md-card-header-text>
+			<md-button class="md-icon-button" ui-sref="modify({groupId: domains.groupId})">
+				<md-tooltip>기본 정보 수정</md-tooltip>
+				<md-icon>edit</md-icon>
+			</md-button>
+		</md-card-header>
+		
+		<md-card-content>
+			<table class="table table-hover">
+				<tr>
+			 		<th>
+						부모코드
+					</th>
+					<td>
+						<a href="/configuration/groups/{{domains.parent.groupId}}">{{ domains.parent.name }}</a>
+						<md-button class="md-primary md-raised" ng-click="popupParentList()">
+							부모코드 등록
+						</md-button>
+					</td>
+				</tr>
+				<tr >
+					<th>
+						groupId
+					</th>
+					<td>
+						{{ domains.groupId }}
+					</td>
+				</tr>
+				<tr >
+					<th><strong>이름</strong></th>
+					<td>
+						{{ domains.name }} 
+					</td>
+				</tr>
+				<tr>
+					<th>
+						설명
+					</th>
+					<td>
+						{{ domains.description }}
+					</td>
+				</tr>
+				<tr>
+					<th>
+						사용상태
+					</th>
+					<td>
+						{{statusMap[domains.useStatus]}}
+					</td>
+				</tr>
+			</table>
+		</md-card-content>
+		<md-card-action layout="row" layout-align="end">
+			<md-button class="md-raised" ng-click="goList()">
+				목록
+			</md-button>
+		</md-card-action>
+	</md-card>
+
+	<md-card layout-padding="">
+		<md-card-header>
+			<md-card-header-text>
+				<span class="md-title">하위코드</span>
+			</md-card-header-text>
+		</md-card-header>
+		<md-card-content>
+			<md-list>
+				<md-list-item ng-repeat="child in childs">
+					<p>
+						<a href="/configuration/groups/{{child.groupId}}">{{child.groupId}}</a>
+					</p>
+					<p>
+						{{child.name}}
+					</p>
+					<p>
+						{{statusMap[child.useStatus]}}
+					</p>
+				</md-list-item>
+			</md-list>
+		</md-card-content>
+	</md-card>
+
+	<md-fab-speed-dial md-open="fabOpen" class="md-fab-bottom-right md-scale" style="position: fixed" md-direction="up">
+		<md-fab-trigger>
+			<md-button class="md-fab">
+				<md-tooltip md-direction="left">메뉴</md-tooltip>
+				<md-icon>mode_edit</md-icon>
+			</md-button>
+		</md-fab-trigger>
+		<md-fab-actions>
+			<md-button class="md-fab md-raised md-mini" ng-click="popupCreateChild($event)">
+				<md-tooltip md-direction="left">하위 코드 등록</md-tooltip>
+				<md-icon>add</md-icon>
+			</md-button>
+		</md-fab-actions>
+	</md-fab-speed-dial>
+
+</div>

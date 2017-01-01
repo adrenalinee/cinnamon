@@ -1,0 +1,67 @@
+<!-- 
+<md-fab-speed-dial md-open="fabOpen" class="md-fab-bottom-right md-scale" style="position: fixed">
+	<md-fab-trigger>
+		<md-button class="md-fab" ui-sref="create">
+			<md-tooltip md-direction="left">파일 등록</md-tooltip>
+			<md-icon>add</md-icon>
+		</md-button>
+	</md-fab-trigger>
+</md-fab-speed-dial>
+ -->
+<div class="content-container" ng-controller="configuration.file.list" ng-cloak="">
+
+	<h3 layout-padding="" class="md-headline">
+		파일
+		<span class="md-subhead text-muted"> 목록</span>
+	</h3>
+	
+	
+	<!-- 상세 검색 시작 -->
+	<md-card md-whiteframe="3">
+		<cm-search-list
+			resource-url="/rest/configuration/files"
+			domains="domains"
+			search-info="searchInfo"
+			sort-items="{
+				fileId : 'fileId',
+				name: '파일명',
+				ext : '확장자'
+			}"
+			
+			default-sorts="'createdAt,desc'"
+			>
+			<!-- 상세검색 필드 -->
+			<cm-search-list-filters>
+				<md-card-content class="content" layout="column">
+					<md-input-container>
+						<label>fileId</label>
+						<input ng-model="searchInfo.fileId"/>
+					</md-input-container>
+					<md-input-container>
+						<label>파일명</label>
+						<input ng-model="searchInfo.name"/>
+					</md-input-container>
+					<md-input-container>
+						<label>확장자</label>
+						<input ng-model="searchInfo.ext"/>
+					</md-input-container>
+				</md-card-content>
+			</cm-search-list-filters>
+			<!-- 상세검색 필드 끝-->
+			<!-- 리스트  -->
+			<cm-search-list-items>
+				<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
+					<p >{{ domain.fileId }} </p>
+					<p >{{ domain.name }} </p>
+					<p >{{ domain.ext }}</p>
+					<p >{{ domain.orignFileName }}</p>
+					<p >{{ domain.size }} </p>
+					<md-divider ng-if="!$last"></md-divider>
+				</md-list-item>
+			</cm-search-list-items>
+			<!-- 리스트  끝-->
+		</cm-search-list>
+	</md-card>
+
+</div>
+

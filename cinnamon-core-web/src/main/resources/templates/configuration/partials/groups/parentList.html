@@ -1,0 +1,59 @@
+<md-dialog aria-label="부모 코드 검색" flex="70">
+
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2 class="md-title">부모 코드 리스트 등록</h2>
+			<span flex=""></span>
+			<md-button class="md-icon-button" ng-click="close()">
+				<md-icon>close</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<md-dialog-content>
+	<!-- 상세 검색 시작 -->
+		<cm-search-list
+			resource-url="/rest/configuration/groups"
+			domains="domains"
+			search-info="searchInfo"
+			sort-items="{
+				parentGroupId : '부모코드',
+				name: '코드명',
+				groupId : '코드아이디'
+			}"
+			
+			default-sorts="'createdAt,desc'"
+			>
+			<!-- 상세검색 필드 -->
+			<cm-search-list-filters>
+				<md-card-content class="content" layout="column">
+					<md-input-container layout-fill="">
+						<label>부모코드명</label>
+						<input ng-model="searchInfo.parent.name"/>
+					</md-input-container>
+					<md-input-container layout-fill="">
+						<label>코드명</label>
+						<input ng-model="searchInfo.name"/>
+					</md-input-container>
+					<md-input-container layout-fill="">
+						<label>코드</label>
+						<input ng-model="searchInfo.groupId"/>
+					</md-input-container>
+				</md-card-content>
+			</cm-search-list-filters>
+			<!-- 상세검색 필드 끝-->
+			<!-- 리스트  -->
+			<cm-search-list-items>
+				<md-list-item ng-repeat="domain in domains.content" ng-click="selectParent(domain)">
+					<p class="text-muted">{{ domain.parent.name }} </p>
+					<p class="text-muted">{{ domain.parent.groupId }} </p>
+				    <p class="text-muted">{{ domain.name }}</p>
+				    <p class="text-muted">{{ domain.groupId }} </p>
+					<md-divider ng-if="!$last"></md-divider>
+				</md-list-item>
+			</cm-search-list-items>
+			<!-- 리스트  끝-->
+		</cm-search-list>
+	</md-dialog-content>
+</md-dialog>
+

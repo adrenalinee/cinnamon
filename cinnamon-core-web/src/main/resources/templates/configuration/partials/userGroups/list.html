@@ -1,0 +1,61 @@
+<md-fab-speed-dial md-open="fabOpen" class="md-fab-bottom-right md-scale" style="position: fixed">
+	<md-fab-trigger>
+		<md-button class="md-fab md-accent" ui-sref="create">
+			<md-tooltip md-direction="left">사용자 모임 생성</md-tooltip>
+			<md-icon>group_add</md-icon>
+		</md-button>
+	</md-fab-trigger>
+</md-fab-speed-dial>
+
+
+<div class="content-container">
+	<h3 layout-padding="" class="md-headline">사용자 모임</h3>
+	
+	<md-card md-whiteframe="3">
+		<cm-search-list
+			resource-url="/rest/configuration/userGroups"
+			domains="domains"
+			search-info="searchInfo"
+			sort-items="{
+				userGroupId: 'userGroupId',
+				name: '이름'
+			}"
+			default-sorts="'userGroupId,desc'">
+			
+			<cm-search-list-filters>
+				<md-card-content class="content" layout="column">
+					<md-input-container>
+						<label>userGroupId</label>
+						<input ng-model="searchInfo.userGroupId" />
+					</md-input-container>
+					<md-input-container>
+						<label>이름</label>
+						<input ng-model="searchInfo.name" />
+					</md-input-container>
+					<md-input-container>
+						<label>속한 사용자</label>
+						<input ng-model="searchInfo.userId" />
+					</md-input-container>
+					<md-input-container>
+						<label>권한</label>
+						<input ng-model="searchInfo.authority" />
+					</md-input-container>
+				</md-card-content>
+			</cm-search-list-filters>
+			<cm-search-list-items>
+				<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
+					<div flex="10">
+						<md-icon>group</md-icon>
+					</div>
+					<div flex="10" class="text-muted">
+						{{domain.userGroupId}}
+					</div>
+					<b flex="50">{{domain.name}}</b>
+					<span flex="30" class="text-muted">{{domain.permission.name}}</span>					
+					<md-divider ng-if="!$last"></md-divider>
+				</md-list-item>
+			</cm-search-list-items>
+		</cm-search-list>
+	</md-card>
+	
+</div>

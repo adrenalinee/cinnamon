@@ -1,0 +1,9 @@
+org/cinnamon/users/service/SessionService.class
+org/cinnamon/users/service/UserBaseService.class
+org/cinnamon/users/security/AuthenticationSuccessListener.class
+org/cinnamon/users/config/CoreDummyInitData.class
+org/cinnamon/users/security/DatabasePermissionVoter.class
+org/cinnamon/users/security/UserDetailServiceImpl.class
+org/cinnamon/users/config/SystemConfigureService.class
+org/cinnamon/users/security/UserDetailImpl.class
+org/cinnamon/users/service/UserPasswordService.class

@@ -6,6 +6,7 @@ import org.cinnamon.core.domain.UserBase;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+//import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

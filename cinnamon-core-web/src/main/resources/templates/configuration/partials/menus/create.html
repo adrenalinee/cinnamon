@@ -1,0 +1,101 @@
+<md-dialog flex="70">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2 class="md-title">메뉴 생성</h2>
+			<span flex=""></span>
+			<md-button class="md-icon-button" ng-click="close()">
+				<md-icon>close</md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	
+	<form name="frm" novalidte="novalidte">
+		<md-card>
+			<md-content layout-padding="">
+				<md-input-container class="md-block">
+					<label>
+						이름
+					</label>
+					<input required="required" name="name" ng-model="menu.name" />
+					<div ng-messages="frm.name.$error ">
+						<div ng-message="required">이름을 입력하세요.</div>
+					</div>
+				</md-input-container>
+
+				<md-input-container class="md-block">
+					<label>
+						iconClass
+					</label>
+					<input name="iconClass" ng-model="menu.iconClass" />
+				</md-input-container>
+
+				<md-input-container class="md-block">
+					<label>
+						URI
+					</label>
+					<input name="uri" ng-model="menu.uri" />
+				</md-input-container>
+
+				<md-input-container class="md-block">
+					<label>
+						Toolip
+					</label>
+					<input name="toolip" ng-model="menu.toolip" />
+				</md-input-container>
+
+				<md-input-container class="md-block">
+					<label>
+						Type
+					</label>
+					<md-select ng-model="menu.type" name="menuType" required="required">
+						<md-option ng-repeat="menuType in menuTypes" value="{{menuType.code}}">
+							{{menuType.code}}
+						</md-option>
+					</md-select>
+					<div ng-messages="frm.menuType.$error ">
+						<div ng-message="required">메뉴 타입을 선택하세요.</div>
+					</div>
+				</md-input-container>
+				
+				<md-input-container class="md-block">
+					<label>
+						position
+					</label>
+					<md-select name="position" ng-model="menu.position" required="required">
+						<md-option ng-repeat="position in menuPositions" value="{{position.code}}">
+							{{position.code}}
+						</md-option>
+					</md-select>
+					<div ng-messages="frm.position.$error ">
+						<div ng-message="required">위치를 선택하세요.</div>
+					</div>
+				</md-input-container>
+
+				<md-input-container class="md-block">
+					<label>
+						Orders
+					</label>
+					<input name="orders" ng-model="menu.orders" ng-pattern="/^[0-9]+$/" required="required"/>
+					<div ng-messages="frm.orders.$error ">
+						<div ng-message="required">Orders를 입력하세요.</div>
+						<div ng-message="pattern">숫자만 가능합니다.</div>
+					</div>
+				</md-input-container>
+
+				<md-input-container class="md-block">
+					<label>
+						설명
+					</label>
+					<textarea name="description" ng-model="menu.description" rows="5"></textarea>
+				</md-input-container>
+
+			</md-content>
+			
+			<md-card-actions layout="row" layout-align="end">
+				<md-button ng-click="goList()">취소</md-button>
+				<md-button class="md-raised md-primary" type="sumbit" ng-click="create()" ng-disabled="!frm.$valid">생성</md-button>
+			</md-card-actions>
+		</md-card>
+	</form>
+	
+</md-dialog>

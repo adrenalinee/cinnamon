@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author 신동성
  * @since 2016. 5. 6.
  */
-@Service
+//@Service
 public class SessionService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	

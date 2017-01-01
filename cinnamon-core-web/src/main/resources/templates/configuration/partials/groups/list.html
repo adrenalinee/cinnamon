@@ -1,0 +1,65 @@
+<md-fab-speed-dial md-open="fabOpen" class="md-fab-bottom-right md-scale" style="position: fixed">
+	<md-fab-trigger>
+		<md-button class="md-fab" ui-sref="create">
+			<md-tooltip md-direction="left">코드 생성</md-tooltip>
+			<md-icon>add</md-icon>
+		</md-button>
+	</md-fab-trigger>
+</md-fab-speed-dial>
+
+<div class="content-container" ng-controller="configuration.group.list" ng-cloak="">
+
+	<h3 layout-padding="" class="md-headline">
+		코드
+		<span class="md-subhead text-muted"></span>
+	</h3>
+	
+	
+	<!-- 상세 검색 시작 -->
+	<md-card md-whiteframe="3">
+		<cm-search-list
+			resource-url="/rest/configuration/groups"
+			domains="domains"
+			search-info="searchInfo"
+			sort-items="{
+				parentGroupId : '부모코드',
+				name: '코드명',
+				groupId : '코드아이디'
+			}"
+			
+			default-sorts="'createdAt,desc'"
+			>
+			<!-- 상세검색 필드 -->
+			<cm-search-list-filters>
+				<md-card-content class="content" layout="column">
+					<md-input-container>
+						<label>groupId</label>
+						<input ng-model="searchInfo.groupId"/>
+					</md-input-container>
+					<md-input-container>
+						<label>코드명</label>
+						<input ng-model="searchInfo.name"/>
+					</md-input-container>
+					<md-input-container>
+						<label>부모코드</label>
+						<input ng-model="searchInfo.parent"/>
+					</md-input-container>
+				</md-card-content>
+			</cm-search-list-filters>
+			<!-- 상세검색 필드 끝-->
+			<!-- 리스트  -->
+			<cm-search-list-items>
+				<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
+					<p class="text-muted">{{ domain.parent.name }} </p>
+					<p class="text-muted">{{ domain.parent.groupId }} </p>
+					<p><b>{{ domain.name }}</b></p>
+					<p class="text-muted">{{ domain.groupId }} </p>
+					<md-divider ng-if="!$last"></md-divider>
+				</md-list-item>
+			</cm-search-list-items>
+			<!-- 리스트  끝-->
+		</cm-search-list>
+	</md-card>
+
+</div>
+

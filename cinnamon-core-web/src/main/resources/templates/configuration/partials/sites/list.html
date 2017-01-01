@@ -1,0 +1,59 @@
+<md-fab-speed-dial md-open="fabOpen" class="md-fab-bottom-right md-scale" style="position: fixed">
+	<md-fab-trigger>
+		<md-button class="md-fab" ui-sref="create">
+			<md-tooltip md-direction="left">사이트 생성</md-tooltip>
+			<md-icon>add</md-icon>
+		</md-button>
+	</md-fab-trigger>
+</md-fab-speed-dial>
+
+
+<div class="content-container">
+	<h3 layout-padding="" class="md-headline">
+		사이트 및 메뉴
+		<span class="md-subhead text-muted">사이트 목록</span>
+	</h3>
+	
+	<md-card>
+		<cm-search-list
+			resource-url="/rest/configuration/sites"
+			domains="domains"
+			search-info="searchInfo"
+			sort-items="{
+				siteId: 'siteId',
+				name: '이름'
+			}"
+			default-sorts="'createdAt,desc'"
+			>
+			
+			<cm-search-list-filters>
+				<md-card-content class="content" layout="column">
+					<md-input-container>
+						<label>이름</label>
+						<input />
+					</md-input-container>
+					<md-input-container>
+						<label>userId</label>
+						<input />
+					</md-input-container>
+					<md-input-container>
+						<label>이메일</label>
+						<input />
+					</md-input-container>
+				</md-card-content>
+			</cm-search-list-filters>
+			<cm-search-list-items>
+				<md-list-item ng-repeat="domain in domains.content" ng-click="goView(domain)">
+					
+					<div flex="30" class="text-muted">
+						{{domain.siteId}}
+					</div>
+					<b flex="70">{{domain.name}}</b>
+					
+					<md-divider ng-if="!$last"></md-divider>
+				</md-list-item>
+			</cm-search-list-items>
+		</cm-search-list>
+	</md-card>
+	
+</div>

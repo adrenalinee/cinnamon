@@ -1,0 +1,32 @@
+<md-dialog flex="70" cm-dialog-template="" toolbar-title="'메뉴 모음 선택'">
+	<cm-dialog-template-content>
+		
+		<cm-search-list
+			resource-url="/rest/configuration/menuGroups"
+			domains="menuGroups"
+			is-paging="false"
+			default-search-params="defaultSearchParams">
+			
+			<cm-search-list-filters>
+				<md-card-content class="content" layout="column">
+					<md-input-container>
+						<label>이름</label>
+						<input name="name" />
+					</md-input-container>
+				</md-card-content>
+			</cm-search-list-filters>
+			<cm-search-list-items>
+				<md-list-item ng-repeat="menuGroup in menuGroups.content" layout="row" ng-click="onSelect(menuGroup)">
+					<span flex="10" class="text-muted">{{menuGroup.menuGroupId}}</span>
+					<b flex="30">{{menuGroup.name}}</b>
+					<span flex="30" class="text-muted">{{menuGroup.dimension}}</span>
+					<span flex="30" class="text-muted">{{menuGroup.defaultPage}}</span>
+					<md-divider></md-divider>
+				</md-list-item>
+			</cm-search-list-items>
+			
+		</cm-search-list>
+		
+		
+	</cm-dialog-template-content>
+</md-dialog>

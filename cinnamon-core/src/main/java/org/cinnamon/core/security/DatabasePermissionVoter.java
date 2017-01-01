@@ -36,7 +36,7 @@ import org.springframework.util.StringUtils;
  * @author 동성
  * @since 2014. 12. 24.
  */
-@Component
+//@Component
 public class DatabasePermissionVoter implements AccessDecisionVoter<FilterInvocation> {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	

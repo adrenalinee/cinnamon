@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/default">
+	
+<head>
+	<title>권한</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<base href="/" />
+	
+	
+	<script type="text/javascript">
+	//<![CDATA[
+	angular.module('cinnamon')
+	.config(function($stateProvider, $urlRouterProvider) {
+		$stateProvider.state('list', {
+			url: '/configuration/roles',
+			templateUrl: '/configuration/partials/roles/list',
+			controller: 'configuration.roles.list'
+		})
+		.state('create',{
+			url : '/configuration/roles/create',
+			templateUrl : '/configuration/partials/roles/create',
+			controller : 'configuration.roles.create'
+		})
+		.state('view', {
+			url: '/configuration/roles/:permissionId',
+			templateUrl: '/configuration/partials/roles/view',
+			controller: 'configuration.roles.view'
+		})
+		.state('modify', {
+			url: '/configuration/roles/:permissionId/modify',
+			templateUrl: '/configuration/partials/roles/modify',
+			controller: 'configuration.roles.modify'
+		})	
+		.state('permissionView',{
+			url : '/configuration/roles/:permissionId/site/:siteId/menuGroup/:menuGroupId',
+			templateUrl : '/configuration/partials/roles/permission',
+			controller : 'configuration.roles.permission'
+		});
+		
+	});
+	//]]>
+	</script>
+	<script src="/js/configuration/directives/searchList.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/js/configuration/directives/dialogTemplate.js"></script>
+	
+	<script src="/js/configuration/roles/listController.js" type="text/javascript" ></script>
+	<script src="/js/configuration/roles/viewController.js" type="text/javascript" ></script>
+	<script src="/js/configuration/roles/permissionController.js" type="text/javascript" ></script>
+	<script src="/js/configuration/roles/createController.js" type="text/javascript" ></script>
+	<script src="/js/configuration/roles/modifyController.js" type="text/javascript" ></script>
+</head>
+
+<body layout:fragment="content">
+	<ui-view layout-fill=""/>
+</body>
+</html>

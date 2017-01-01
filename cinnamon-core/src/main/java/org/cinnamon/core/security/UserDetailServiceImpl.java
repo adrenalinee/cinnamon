@@ -22,7 +22,7 @@ import org.springframework.transaction.support.TransactionTemplate;
  * @author 동성
  * @since 2014. 12. 26.
  */
-@Service
+//@Service
 public class UserDetailServiceImpl implements UserDetailsService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -48,6 +48,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.info("start");
+		System.out.println("@@@");
 		
 		return transactionTemplate.execute(status -> {
 			UserBase user = userRepository.findOne(username);

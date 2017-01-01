@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html
+	ng-app="cinnamon"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="configuration/layout/default">
+
+<head>
+<title>사이트</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<script type="text/javascript" src="/js/configuration/directives/searchList.js"></script>
+
+<script type="text/javascript" src="/js/configuration/menus/viewController.js"></script>
+<script type="text/javascript" src="/js/configuration/menus/modifyController.js"></script>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+angular.module('cinnamon')
+.config(function($stateProvider, $urlRouterProvider) {
+	$stateProvider
+	.state('modify', {
+		url : '/configuration/menus/:menuId/modify',
+		templateUrl : '/configuration/partials/menus/modify',
+		controller : 'configuration.menus.modify'
+	})	
+	.state('view', {
+		url: '/configuration/menus/:menuId',
+		templateUrl: '/configuration/partials/menus/view',
+		controller: 'configuration.menus.view'
+	});
+	
+});
+/*]]>*/
+</script>
+
+<base href="/" />
+</head>
+
+<body layout:fragment="content">
+	<ui-view layout-fill=""/>
+</body>
+</html>

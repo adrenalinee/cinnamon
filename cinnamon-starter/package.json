@@ -1,0 +1,33 @@
+{
+  "name": "@cinnamon/starter",
+  "version": "0.3.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrenalinee/cinnamon.git"
+  },
+  "keywords": [
+    "cinnamon"
+  ],
+  "author": "shindongseong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adrenalinee/cinnamon/issues"
+  },
+  "homepage": "https://github.com/adrenalinee/cinnamon#readme",
+  "dependencies": {
+    "@cinnamon/core-web": "../cinnamon-core-web"
+  },
+  "devDependencies": {
+    "css-loader": "^0.26.1",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.14.0",
+    "webpack-stream": "^3.2.0"
+  }
+}
