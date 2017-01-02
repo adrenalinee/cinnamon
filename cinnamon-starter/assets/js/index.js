@@ -1,3 +1,4 @@
+var angular = require('angular');
 require('angular-animate');
 require('angular-aria');
 require('angular-material');
@@ -6,6 +7,5 @@ require('angular-messages');
 require('material-steppers');
 require('material-steppers/dist/material-steppers.css');
 
-//require('@cinnamon/core-web');
-
+require('@cinnamon/core-web');
 angular.moudle('cinnamon.starter', ['cinnamon.core']);

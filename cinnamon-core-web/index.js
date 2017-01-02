@@ -17,3 +17,4 @@ angular.module('cinnamon.core', [
 
 require('./dist/cinnamon.core.bundle');
 require('./dist/cinnamon.core.css');
+
