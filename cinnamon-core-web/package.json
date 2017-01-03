@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/adrenalinee/cinnamon#readme",
   "dependencies": {
+  	"@angular/router": "0.2.0",
     "angular": "1.5.10",
     "angular-animate": "1.5.10",
     "angular-aria": "1.5.10",
