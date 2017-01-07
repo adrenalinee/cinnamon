@@ -3,8 +3,8 @@ package org.cinnamon.core.config.builder;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cinnamon.core.wizard.Wizard;
-import org.cinnamon.core.wizard.WizardStep;
+import org.cinnamon.core.initWizard.Wizard;
+import org.cinnamon.core.initWizard.WizardStep;
 
 import com.google.common.collect.Lists;
 

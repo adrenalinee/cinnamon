@@ -2,23 +2,21 @@ package org.cinnamon.core.web.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 
- * created at 2016. 12. 26.
- * @author shindongseong
+ * created at 2017. 1. 6.
+ * @author shin dongseong
+ *
  */
-@Controller
-public class MainController {
+public class InitWizardController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-//	@RequestMapping("/initWizard")
-	
-	
-	@RequestMapping("/core/components/**")
-	void components() {
+	@RequestMapping("/initWizard/**")
+	String main() {
 		logger.info("start");
+		
+		return "/core/initWizard";
 	}
 }

@@ -1,6 +1,6 @@
 package org.cinnamon.core.config.builder;
 
-import org.cinnamon.core.wizard.WizardStep;
+import org.cinnamon.core.initWizard.WizardStep;
 
 /**
  * 

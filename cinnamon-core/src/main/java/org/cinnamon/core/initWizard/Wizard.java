@@ -1,4 +1,4 @@
-package org.cinnamon.core.wizard;
+package org.cinnamon.core.initWizard;
 
 import java.util.List;
 
