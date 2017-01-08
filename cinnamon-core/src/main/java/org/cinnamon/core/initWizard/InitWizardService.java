@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
 
 /**
  * 
@@ -14,6 +15,7 @@ import org.springframework.context.ApplicationContext;
  * @author shin dongseong
  *
  */
+@Service
 public class InitWizardService {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 

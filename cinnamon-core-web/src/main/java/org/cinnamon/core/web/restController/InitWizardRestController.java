@@ -23,7 +23,7 @@ public class InitWizardRestController {
 	@Autowired
 	private InitWizardService initWizardService;
 	
-	@RequestMapping(value="/initWizard", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/initWizard", method=RequestMethod.GET, consumes=MediaType.APPLICATION_JSON_VALUE)
 	Wizard getInitWizard() {
 		logger.info("start");
 		

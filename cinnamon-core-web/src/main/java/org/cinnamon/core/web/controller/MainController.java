@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-//	@RequestMapping("/initWizard")
+	@RequestMapping("/")
+	String main() {
+		return "index";
+	}
 	
 	
 	@RequestMapping("/core/components/**")

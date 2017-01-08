@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * created at: 2016. 10. 4.
  * @author shindongseong
  */
-@Service
+//@Service
 public class InitWizardService {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	

@@ -21,7 +21,7 @@ public class InitCheckInterceptor extends HandlerInterceptorAdapter {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	private SystemConfigureService systemConfigurerManager;
+	private SystemConfigureService systemConfigureService;
 	
 	/**
 	 * 서버 초기화 되어 있는지 여부
@@ -35,16 +35,16 @@ public class InitCheckInterceptor extends HandlerInterceptorAdapter {
 		logger.info("start {}", request.getRequestURI());
 		
 		if (!isInitialize) {
-			isInitialize = systemConfigurerManager.isInitialized();
+			isInitialize = systemConfigureService.isInitialized();
 		}
 		
 		if (isInitialize) {
-			if (request.getRequestURI().startsWith("/configuration/initWizard")) {
-				response.sendRedirect("/");
+			if (request.getRequestURI().startsWith("/initWizard")) {
+//				response.sendRedirect("/");
 				return false;
 			}
 		} else {
-			String nextStep = systemConfigurerManager.findNextInitializeStep();
+			String nextStep = systemConfigureService.findNextInitializeStep();
 			if (nextStep == null) {
 				return true;
 			}

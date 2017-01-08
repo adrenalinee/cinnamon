@@ -15,8 +15,8 @@ angular.module('cinnamon.core', [
 	'ngAnimate',
 	'ngAria',
 	'ngComponentRouter',
-	'ngMaterial'/*,
-	'ui.router'*/]);
+	'ngMaterial',
+	'ui.router']);
 
 require('./dist/cinnamon.core.bundle');
 require('./dist/cinnamon.core.css');
