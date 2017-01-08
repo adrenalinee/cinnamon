@@ -14,14 +14,14 @@ gulp.task('scripts', function() {
 	.pipe(concat('app.index.bundle.js'))
 	.pipe(gulp.dest('target/classes/static/js'));
 	
-//	gulp.src('src/assets/js/initWizard.js')
-//	.pipe(webpack({
-//		module:{
-//			loaders:[
-//				{test: /\.css$/, loader: 'style!css!'}
-//			]
-//		}
-//	}))
-//	.pipe(concat('app.innitWizard.bundle.js'))
-//	.pipe(gulp.dest('target/classes/static/js'));
+	gulp.src('assets/js/initWizard.js')
+	.pipe(webpack({
+		module:{
+			loaders:[
+				{test: /\.css$/, loader: 'style!css!'}
+			]
+		}
+	}))
+	.pipe(concat('app.innitWizard.bundle.js'))
+	.pipe(gulp.dest('target/classes/static/js'));
 });

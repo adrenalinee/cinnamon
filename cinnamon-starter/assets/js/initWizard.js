@@ -1,4 +1,8 @@
 var angular = require('angular');
 require('@cinnamon/core-web');
-
-angular.moudle('cinnamon.starter', ['cinnamon.core']);
+angular.module('cinnamon.starter', ['cinnamon.core'])
+.config(function($locationProvider, $mdThemingProvider) {
+	console.log('!!!');
+	$locationProvider.html5Mode(true);
+	$mdThemingProvider.theme('default');
+});

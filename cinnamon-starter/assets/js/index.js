@@ -1,7 +1,6 @@
+var angular = require('angular');
 require('@cinnamon/core-web');
-angular.module('cinnamon.starter', ['cinnamon.core', 'ngComponentRouter'])
-.value('$routerRootComponent', 'appMain')
+angular.module('cinnamon.starter', ['cinnamon.core'])
 .config(function($locationProvider) {
-	console.log('!!!!');
 	$locationProvider.html5Mode(true);
 });
