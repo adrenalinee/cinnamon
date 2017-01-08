@@ -25,6 +25,7 @@
     "angular-aria": "1.5.10",
     "angular-material": "^1.1.1",
     "angular-messages": "1.5.10",
+    "angular-sanitize": "^1.6.1",
     "angular-ui-router": "^0.3.2",
     "material-steppers": "^1.0.3"
   },
