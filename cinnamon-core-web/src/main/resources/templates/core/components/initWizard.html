@@ -1,13 +1,11 @@
 <div layout="row" flex>
-초기화 마법사1
-	
-	<md-button class="md-raised md-primary">버튼</md-button>
-	
 	<div class="content-container" flex d-whiteframe="2"style="background-color: #ffffff" md-whiteframe="2">
-		<md-stepper id="initWizard" md-alternative="true" md-linear="true" flex>
+		<md-button class="md-raised md-primary">버튼</md-button>
+		
+		<md-steppers id="initWizard" md-alternative="true" md-linear="true" flex>
 			<md-step ng-repeat="step in wizard.steps" md-label="{{step.name}}">
 				<md-step-body layout-padding ng-include="step.uri"></md-step-body>
 			</md-step>
-		</md-stepper>
+		</md-steppers>
 	</div>
 </div>

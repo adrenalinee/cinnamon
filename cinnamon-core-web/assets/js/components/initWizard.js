@@ -4,6 +4,11 @@ angular.module('cinnamon.core')
 	controller: InitWizardController
 });
 
-function InitWizardController() {
+function InitWizardController($scope, $http) {
 	
+	$http.get('/initWizard')
+	.success(function(data) {
+		console.log(data);
+		$scope.wizard = data;
+	});
 }

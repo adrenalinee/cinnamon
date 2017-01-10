@@ -13,11 +13,11 @@ require('material-steppers');
 require('material-steppers/dist/material-steppers.css');
 
 angular.module('cinnamon.core', [
-	'mdSteppers',
 	'ngAnimate',
 	'ngAria',
 	'ngMessages',
 	'ngMaterial',
+	'mdSteppers',
 	'ngSanitize', 
 	'ui.router']);
 
