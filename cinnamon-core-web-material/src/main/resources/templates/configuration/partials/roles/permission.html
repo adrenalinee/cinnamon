@@ -5,7 +5,7 @@
 	<md-card md-whiteframe="4" layout-padding="">
 		<md-subheader class="md-no-sticky">기본정보</md-subheader>
 		<div ng-cloak="">
-		  	<md-content>
+			<md-content>
 				<md-list>
 					<md-list-item >
 						<p><strong>PermissionId</strong></p>
@@ -36,7 +36,7 @@
 									<mg-list style="width:100%;">
 										<md-list-item ng-repeat="menu in menus.menus">
 											<p>{{menu.name}} </p>
-											<md-checkbox class="md-secondary" ng-model="permissionMenus[menu.menuId].permitRoot" ng-change="updateMenu()"  ></md-checkbox>
+											<md-checkbox class="md-secondary" ng-model="permissionMenus[menu.menuId].permitRoot" ng-change="updateMenu()"></md-checkbox>
 											<md-divider ng-if="!$last"></md-divider>
 										</md-list-item>
 									</mg-list>

@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>bootstrap</artifactId>
-			<version>3.3.6</version>
+			<version>3.3.7</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
@@ -52,42 +52,42 @@
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular</artifactId>
-			<version>1.5.3</version>
+			<version>1.5.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-animate</artifactId>
-			<version>1.5.3</version>
+			<version>1.5.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-aria</artifactId>
-			<version>1.5.3</version>
+			<version>1.5.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-messages</artifactId>
-			<version>1.5.3</version>
+			<version>1.5.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-sanitize</artifactId>
-			<version>1.5.3</version>
+			<version>1.5.9</version>
 		</dependency>
 		<dependency>
-			<groupId>org.webjars</groupId>
+			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-material</artifactId>
 			<version>1.1.0-rc1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-ui-router</artifactId>
-			<version>0.2.15</version>
+			<version>0.3.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>font-awesome</artifactId>
-			<version>4.5.0</version>
+			<version>4.7.0</version>
 		</dependency>
 		
 		
