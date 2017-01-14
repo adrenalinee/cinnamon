@@ -30,11 +30,7 @@
     "material-steppers": "^1.0.3"
   },
   "devDependencies": {
-    "css-loader": "^0.26.1",
     "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.1",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.14.0",
-    "webpack-stream": "^3.2.0"
+    "gulp-concat": "^2.6.1"
   }
 }
