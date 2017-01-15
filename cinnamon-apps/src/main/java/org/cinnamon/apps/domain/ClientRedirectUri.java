@@ -17,6 +17,11 @@ import javax.persistence.ManyToOne;
 @Entity
 public class ClientRedirectUri implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8600730096701475862L;
+
 	@Id
 	@GeneratedValue
 	Long clientRedirectUriId;

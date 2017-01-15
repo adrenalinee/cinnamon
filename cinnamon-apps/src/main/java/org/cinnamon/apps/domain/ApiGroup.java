@@ -17,6 +17,11 @@ import javax.persistence.ManyToOne;
 @Entity
 public class ApiGroup implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6121473587856910811L;
+
 	@Id
 	@GeneratedValue
 	Long apiGroupId;

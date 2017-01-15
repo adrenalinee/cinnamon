@@ -16,6 +16,11 @@ import javax.persistence.ManyToOne;
 @Entity
 public class ClientResource implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8320988764638575427L;
+
 	@Id
 	@GeneratedValue
 	Long clientResourceId;

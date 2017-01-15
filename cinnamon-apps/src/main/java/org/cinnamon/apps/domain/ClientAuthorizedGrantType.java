@@ -21,6 +21,11 @@ import org.cinnamon.apps.domain.enumeration.AuthorizationGrantType;
 @Entity
 public class ClientAuthorizedGrantType implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 431923527472595588L;
+
 	@Id
 	@GeneratedValue
 	Long clientAuthorizedGrantTypeId;

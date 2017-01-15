@@ -15,6 +15,11 @@ import javax.persistence.Id;
 @Entity
 public class Resource implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1945177568965666742L;
+
 	@Id
 	@Column(length=100)
 	String resourceId;

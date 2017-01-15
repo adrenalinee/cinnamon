@@ -16,6 +16,11 @@ import javax.persistence.OneToOne;
 @Entity
 public class ApplicationGcm implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8602472233835327676L;
+
 	@Id
 	Long appId;
 	

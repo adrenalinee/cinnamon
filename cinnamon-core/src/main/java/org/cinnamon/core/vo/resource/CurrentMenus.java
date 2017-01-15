@@ -1,9 +1,8 @@
 package org.cinnamon.core.vo.resource;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import org.cinnamon.core.domain.Menu;
+import com.google.common.collect.Lists;
 
 /**
  * 
@@ -20,31 +19,31 @@ public class CurrentMenus {
 	
 	Integer current2depthIndex;
 	
-	List<Menu> actives = new LinkedList<>();
+	List<MenuResource> actives = Lists.newArrayList();
 	
-	List<Menu> sidebar = new LinkedList<>();
+	List<MenuResource> sidebar =  Lists.newArrayList();
 	
-	List<Menu> headerRight = new LinkedList<>();
+	List<MenuResource> headerRight =  Lists.newArrayList();
 	
-	List<Menu> headerLeft = new LinkedList<>();
+	List<MenuResource> headerLeft =  Lists.newArrayList();
 	
-	public List<Menu> getActives() {
+	public List<MenuResource> getActives() {
 		return actives;
 	}
 
-	public void setActives(List<Menu> actives) {
+	public void setActives(List<MenuResource> actives) {
 		this.actives = actives;
 	}
 	
-	public void addSidebar(Menu menuResource) {
+	public void addSidebar(MenuResource menuResource) {
 		sidebar.add(menuResource);
 	}
 	
-	public void addHeaderRight(Menu menuResource) {
+	public void addHeaderRight(MenuResource menuResource) {
 		headerRight.add(menuResource);
 	}
 	
-	public void addHeaderLeft(Menu menuResource) {
+	public void addHeaderLeft(MenuResource menuResource) {
 		headerLeft.add(menuResource);
 	}
 	
@@ -65,27 +64,27 @@ public class CurrentMenus {
 		this.name = name;
 	}
 
-	public List<Menu> getSidebar() {
+	public List<MenuResource> getSidebar() {
 		return sidebar;
 	}
 
-	public void setSidebar(List<Menu> sidebar) {
+	public void setSidebar(List<MenuResource> sidebar) {
 		this.sidebar = sidebar;
 	}
 
-	public List<Menu> getHeaderRight() {
+	public List<MenuResource> getHeaderRight() {
 		return headerRight;
 	}
 
-	public void setHeaderRight(List<Menu> headerRight) {
+	public void setHeaderRight(List<MenuResource> headerRight) {
 		this.headerRight = headerRight;
 	}
 
-	public List<Menu> getHeaderLeft() {
+	public List<MenuResource> getHeaderLeft() {
 		return headerLeft;
 	}
 
-	public void setHeaderLeft(List<Menu> headerLeft) {
+	public void setHeaderLeft(List<MenuResource> headerLeft) {
 		this.headerLeft = headerLeft;
 	}
 

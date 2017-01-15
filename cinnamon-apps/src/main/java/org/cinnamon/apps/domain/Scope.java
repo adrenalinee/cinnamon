@@ -15,6 +15,11 @@ import javax.persistence.Id;
 @Entity
 public class Scope implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7324958515502490378L;
+
 	@Id
 	@Column(length=20)
 	String scope;

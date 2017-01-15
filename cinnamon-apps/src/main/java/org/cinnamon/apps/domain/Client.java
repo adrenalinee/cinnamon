@@ -10,7 +10,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -32,6 +31,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Client implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6505576855213052776L;
+
 	@Id
 	@Column(length=100)
 	String clientId;
@@ -40,7 +44,7 @@ public class Client implements Serializable {
 	String name;
 	
 	@JsonIgnore
-	@Column(length=200)
+	@Column(length=200, nullable=false)
 	String secret;
 	
 	@Column(length=4000)
@@ -57,20 +61,20 @@ public class Client implements Serializable {
 	@ManyToOne(optional=false)
 	Application application;
 	
-	@ManyToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@ManyToMany(cascade=CascadeType.PERSIST/*, fetch=FetchType.EAGER*/)
 	List<Scope> permittedScopes;
 	
-	@ManyToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@ManyToMany(cascade=CascadeType.PERSIST/*, fetch=FetchType.EAGER*/)
 	List<Resource> permittedResources;
 	
 //	@OneToMany(mappedBy="client", cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
 //	List<ClientResource> hasResourceIds;
 	
 	
-	@OneToMany(mappedBy="client", cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="client", cascade=CascadeType.PERSIST/*, fetch=FetchType.EAGER*/)
 	List<ClientRedirectUri> redirectUris;
 	
-	@OneToMany(mappedBy="client", cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="client", cascade=CascadeType.PERSIST/*, fetch=FetchType.EAGER*/)
 	List<ClientAuthorizedGrantType> authorizedGrantTypes;
 	
 	

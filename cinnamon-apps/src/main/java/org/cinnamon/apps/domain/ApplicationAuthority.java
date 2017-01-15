@@ -19,6 +19,11 @@ import org.cinnamon.core.domain.enumeration.UseStatus;
 @Entity
 public class ApplicationAuthority implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2077941759103617421L;
+
 	@Id
 	String authority;
 	

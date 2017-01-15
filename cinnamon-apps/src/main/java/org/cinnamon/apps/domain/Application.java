@@ -30,6 +30,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Application implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8084407998113768544L;
+
 	@Id
 	@GeneratedValue
 	Long appId;

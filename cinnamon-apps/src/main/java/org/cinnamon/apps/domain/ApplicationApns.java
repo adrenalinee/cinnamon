@@ -16,6 +16,11 @@ import javax.persistence.OneToOne;
 @Entity
 public class ApplicationApns implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5429699740177081782L;
+
 	@Id
 	Long appId;
 	
