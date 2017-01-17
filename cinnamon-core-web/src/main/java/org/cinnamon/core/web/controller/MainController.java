@@ -16,20 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * created date: 2015. 9. 24.
  * @author 신동성
  */
-@Controller("cinnamon.mainController")
-class MainController {
-	Logger logger = LoggerFactory.getLogger(getClass());
+@Controller("cinnamon.core.mainController")
+public class MainController {
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 //	@Autowired
 //	SiteService siteService
 	
 	@Autowired
-	SessionService sessionService;
+	private SessionService sessionService;
 	
 //	@Autowired
 //	SecurityContextHolder securityContextHolder
 	
-	String defaultPage;
+//	private String defaultPage;
 	
 	
 	@RequestMapping("/")
@@ -46,7 +46,7 @@ class MainController {
 			logger.warn("초기 페이지가 지정되지 않았습니다.");
 		}
 		
-		return "redirect:${defaultPage}";
+		return "redirect:" + defaultPage;
 	}
 	
 	@RequestMapping(value="/partials/**")

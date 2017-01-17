@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/configuration/menuGroups")
-class MenuGroupController extends BasePageController {
+public class MenuGroupController extends BasePageController {
 	
 	@RequestMapping("**")
 	String main() {
