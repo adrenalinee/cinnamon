@@ -92,6 +92,11 @@ public class CommonControllerAdvice {
 		if (userDetails == null) {
 			return null;
 		}
+//		if (userDetails.getUsername() == null) {
+//			return null;
+//		}
+		
+		System.out.println(userDetails.getClass());
 		
 		final String uri = request.getRequestURI();
 		String dimension = getDimension(uri);

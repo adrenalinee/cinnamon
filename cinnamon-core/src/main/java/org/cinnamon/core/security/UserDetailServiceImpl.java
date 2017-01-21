@@ -2,7 +2,6 @@ package org.cinnamon.core.security;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.repository.UserBaseRepository;
 import org.cinnamon.core.repository.UserPasswordRepository;
