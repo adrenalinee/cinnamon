@@ -7,21 +7,12 @@
 <head>
 <link href="/css/cinnamon.css" rel="stylesheet" type="text/css" />
 
-<script th:inline="javascript">
-/*<![CDATA[ */
-		var userInfo = {
-			userId : /*[[${me.userId}]]*/
-			,name : /*[[${me.name}]]*/
-		}
-/*]]> */
-</script>
-
 <script type="text/javascript" src="/js/cinnamon.js"></script>
 <script type="text/javascript" src="/js/configuration/factory/factory.js"></script>
 <script type="text/javascript" src="/js/configuration/layout/layout.js"></script>
 
 </head>
-<body layout:fragment="body" class="content" layout="column" ng-controller="layoutController" ng-cloak="">
+<body layout:fragment="body" class="content" layout="column" ng-controller="layoutController" ng-cloak>
 	<md-toolbar md-whiteframe="4">
 		<div class="md-toolbar-tools" layout-align="none center">
 			<md-button class="md-icon-button" ng-click="toggleSidenav()" ng-show="isMobile()">
@@ -32,21 +23,21 @@
 			</h2>
 			
 			<!-- 해더 왼쪽 메뉴 -->
-			<md-button
+			<!-- <md-button
 				class="md-raised"
 				th:each="menu: ${currentMenus.headerLeft}"
 				th:href="${menu.uri}"
 				target="_self"
 				th:text="${menu.name}">
 				menu.name
-			</md-button>
-			
-			<!-- <md-button class="md-raised" ng-repeat="menu in currentMenus.headerLeft" ng-href="{{menu.uri}}" target="_self">
-				{{menu.name}}
 			</md-button> -->
 			
+			<md-button class="md-raised" ng-repeat="menu in currentMenus.headerLeft" ng-href="{{menu.uri}}" target="_self">
+				{{menu.name}}
+			</md-button>
 			
-			<span flex=""></span>
+			
+			<span flex></span>
 			
 			<span ng-show="!isMobile()" th:text="${me.name}">name</span>
 			
@@ -67,7 +58,7 @@
 					</md-menu-item>
 					<form name="toolbarLogoutForm" th:action="@{/logout}" method="post">
 						<md-menu-item>
-							<button md-button="" type="submit">
+							<button md-button type="submit">
 								<md-icon>power_settings_new</md-icon> 로그아웃
 							</button>
 						</md-menu-item>
@@ -76,7 +67,7 @@
 			</md-menu>
 			
 			<!-- 해더 오른쪽 메뉴 -->
-			<md-menu th:each="menu: ${currentMenus.headerRight}">
+			<!-- <md-menu th:each="menu: ${currentMenus.headerRight}">
 				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
 					<md-icon th:text="${menu.iconClass}">menu.iconClass</md-icon>
 				</md-button>
@@ -88,10 +79,10 @@
 						</md-button>
 					</md-menu-item>
 				</md-menu-content>
-			</md-menu>
+			</md-menu> -->
 			
 			
-			<!-- <md-menu ng-repeat="menu in currentMenus.headerRight">
+			<md-menu ng-repeat="menu in currentMenus.headerRight">
 				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
 					<md-icon>{{menu.iconClass}}</md-icon>
 				</md-button>
@@ -101,22 +92,21 @@
 						<md-icon>{{child.iconClass}}</md-icon> {{child.name}}</md-button>
 					</md-menu-item>
 				</md-menu-content>
-			</md-menu> -->
+			</md-menu>
 			
 		</div>
 		
-		<!-- md:md-on-select="selectMenu('${menu.uri}')" -->
 		<!-- 2depth menus -->
 		<div class="md-primary md-hue-1" th:if="${#arrays.isEmpty(currentMenus.actives) == false and #arrays.isEmpty(currentMenus.actives[0].childs) == false}">
-			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md:md-selected="${currentMenus.current2depthIndex}">
-				<md-tab ng:ng-click="selectMenu('${menu.uri}')" th:each="menu: ${currentMenus.actives[0].childs}">
+			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md-selected="${currentMenus.current2depthIndex}">
+				<md-tab ng-click="selectMenu('${menu.uri}')" th:each="menu: ${currentMenus.actives[0].childs}">
 					<md-tab-label th:text="${menu.name}" />
 				</md-tab>
 			</md-tabs>
 		</div>
 	</md-toolbar>
 	
-	
+	<!-- mobile 대응 -->
 	<md-sidenav md-component-id="leftSidenav">
 		<md-toolbar class="md-tall">
 			<div class="md-toolbar-tools">
@@ -128,63 +118,83 @@
 			<div class="md-toolbar-tools md-toolbar-tools-bottom" layout="column" layout-align="start">
 				<span><b th:text="${me.name}">me.name</b></span>
 				<div layout="row">
-					<span flex="" class="md-subhead" th:text="${me.email}">me.email</span>
-			<md-menu>
-				<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
-					<md-icon>expand_more</md-icon>
-				</md-button>
-				<md-menu-content>
-					<md-menu-item>
-						<md-button ng-href="/" target="_self">
-							<md-icon>account_circle</md-icon> 프로필
+					<span flex class="md-subhead" th:text="${me.email}">me.email</span>
+					<md-menu>
+						<md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+							<md-icon>expand_more</md-icon>
 						</md-button>
-					</md-menu-item>
-					<md-menu-item>
-						<md-button ng-href="/settings" target="_self">
-							<md-icon>build</md-icon> 개인 설정
-						</md-button>
-					</md-menu-item>
-					<form name="sidebarLogoutForm" th:action="@{/logout}" method="post">
-						<md-menu-item>
-							<button md-button="" type="submit">
-								<md-icon>power_settings_new</md-icon> 로그아웃
-							</button>
-						</md-menu-item>
-					</form>
-				</md-menu-content>
-			</md-menu>
+						<md-menu-content>
+							<md-menu-item>
+								<md-button ng-href="/" target="_self">
+									<md-icon>account_circle</md-icon> 프로필
+								</md-button>
+							</md-menu-item>
+							<md-menu-item>
+								<md-button ng-href="/settings" target="_self">
+									<md-icon>build</md-icon> 개인 설정
+								</md-button>
+							</md-menu-item>
+							<form name="sidebarLogoutForm" th:action="@{/logout}" method="post">
+								<md-menu-item>
+									<button md-button type="submit">
+										<md-icon>power_settings_new</md-icon> 로그아웃
+									</button>
+								</md-menu-item>
+							</form>
+						</md-menu-content>
+					</md-menu>
 				</div>
 			</div>
 			
 		</md-toolbar>
 		
 		<md-content>
-			<md-subheader th:text="${currentMenus.name}">currentMenus.name</md-subheader>
+			<!-- <md-subheader th:text="${currentMenus.name}">currentMenus.name</md-subheader>
 			<md-list>
-				<md-list-item th:each="menu: ${currentMenus.sidebar}" ng:ng-click="selectMenu('${menu.uri}')">
+				<md-list-item th:each="menu: ${currentMenus.sidebar}" ng-click="selectMenu('${menu.uri}')">
 					<div flex="15">
 						<md-icon th:text="${menu.iconClass}">menu.iconClass</md-icon>
 					</div>
 					<span th:text="${menu.name}">menu.name</span>
+				</md-list-item>
+			</md-list> -->
+			<md-subheader class="content md-no-sticky">{{currentMenus.name}}</md-subheader>
+			<md-list>
+				<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu.uri)">
+					<!-- <div flex="15">
+						<md-icon>{{menu.iconClass}}</md-icon>
+					</div> -->
+					<md-icon style="margin-left:0px;margin-right:16px">{{menu.iconClass}}</md-icon> {{menu.name}}
 				</md-list-item>
 			</md-list>
 		</md-content>
 		
 	</md-sidenav>
 	
-	<md-content layout="row" flex="" class="content">
+	<!-- 데스크탑 대응 -->
+	<md-content layout="row" flex class="content">
 		<md-sidenav md-is-locked-open="$mdMedia('gt-sm')" style="width: 230px;background: transparent;">
-			<md-list th:inline="text">
+			<!-- <md-list th:inline="text">
 				<md-subheader class="content md-no-sticky" th:text="${currentMenus.name}">currentMenus.name</md-subheader>
-				<md-list-item th:each="menu: ${currentMenus.sidebar}" ng:ng-click="selectMenu('${menu.uri}')">
+				<md-list-item th:each="menu: ${currentMenus.sidebar}" ng-click="selectMenu('${menu.uri}')">
 					<div flex="15">
 						<md-icon th:text="${menu.iconClass}">menu.iconClass</md-icon>
 					</div>
 					<span th:text="${menu.name}">menu.name</span>
 				</md-list-item>
+			</md-list> -->
+			
+			<md-list>
+				<md-subheader class="content md-no-sticky">{{currentMenus.name}}</md-subheader>
+				<md-list-item ng-repeat="menu in currentMenus.sidebar" ng-click="selectMenu(menu.uri)">
+					<!-- <div flex="15">
+						<md-icon>{{menu.iconClass}}</md-icon>
+					</div> -->
+					<md-icon style="margin-left:0px;margin-right:16px">{{menu.iconClass}}</md-icon> {{menu.name}}
+				</md-list-item>
 			</md-list>
 		</md-sidenav>
-		<div flex="">
+		<div flex>
 			<div layout:fragment="content"></div>
 		</div>
 	</md-content>

@@ -4,6 +4,11 @@ angular.module('cinnamon')
 	var dimension = $location.path().split("/")[1];
 	console.log(dimension);
 	
+	$http.get('/rest/layout/currentMenus')
+	.success(function(data) {
+		$scope.currentMenus = data;
+	});
+	
 	
 	$scope.selectMenu = function(uri) {
 		console.log('selectMenu');

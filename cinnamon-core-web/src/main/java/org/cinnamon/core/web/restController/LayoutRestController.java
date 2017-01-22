@@ -1,20 +1,16 @@
-package org.cinnamon.core.web.controller;
+package org.cinnamon.core.web.restController;
 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.cinnamon.core.config.SystemConfigureService;
 import org.cinnamon.core.domain.Menu;
 import org.cinnamon.core.domain.MenuGroup;
-import org.cinnamon.core.domain.Site;
-import org.cinnamon.core.domain.UserBase;
 import org.cinnamon.core.domain.enumeration.MenuPosition;
 import org.cinnamon.core.security.UserDetailImpl;
 import org.cinnamon.core.service.MenuGroupService;
 import org.cinnamon.core.service.MenuService;
 import org.cinnamon.core.service.SiteService;
-import org.cinnamon.core.service.UserBaseService;
 import org.cinnamon.core.vo.resource.CurrentMenus;
 import org.cinnamon.core.vo.resource.MenuResource;
 import org.dozer.Mapper;
@@ -23,22 +19,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Lists;
 
 /**
  * 
- * @author 신동성
- * @since 2016. 5. 16.
+ * created at: 2017. 1. 22.
+ * @author dsshin
  */
-@ControllerAdvice(assignableTypes=BasePageController.class)
-public class CommonControllerAdvice {
+@RestController
+@RequestMapping("/rest/layout")
+public class LayoutRestController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
-	
-	@Autowired
-	private SystemConfigureService systemConfigurerManager;
 	
 	@Autowired
 	private SiteService siteService;
@@ -50,44 +45,11 @@ public class CommonControllerAdvice {
 	private MenuGroupService menuGroupService;
 	
 	@Autowired
-	private UserBaseService<UserBase> userBaseService;
-	
-	@Autowired
 	private Mapper beanMapper;
 	
-	/**
-	 * 서버 초기화 되어 있는지 여부
-	 */
-	private boolean isInitialize;
-	
-	
-	@ModelAttribute("site")
-	Site site(HttpServletRequest request) {
-		logger.info("start");
-		
-		if (!isInitialize) {
-			isInitialize = systemConfigurerManager.isInitialized();
-		}
-		
-		Site site = null;
-		System.out.println(request.getRequestURL());
-		if (!isInitialize) {
-			//기본정보 전달
-			site = new Site();
-			site.setLabel("Cinnamon");
-		} else {
-			site = siteService.getDefault();
-		}
-		
-		return site;
-	}
-	
-	
-	
-//	@ModelAttribute("currentMenus")
+	@RequestMapping(value="currentMenus", method=RequestMethod.GET)
 	CurrentMenus currentMenus(
 		HttpServletRequest request,
-//		@AuthenticationPrincipal UserDetails userDetails) {
 		@AuthenticationPrincipal UserDetailImpl userDetails) {
 		logger.info("start");
 		
@@ -121,21 +83,21 @@ public class CommonControllerAdvice {
 		int firstDepthIndex = 0;
 		int secondDepthIndex = 0;
 		
-//		menuService.getList(dimension, MenuPosition.sidebar, authorities).forEach(menu -> {
+//			menuService.getList(dimension, MenuPosition.sidebar, authorities).forEach(menu -> {
 		for (Menu menu: menuService.getList(dimension, MenuPosition.sidebar, authorities)) {
 			sidebarMenus.add(beanMapper.map(menu, MenuResource.class));
 			
 			//TODO 활성화된 메뉴인지 확인
 			if (menu.getUri() != null) {
-//				println menu.getUri()
+//					println menu.getUri()
 				if (uri.indexOf(menu.getUri()) > -1) {
 					actives.add(beanMapper.map(menu, MenuResource.class));
 					currentMenus.setCurrent1depthIndex(firstDepthIndex);
 					
 					//1뎁스가 활성화 되어 있을 경우 2뎁스에서 활성화된 메뉴도 
-//					menu.getChilds().forEach(child -> {
+//						menu.getChilds().forEach(child -> {
 					for (Menu child: menu.getChilds()) {
-//						println child.getUri()
+//							println child.getUri()
 						if (child.getUri() != null) {
 							if (uri.indexOf(child.getUri()) > -1) {
 								actives.add(beanMapper.map(menu, MenuResource.class));
@@ -166,18 +128,6 @@ public class CommonControllerAdvice {
 		currentMenus.setHeaderLeft(headerLeftmenus);
 		
 		return currentMenus;
-	}
-	
-	@ModelAttribute("me")
-//	UserBase getMe(@AuthenticationPrincipal UserDetails userDetails) {
-	UserBase getMe(@AuthenticationPrincipal UserDetailImpl userDetails) {
-		logger.info("start");
-		
-		if (userDetails == null) {
-			return null;
-		}
-		
-		return userBaseService.get(userDetails.getUsername());
 	}
 	
 	/**
