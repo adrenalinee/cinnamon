@@ -51,7 +51,7 @@ mobile
 <img src="https://github.com/adrenalinee/cinnamon/blob/master/screenshot/mobileNav.jpg" />
 
 
-# 0.3version roadmap
+# roadmap
 ## 플러그인 형태로 기능을 추가해나갈 수 있는 구조로 개선
 ## back-end
 - 데이터 베이스
@@ -81,7 +81,6 @@ mobile
 
 ## back-end
 - java8
-- groovy
 - [springframework](https://spring.io)
  - spring-boot
  - spring-security

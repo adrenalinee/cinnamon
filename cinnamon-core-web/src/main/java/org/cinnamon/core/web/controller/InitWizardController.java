@@ -19,6 +19,7 @@ public class InitWizardController {
 	@RequestMapping("**")
 	String main() {
 		logger.info("start");
-		return "configuration/initWizard";
+//		return "configuration/initWizard";
+		return "configuration/initWizard2";
 	}
 }

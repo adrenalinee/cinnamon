@@ -97,13 +97,21 @@
 		</div>
 		
 		<!-- 2depth menus -->
-		<div class="md-primary md-hue-1" th:if="${#arrays.isEmpty(currentMenus.actives) == false and #arrays.isEmpty(currentMenus.actives[0].childs) == false}">
+		<!-- <div class="md-primary md-hue-1" th:if="${#arrays.isEmpty(currentMenus.actives) == false and #arrays.isEmpty(currentMenus.actives[0].childs) == false}">
 			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md-selected="${currentMenus.current2depthIndex}">
 				<md-tab ng-click="selectMenu('${menu.uri}')" th:each="menu: ${currentMenus.actives[0].childs}">
 					<md-tab-label th:text="${menu.name}" />
 				</md-tab>
 			</md-tabs>
+		</div> -->
+		<div class="md-primary md-hue-1" ng-if="currentMenus.actives.length > 0">
+			<md-tabs class="md-primary md-hue-1" md-center-tabs="true" md-stretch-tabs="auto" md-selected="currentMenus.current2depthIndex">
+				<md-tab ng-click="selectMenu(menu.uri)" ng-repeat="menu in currentMenus.actives[0].childs">
+					<md-tab-label>{{menu.name}}</md-tab-label>
+				</md-tab>
+			</md-tabs>
 		</div>
+		
 	</md-toolbar>
 	
 	<!-- mobile 대응 -->
