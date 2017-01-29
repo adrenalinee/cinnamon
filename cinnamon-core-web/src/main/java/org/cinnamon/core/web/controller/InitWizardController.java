@@ -21,5 +21,6 @@ public class InitWizardController {
 		logger.info("start");
 //		return "configuration/initWizard";
 		return "configuration/initWizard2";
+//		return "configuration/initWizard3";
 	}
 }

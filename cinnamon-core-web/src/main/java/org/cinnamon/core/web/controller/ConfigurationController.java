@@ -26,4 +26,9 @@ public class ConfigurationController {
 	void directives() {
 		
 	}
+	
+	@RequestMapping(value="/core/components/**")
+	void components() {
+		
+	}
 }

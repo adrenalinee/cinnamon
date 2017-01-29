@@ -34,7 +34,7 @@ public class InitWizardRestController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value="baseData", method=RequestMethod.POST)
-	ResponseEntity<Void>baseData() throws Exception {
+	ResponseEntity<Void> baseData() throws Exception {
 		logger.info("start");
 		
 		systemConfigurerService.createBaseData();

@@ -29,10 +29,8 @@ public class InitWizardService {
 
 		if (initWizard == null) {
 			WizardBuilder wizardBuilder = new WizardBuilder();
-			ac
-			.getBeansOfType(InitWizardConfigurer.class)
-			.values()
-			.forEach(configurer -> configurer.configure(wizardBuilder));
+			ac.getBeansOfType(InitWizardConfigurer.class).values()
+				.forEach(configurer -> configurer.configure(wizardBuilder));
 			
 			initWizard = wizardBuilder.build();
 		}

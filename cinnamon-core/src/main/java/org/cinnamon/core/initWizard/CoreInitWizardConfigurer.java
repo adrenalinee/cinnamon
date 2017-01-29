@@ -18,11 +18,13 @@ public class CoreInitWizardConfigurer implements InitWizardConfigurer {
 		wizardBuilder
 		.name("initWizard")
 		.step("wellcome")
-			.uri("wellcome").and()
+			.uri("/configuration/partials/initWizard/wellcome").and()
 		.step("database")
-			.uri("database").and()
+			.uri("/configuration/partials/initWizard/database").and()
 		.step("baseData")
-			.uri("baseData");
+			.uri("/configuration/partials/initWizard/baseData").and()
+		.step("firstUser")
+			.uri("/configuration/partials/initWizard/firstUser");
 	}
 
 }

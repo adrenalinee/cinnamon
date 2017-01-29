@@ -61,6 +61,7 @@ class WebMvcConfiger extends WebMvcConfigurerAdapter {
 			"/template/**",
 			"/configuration/partials/**",
 			"/configuration/initWizard",
+			"/core/components/**",
 			"/rest/**",
 			"/error/**");
 	}
@@ -137,6 +138,7 @@ class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 				"/fonts/**",
 				"/configuration/partials/**",
 				"/configuration/directives/**",
+				"/core/components/**",
 				"/settings/partials/**",
 				"/configuration/initWizard/**",
 				"/rest/configuration/initWizard/**"
