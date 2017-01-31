@@ -2,11 +2,10 @@
 	id="initWizardStepper"
 	md-alternative="true"
 	md-linear="true"
-	md-vertical="false"
+	md-vertical="true"
 	style="background-color: white"
 	class="md-whiteframe-2dp">
 	<md-step ng-repeat="step in wizard.steps" md-label="{{step.name}}">
-		<md-step-body layout-padding ng-include="step.uri">
-		</md-step-body>
+		<ng-include src="step.uri" />
 	</md-step>
 </md-stepper>

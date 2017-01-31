@@ -1,20 +1,24 @@
 angular.module('cinnamon')
 .component('cmWizard', {
 	templateUrl: '/core/components/cmWizard',
-	controller: WizrdController
+	controller: WizardController,
+	bindings: {
+		infoUri: '@'
+	}
 });
 
-function WizrdController($scope, $http, $mdStepper) {
+function WizardController($scope, $http, $mdStepper) {
 	var ctrl = this;
 	
-	$http.get('/rest/configuration/initWizard')
-	.success(function(data) {
-		console.log(data);
-		$scope.wizard = data;
-	});
-	
-	
-	ctrl.next = function() {
-		$mdStepper('initWizardStepper').next();
+	ctrl.$onInit = function() {
+		console.log(ctrl.infoUri);
+		
+		$http.get(ctrl.infoUri)
+		.then(function(response) {
+			console.log(response);
+			$scope.wizard = response.data;
+		});
 	}
+	
+	
 }

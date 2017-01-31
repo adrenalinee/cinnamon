@@ -13,6 +13,8 @@ public class WizardStep {
 	
 	private String uri;
 	
+//	private String component;
+	
 	private String description;
 
 	public int getOrder() {
@@ -46,4 +48,12 @@ public class WizardStep {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+//	public String getComponent() {
+//		return component;
+//	}
+//
+//	public void setComponent(String component) {
+//		this.component = component;
+//	}
 }

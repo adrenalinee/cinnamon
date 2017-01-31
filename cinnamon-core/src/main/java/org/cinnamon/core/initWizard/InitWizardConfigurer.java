@@ -1,6 +1,6 @@
-package org.cinnamon.core.config;
+package org.cinnamon.core.initWizard;
 
-import org.cinnamon.core.config.builder.WizardBuilder;
+import org.cinnamon.core.initWizard.builder.WizardBuilder;
 
 /**
  * 

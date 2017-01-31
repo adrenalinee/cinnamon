@@ -1,7 +1,7 @@
-package org.cinnamon.core.initWizard;
+package org.cinnamon.core.config;
 
-import org.cinnamon.core.config.InitWizardConfigurer;
-import org.cinnamon.core.config.builder.WizardBuilder;
+import org.cinnamon.core.initWizard.InitWizardConfigurer;
+import org.cinnamon.core.initWizard.builder.WizardBuilder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,13 +18,15 @@ public class CoreInitWizardConfigurer implements InitWizardConfigurer {
 		wizardBuilder
 		.name("initWizard")
 		.step("wellcome")
-			.uri("/configuration/partials/initWizard/wellcome").and()
+			.uri("/core/components/initWizard/wellcome").and()
 		.step("database")
-			.uri("/configuration/partials/initWizard/database").and()
+			.uri("/core/components/initWizard/database").and()
 		.step("baseData")
-			.uri("/configuration/partials/initWizard/baseData").and()
+			.uri("/core/components/initWizard/baseData").and()
 		.step("firstUser")
-			.uri("/configuration/partials/initWizard/firstUser");
+			.uri("/core/components/initWizard/firstUser")
+		
+		;
 	}
 
 }

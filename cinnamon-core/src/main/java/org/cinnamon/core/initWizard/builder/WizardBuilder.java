@@ -1,4 +1,4 @@
-package org.cinnamon.core.config.builder;
+package org.cinnamon.core.initWizard.builder;
 
 import java.util.ArrayList;
 import java.util.List;

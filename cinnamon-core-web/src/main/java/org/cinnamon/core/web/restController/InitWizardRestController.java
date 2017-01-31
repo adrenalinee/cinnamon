@@ -3,6 +3,8 @@ package org.cinnamon.core.web.restController;
 import javax.validation.Valid;
 
 import org.cinnamon.core.config.SystemConfigureService;
+import org.cinnamon.core.initWizard.InitWizardService;
+import org.cinnamon.core.initWizard.Wizard;
 import org.cinnamon.core.vo.UserJoinVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,14 @@ public class InitWizardRestController {
 	
 	@Autowired
 	private SystemConfigureService systemConfigurerService;
+	
+	@Autowired
+	private  InitWizardService initWizardService;
+	
+	@RequestMapping(value="", method=RequestMethod.GET)
+	public Wizard getInitWizard() {
+		return initWizardService.getInitWizard();
+	}
 	
 	/**
 	 * 

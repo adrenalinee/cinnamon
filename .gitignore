@@ -1,6 +1,8 @@
-/.gradle
-/.settings
+.gradle/
+.settings/
+.idea/
+build/
+bin/
 *.DS_Store
 .classpath
-/build
-/bin
+**.iml

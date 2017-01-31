@@ -1,7 +1,6 @@
 package org.cinnamon.core.initWizard;
 
-import org.cinnamon.core.config.InitWizardConfigurer;
-import org.cinnamon.core.config.builder.WizardBuilder;
+import org.cinnamon.core.initWizard.builder.WizardBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 
- *
+ * 
  * created date: 2015. 9. 16.
  * @author 신동성
  */
@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class InitWizardController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping("**")
 	String main() {
 		logger.info("start");
-//		return "configuration/initWizard";
-		return "configuration/initWizard2";
-//		return "configuration/initWizard3";
+		return "configuration/initWizard";
 	}
 }

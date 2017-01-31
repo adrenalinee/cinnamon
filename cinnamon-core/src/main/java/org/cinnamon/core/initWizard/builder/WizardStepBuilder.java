@@ -1,4 +1,4 @@
-package org.cinnamon.core.config.builder;
+package org.cinnamon.core.initWizard.builder;
 
 import org.cinnamon.core.initWizard.WizardStep;
 
@@ -26,6 +26,11 @@ public class WizardStepBuilder {
 		wizardStep.setUri(uri);
 		return this;
 	}
+	
+//	public WizardStepBuilder component(String component) {
+//		wizardStep.setComponent(component);
+//		return this;
+//	}
 	
 	public WizardStepBuilder description(String description) {
 		wizardStep.setDescription(description);

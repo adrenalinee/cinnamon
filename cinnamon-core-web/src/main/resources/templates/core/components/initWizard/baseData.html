@@ -1,0 +1,11 @@
+<div ng-controller="baseDataCtrl">
+	<md-step-body>
+		<p class="alert-info" layout-margin layout-padding>시스템초기화에 필요한 초기데이터를 생성합니다.</p>
+	</md-step-body>
+	<md-step-actions>
+		<md-progress-linear md-mode="indeterminate" ng-show="isProcess"></md-progress-linear>
+		<md-button class="md-raised md-primary" ng-disabled="isProcess" ng-click="createBaseData()">
+			<md-icon>present_to_all</md-icon> 기본 데이터 생성
+		</md-button>
+	</md-step-actions>
+</div>
