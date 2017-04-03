@@ -78,19 +78,45 @@
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-material</artifactId>
-			<version>1.1.1</version>
+			<version>1.1.3</version>
 		</dependency>
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>angular-material-icons</artifactId>
+			<version>0.6.0</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>angular-ui-router</artifactId>
 			<version>0.4.2</version>
 		</dependency>
+		<dependency> 
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>lodash</artifactId>
+			<version>3.10.1</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.webjars.bower</groupId>
 			<artifactId>material-steppers</artifactId>
 			<version>1.0.3</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>github-com-iamisti-mdDataTable</artifactId>
+			<version>2.2.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.webjars.npm</groupId>
+					<artifactId>angular-animate</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.webjars.npm</groupId>
+					<artifactId>angular-material-icons</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.webjars.bower</groupId>

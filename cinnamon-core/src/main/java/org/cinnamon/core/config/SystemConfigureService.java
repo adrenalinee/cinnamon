@@ -11,7 +11,6 @@ import org.cinnamon.core.vo.UserJoinVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,22 +22,22 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class SystemConfigureService {
-	Logger logger = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@Autowired
-	ApplicationContext ac;
+//	@Autowired
+//	private ApplicationContext ac;
 	
 //	@Autowired
 //	BaseDataBuilder baseDataBuilder;
 	
 	@Autowired
-	UserBaseService<UserBase> userService;
+	private UserBaseService<UserBase> userService;
 	
 	@Autowired
-	PropertyRepository propertyRepository;
+	private PropertyRepository propertyRepository;
 	
 	@Autowired
-	InitDataManager initDataManager;
+	private InitDataManager initDataManager;
 	
 	/**
 	 * 시스템 초기화 작업이 최종 마무리 되었는지 알려준다.

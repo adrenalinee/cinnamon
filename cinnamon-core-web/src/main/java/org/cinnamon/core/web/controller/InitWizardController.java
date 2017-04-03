@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author 신동성
  */
 @Controller
-@RequestMapping("/configuration/initWizard")
+@RequestMapping("/core/initWizard")
 public class InitWizardController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -23,6 +23,6 @@ public class InitWizardController {
 	@RequestMapping("**")
 	String main() {
 		logger.info("start");
-		return "configuration/initWizard";
+		return "core/initWizard";
 	}
 }

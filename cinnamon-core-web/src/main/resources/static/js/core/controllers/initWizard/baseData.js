@@ -5,7 +5,7 @@ angular.module('cinnamon')
 		console.log('createBaseData');
 		
 		$scope.isProcess = true;
-		$http.post('/rest/configuration/initWizard/baseData')
+		$http.post('/rest/core/initWizard/baseData')
 		.then(function(response) {
 			$mdStepper('initWizardStepper').next();
 		}).finally(function() {

@@ -16,7 +16,7 @@ angular.module('cinnamon')
 		
 		
 		$scope.isProcess = true;
-		$http.post('/rest/configuration/initWizard/firstUser', $scope.domain)
+		$http.post('/rest/core/initWizard/firstUser', $scope.domain)
 		.then(function(response) {
 			$mdDialog.show(
 				$mdDialog.alert()

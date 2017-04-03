@@ -6,11 +6,12 @@ angular.module('cinnamon', [
 		'ngAria',
 		'ngSanitize',
 		'ui.router',
-		'ngMaterial', 
+		'ngMaterial',
+		'mdDataTable',
 		'ui.bootstrap.paging',
 		'ui.bootstrap.pagination',
 		'ui.bootstrap.pager',
-		'ngFileUpload',
+//		'ngFileUpload',
 //		'mdPickers',
 //		'angularMoment'
 ]).config(function($locationProvider, $httpProvider, $mdThemingProvider) {

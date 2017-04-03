@@ -56,7 +56,7 @@ class WebMvcConfiger extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(initCheckInterceptor)
 		.addPathPatterns(
 			"/**",
-			"/rest/configuration/initWizard/**")
+			"/rest/core/initWizard/**")
 			.excludePathPatterns(
 			"/template/**",
 			"/configuration/partials/**",
@@ -140,8 +140,8 @@ class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 				"/configuration/directives/**",
 				"/core/components/**",
 				"/settings/partials/**",
-				"/configuration/initWizard/**",
-				"/rest/configuration/initWizard/**"
+				"/core/initWizard/**",
+				"/rest/core/initWizard/**"
 //				"/rest/captcha/check"
 				);
 	}

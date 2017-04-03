@@ -1,0 +1,67 @@
+
+<md-whiteframe
+	class="md-whiteframe-1dp content" layout="column"
+	style="background-color: rgb(255,255,255)">
+	
+	<div layout="row" layout-padding layout-align="center center" flex>
+		<md-input-container class="md-icon-float" flex>
+			<!-- <md-icon>search</md-icon> -->
+			<input ng-model="searchInfo.keyword" placeholder="검색어를 입력하세요" ng-keypress="onSearch($event)" />
+		</md-input-container>
+		<md-button class="md-icon-button" ng-click="showDetailSearch = !showDetailSearch">
+			<md-tooltip md-direction="top">상세 검색</md-tooltip>
+			<md-icon>expand_more</md-icon>
+		</md-button>
+	</div>
+	
+	<!-- 상세 검색 필드 -->
+	<div ng-if="showDetailSearch">
+		<div layout-padding>
+			<ng-transclude ng-transclude-slot="filters" />
+		</div>
+		<md-button class="md-primary md-raised" ng-click="search()">검색</md-button>
+		<md-button ng-click="clearSearch()">
+			<span class="text-muted">검색초기화</span>
+		</md-button>
+	</div>
+	<!-- 상세 검색 필드 끝 -->
+</md-whiteframe>
+
+<br />
+
+<mdt-table
+	style="background-color: rgb(255,255,255)"
+	paginated-rows="{isEnabled: true, rowsPerPageValues: [10,20,50]}"
+	mdt-row-paginator="$ctrl.paginatorCallback(page, pageSize)"
+	mdt-row="$ctrl.rowInfo">
+
+	<ng-transclude ng-transclude-slot="items"></ng-transclude>
+	
+</mdt-table>
+
+
+
+<!-- <mdt-table
+	paginated-rows="{isEnabled: true, rowsPerPageValues: [10,20,50]}"
+	mdt-row-paginator="$ctrl.paginatorCallback(page, pageSize)"
+	mdt-row="{
+	'table-row-id-key': 'userId',
+	'column-keys': ['avatar', 'userId', 'name', 'birthday', 'email', 'tel']
+}">
+	<mdt-header-row>
+		<mdt-column>avatar</mdt-column>
+		<mdt-column column-sort="true">userId</mdt-column>
+		<mdt-column column-sort="true">이름</mdt-column>
+		<mdt-column>생일</mdt-column>
+		<mdt-column>이메일</mdt-column>
+		<mdt-column>연락처</mdt-column>
+	</mdt-header-row>
+	
+	<mdt-custom-cell column-key="avatar">
+		<md-icon>account_circle</md-icon>
+	</mdt-custom-cell>
+	<mdt-custom-cell column-key="userId">
+		<a ui-sref="view({userId:value})">{{value}}</a>
+	</mdt-custom-cell>
+	
+</mdt-table> -->

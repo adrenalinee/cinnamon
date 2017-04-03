@@ -19,13 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 public class InitDataManager {
-	Logger logger = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	ApplicationContext ac;
+	private ApplicationContext ac;
 	
 	@Autowired
-	EntityManager em;
+	private EntityManager em;
 	
 //	@Autowired
 //	private PlatformTransactionManager transactionManager;

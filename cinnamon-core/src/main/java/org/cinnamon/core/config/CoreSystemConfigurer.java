@@ -31,7 +31,6 @@ import org.springframework.util.StringUtils;
 @Component
 public class CoreSystemConfigurer implements SystemConfigurer {
 	
-
 	@Override
 	public int order() {
 		return -100;

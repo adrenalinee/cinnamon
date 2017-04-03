@@ -23,9 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 신동성
  */
 @RestController
-@RequestMapping("/rest/configuration/initWizard")
+@RequestMapping("/rest/core/initWizard")
 public class InitWizardRestController {
-	private Logger logger = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	private SystemConfigureService systemConfigurerService;
@@ -33,6 +33,10 @@ public class InitWizardRestController {
 	@Autowired
 	private  InitWizardService initWizardService;
 	
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public Wizard getInitWizard() {
 		return initWizardService.getInitWizard();

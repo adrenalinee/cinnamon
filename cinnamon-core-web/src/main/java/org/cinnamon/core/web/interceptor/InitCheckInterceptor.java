@@ -74,7 +74,7 @@ public class InitCheckInterceptor extends HandlerInterceptorAdapter {
 			
 			logger.info("서버 초기화 진행해야 함. 초기화 마법사 실행");
 			
-			String nextInitUri = "/configuration/initWizard";
+			String nextInitUri = "/core/initWizard";
 			if (!"".equals(nextStep)) {
 				nextInitUri += "/${nextStep}";
 			}
@@ -88,7 +88,7 @@ public class InitCheckInterceptor extends HandlerInterceptorAdapter {
 		}
 		
 		if (isInitialize) {
-			if (request.getRequestURI().startsWith("/configuration/initWizard")) {
+			if (request.getRequestURI().startsWith("/core/initWizard")) {
 				response.sendRedirect("/");
 				return false;
 			}

@@ -18,7 +18,7 @@ public class CoreInitWizardConfigurer implements InitWizardConfigurer {
 		wizardBuilder
 		.name("initWizard")
 		.step("wellcome")
-			.uri("/core/components/initWizard/wellcome").and()
+			.uri("/core/components/initWizard/welcome").and()
 		.step("database")
 			.uri("/core/components/initWizard/database").and()
 		.step("baseData")
