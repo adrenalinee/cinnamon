@@ -1,0 +1,41 @@
+<cm-list
+	resource-url="/rest/configuration/users"
+	row-info="{
+		'table-row-id-key': 'userId',
+		'column-keys': ['avatar', 'userId', 'name', 'email']
+	}"
+	search-info="searchInfo">
+	
+	<cm-list-filters>
+		<div layout="column">
+			<md-input-container>
+				<label>이름</label>
+				<input ng-model="searchInfo.name" />
+			</md-input-container>
+			<md-input-container>
+				<label>userId</label>
+				<input ng-model="searchInfo.userId" />
+			</md-input-container>
+			<md-input-container>
+				<label>이메일</label>
+				<input ng-model="searchInfo.email" />
+			</md-input-container>
+		</div>
+	</cm-list-filters>
+	
+	<cm-list-items>
+		<mdt-header-row>
+			<mdt-column>avatar</mdt-column>
+			<mdt-column column-sort="true">userId</mdt-column>
+			<mdt-column column-sort="true">이름</mdt-column>
+			<mdt-column>이메일</mdt-column>
+		</mdt-header-row>
+		
+		<mdt-custom-cell column-key="avatar">
+			<md-icon>account_circle</md-icon>
+		</mdt-custom-cell>
+		<mdt-custom-cell column-key="userId">
+			<a ui-sref="view({userId:value})">{{value}}</a>
+		</mdt-custom-cell>
+	</cm-list-items>
+</cm-list>

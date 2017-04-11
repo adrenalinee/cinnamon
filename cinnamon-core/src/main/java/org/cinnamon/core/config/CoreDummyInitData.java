@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * @author 신동성
  * @since 2016. 2. 2.
  */
-//@Component
+@Component
 public class CoreDummyInitData implements InitData {
 	
 	@Autowired
@@ -30,7 +30,7 @@ public class CoreDummyInitData implements InitData {
 	
 	@Override
 	public void save(EntityManager em) throws Exception {
-		for (int i = 0; i < 33; i++) {
+		for (int i = 0; i < 111; i++) {
 			String newUserId = null;
 			for (int c = 0; c < 10; c++) {
 				newUserId = RandomUtil.getRandom(10);
