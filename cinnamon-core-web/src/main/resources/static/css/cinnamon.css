@@ -1,6 +1,7 @@
-/* md-content {background-color: #ecf0f5} */
+md-content {background-color: #ffffff}
+md-whiteframe {background-color: #ffffff}
 .content {
-	background-color: #f2f2f2
+	background-color: #f2f4f6
 }
 
 .content-container {
