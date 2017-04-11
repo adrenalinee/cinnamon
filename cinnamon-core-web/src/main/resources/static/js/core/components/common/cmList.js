@@ -1,6 +1,6 @@
 angular.module('cinnamon')
 .component('cmList', {
-	templateUrl: '/core/components/cmList',
+	templateUrl: '/core/components/common/cmList',
 	controller: ListController,
 	transclude: {
 		'items': 'cmListItems',
@@ -8,7 +8,8 @@ angular.module('cinnamon')
 	},
 	bindings: {
 		resourceUrl: '@',
-		rowInfo: '='
+		rowInfo: '=',
+		searchInfo:  '=?'
 	}
 });
 
@@ -16,15 +17,25 @@ function ListController($scope, $http) {
 	var ctrl = this;
 	
 	ctrl.$onInit = function() {
-
+		ctrl.searchInfo = {};
+	}
+	
+	ctrl.onSearch = function(event) {
+		if (event.keyCode == 13) {
+			ctrl.paginatorCallback(1, 20);
+		}
 	}
 	
 	ctrl.paginatorCallback = function(page, pageSize) {
-		console.log('paginatorCallback');
+		console.log('paginatorCallback ' + page + ", " + pageSize);
 		
-		var offset = (page-1) * pageSize;
 		
-		return $http.get(ctrl.resourceUrl)
+		
+		var params = angular.copy(ctrl.searchInfo);
+		params.page = page - 1;
+		params.size = pageSize;
+		
+		return $http.get(ctrl.resourceUrl, {params: params})
 		.then(function(result) {
 			console.log(result);
 			return {
@@ -33,4 +44,5 @@ function ListController($scope, $http) {
 			}
 		});
 	}
+
 }

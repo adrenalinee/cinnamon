@@ -1,7 +1,6 @@
 
 <md-whiteframe
-	class="md-whiteframe-1dp content" layout="column"
-	style="background-color: rgb(255,255,255)">
+	class="md-whiteframe-1dp" layout="column">
 	
 	<div layout="row" layout-padding layout-align="center center" flex>
 		<md-input-container class="md-icon-float" flex>
@@ -27,10 +26,9 @@
 	<!-- 상세 검색 필드 끝 -->
 </md-whiteframe>
 
-<br />
+<!-- <br /> -->
 
 <mdt-table
-	style="background-color: rgb(255,255,255)"
 	paginated-rows="{isEnabled: true, rowsPerPageValues: [10,20,50]}"
 	mdt-row-paginator="$ctrl.paginatorCallback(page, pageSize)"
 	mdt-row="$ctrl.rowInfo">
