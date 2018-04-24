@@ -1,0 +1,61 @@
+dependencies {
+	compile('com.fasterxml.jackson.core:jackson-databind')
+	compile('com.fasterxml.jackson.datatype:jackson-datatype-hibernate5')
+	compile('com.querydsl:querydsl-jpa')
+	compile('com.querydsl:querydsl-apt')
+	compile('commons-codec:commons-codec')
+	compile('commons-fileupload:commons-fileupload:1.3.1')
+//	commons-lang:commons-lang
+	compile('org.apache.commons:commons-lang3')
+	compile('joda-time:joda-time')
+	compile('com.sun.mail:javax.mail')
+	compile('org.hibernate:hibernate-entitymanager')
+	compile('org.hibernate.validator:hibernate-validator')
+	compile('org.springframework:spring-context-support')
+	compile('org.springframework.boot:spring-boot-autoconfigure')
+	compile('org.springframework.data:spring-data-jpa')
+	compile('net.sf.dozer:dozer:5.5.1')
+	compile('org.projectlombok:lombok')
+	
+	runtime('javax.servlet:javax.servlet-api')
+	runtime('org.springframework.security:spring-security-web')
+}
+
+sourceSets {
+	generated {
+		java {
+			srcDirs = ["src/main/generated"]
+		}
+	}
+}
+
+configurations {
+	querydslapt
+}
+
+task generateQuerydsl(type: JavaCompile, group: 'build', description: 'querydsl generator') {
+	source = sourceSets.main.java
+	classpath = configurations.compile + configurations.querydslapt
+	options.compilerArgs = [
+		"-proc:only",
+		"-processor",
+		"com.querydsl.apt.jpa.JPAAnnotationProcessor"
+	]
+	options.encoding = 'UTF-8'
+	destinationDir = sourceSets.generated.java.srcDirs.iterator().next()
+}
+
+compileJava {
+	dependsOn generateQuerydsl
+	source generateQuerydsl.destinationDir
+}
+
+compileGeneratedJava {
+	dependsOn generateQuerydsl
+	options.warnings = false
+	classpath += sourceSets.main.runtimeClasspath
+}
+
+clean {
+	delete sourceSets.generated.java.srcDirs.iterator().next()
+}

@@ -82,7 +82,7 @@ public class MenuGroupService {
 	public MenuGroup merge(Long menuGroupId, MenuGroupVo menuGroupVo) {
 		logger.info("start");
 		
-		MenuGroup menuGroup = menuGroupRepository.findOne(menuGroupId);
+		MenuGroup menuGroup = menuGroupRepository.findById(menuGroupId).get();
 		if (menuGroup == null) {
 			throw new NotFoundException("존재하지 않는 메뉴 그룹 입니다. menuGroupId : " + menuGroupId);
 		}
@@ -102,7 +102,7 @@ public class MenuGroupService {
 	public MenuGroup save(String siteId, MenuGroupVo menuGroupVo) {
 		logger.info("start");
 		
-		Site site = siteRepository.findOne(siteId);
+		Site site = siteRepository.findById(siteId).get();
 		if (site == null) {
 			throw new BadRequestException("등록되지 않은 사이트 입니다. siteId: " + siteId);
 		}
@@ -122,7 +122,7 @@ public class MenuGroupService {
 	@Transactional(readOnly=true)
 	public MenuGroup get(Long menuGroupId) {
 		logger.info("start");
-		return menuGroupRepository.findOne(menuGroupId);
+		return menuGroupRepository.findById(menuGroupId).get();
 	}
 	
 	
@@ -177,11 +177,11 @@ public class MenuGroupService {
 	public void putSiteOfMenuGroup(Long menuGroupId, String siteId) {
 		logger.info("start");
 		
-		Site site = siteRepository.findOne(siteId);
+		Site site = siteRepository.findById(siteId).get();
 		if(site == null) {
 			throw new NotFoundException("존재하지 않는 사이트 입니다. siteId : " + siteId);
 		}
-		MenuGroup menuGroup = menuGroupRepository.findOne(menuGroupId);
+		MenuGroup menuGroup = menuGroupRepository.findById(menuGroupId).get();
 		if(menuGroup == null) {
 			throw new NotFoundException("존재하지 않는 메뉴 그룹 입니다. menuGroupId : " + menuGroupId);
 		}
@@ -210,6 +210,6 @@ public class MenuGroupService {
 	public void delete(Long menuGroupId) {
 		logger.info("start");
 		
-		menuGroupRepository.delete(menuGroupId);
+		menuGroupRepository.deleteById(menuGroupId);
 	}
 }

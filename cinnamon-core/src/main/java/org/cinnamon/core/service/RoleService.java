@@ -60,12 +60,12 @@ public class RoleService {
 	public void setDefaultMenu(Long permissionId, Long menuId) {
 		logger.info("start");
 		
-		Permission permission = permissionRepository.findOne(permissionId);
+		Permission permission = permissionRepository.findById(permissionId).get();
 		if (permission == null) {
 			throw new NotFoundException("권한 정보가 존재하지 않습니다. permissionId :" + permissionId);
 		}
 		
-		Menu menu = menuRepository.findOne(menuId);
+		Menu menu = menuRepository.findById(menuId).get();
 		if (menu == null) {
 			throw new BadRequestException("등록되지 않은 메뉴 입니다. menuId: " + menuId);
 		}
@@ -150,7 +150,7 @@ public class RoleService {
 	@Transactional(readOnly=true)
 	public Permission getPermission(Long permissionId) {
 		logger.info("start");
-		Permission permission = permissionRepository.findOne(permissionId);
+		Permission permission = permissionRepository.findById(permissionId).get();
 		if(permission == null) {
 			throw new NotFoundException("권한 정보가 존재하지 않습니다. permissionId :" + permissionId);
 		}
@@ -179,7 +179,7 @@ public class RoleService {
 	@Transactional
 	public void modifyPermission(Long permissionId, PermissionVo permissionVo) {
 		logger.info("start");
-		Permission permission = permissionRepository.findOne(permissionId);
+		Permission permission = permissionRepository.findById(permissionId).get();
 		if(permission == null) {
 			throw new NotFoundException("권한 정보가 존재하지 않습니다. permissionId :" + permissionId);
 		}
@@ -198,14 +198,14 @@ public class RoleService {
 	public void modifyMenu(Long permissionId, List<PermissionMenuVo> permissionMenuVo , Long menuGroupId) {
 		logger.info("start");
 		// 메뉴 권한 리스트 가져오기
-		Permission permission = permissionRepository.findOne(permissionId);
+		Permission permission = permissionRepository.findById(permissionId).get();
 		
 		// 기존 권한 가져온 뒤 퍼미션 메뉴 리스트를 입력하여 수정한다.
 
 		// 기존 메뉴 정보 불러오기
 		List<PermissionMenu> permissionMenus = permissionRepository.find(permissionId, menuGroupId);
 		// 기존 메뉴 정보 삭제
-		menuAuthorityRepository.delete(permissionMenus);
+		menuAuthorityRepository.deleteInBatch(permissionMenus);
 		//permissionMenus = null;
 		
 		// 변경 메뉴 정보 입력

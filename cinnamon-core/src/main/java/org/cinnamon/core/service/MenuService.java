@@ -57,7 +57,7 @@ public class MenuService {
 	public Menu get(Long menuId) {
 		logger.info("start");
 		
-		return menuRepository.findOne(menuId);
+		return menuRepository.findById(menuId).get();
 	}
 	
 	
@@ -91,14 +91,14 @@ public class MenuService {
 		
 		Menu menu = beanMapper.map(menuVo, Menu.class);
 		
-		MenuGroup menuGroup = menuGroupRepository.findOne(menuGroupId);
+		MenuGroup menuGroup = menuGroupRepository.findById(menuGroupId).get();
 		if (menuGroup == null) {
 			throw new InvalidEntityException("menuGroup이 없습니다. menuGroupId: " + menuGroupId);
 		}
 		menu.setMenuGroup(menuGroup);
 
 		if(parentMenuId != null) {
-			Menu parent = menuRepository.findOne(parentMenuId);
+			Menu parent = menuRepository.findById(parentMenuId).get();
 			if (parent == null) {
 				throw new InvalidEntityException("parent가 없습니다. parentMenuId: " + parentMenuId);
 			}
@@ -113,7 +113,7 @@ public class MenuService {
 	public List<Menu> getMenus(Long menuGroupId) {
 		logger.info("start");
 		
-		return menuGroupRepository.findOne(menuGroupId).getMenus();
+		return menuGroupRepository.findById(menuGroupId).get().getMenus();
 	}
 	
 	/**
@@ -127,7 +127,7 @@ public class MenuService {
 	public void modify(Long menuId, MenuVo menuVo) {
 		logger.info("start");
 		
-		Menu menu = menuRepository.findOne(menuId);
+		Menu menu = menuRepository.findById(menuId).get();
 		if(menu == null) {
 			throw new NotFoundException("존재하지 않는 메뉴 입니다. menuId:" + menuId);
 		}
@@ -145,7 +145,7 @@ public class MenuService {
 	public void delete(Long menuId) {
 		logger.info("start");
 		
-		Menu menu = menuRepository.findOne(menuId);
+		Menu menu = menuRepository.findById(menuId).get();
 		if(menu == null) {
 			throw new NotFoundException("존재하지 않는 메뉴 입니다. menuId:" + menuId);
 		}

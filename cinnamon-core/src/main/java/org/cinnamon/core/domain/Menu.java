@@ -22,11 +22,14 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import lombok.Data;
+
 /**
  * 
  * @author 동성
  *
  */
+@Data
 @Entity
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="menuId")
 public class Menu implements Serializable { 
@@ -52,6 +55,9 @@ public class Menu implements Serializable {
 	
 	@Column(nullable=false)
 	String name;
+	
+	@Column
+	String code;
 	
 	@Column
 	String iconClass;
@@ -106,125 +112,4 @@ public class Menu implements Serializable {
 	
 	@Column(length=4000)
 	String description;
-
-	public Long getMenuId() {
-		return menuId;
-	}
-
-	public void setMenuId(Long menuId) {
-		this.menuId = menuId;
-	}
-
-	public Menu getParent() {
-		return parent;
-	}
-
-	public void setParent(Menu parent) {
-		this.parent = parent;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getUri() {
-		return uri;
-	}
-
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Integer getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Integer orders) {
-		this.orders = orders;
-	}
-
-	public UseStatus getUseStatus() {
-		return useStatus;
-	}
-
-	public void setUseStatus(UseStatus useStatus) {
-		this.useStatus = useStatus;
-	}
-
-	public String getIconClass() {
-		return iconClass;
-	}
-
-	public void setIconClass(String iconClass) {
-		this.iconClass = iconClass;
-	}
-
-	public MenuType getType() {
-		return type;
-	}
-
-	public void setType(MenuType type) {
-		this.type = type;
-	}
-
-	public String getToolip() {
-		return toolip;
-	}
-
-	public void setToolip(String toolip) {
-		this.toolip = toolip;
-	}
-
-	public List<Menu> getChilds() {
-		return childs;
-	}
-
-	public void setChilds(List<Menu> childs) {
-		this.childs = childs;
-	}
-
-//	public Set<PermissionMenu> getPermissionMenus() {
-//		return permissionMenus;
-//	}
-//
-//	public void setPermissionMenus(Set<PermissionMenu> permissionMenus) {
-//		this.permissionMenus = permissionMenus;
-//	}
-
-	public MenuPosition getPosition() {
-		return position;
-	}
-
-	public void setPosition(MenuPosition position) {
-		this.position = position;
-	}
-
-	public MenuGroup getMenuGroup() {
-		return menuGroup;
-	}
-
-	public void setMenuGroup(MenuGroup menuGroup) {
-		this.menuGroup = menuGroup;
-	}
-
-	public Set<PermissionMenu> getGrantedAuthorities() {
-		return grantedAuthorities;
-	}
-
-	public void setGrantedAuthorities(Set<PermissionMenu> grantedAuthorities) {
-		this.grantedAuthorities = grantedAuthorities;
-	}
-
 }

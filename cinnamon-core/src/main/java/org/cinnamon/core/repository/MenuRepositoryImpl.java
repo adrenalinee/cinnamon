@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.util.StringUtils;
 
 /**
@@ -24,7 +24,7 @@ import org.springframework.util.StringUtils;
  * @author shindongseong
  *
  */
-public class MenuRepositoryImpl extends QueryDslRepositorySupport implements MenuRepositoryCustom {
+public class MenuRepositoryImpl extends QuerydslRepositorySupport implements MenuRepositoryCustom {
 
 	@Autowired
 	EntityManager em;

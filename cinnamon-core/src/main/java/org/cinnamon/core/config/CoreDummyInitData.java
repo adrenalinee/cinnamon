@@ -34,7 +34,7 @@ public class CoreDummyInitData implements InitData {
 			String newUserId = null;
 			for (int c = 0; c < 10; c++) {
 				newUserId = RandomUtil.getRandom(10);
-				if (userRepository.findOne(newUserId) == null) {
+				if (!userRepository.findById(newUserId).isPresent()) {
 					break;
 				}
 			}

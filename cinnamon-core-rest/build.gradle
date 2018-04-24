@@ -1,0 +1,4 @@
+dependencies {
+	compile project(':cinnamon-core')
+	compile('org.springframework:spring-webmvc')
+}

@@ -52,7 +52,7 @@ public class FileService {
 	
 	@Transactional(readOnly=true)
 	public FileInformation get(Long fileId) {
-		return fileInfoRepository.findOne(fileId);
+		return fileInfoRepository.findById(fileId).get();
 	}
 	
 	/**
@@ -103,7 +103,7 @@ public class FileService {
 		String identifier = uploadFileInfo.getIdentifier();
 		int chunkNumber = uploadFileInfo.getChunkNumber();
 		
-		FileChunk fileChunk = fileChunkRepository.findOne(identifier);
+		FileChunk fileChunk = fileChunkRepository.findById(identifier).get();
 		if (fileChunk == null) {
 			throw new BadRequestException("파일 업로드 기록이 없습니다. identifier: " + identifier);
 		}
@@ -130,7 +130,7 @@ public class FileService {
 		String originFileName = uploadFileInfo.getOriginFileName();
 		long totlaSize = uploadFileInfo.getTotalSize();
 		
-		FileChunk fileChunk = fileChunkRepository.findOne(identifier);
+		FileChunk fileChunk = fileChunkRepository.findById(identifier).get();
 		if (fileChunk == null) {
 			throw new BadRequestException("파일 업로드 기록이 없습니다. identifier: " + identifier);
 		}

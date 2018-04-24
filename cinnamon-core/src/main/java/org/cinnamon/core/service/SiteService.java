@@ -73,7 +73,7 @@ public class SiteService {
 	public Site get(String siteId) {
 		logger.info("start");
 		
-		return siteRepository.findOne(siteId);
+		return siteRepository.findById(siteId).get();
 	}
 	
 	
@@ -106,7 +106,7 @@ public class SiteService {
 	public void setDefaultMenuGroup(String siteId, Long menuGroupId) {
 		logger.info("start");
 		
-		Site site = siteRepository.findOne(siteId);
+		Site site = siteRepository.findById(siteId).get();
 		if(site == null) {
 			throw new NotFoundException("존재하지 않는 사이트 입니다. siteId : " + siteId);
 		}
@@ -141,7 +141,7 @@ public class SiteService {
 	public void delete(String siteId) {
 		logger.info("start");
 		
-		siteRepository.delete(siteId);
+		siteRepository.deleteById(siteId);
 	}
 	
 	
@@ -171,15 +171,15 @@ public class SiteService {
 	public Site getDefault() {
 		logger.info("start");
 		
-		Property property = propertyRepository.findOne(DefinedDBProperty.defaultSiteId.name());
+		Property property = propertyRepository.findById(DefinedDBProperty.defaultSiteId.name()).get();
 		if (property != null) {
 			String defaultSiteId = property.getValue();
 			if (!StringUtils.isEmpty(defaultSiteId)) {
-				return siteRepository.findOne(defaultSiteId);
+				return siteRepository.findById(defaultSiteId).get();
 			}
 		}
 		
-		PageRequest pageable = new PageRequest(0, 1);
+		PageRequest pageable = PageRequest.of(0, 1);
 		Page<Site> sites = siteRepository.findAll(pageable);
 		if (sites.getContent().size() > 0) {
 			return sites.getContent().get(0);
@@ -200,7 +200,7 @@ public class SiteService {
 	public void modify(String siteId, SiteVo siteVo) {
 		logger.info("start");
 		
-		Site site = siteRepository.findOne(siteId);
+		Site site = siteRepository.findById(siteId).get();
 		if(site == null) {
 			throw new NotFoundException("site가 존재하지 않습니다. siteId : " + siteId);
 		}

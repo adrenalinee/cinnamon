@@ -63,7 +63,7 @@ public class UserGroupService<T extends UserBase> {
 	public UserGroup modify(Long userGroupId, UserGroupVo userGroupVo) {
 		logger.info("start");
 		
-		UserGroup userGroup = userGroupRepository.findOne(userGroupId);
+		UserGroup userGroup = userGroupRepository.findById(userGroupId).get();
 		if (userGroup == null) {
 			throw new RuntimeException("등록되지 않은 사용자 그룹입니다. userGroupId: " + userGroupId);
 		}
@@ -79,7 +79,7 @@ public class UserGroupService<T extends UserBase> {
 	public UserGroup get(Long userGroupId) {
 		logger.info("start");
 		
-		return userGroupRepository.findOne(userGroupId);
+		return userGroupRepository.findById(userGroupId).get();
 	}
 	
 	
@@ -95,12 +95,12 @@ public class UserGroupService<T extends UserBase> {
 	public void addMember(Long userGroupId, String userId) {
 		logger.info("start");
 		
-		T user = userRepository.findOne(userId);
+		T user = userRepository.findById(userId).get();
 		if (user == null) {
 			throw new RuntimeException("등록되지 않은 사용자 입니다. userId: " + userId);
 		}
 		
-		UserGroup userGroup = userGroupRepository.findOne(userGroupId);
+		UserGroup userGroup = userGroupRepository.findById(userGroupId).get();
 		if (userGroup == null) {
 			throw new RuntimeException("등록되지 않은 사용자 그룹입니다. userGroupId: " + userGroupId);
 		}
@@ -113,7 +113,7 @@ public class UserGroupService<T extends UserBase> {
 	public void addMemberByAuthority(Object authority, String userId) {
 		logger.info("start");
 		
-		T user = userRepository.findOne(userId);
+		T user = userRepository.findById(userId).get();
 		if (user == null) {
 			throw new RuntimeException("등록되지 않은 사용자 입니다. userId: " + userId);
 		}
@@ -136,7 +136,7 @@ public class UserGroupService<T extends UserBase> {
 	public void removeMember(Object authority, String userId) {
 		logger.info("start");
 		
-		T user = userRepository.findOne(userId);
+		T user = userRepository.findById(userId).get();
 		if (user == null) {
 			throw new RuntimeException("등록되지 않은 사용자 입니다. userId: " + userId);
 		}
@@ -164,11 +164,11 @@ public class UserGroupService<T extends UserBase> {
 	@Transactional
 	public void submitUserGroupToPermission(Long userGroupId, Long permissionId) {
 		logger.info("start");
-		UserGroup userGroup = userGroupRepository.findOne(userGroupId);
+		UserGroup userGroup = userGroupRepository.findById(userGroupId).get();
 		if (userGroup == null) {
 			throw new BadRequestException("userGroup이 존재하지 않습니다. userGroupId:" + userGroupId);
 		}
-		Permission permission = permissionRepository.findOne(permissionId);
+		Permission permission = permissionRepository.findById(permissionId).get();
 		if (permission == null) {
 			throw new BadRequestException("permission이 존재하지 않습니다. permissionId:" + permissionId);
 		}

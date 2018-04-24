@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.util.StringUtils;
 
 import com.querydsl.core.BooleanBuilder;
@@ -23,7 +23,7 @@ import com.querydsl.jpa.JPQLQuery;
  * @author 동성
  * @since 2015. 1. 29.
  */
-public class FileInfoRepositoryImpl extends QueryDslRepositorySupport implements FileInfoRepositoryCustom {
+public class FileInfoRepositoryImpl extends QuerydslRepositorySupport implements FileInfoRepositoryCustom {
 	
 	public FileInfoRepositoryImpl() {
 		super(FileInformation.class);

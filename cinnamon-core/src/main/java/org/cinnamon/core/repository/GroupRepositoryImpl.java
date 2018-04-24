@@ -14,7 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.StringPath;
@@ -25,7 +25,7 @@ import com.querydsl.jpa.JPQLQuery;
  * @author 동성
  * @since 2014. 11. 19.
  */
-public class GroupRepositoryImpl extends QueryDslRepositorySupport implements GroupRepositoryCustom {
+public class GroupRepositoryImpl extends QuerydslRepositorySupport implements GroupRepositoryCustom {
 	
 	@Autowired
 	EntityManager em;

@@ -60,7 +60,7 @@ public class SessionService {
 	@Transactional
 	public String getFirstPage(Authentication authentication) {
 		logger.info("start");
-		UserBase user = userRepository.findOne(authentication.getName());
+		UserBase user = userRepository.findById(authentication.getName()).get();
 		Permission defaultPermission = user.getDefaultPermission();
 		logger.info(ToStringBuilder.reflectionToString(defaultPermission));
 		if (defaultPermission == null) {

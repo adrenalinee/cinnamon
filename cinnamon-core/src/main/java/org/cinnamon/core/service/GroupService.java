@@ -62,7 +62,7 @@ public class GroupService {
 	public Group get(String groupId) {
 		logger.info("start");
 		
-		return groupRepository.findOne(groupId);
+		return groupRepository.findById(groupId).get();
 	}
 	
 	
@@ -91,7 +91,7 @@ public class GroupService {
 	public Group create(GroupVo groupVo) {
 		logger.info("start");
 		
-		Group group = groupRepository.findOne(groupVo.getGroupId());
+		Group group = groupRepository.findById(groupVo.getGroupId()).get();
 		if(group != null) {
 			throw new InvalidParameterException("이미 등록되어 있는 코드 아이디 입니다. groupId : " + groupVo.getGroupId());
 		}
@@ -110,7 +110,7 @@ public class GroupService {
 	public void modify(GroupVo groupVo) {
 		logger.info("start");
 		
-		Group group = groupRepository.findOne(groupVo.getGroupId());
+		Group group = groupRepository.findById(groupVo.getGroupId()).get();
 		if(group == null) {
 			throw new NotFoundException("코드를 찾을 수 없습니다. groupId : " + groupVo.getGroupId());
 		}
@@ -128,12 +128,12 @@ public class GroupService {
 	@Transactional
 	public void childCreate(String parentGroupId, GroupVo groupVo) {
 		logger.info("start");
-		Group group = groupRepository.findOne(groupVo.getGroupId());
+		Group group = groupRepository.findById(groupVo.getGroupId()).get();
 		if(group != null) {
 			throw new InvalidParameterException("이미 등록된 GroupId 입니다. groupId : " + groupVo.getGroupId());
 		}
 		group = mapper.map(groupVo, Group.class);
-		Group parent = groupRepository.findOne(parentGroupId);
+		Group parent = groupRepository.findById(parentGroupId).get();
 		if(parent == null) {
 			throw new NotFoundException("부모 코드가 존재하지 않습니다. parentGroupId : " + parentGroupId);
 		}
@@ -152,12 +152,12 @@ public class GroupService {
 	@Transactional
 	public void modifyParent(String parentGroupId, String groupId) {
 		logger.info("start");
-		Group parent = groupRepository.findOne(parentGroupId);
+		Group parent = groupRepository.findById(parentGroupId).get();
 		if(parent == null) {
 			throw new NotFoundException("부모 코드가 존재하지 않습니다. parentGroupId : " + parentGroupId);
 		}
 		
-		Group group = groupRepository.findOne(groupId);
+		Group group = groupRepository.findById(groupId).get();
 		if(group == null) {
 			throw new NotFoundException("그룹 코드가 존재하지 않습니다. groupId : " + groupId);
 		}

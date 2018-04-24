@@ -1,11 +1,11 @@
 package org.cinnamon.starter;
 
 import org.cinnamon.core.advice.CommonRestControllerAdvice;
-import org.cinnamon.core.web.CinnamonCoreWebConfiguration;
+import org.cinnamon.core.rest.restcontroller.CinnamonCoreRestConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Import(value={
 //		CinnamonCoreConfiguration.class,
 //		CinnamonAppsConfiguration.class,
-		CinnamonCoreWebConfiguration.class})
+		CinnamonCoreRestConfiguration.class})
 public class Application extends SpringBootServletInitializer {
 	
 //	@Autowired
@@ -43,13 +43,14 @@ public class Application extends SpringBootServletInitializer {
 //		return registration;
 //	}
 	
-	@ControllerAdvice(annotations=RestController.class)
-	public static class CoreStarterRestControllerAdvice extends CommonRestControllerAdvice {
-		
-	}
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+	}
+	
+	@ControllerAdvice(annotations=RestController.class)
+	public static class CoreStarterRestControllerAdvice extends CommonRestControllerAdvice {
+		
 	}
 	
 	@Override

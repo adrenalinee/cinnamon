@@ -43,7 +43,7 @@ public class UserPasswordService<T extends UserBase> {
 	public void change(String userId, String newPassword, String changeKey) {
 		logger.info("start");
 		
-		T user = userRepository.findOne(userId);
+		T user = userRepository.findById(userId).get();
 		if (user == null) {
 			throw new NotFoundException("존재하지 않는 회원입니다. userId: " + userId);
 		}
@@ -70,7 +70,7 @@ public class UserPasswordService<T extends UserBase> {
 	public void change(String userId, UserPasswordVo userPasswordVo) {
 		logger.info("start");
 		
-		T user = userRepository.findOne(userId);
+		T user = userRepository.findById(userId).get();
 		if (user == null) {
 			throw new NotFoundException("존재하지 않는 회원입니다. userId: " + userId);
 		}
@@ -100,7 +100,7 @@ public class UserPasswordService<T extends UserBase> {
 	public boolean isPasswordCorrect(String userId, String password) {
 		logger.info("start");
 		
-		UserPassword userPassword = userPasswordRepository.findOne(userId);
+		UserPassword userPassword = userPasswordRepository.findById(userId).get();
 		if (userPassword == null) {
 			new RuntimeException("사용자 password가 생성되지 않았습니다. userId: " + userId);
 		}

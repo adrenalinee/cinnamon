@@ -112,7 +112,7 @@ public class UserBaseService<T extends UserBase> {
 	@Transactional(readOnly=true)
 	public UserBase get(String userId) {
 		logger.info("start");
-		return userRepository.findOne(userId);
+		return userRepository.findById(userId).get();
 	}
 	
 	
@@ -130,7 +130,7 @@ public class UserBaseService<T extends UserBase> {
 	
 	@Transactional(readOnly=true)
 	public boolean exists(String userId) {
-		return userRepository.exists(userId);
+		return userRepository.existsById(userId);
 	}
 	
 	
@@ -175,7 +175,7 @@ public class UserBaseService<T extends UserBase> {
 		logger.info("start");
 		
 		String userId = user.getUserId();
-		T existUser = userRepository.findOne(userId);
+		T existUser = userRepository.findById(userId).get();
 		if (existUser == null) {
 			throw new NotFoundException("존재하지 않는 회원입니다. userId: " + userId);
 		}
@@ -199,7 +199,7 @@ public class UserBaseService<T extends UserBase> {
 	public void save(String userId, UserBaseVo userBaseVo) {
 		logger.info("start");
 		
-		T existUser = userRepository.findOne(userId);
+		T existUser = userRepository.findById(userId).get();
 		if (existUser == null) {
 			throw new NotFoundException("존재하지 않는 회원입니다. userId: " + userId);
 		}
@@ -258,7 +258,7 @@ public class UserBaseService<T extends UserBase> {
 		//국가 코드가 정상인지 확인!!
 		String nation = user.getNation();
 		if (!StringUtils.isEmpty(nation)) {
-			if (!groupRepository.exists(nation)) {
+			if (!groupRepository.existsById(nation)) {
 				throw new BadRequestException("지정되지 않은 국가 코드 입니다. nation: " + nation);
 			}
 		}
@@ -266,7 +266,7 @@ public class UserBaseService<T extends UserBase> {
 		//TODO 사용불가한 아이디 인지 확인
 		
 		
-		T existUser = userRepository.findOne(userId);
+		T existUser = userRepository.findById(userId).get();
 		if (existUser != null) {
 			throw new BadRequestException("이미 사용중인 아이디 입니다. userId: " + userId);
 		}
@@ -318,7 +318,7 @@ public class UserBaseService<T extends UserBase> {
 		logger.info("start");
 		
 		final String userId = userVo.getUserId();
-		T existUser = userRepository.findOne(userId);
+		T existUser = userRepository.findById(userId).get();
 		if (existUser != null) {
 			throw new DuplateUserIdException("이미 사용중인 아이디 입니다. userId: " + userVo.getUserId());
 		}
@@ -374,7 +374,7 @@ public class UserBaseService<T extends UserBase> {
 		logger.info("start");
 		
 		final String userId = userVo.getUserId();
-		T existUser = userRepository.findOne(userId);
+		T existUser = userRepository.findById(userId).get();
 		if (existUser != null) {
 			throw new BadRequestException("이미 사용중인 사용자 아이디 입니다. userId: " + userVo.getUserId());
 		}
@@ -475,7 +475,7 @@ public class UserBaseService<T extends UserBase> {
 	public void sendValidationEmail(String userId) {
 		logger.info("start");
 		
-		T user = userRepository.findOne(userId);
+		T user = userRepository.findById(userId).get();
 		if (user == null) {
 			throw new NotFoundException("등록되지 않은 사용자 입니다. userId: " + userId);
 		}
@@ -492,7 +492,7 @@ public class UserBaseService<T extends UserBase> {
 	public void changeUseStatus(String userId, UseStatus useStatus) {
 		logger.info("start");
 		
-		T user = userRepository.findOne(userId);
+		T user = userRepository.findById(userId).get();
 		if (user == null) {
 			throw new NotFoundException("등록되지 않은 사용자 입니다. userId: " + userId);
 		}
@@ -515,7 +515,7 @@ public class UserBaseService<T extends UserBase> {
 	public void leave(String userId) {
 		logger.info("start");
 		
-		T user = userRepository.findOne(userId);
+		T user = userRepository.findById(userId).get();
 		if (user == null) {
 			throw new NotFoundException("userExtension이 생성되지 않았습니다. userId: " + userId);
 		}
@@ -539,7 +539,7 @@ public class UserBaseService<T extends UserBase> {
 	 * @param user
 	 */
 	private void notifyAfterJoin(T user) {
-		for (AfterUserJoinListener listener: afterUserJoinListeners) {
+		for (AfterUserJoinListener<T> listener: afterUserJoinListeners) {
 			try {
 				listener.afterJoin(user);
 			} catch (Exception ex) {
@@ -569,7 +569,7 @@ public class UserBaseService<T extends UserBase> {
 			return 0;
 		}
 		
-		UserPassword userPassword = userPasswordRepository.findOne(userJoinVo.getUserId());
+		UserPassword userPassword = userPasswordRepository.findById(userJoinVo.getUserId()).get();
 		if(userPassword == null) {
 			logger.info("존재하지 않는 회원 입니다. userId:" + userJoinVo.getUserId());
 			return 0;

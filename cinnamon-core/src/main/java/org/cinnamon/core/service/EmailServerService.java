@@ -84,7 +84,7 @@ public class EmailServerService {
 	public EmailServer getEmailServer(Long emailServerId) {
 		logger.info("start");
 		
-		EmailServer emailServer = emailServerRepository.findOne(emailServerId);
+		EmailServer emailServer = emailServerRepository.findById(emailServerId).get();
 		
 		if(emailServer == null || emailServer.getUseStatus() != UseStatus.enable) {
 			throw new NotFoundException("이메일 서버가 존재하지 않습니다. emailServerId : " + emailServerId);
@@ -109,7 +109,7 @@ public class EmailServerService {
 	public void removeEmailServer(Long emailServerId) {
 		logger.info("start");
 		
-		EmailServer emailServer = emailServerRepository.findOne(emailServerId);
+		EmailServer emailServer = emailServerRepository.findById(emailServerId).get();
 		if(emailServer == null || emailServer.getUseStatus() == UseStatus.deleted) {
 			throw new NotFoundException("이메일 서버가 존재하지 않습니다. emailServerId : " + emailServerId);
 		}
@@ -127,7 +127,7 @@ public class EmailServerService {
 	public void modifyEmailServer(Long emailServerId, EmailServerVo emailServerVo) {
 		logger.info("start");
 		
-		EmailServer emailServer = emailServerRepository.findOne(emailServerId);
+		EmailServer emailServer = emailServerRepository.findById(emailServerId).get();
 		if(emailServer == null || emailServer.getUseStatus() != UseStatus.enable) {
 			throw new NotFoundException("이메일 서버가 존재하지 않습니다. emailServerId : " + emailServerId);
 		}
@@ -159,7 +159,7 @@ public class EmailServerService {
 			emailServer.setDefaultServer(false);
 			// 기존 메일 기본서버 갱신
 		}
-		emailServer = emailServerRepository.findOne(emailServerId);
+		emailServer = emailServerRepository.findById(emailServerId).get();
 		if (emailServer == null || emailServer.getUseStatus() != UseStatus.enable) {
 			throw new NotFoundException("메일 서버 정보가 없습니다. emailServerId : " + emailServerId);
 		}
@@ -180,7 +180,7 @@ public class EmailServerService {
 	public String mailSendTest(Long emailServerId, EmailServerVo emailServerVo) throws Exception {
 		logger.info("start");
 		
-		EmailServer emailServer = emailServerRepository.findOne(emailServerId);
+		EmailServer emailServer = emailServerRepository.findById(emailServerId).get();
 		if (emailServer == null || emailServer.getUseStatus() != UseStatus.enable) {
 			throw new NotFoundException("메일 서버 정보가 없습니다. emailServerId : " + emailServerId);
 		}

@@ -49,7 +49,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		logger.info("start");
 		
 		return transactionTemplate.execute(status -> {
-			UserBase user = userRepository.findOne(username);
+			UserBase user = userRepository.findById(username).get();
 //			System.out.println(ToStringBuilder.reflectionToString(user));
 			
 			if (user == null) {

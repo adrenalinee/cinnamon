@@ -2,7 +2,7 @@ package org.cinnamon.core.repository;
 
 import org.cinnamon.core.domain.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 /**
  * 
@@ -10,7 +10,7 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
  * created date: 2015. 8. 20.
  * @author 신동성
  */
-public interface MenuRepository extends JpaRepository<Menu, Long>, QueryDslPredicateExecutor<Menu>, MenuRepositoryCustom {
+public interface MenuRepository extends JpaRepository<Menu, Long>, QuerydslPredicateExecutor<Menu>, MenuRepositoryCustom {
 	
 	Menu findByUri(String uri);
 	
