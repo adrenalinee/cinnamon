@@ -35,7 +35,7 @@ public class MenuGroup implements Serializable {
 	
 //	String site;
 	
-	@JsonBackReference
+//	@JsonBackReference
 	@ManyToOne(optional=false)
 	Site site;
 	
@@ -66,7 +66,7 @@ public class MenuGroup implements Serializable {
 	String defaultPage;
 	
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(mappedBy="menuGroup")
 	List<Menu> menus;
 	

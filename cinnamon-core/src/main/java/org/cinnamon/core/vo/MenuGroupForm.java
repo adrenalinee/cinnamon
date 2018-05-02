@@ -4,13 +4,16 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import lombok.Data;
+
 /**
  * 
  * create date: 2015. 3. 25.
  * @author 동성
  *
  */
-public class MenuGroupVo {
+@Data
+public class MenuGroupForm {
 	
 ////	@Null
 //	Long menuGroupId;

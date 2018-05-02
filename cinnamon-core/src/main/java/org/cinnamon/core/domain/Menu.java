@@ -31,7 +31,7 @@ import lombok.Data;
  */
 @Data
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="menuId")
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="menuId")
 public class Menu implements Serializable { 
 	
 	/**
@@ -96,7 +96,7 @@ public class Menu implements Serializable {
 	/**
 	 * 메뉴 접근이 허용된 역할
 	 */
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(mappedBy="menu")
 	Set<PermissionMenu> grantedAuthorities;
 	

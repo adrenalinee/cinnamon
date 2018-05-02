@@ -11,7 +11,7 @@ import org.cinnamon.core.exception.InvalidEntityException;
 import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.MenuGroupRepository;
 import org.cinnamon.core.repository.MenuRepository;
-import org.cinnamon.core.vo.MenuVo;
+import org.cinnamon.core.vo.MenuForm;
 import org.cinnamon.core.vo.search.MenuSearch;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
@@ -83,7 +83,7 @@ public class MenuService {
 	 * @param menuGroup
 	 */
 	@Transactional
-	public Menu save(MenuVo menuVo) {
+	public Menu save(MenuForm menuVo) {
 		logger.info("start");
 		
 		Long menuGroupId = menuVo.getMenuGroupId();
@@ -124,7 +124,7 @@ public class MenuService {
 	 * @param menuVo
 	 */
 	@Transactional
-	public void modify(Long menuId, MenuVo menuVo) {
+	public void modify(Long menuId, MenuForm menuVo) {
 		logger.info("start");
 		
 		Menu menu = menuRepository.findById(menuId).get();

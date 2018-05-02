@@ -13,22 +13,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.querydsl.core.types.Predicate;
 
-public abstract class BaseService<T, ID, F, S, R extends JpaRepository<T, ID> & QuerydslPredicateExecutor<T>> {
+public abstract class BaseService<ENT, ID, FORM, SEAR, REPO
+	extends JpaRepository<ENT, ID> & QuerydslPredicateExecutor<ENT>> {
 	
-	private final Class<T> entityClass;
+	private final Class<ENT> entityClass;
 	
 	@Autowired
-	private R repository;
+	private REPO repository;
 	
 	@Autowired
 	private Mapper beanMapper;
 	
-	public BaseService(Class<T> entityClass) {
+	public BaseService(Class<ENT> entityClass) {
 		this.entityClass = entityClass;
 	}
 	
 	@Transactional(readOnly = true)
-	public Page<T> findAll(S search, Pageable pageable) {
+	public Page<ENT> findAll(SEAR search, Pageable pageable) {
 		//TODO
 		Predicate predicate = null;
 		
@@ -36,18 +37,18 @@ public abstract class BaseService<T, ID, F, S, R extends JpaRepository<T, ID> & 
 	}
 	
 	@Transactional
-	public T save(F form) {
+	public ENT save(FORM form) {
 		return repository.save(beanMapper.map(form, entityClass));
 	}
 	
 	@Transactional(readOnly = true)
-	public Optional<T> findById(ID id) {
+	public Optional<ENT> findById(ID id) {
 		return repository.findById(id);
 	}
 	
 	@Transactional
-	public void merge(ID id, F target) {
-		final T entity = repository.findById(id)
+	public void merge(ID id, FORM target) {
+		final ENT entity = repository.findById(id)
 			.orElseThrow(NotExistException::new);
 		
 		beanMapper.map(target, entity);
@@ -58,6 +59,7 @@ public abstract class BaseService<T, ID, F, S, R extends JpaRepository<T, ID> & 
 		repository.deleteById(id);
 	}
 	
+	@Transactional(readOnly = true)
 	public long count() {
 		return repository.count();
 	}

@@ -9,14 +9,18 @@ package org.cinnamon.core.exception;
  */
 public class NotFoundException extends BaseException {
 	
-	public NotFoundException(String message) {
-		super(message);
-	}
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1790325113214176477L;
+	
+	public NotFoundException() {
+		super();
+	}
+	
+	public NotFoundException(String message) {
+		super(message);
+	}
 
 	@Override
 	public String getErrorCode() {

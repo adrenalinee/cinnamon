@@ -19,31 +19,31 @@ public class CurrentMenus {
 	
 	Integer current2depthIndex;
 	
-	List<MenuResource> actives = Lists.newArrayList();
+	List<MenuR> actives = Lists.newArrayList();
 	
-	List<MenuResource> sidebar =  Lists.newArrayList();
+	List<MenuR> sidebar =  Lists.newArrayList();
 	
-	List<MenuResource> headerRight =  Lists.newArrayList();
+	List<MenuR> headerRight =  Lists.newArrayList();
 	
-	List<MenuResource> headerLeft =  Lists.newArrayList();
+	List<MenuR> headerLeft =  Lists.newArrayList();
 	
-	public List<MenuResource> getActives() {
+	public List<MenuR> getActives() {
 		return actives;
 	}
 
-	public void setActives(List<MenuResource> actives) {
+	public void setActives(List<MenuR> actives) {
 		this.actives = actives;
 	}
 	
-	public void addSidebar(MenuResource menuResource) {
+	public void addSidebar(MenuR menuResource) {
 		sidebar.add(menuResource);
 	}
 	
-	public void addHeaderRight(MenuResource menuResource) {
+	public void addHeaderRight(MenuR menuResource) {
 		headerRight.add(menuResource);
 	}
 	
-	public void addHeaderLeft(MenuResource menuResource) {
+	public void addHeaderLeft(MenuR menuResource) {
 		headerLeft.add(menuResource);
 	}
 	
@@ -64,27 +64,27 @@ public class CurrentMenus {
 		this.name = name;
 	}
 
-	public List<MenuResource> getSidebar() {
+	public List<MenuR> getSidebar() {
 		return sidebar;
 	}
 
-	public void setSidebar(List<MenuResource> sidebar) {
+	public void setSidebar(List<MenuR> sidebar) {
 		this.sidebar = sidebar;
 	}
 
-	public List<MenuResource> getHeaderRight() {
+	public List<MenuR> getHeaderRight() {
 		return headerRight;
 	}
 
-	public void setHeaderRight(List<MenuResource> headerRight) {
+	public void setHeaderRight(List<MenuR> headerRight) {
 		this.headerRight = headerRight;
 	}
 
-	public List<MenuResource> getHeaderLeft() {
+	public List<MenuR> getHeaderLeft() {
 		return headerLeft;
 	}
 
-	public void setHeaderLeft(List<MenuResource> headerLeft) {
+	public void setHeaderLeft(List<MenuR> headerLeft) {
 		this.headerLeft = headerLeft;
 	}
 

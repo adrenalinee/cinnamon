@@ -10,7 +10,7 @@ import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.repository.MenuGroupRepository;
 import org.cinnamon.core.repository.MenuRepository;
 import org.cinnamon.core.repository.SiteRepository;
-import org.cinnamon.core.vo.MenuGroupVo;
+import org.cinnamon.core.vo.MenuGroupForm;
 import org.cinnamon.core.vo.search.MenuGroupSearch;
 import org.dozer.Mapper;
 import org.slf4j.Logger;
@@ -79,7 +79,7 @@ public class MenuGroupService {
 	
 	
 	@Transactional
-	public MenuGroup merge(Long menuGroupId, MenuGroupVo menuGroupVo) {
+	public MenuGroup merge(Long menuGroupId, MenuGroupForm menuGroupVo) {
 		logger.info("start");
 		
 		MenuGroup menuGroup = menuGroupRepository.findById(menuGroupId).get();
@@ -99,7 +99,7 @@ public class MenuGroupService {
 	 * @param menuGroup
 	 */
 	@Transactional
-	public MenuGroup save(String siteId, MenuGroupVo menuGroupVo) {
+	public MenuGroup save(String siteId, MenuGroupForm menuGroupVo) {
 		logger.info("start");
 		
 		Site site = siteRepository.findById(siteId).get();

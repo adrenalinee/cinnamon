@@ -1,12 +1,14 @@
 package org.cinnamon.core.rest.restcontroller;
 
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMethodCall;
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
+import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromController;
 
 import java.net.URI;
+import java.util.Arrays;
 
+import javax.persistence.Id;
 import javax.validation.Valid;
 
+import org.cinnamon.core.exception.NotFoundException;
 import org.cinnamon.core.service.BaseService;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,67 +25,71 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import lombok.Getter;
+
 /**
  * 
  * @author malibu
  *
- * @param <T> entity
+ * @param <ENT> entity
  * @param <ID> entity id
- * @param <F> form
- * @param <S> search
- * @param <D> dto
+ * @param <FORM> form
+ * @param <SEAR> search
+ * @param <RES> resource
  * @param <BS> BaseService
- * @param <R> repository
+ * @param <REPO> repository
  */
-public abstract class BaseRestController<T, ID, F, S, D,
-	BS extends BaseService<T, ID, F, S, R>,
-	R extends JpaRepository<T, ID> & QuerydslPredicateExecutor<T>> {
+public abstract class BaseRestController<ENT, ID, FORM, SEAR, RES,
+	BS extends BaseService<ENT, ID, FORM, SEAR, REPO>,
+	REPO extends JpaRepository<ENT, ID> & QuerydslPredicateExecutor<ENT>> {
 
-	private final Class<D> dtoClass;
+	@Getter
+	private final Class<RES> resourceClass;
 	
-	public BaseRestController(Class<D> dtoClass) {
-		this.dtoClass = dtoClass;
-	}
-	
+	@Getter
 	@Autowired
-	private BS service;
+	protected BS service;
 	
+	@Getter
 	@Autowired
 	private Mapper beanMapper;
-	
+
+	public BaseRestController(Class<RES> resourceClass) {
+		this.resourceClass = resourceClass;
+	}
 	
 	@PostMapping("")
-	@SuppressWarnings("unchecked")
-	public ResponseEntity<D> postEntities(@RequestBody @Valid F form, UriComponentsBuilder builder) {
-		final T entity = service.save(form);
-		final URI location = fromMethodCall(builder, on(getClass()).getEntity(findId(entity)))
-			.build()
+	public ResponseEntity<RES> postEntities(@RequestBody @Valid FORM form, UriComponentsBuilder builder) {
+		final ENT entity = service.save(form);
+		
+		final URI location = fromController(getClass()).pathSegment(findId(entity).toString())
+			.buildAndExpand(findId(entity))
 			.toUri();
 		
 		return ResponseEntity
 			.created(location)
-			.body(beanMapper.map(entity, dtoClass));
+			.body(beanMapper.map(entity, resourceClass));
 	}
 	
 	@GetMapping("")
-	public ResponseEntity<Page<D>> getEntities(S search, Pageable pageable) {
-		final Page<D> page = service
+	public ResponseEntity<Page<RES>> getEntities(SEAR search, Pageable pageable) {
+		final Page<RES> page = service
 			.findAll(search, pageable)
-			.map(entity -> beanMapper.map(entity, dtoClass));
+			.map(entity -> beanMapper.map(entity, resourceClass));
 		
 		return ResponseEntity.ok(page);
 	}
 	
 	@GetMapping("{id}")
-	public ResponseEntity<D> getEntity(@PathVariable ID id) {
-		final T entity = service.findById(id)
-				.orElseThrow(RuntimeException::new);
+	public ResponseEntity<RES> getEntity(@PathVariable ID id) {
+		final ENT entity = service.findById(id)
+				.orElseThrow(NotFoundException::new);
 		
-		return ResponseEntity.ok(beanMapper.map(entity, dtoClass));
+		return ResponseEntity.ok(beanMapper.map(entity, resourceClass));
 	}
 	
 	@PatchMapping("{id")
-	public ResponseEntity<Void> patchEntity(@PathVariable ID id, @RequestBody F form) {
+	public ResponseEntity<Void> patchEntity(@PathVariable ID id, @RequestBody FORM form) {
 		service.merge(id, form);
 		
 		return ResponseEntity
@@ -100,7 +106,29 @@ public abstract class BaseRestController<T, ID, F, S, D,
 			.build();
 	}
 	
-	protected ID findId(T entity) {
-		return null;
+	protected ID findId(ENT entity) {
+		try {
+			return (ID) Arrays.asList(entity.getClass().getDeclaredFields())
+			.stream()
+			.filter(field -> {
+				final Id id = field.getAnnotation(Id.class);
+				if (id != null) {
+					return true;
+				}
+				
+				return false;
+			})
+			.peek(field -> field.setAccessible(true))
+			.findFirst()
+			.orElseThrow(RuntimeException::new)
+			.get(entity);
+		} catch (IllegalAccessException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public static void main(String[] args) {
+		Arrays.asList(BaseRestController.class.getMethods())
+		.forEach(method -> System.out.println(method.getName()));
 	}
 }
